@@ -91,20 +91,151 @@ Container::getInstance()
         ]);
     }, true);
 
-
-function create_posttype() {
-register_post_type( 'resource',
-// CPT Options
-array(
-  'labels' => array(
-   'name' => __( 'resource' ),
-   'singular_name' => __( 'resource' )
-  ),
+// create content types
+function create_post_type_resource() {
+  $supports = array(
+  'title', // post title
+  'editor', // post content
+  'author', // post author
+  'thumbnail', // featured images
+  'excerpt', // post excerpt
+  'custom-fields', // custom fields
+  'comments', // post comments
+  'revisions', // post revisions
+  'post-formats', // post formats
+  );
+  $labels = array(
+  'name' => _x('resources', 'plural'),
+  'singular_name' => _x('resource', 'singular'),
+  'menu_name' => _x('Resource', 'admin menu'),
+  'name_admin_bar' => _x('resource', 'admin bar'),
+  'add_new' => _x('Add New resource', 'add new'),
+  'add_new_item' => __('Add New resource'),
+  'new_item' => __('New resource'),
+  'edit_item' => __('Edit resource'),
+  'view_item' => __('View resource'),
+  'all_items' => __('All resource'),
+  'search_items' => __('Search resource'),
+  'not_found' => __('No resource found.'),
+  );
+  $args = array(
+  'supports' => $supports,
+  'labels' => $labels,
   'public' => true,
-  'has_archive' => false,
+  'query_var' => true,
   'rewrite' => array('slug' => 'resource'),
- )
-);
+  'has_archive' => true,
+  'hierarchical' => false,
+  );
+  register_post_type('resource', $args);
 }
-// Hooking up our function to theme setup
-add_action( 'init', 'create_posttype' );
+
+function create_post_type_updates() {
+  $supports = array(
+  'title', // post title
+  'editor', // post content
+  'author', // post author
+  'thumbnail', // featured images
+  'excerpt', // post excerpt
+  'custom-fields', // custom fields
+  'comments', // post comments
+  'revisions', // post revisions
+  'post-formats', // post formats
+  );
+  $labels = array(
+  'name' => _x('updates', 'plural'),
+  'singular_name' => _x('updates', 'singular'),
+  'menu_name' => _x('Updates', 'admin menu'),
+  'name_admin_bar' => _x('Updates', 'admin bar'),
+  'add_new' => _x('Add New', 'add new'),
+  'add_new_item' => __('Add New updates'),
+  'new_item' => __('New updates'),
+  'edit_item' => __('Edit updates'),
+  'view_item' => __('View updates'),
+  'all_items' => __('All updates'),
+  'search_items' => __('Search updates'),
+  'not_found' => __('No updates found.'),
+  );
+  $args = array(
+  'supports' => $supports,
+  'labels' => $labels,
+  'public' => true,
+  'query_var' => true,
+  'rewrite' => array('slug' => 'updates'),
+  'has_archive' => true,
+  'hierarchical' => false,
+  );
+  register_post_type('update', $args);
+}
+
+function create_post_type_action() {
+  $supports = array(
+  'title', // post title
+  'editor', // post content
+  'author', // post author
+  'thumbnail', // featured images
+  'excerpt', // post excerpt
+  'custom-fields', // custom fields
+  'comments', // post comments
+  'revisions', // post revisions
+  'post-formats', // post formats
+  );
+  $labels = array(
+  'name' => _x('actions', 'plural'),
+  'singular_name' => _x('action', 'singular'),
+  'menu_name' => _x('Action', 'admin menu'),
+  'name_admin_bar' => _x('Action', 'admin bar'),
+  'add_new' => _x('Add New', 'add new'),
+  'add_new_item' => __('Add New action'),
+  'new_item' => __('New action'),
+  'edit_item' => __('Edit action'),
+  'view_item' => __('View action'),
+  'all_items' => __('All action'),
+  'search_items' => __('Search action'),
+  'not_found' => __('No action found.'),
+  );
+  $args = array(
+  'supports' => $supports,
+  'labels' => $labels,
+  'public' => true,
+  'query_var' => true,
+  'rewrite' => array('slug' => 'action'),
+  'has_archive' => true,
+  'hierarchical' => false,
+  );
+  register_post_type('action', $args);
+}
+
+add_action('init', 'create_post_type_resource');
+add_action('init', 'create_post_type_updates');
+add_action('init', 'create_post_type_action');
+
+// create taxonomies
+
+function add_campaign_taxonomies() {
+  $labels = array(
+    'name' => _x( 'campaigns', 'taxonomy general name' ),
+    'singular_name' => _x( 'Topic', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Search campaigns' ),
+    'all_items' => __( 'All campaigns' ),
+    'parent_item' => __( 'Parent Campaign' ),
+    'parent_item_colon' => __( 'Parent Campaign:' ),
+    'edit_item' => __( 'Edit Campaign' ), 
+    'update_item' => __( 'Update Campaign' ),
+    'add_new_item' => __( 'Add New Campaign' ),
+    'new_item_name' => __( 'New Campaign Name' ),
+    'menu_name' => __( 'Campaign' ),
+  );    
+ 
+// Now register the taxonomy
+ 
+  register_taxonomy('campaign',array('post'), array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'Campaign' ),
+  ));
+}
+add_action( 'init', 'add_campaign_taxonomies', 0 );
