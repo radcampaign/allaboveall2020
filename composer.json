@@ -74,10 +74,10 @@
   },
   "scripts": {
     "theme-install": [
-      "cd web/wp-content/themes/allaboveall-theme && composer install --no-dev --no-ansi --no-interaction --optimize-autoloader --no-progress"
+      "cd web/wp-content/themes/allaboveall && composer install --no-dev --no-ansi --no-interaction --optimize-autoloader --no-progress"
     ],
     "theme-update": [
-      "cd web/wp-content/themes/allaboveall-theme && composer update --no-interaction"
+      "cd web/wp-content/themes/allaboveall && composer update --no-interaction"
     ],
     "build-assets": [
       "@prepare-for-pantheon",
