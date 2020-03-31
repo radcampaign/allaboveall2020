@@ -241,17 +241,17 @@ function add_campaign_taxonomies() {
 
 function add_statelocality_taxonomies() {
   $labels = array(
-    'name' => _x( 'State/locality', 'taxonomy general name' ),
+    'name' => _x( 'State/Locality', 'taxonomy general name' ),
     'singular_name' => _x( 'Topic', 'taxonomy singular name' ),
-    'search_items' =>  __( 'Search state/localitys' ),
-    'all_items' => __( 'All state/localitys' ),
+    'search_items' =>  __( 'Search state/localities' ),
+    'all_items' => __( 'All state/localities' ),
     'parent_item' => null,
     'parent_item_colon' => null,
     'edit_item' => __( 'Edit state/locality' ), 
     'update_item' => __( 'Update state/locality' ),
-    'add_new_item' => __( 'Add New state/locality' ),
+    'add_new_item' => __( 'Add New State/Locality' ),
     'new_item_name' => __( 'New state/locality Name' ),
-    'menu_name' => __( 'state/locality' ),
+    'menu_name' => __( 'State/Locality' ),
   );    
  
 // Now register the taxonomy
