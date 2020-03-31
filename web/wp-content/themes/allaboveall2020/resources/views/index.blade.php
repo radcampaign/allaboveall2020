@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
 @section('content')
   @include('partials.page-header')
 
@@ -16,3 +18,4 @@
 
   {!! get_the_posts_navigation() !!}
 @endsection
+</div></div></div>

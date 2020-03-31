@@ -229,7 +229,7 @@ function add_campaign_taxonomies() {
  
 // Now register the taxonomy
  
-  register_taxonomy('campaign',array('post'), array(
+  register_taxonomy('campaign',array('resource', 'update', 'action', 'post'), array(
     'hierarchical' => true,
     'labels' => $labels,
     'show_ui' => true,
@@ -238,4 +238,33 @@ function add_campaign_taxonomies() {
     'rewrite' => array( 'slug' => 'Campaign' ),
   ));
 }
+
+function add_statelocality_taxonomies() {
+  $labels = array(
+    'name' => _x( 'State/locality', 'taxonomy general name' ),
+    'singular_name' => _x( 'Topic', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Search state/localitys' ),
+    'all_items' => __( 'All state/localitys' ),
+    'parent_item' => null,
+    'parent_item_colon' => null,
+    'edit_item' => __( 'Edit state/locality' ), 
+    'update_item' => __( 'Update state/locality' ),
+    'add_new_item' => __( 'Add New state/locality' ),
+    'new_item_name' => __( 'New state/locality Name' ),
+    'menu_name' => __( 'state/locality' ),
+  );    
+ 
+// Now register the taxonomy
+ 
+  register_taxonomy('state/locality',array('resource', 'update', 'action', 'post'), array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'state/locality' ),
+  ));
+}
+
 add_action( 'init', 'add_campaign_taxonomies', 0 );
+add_action( 'init', 'add_statelocality_taxonomies', 0 );
