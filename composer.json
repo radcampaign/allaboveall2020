@@ -74,10 +74,10 @@
   },
   "scripts": {
     "theme-install": [
-      "cd web/wp-content/themes/allaboveall && composer install --no-dev --no-ansi --no-interaction --optimize-autoloader --no-progress"
+      "cd web/wp-content/themes/allaboveall2020 && composer install --no-dev --no-ansi --no-interaction --optimize-autoloader --no-progress"
     ],
     "theme-update": [
-      "cd web/wp-content/themes/allaboveall && composer update --no-interaction"
+      "cd web/wp-content/themes/allaboveall2020 && composer update --no-interaction"
     ],
     "build-assets": [
       "@prepare-for-pantheon",
@@ -89,7 +89,8 @@
     ],
     "post-install-cmd": [
       "@cleanup",
-      "WordPressProject\\composer\\ScriptHandler::createRequiredFiles"
+      "WordPressProject\\composer\\ScriptHandler::createRequiredFiles",
+      "@theme-install"
     ],
     "post-update-cmd": [
       "@theme-update",
