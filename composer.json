@@ -90,7 +90,6 @@
     "post-install-cmd": [
       "@cleanup",
       "WordPressProject\\composer\\ScriptHandler::createRequiredFiles",
-      "@theme-install"
     ],
     "post-update-cmd": [
       "@theme-update",
