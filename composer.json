@@ -73,15 +73,11 @@
     "psr-4": { "PantheonSystems\\WordHatHelpers\\": "tests/behat/helper_classes/" }
   },
   "scripts": {
-    "build-assets": [
-      "@prepare-for-pantheon",
-      "composer install --no-dev --no-ansi --no-interaction --optimize-autoloader --no-progress"
-    ],
     "theme-install": [
-      "cd web/wp-content/themes/polaris2019-theme && composer install --no-dev --no-ansi --no-interaction --optimize-autoloader --no-progress"
+      "cd web/wp-content/themes/allaboveall-theme && composer install --no-dev --no-ansi --no-interaction --optimize-autoloader --no-progress"
     ],
     "theme-update": [
-      "cd web/wp-content/themes/polaris2019-theme && composer update --no-interaction"
+      "cd web/wp-content/themes/allaboveall-theme && composer update --no-interaction"
     ],
     "build-assets": [
       "@prepare-for-pantheon",
