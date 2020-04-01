@@ -215,7 +215,7 @@ add_action('init', 'create_post_type_action');
 function add_campaign_taxonomies() {
   $labels = array(
     'name' => _x( 'campaigns', 'taxonomy general name' ),
-    'singular_name' => _x( 'Topic', 'taxonomy singular name' ),
+    'singular_name' => _x( 'Campaign', 'taxonomy singular name' ),
     'search_items' =>  __( 'Search campaigns' ),
     'all_items' => __( 'All campaigns' ),
     'parent_item' => null,
@@ -229,7 +229,7 @@ function add_campaign_taxonomies() {
  
 // Now register the taxonomy
  
-  register_taxonomy('campaign',array('resource', 'update', 'action', 'post'), array(
+  register_taxonomy('campaign',array('resource', 'update', 'action', 'post', 'page'), array(
     'hierarchical' => true,
     'labels' => $labels,
     'show_ui' => true,
@@ -242,7 +242,7 @@ function add_campaign_taxonomies() {
 function add_statelocality_taxonomies() {
   $labels = array(
     'name' => _x( 'State/Locality', 'taxonomy general name' ),
-    'singular_name' => _x( 'Topic', 'taxonomy singular name' ),
+    'singular_name' => _x( 'State/Locality', 'taxonomy singular name' ),
     'search_items' =>  __( 'Search state/localities' ),
     'all_items' => __( 'All state/localities' ),
     'parent_item' => null,
@@ -266,5 +266,33 @@ function add_statelocality_taxonomies() {
   ));
 }
 
+function add_author_taxonomy() {
+  $labels = array(
+    'name' => _x( 'Author', 'taxonomy general name' ),
+    'singular_name' => _x( 'Author', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Search author' ),
+    'all_items' => __( 'All authors' ),
+    'parent_item' => null,
+    'parent_item_colon' => null,
+    'edit_item' => __( 'Edit author' ), 
+    'update_item' => __( 'Update author' ),
+    'add_new_item' => __( 'Add New author' ),
+    'new_item_name' => __( 'New author Name' ),
+    'menu_name' => __( 'Author' ),
+  );    
+ 
+// Now register the taxonomy
+ 
+  register_taxonomy('author',array('resource', 'update', 'action', 'post', 'page'), array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'Campaign' ),
+  ));
+}
+
 add_action( 'init', 'add_campaign_taxonomies', 0 );
 add_action( 'init', 'add_statelocality_taxonomies', 0 );
+add_action( 'init', 'add_author_taxonomy', 0 );
