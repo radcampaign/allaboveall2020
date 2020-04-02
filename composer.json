@@ -15,6 +15,14 @@
     {
       "type": "vcs",
       "url": "git@github.com:radcampaign/advanced-custom-fields-pro.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:radcampaign/wp-all-import-pro.git"
+    },
+    {
+      "type": "vcs",
+      "url": "git@github.com:radcampaign/wpai-acf-add-on.git"
     }
   ],
   "require": {
@@ -28,6 +36,8 @@
     "radcampaign/wp-all-import-pro": "dev-master",
     "radcampaign/advanced-custom-fields-pro": "dev-master",
     "wpackagist-plugin/all-in-one-seo-pack": "^3.2",
+    "radcampaign/wp-all-import-pro": "dev-master",
+    "radcampaign/wpai-acf-add-on": "dev-master",
     "wpackagist-plugin/lh-hsts": "^1.24",
     "wpackagist-plugin/pantheon-advanced-page-cache": ">=0.3.0",
     "wpackagist-plugin/wp-native-php-sessions": ">=0.6.9",
