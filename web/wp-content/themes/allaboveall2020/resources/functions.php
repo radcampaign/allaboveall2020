@@ -91,6 +91,20 @@ Container::getInstance()
         ]);
     }, true);
 
+// menu locations
+function register_my_menu() {
+  register_nav_menu('footer_navigation',__( 'Footer Menu' ));
+  register_nav_menu('header_social',__( 'Header Social' ));
+  register_nav_menu('footer_social',__( 'Footer Social' ));
+}
+add_action( 'init', 'register_my_menu' );
+
+// image sizes
+function wpdocs_theme_setup() {
+  //add_image_size( 'post_related_image', 500, 350, TRUE );
+  //add_image_size( 'post_featured_image', 2000, 800, TRUE );
+}
+
 // create content types
 function create_post_type_resource() {
   $supports = array(
@@ -210,7 +224,8 @@ add_action('init', 'create_post_type_resource');
 add_action('init', 'create_post_type_updates');
 add_action('init', 'create_post_type_action');
 
-// create taxonomies
+
+/** create taxonomies **/
 
 function add_campaign_taxonomies() {
   $labels = array(
