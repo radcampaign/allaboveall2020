@@ -105,6 +105,7 @@ function register_my_menu() {
   register_nav_menu('header_social',__( 'Header Social' ));
   register_nav_menu('footer_social',__( 'Footer Social' ));
 }
+
 add_action( 'init', 'register_my_menu' );
 
 // image sizes
