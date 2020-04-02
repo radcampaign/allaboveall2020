@@ -1,0 +1,19 @@
+@font-face {
+  font-family: "Aaux-Bold";
+  src:
+    url("../fonts/AAUXPROBASIC/AauxProOT-Bold.ttf") format("truetype"),
+    url("../fonts/AAUXPROBASIC/AauxProOT-Bold.woff") format("woff"),
+    url("../fonts/AAUXPROBASIC/AauxProOTBlack.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Aaux-Regular";
+  src:
+    url("../fonts/AAUXPROBASIC/AauxProOT-Regular.ttf") format("truetype"),
+    url("../fonts/AAUXPROBASIC/AauxProOT-Regular.woff") format("woff"),
+    url("../fonts/AAUXPROBASIC/AauxProOTRegular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}

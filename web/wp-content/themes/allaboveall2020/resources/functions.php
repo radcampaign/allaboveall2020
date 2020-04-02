@@ -91,6 +91,14 @@ Container::getInstance()
         ]);
     }, true);
 
+
+// Logo
+function mytheme_setup() {
+  add_theme_support('custom-logo');
+}
+
+add_action('after_setup_theme', 'mytheme_setup');
+
 // menu locations
 function register_my_menu() {
   register_nav_menu('footer_navigation',__( 'Footer Menu' ));

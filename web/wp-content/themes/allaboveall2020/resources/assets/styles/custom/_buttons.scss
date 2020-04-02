@@ -1,0 +1,17 @@
+.btn {
+  @include button-variant($primary-color, $primary-color, $black, $black);
+
+  color: black;
+  border-radius: 0;
+  text-transform: uppercase;
+
+  &.btn-black {
+    @include button-variant($black, $black, $primary-color, $primary-color);
+
+    color: white;
+
+    &:hover {
+      color: black;
+    }
+  }
+}

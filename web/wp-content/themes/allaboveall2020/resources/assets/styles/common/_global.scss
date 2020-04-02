@@ -1,0 +1,31 @@
+img {
+  max-width: 100%;
+}
+
+body {
+  font-family: "Aaux-Regular", sans-serif;
+}
+
+.color-white {
+  color: white;
+}
+
+.color-green {
+  color: $primary-color;
+}
+
+.color-black {
+  color: black;
+}
+
+a {
+  text-decoration: underline;
+
+  &.btn {
+    text-decoration: none;
+  }
+}
+
+nav a {
+  text-decoration: none;
+}

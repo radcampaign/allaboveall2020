@@ -1,0 +1,3 @@
+.btn {
+  @include button-variant($black, $black, $primary, $primary);
+}
