@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f28bf324fe336bcdf282a540b4f74267",
+    "content-hash": "16de3a207774c1bfb0ff59808d88da0f",
     "packages": [
         {
             "name": "composer/installers",
@@ -205,16 +205,16 @@
         },
         {
             "name": "pantheon-systems/wordpress-composer",
-            "version": "5.3.2",
+            "version": "5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pantheon-systems/wordpress-composer.git",
-                "reference": "b44925dcc067897febb0a017d0011c67ab1f885a"
+                "reference": "498f3da98eeafa5afb436bcf73ca76c610517a82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pantheon-systems/wordpress-composer/zipball/b44925dcc067897febb0a017d0011c67ab1f885a",
-                "reference": "b44925dcc067897febb0a017d0011c67ab1f885a",
+                "url": "https://api.github.com/repos/pantheon-systems/wordpress-composer/zipball/498f3da98eeafa5afb436bcf73ca76c610517a82",
+                "reference": "498f3da98eeafa5afb436bcf73ca76c610517a82",
                 "shasum": ""
             },
             "require": {
@@ -232,10 +232,10 @@
             ],
             "description": "WordPress for Pantheon with a composer.json file.",
             "support": {
-                "source": "https://github.com/pantheon-systems/wordpress-composer/tree/5.3.2",
+                "source": "https://github.com/pantheon-systems/wordpress-composer/tree/5.4",
                 "issues": "https://github.com/pantheon-systems/wordpress-composer/issues"
             },
-            "time": "2019-12-18T23:51:39+00:00"
+            "time": "2020-04-01T06:11:03+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -322,6 +322,68 @@
                 "issues": "https://github.com/radcampaign/advanced-custom-fields-pro/issues"
             },
             "time": "2019-09-05T18:42:56+00:00"
+        },
+        {
+            "name": "radcampaign/wp-all-import-pro",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:radcampaign/wp-all-import-pro.git",
+                "reference": "fb72748576aad15e4f4661b97f4dab6df7c997a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/radcampaign/wp-all-import-pro/zipball/fb72748576aad15e4f4661b97f4dab6df7c997a6",
+                "reference": "fb72748576aad15e4f4661b97f4dab6df7c997a6",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "^1.7"
+            },
+            "type": "wordpress-plugin",
+            "authors": [
+                {
+                    "name": "Xaq Rothman",
+                    "email": "xaq@radcampaign.com"
+                }
+            ],
+            "description": "Rad Campaign's Composer-enabled mirror of WP All-Import Pro",
+            "support": {
+                "source": "https://github.com/radcampaign/wp-all-import-pro/tree/master",
+                "issues": "https://github.com/radcampaign/wp-all-import-pro/issues"
+            },
+            "time": "2019-09-05T19:23:19+00:00"
+        },
+        {
+            "name": "radcampaign/wpai-acf-add-on",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:radcampaign/wpai-acf-add-on.git",
+                "reference": "e873a68432ed3f17ea7bc118d11e2ddab422f0dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/radcampaign/wpai-acf-add-on/zipball/e873a68432ed3f17ea7bc118d11e2ddab422f0dd",
+                "reference": "e873a68432ed3f17ea7bc118d11e2ddab422f0dd",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "^1.7"
+            },
+            "type": "wordpress-plugin",
+            "authors": [
+                {
+                    "name": "Xaq Rothman",
+                    "email": "xaq@radcampaign.com"
+                }
+            ],
+            "description": "Rad Campaign's Composer-enabled mirror of WP All-Import ACF Add On",
+            "support": {
+                "source": "https://github.com/radcampaign/wpai-acf-add-on/tree/master",
+                "issues": "https://github.com/radcampaign/wpai-acf-add-on/issues"
+            },
+            "time": "2019-09-05T19:40:49+00:00"
         },
         {
             "name": "roots/wp-password-bcrypt",
@@ -540,6 +602,24 @@
             "time": "2020-03-27T23:36:02+00:00"
         },
         {
+            "name": "wpackagist-plugin/all-in-one-seo-pack",
+            "version": "3.4.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/all-in-one-seo-pack/",
+                "reference": "tags/3.4.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/all-in-one-seo-pack.3.4.2.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/all-in-one-seo-pack/"
+        },
+        {
             "name": "wpackagist-plugin/lh-hsts",
             "version": "1.25",
             "source": {
@@ -595,15 +675,15 @@
         },
         {
             "name": "wpackagist-theme/twentynineteen",
-            "version": "1.4",
+            "version": "1.5",
             "source": {
                 "type": "svn",
                 "url": "https://themes.svn.wordpress.org/twentynineteen/",
-                "reference": "1.4"
+                "reference": "1.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/theme/twentynineteen.1.4.zip"
+                "url": "https://downloads.wordpress.org/theme/twentynineteen.1.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2957,12 +3037,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "abf855b59c93a92efbebc39107e2a5a6215a0488"
+                "reference": "0f73cf4b4b9227eb8845723bc2a8869bc4dd6e8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/abf855b59c93a92efbebc39107e2a5a6215a0488",
-                "reference": "abf855b59c93a92efbebc39107e2a5a6215a0488",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0f73cf4b4b9227eb8845723bc2a8869bc4dd6e8f",
+                "reference": "0f73cf4b4b9227eb8845723bc2a8869bc4dd6e8f",
                 "shasum": ""
             },
             "conflict": {
@@ -3003,8 +3083,8 @@
                 "doctrine/orm": ">=2,<2.4.8|>=2.5,<2.5.1",
                 "dolibarr/dolibarr": "<=10.0.6",
                 "dompdf/dompdf": ">=0.6,<0.6.2",
-                "drupal/core": ">=7,<7.69|>=8,<8.7.11|>=8.8,<8.8.1",
-                "drupal/drupal": ">=7,<7.69|>=8,<8.7.11|>=8.8,<8.8.1",
+                "drupal/core": ">=7,<7.69|>=8,<8.7.12|>=8.8,<8.8.4",
+                "drupal/drupal": ">=7,<7.69|>=8,<8.7.12|>=8.8,<8.8.4",
                 "endroid/qr-code-bundle": "<3.4.2",
                 "enshrined/svg-sanitize": "<0.13.1",
                 "erusev/parsedown": "<1.7.2",
@@ -3213,7 +3293,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2020-03-30T15:16:05+00:00"
+            "time": "2020-03-31T14:30:16+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -5120,7 +5200,9 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "radcampaign/wp-all-import-pro": 20,
         "radcampaign/advanced-custom-fields-pro": 20,
+        "radcampaign/wpai-acf-add-on": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
