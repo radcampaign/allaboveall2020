@@ -11,4 +11,4 @@ set -eo pipefail
 # Build Composer Assets
 composer -n build-assets
 
-cd web/wp-content/themes/txwf-econ && yarn && yarn build:production
+cd web/wp-content/themes/allaboveall2020 && yarn && yarn build:production
