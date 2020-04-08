@@ -20,5 +20,11 @@ const routes = new Router({
   aboutUs,
 });
 
+$(document).ready(function() { 
+  var headerTopHeight = ''; 
+  headerTopHeight = $('.header-top').outerHeight();
+  $('.header-background-bar').height(headerTopHeight);
+});
+
 // Load Events
 jQuery(document).ready(() => routes.loadEvents());
