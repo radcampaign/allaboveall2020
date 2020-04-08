@@ -229,9 +229,48 @@ function create_post_type_action() {
   register_post_type('action', $args);
 }
 
+function create_post_type_event() {
+  $supports = array(
+  'title', // post title
+  'editor', // post content
+  'author', // post author
+  'thumbnail', // featured images
+  'excerpt', // post excerpt
+  'custom-fields', // custom fields
+  'comments', // post comments
+  'revisions', // post revisions
+  'post-formats', // post formats
+  );
+  $labels = array(
+  'name' => _x('events', 'plural'),
+  'singular_name' => _x('event', 'singular'),
+  'menu_name' => _x('Event', 'admin menu'),
+  'name_admin_bar' => _x('Event', 'admin bar'),
+  'add_new' => _x('Add New event', 'add new'),
+  'add_new_item' => __('Add New event'),
+  'new_item' => __('New event'),
+  'edit_item' => __('Edit events'),
+  'view_item' => __('View events'),
+  'all_items' => __('All events'),
+  'search_items' => __('Search events'),
+  'not_found' => __('No events found.'),
+  );
+  $args = array(
+  'supports' => $supports,
+  'labels' => $labels,
+  'public' => true,
+  'query_var' => true,
+  'rewrite' => array('slug' => 'event'),
+  'has_archive' => true,
+  'hierarchical' => false,
+  );
+  register_post_type('event', $args);
+}
+
 add_action('init', 'create_post_type_resource');
 add_action('init', 'create_post_type_updates');
 add_action('init', 'create_post_type_action');
+add_action('init', 'create_post_type_event');
 
 
 /** create taxonomies **/
