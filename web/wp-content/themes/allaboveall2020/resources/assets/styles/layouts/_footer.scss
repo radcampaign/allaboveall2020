@@ -3,3 +3,18 @@
   padding: 2rem;
   color: white;
 }
+
+.footer-nav-social ul {
+  padding: 0;
+  display: flex;
+
+  li {
+    list-style: none;
+    margin-right: 1rem;
+
+    a.footer-social {
+      color: $primary-color;
+      font-size: 1.5rem;
+    }
+  }
+}

@@ -1,7 +1,51 @@
-.banner .nav li {
-  @extend .nav-item;
+.banner {
+  position: relative;
+
+  .header-background-bar {
+    z-index: 2;
+    width: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: black;
+  }
+
+  .container {
+    z-index: 3;
+  }
 }
 
-.banner .nav a {
-  @extend .nav-link;
+.header-top {
+  background: black;
+  color: white;
+  text-transform: uppercase;
+}
+
+.header-bottom {
+  display: flex;
+  align-items: center;
+}
+
+.header-social {
+  display: flex;
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style: none;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    &:first-child {
+      padding-right: 0;
+    }
+
+    &:last-child {
+      border-left: 1px solid $gray-400;
+    }
+
+    a {
+      color: black;
+    }
+  }
 }

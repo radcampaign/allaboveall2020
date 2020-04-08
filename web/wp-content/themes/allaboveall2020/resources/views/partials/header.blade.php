@@ -22,9 +22,23 @@
               @endif
             </div>
           </nav>
-            @if (has_nav_menu('header_social'))
-              {!! wp_nav_menu(['theme_location' => 'header_social', 'menu_class' => 'nav-social']) !!}
-            @endif
+          <ul class="header-social">
+            <?php
+              $menu_name = 'header_social';
+              $locations = get_nav_menu_locations();
+              $menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
+              $secondarymenu = wp_get_nav_menu_items( $menu->term_id, array( 'order' => 'DESC' ) );
+              foreach($secondarymenu as $s) {
+                if($s->title == 'Facebook') {
+                  echo '<li><a href="'.$s->url.'" class="secondary-item"><i class="fab fa-facebook-f"></i></a></li>';
+                }
+                if($s->title == 'Twitter') {
+                  echo '<li><a href="'.$s->url.'" class="secondary-item"><i class="fab fa-twitter"></i></a></li>';
+                }
+              }
+            ?>
+            <li><a href="/" class="secondary-item"><i class="fas fa-search"></i></a></li>
+          </ul>
         </div>
       </div>
     </div>

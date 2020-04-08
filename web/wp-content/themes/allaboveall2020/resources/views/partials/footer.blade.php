@@ -6,15 +6,30 @@
           <img src="@asset('images/aaa-logo-white.png')">
         </a>
       </div>
-      <div class="col-lg-10">
+      <div class="col-lg-9 offset-lg-1">
         <div class="footer-nav-social">
-          @if (has_nav_menu('header_social'))
-            {!! wp_nav_menu(['theme_location' => 'header_social', 'menu_class' => 'nav-social']) !!}
-          @endif
+          <ul>
+            <?php
+              $menu_name = 'footer_social';
+              $locations = get_nav_menu_locations();
+              $menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
+              $footersocial = wp_get_nav_menu_items( $menu->term_id, array( 'order' => 'DESC' ) );
+              foreach($footersocial as $s) {
+                if($s->title == 'Facebook') {
+                  echo '<li><a href="'.$s->url.'" class="footer-social"><i class="fab fa-facebook-f"></i></a></li>';
+                }
+                if($s->title == 'Twitter') {
+                  echo '<li><a href="'.$s->url.'" class="footer-social"><i class="fab fa-twitter"></i></a></li>';
+                }
+                if($s->title == 'Instagram') {
+                  echo '<li><a href="'.$s->url.'" class="footer-social"><i class="fab fa-instagram"></i></a></li>';
+                }
+              }
+            ?>
         </div>
         <div class="footer-nav">
-          @if (has_nav_menu('header_social'))
-            {!! wp_nav_menu(['theme_location' => 'header_social', 'menu_class' => 'nav-social']) !!}
+          @if (has_nav_menu('footer_navigation'))
+            {!! wp_nav_menu(['theme_location' => 'footer_navigation', 'menu_class' => 'nav-footer']) !!}
           @endif
         </div>
         <div class="footer-text">

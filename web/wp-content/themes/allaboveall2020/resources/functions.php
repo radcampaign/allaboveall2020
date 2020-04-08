@@ -91,6 +91,15 @@ Container::getInstance()
         ]);
     }, true);
 
+// remove comments
+add_action( 'init', 'comments_init' );
+function comments_init() {
+  remove_post_type_support( 'post', 'comments' );
+  remove_post_type_support( 'resource', 'comments' );
+  remove_post_type_support( 'campaign', 'comments' );
+  remove_post_type_support( 'event', 'comments' );
+  remove_post_type_support( 'action', 'comments' );
+}
 
 // Logo
 function mytheme_setup() {
