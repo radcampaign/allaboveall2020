@@ -66,26 +66,26 @@ add_filter('template_include', function ($template) {
     return $template;
 }, PHP_INT_MAX);
 
-/**
- * Render comments.blade.php
- */
-add_filter('comments_template', function ($comments_template) {
-    $comments_template = str_replace(
-        [get_stylesheet_directory(), get_template_directory()],
-        '',
-        $comments_template
-    );
-
-    $data = collect(get_body_class())->reduce(function ($data, $class) use ($comments_template) {
-        return apply_filters("sage/template/{$class}/data", $data, $comments_template);
-    }, []);
-
-    $theme_template = locate_template(["views/{$comments_template}", $comments_template]);
-
-    if ($theme_template) {
-        echo template($theme_template, $data);
-        return get_stylesheet_directory().'/index.php';
-    }
-
-    return $comments_template;
-}, 100);
+// custom blocks
+add_filter('sage/blocks/full-width/data', function ($block) {
+  // Add all fields to block array.
+  $fields = [
+    'title',
+    'content',
+    'background_image',
+    'background_color',
+  ];
+  foreach ($fields as $field) {
+    $block[$field] = get_field($field);
+  }
+  if (!empty($block['background_image'])) {
+    $block['background_image'] = wp_get_attachment_image_src($block['background_image'], 'hero-1200')[0];
+  }
+  // Set background color class.
+  $block['classes'][] = "bg-{$block['background_color']}";
+  if ($block['background_color'] == 'image') {
+    $block['classes'][] = 'screen-dark-before';
+  }
+  $block['classes'][] = 'section';
+  return $block;
+});
