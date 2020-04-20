@@ -1,0 +1,20 @@
+.arrow-border {
+  border: 20px solid black;
+  position: relative;
+  padding: 2rem;
+
+  .arrow {
+    color: black;
+    background: white;
+    position: absolute;
+    top: -2rem;
+    right: -2rem;
+    font-size: 5rem;
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+
+    .icon {
+      transform: rotate(45deg);
+    }
+  }
+}

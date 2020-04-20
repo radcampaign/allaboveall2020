@@ -21,11 +21,12 @@
    <div class="container">
      <div class="row">
        <div class="col-lg-10 mx-auto">
-         {{-- title --}}
-         @if ($block['title'])
-           <h2 class="{{ $block['background_image'] ? 'display-3' : 'h1' }} section-title">{{ $block['title'] }}</h2>
-         @endif
-         {!! $block['content'] !!}
+        <p>Columns - {{ $block['data']['columns'] }}</p>
+        <p>Asterisk - {{ $block['data']['asterisk'][0] }}</p>
+        <p>Asterisk Position - {{ $block['data']['asterisk_position'] }}</p>
+        <div>One Col WYSIWYG</div>
+        <div>{!! $block['data']['one_column_wiswyg'] !!}</div>
+         <pre>{{ var_dump($block['data']) }}</pre>
        </div>
      </div>
    </div>

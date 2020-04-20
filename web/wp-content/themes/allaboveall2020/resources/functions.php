@@ -307,34 +307,34 @@ function add_campaign_taxonomies() {
     'show_ui' => true,
     'show_admin_column' => true,
     'query_var' => true,
-    'rewrite' => array( 'slug' => 'Campaign' ),
+    'rewrite' => array( 'slug' => 'campaign' ),
   ));
 }
 
 function add_statelocality_taxonomies() {
   $labels = array(
-    'name' => _x( 'State/Locality', 'taxonomy general name' ),
-    'singular_name' => _x( 'State/Locality', 'taxonomy singular name' ),
+    'name' => _x( 'State', 'taxonomy general name' ),
+    'singular_name' => _x( 'State', 'taxonomy singular name' ),
     'search_items' =>  __( 'Search state/localities' ),
     'all_items' => __( 'All state/localities' ),
     'parent_item' => null,
     'parent_item_colon' => null,
-    'edit_item' => __( 'Edit state/locality' ), 
-    'update_item' => __( 'Update state/locality' ),
-    'add_new_item' => __( 'Add New State/Locality' ),
-    'new_item_name' => __( 'New state/locality Name' ),
-    'menu_name' => __( 'State/Locality' ),
+    'edit_item' => __( 'Edit State' ), 
+    'update_item' => __( 'Update State' ),
+    'add_new_item' => __( 'Add New State' ),
+    'new_item_name' => __( 'New State Name' ),
+    'menu_name' => __( 'State' ),
   );    
  
 // Now register the taxonomy
  
-  register_taxonomy('state/locality',array('resource', 'update', 'action', 'post'), array(
+  register_taxonomy('state',array('resource', 'update', 'action', 'post'), array(
     'hierarchical' => true,
     'labels' => $labels,
     'show_ui' => true,
     'show_admin_column' => true,
     'query_var' => true,
-    'rewrite' => array( 'slug' => 'state/locality' ),
+    'rewrite' => array( 'slug' => 'state' ),
   ));
 }
 
@@ -361,7 +361,7 @@ function add_author_taxonomy() {
     'show_ui' => true,
     'show_admin_column' => true,
     'query_var' => true,
-    'rewrite' => array( 'slug' => 'Campaign' ),
+    'rewrite' => array( 'slug' => 'author' ),
   ));
 }
 
