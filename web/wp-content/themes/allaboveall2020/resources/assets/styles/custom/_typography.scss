@@ -7,6 +7,15 @@ h6 {
   letter-spacing: 0.1rem;
 }
 
+.entry-title {
+  background: $primary-color;
+  color: black;
+  font-weight: 600;
+  padding: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 .head-title {
   font-size: 1rem;
   font-weight: 600;

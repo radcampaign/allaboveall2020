@@ -104,6 +104,7 @@ function comments_init() {
 // Logo
 function mytheme_setup() {
   add_theme_support('custom-logo');
+  add_theme_support( 'post-thumbnails' );
 }
 
 add_action('after_setup_theme', 'mytheme_setup');
@@ -258,8 +259,8 @@ function create_post_type_event() {
   'add_new' => _x('Add New event', 'add new'),
   'add_new_item' => __('Add New event'),
   'new_item' => __('New event'),
-  'edit_item' => __('Edit events'),
-  'view_item' => __('View events'),
+  'edit_item' => __('Edit event'),
+  'view_item' => __('View event'),
   'all_items' => __('All events'),
   'search_items' => __('Search events'),
   'not_found' => __('No events found.'),

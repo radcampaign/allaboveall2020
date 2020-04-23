@@ -3,7 +3,7 @@
     <h1 class="entry-title">{!! get_the_title() !!}</h1>
   </header>
   <div class="entry-content">
-    @if ($featured_image) {!! $featured_image_url !!} @endif
+    @if (!empty(the_post_thumbnail())) {{ the_post_thumbnail() }} @endif
     
     @php the_content() @endphp
     <p><strong>Author(s):</strong></p>
