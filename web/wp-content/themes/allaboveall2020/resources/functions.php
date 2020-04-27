@@ -127,7 +127,6 @@ function wpdocs_theme_setup() {
 /** create taxonomies **/
 add_action( 'init', 'add_campaign_taxonomies', 0 );
 add_action( 'init', 'add_statelocality_taxonomies', 0 );
-add_action( 'init', 'add_author_taxonomy', 0 );
 
 function add_campaign_taxonomies() {
   $labels = array(
