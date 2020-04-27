@@ -124,6 +124,92 @@ function wpdocs_theme_setup() {
   //add_image_size( 'post_featured_image', 2000, 800, TRUE );
 }
 
+/** create taxonomies **/
+add_action( 'init', 'add_campaign_taxonomies', 0 );
+add_action( 'init', 'add_statelocality_taxonomies', 0 );
+add_action( 'init', 'add_author_taxonomy', 0 );
+
+function add_campaign_taxonomies() {
+  $labels = array(
+    'name' => _x( 'campaigns', 'taxonomy general name' ),
+    'singular_name' => _x( 'Campaign', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Search campaigns' ),
+    'all_items' => __( 'All campaigns' ),
+    'parent_item' => null,
+    'parent_item_colon' => null,
+    'edit_item' => __( 'Edit Campaign' ), 
+    'update_item' => __( 'Update Campaign' ),
+    'add_new_item' => __( 'Add New Campaign' ),
+    'new_item_name' => __( 'New Campaign Name' ),
+    'menu_name' => __( 'Campaign' ),
+  );    
+ 
+// Now register the taxonomy
+ 
+  register_taxonomy('campaign',array('resource', 'update', 'action', 'post', 'page'), array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'campaign' ),
+  ));
+}
+
+function add_statelocality_taxonomies() {
+  $labels = array(
+    'name' => _x( 'State', 'taxonomy general name' ),
+    'singular_name' => _x( 'State', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Search state/localities' ),
+    'all_items' => __( 'All state/localities' ),
+    'parent_item' => null,
+    'parent_item_colon' => null,
+    'edit_item' => __( 'Edit State' ), 
+    'update_item' => __( 'Update State' ),
+    'add_new_item' => __( 'Add New State' ),
+    'new_item_name' => __( 'New State Name' ),
+    'menu_name' => __( 'State' ),
+  );    
+ 
+// Now register the taxonomy
+ 
+  register_taxonomy('state',array('resource', 'update', 'action', 'post'), array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'state' ),
+  ));
+}
+
+function add_author_taxonomy() {
+  $labels = array(
+    'name' => _x( 'Author', 'taxonomy general name' ),
+    'singular_name' => _x( 'Author', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Search author' ),
+    'all_items' => __( 'All authors' ),
+    'parent_item' => null,
+    'parent_item_colon' => null,
+    'edit_item' => __( 'Edit author' ), 
+    'update_item' => __( 'Update author' ),
+    'add_new_item' => __( 'Add New author' ),
+    'new_item_name' => __( 'New author Name' ),
+    'menu_name' => __( 'Author' ),
+  );    
+ 
+// Now register the taxonomy
+ 
+  register_taxonomy('author',array('resource', 'update', 'action', 'post', 'page'), array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'author' ),
+  ));
+}
+
 // create content types
 function create_post_type_resource() {
   $supports = array(
@@ -161,6 +247,44 @@ function create_post_type_resource() {
   'hierarchical' => false,
   );
   register_post_type('resource', $args);
+}
+
+function create_post_type_news() {
+  $supports = array(
+  'title', // post title
+  'editor', // post content
+  'author', // post author
+  'thumbnail', // featured images
+  'excerpt', // post excerpt
+  'custom-fields', // custom fields
+  'comments', // post comments
+  'revisions', // post revisions
+  'post-formats', // post formats
+  );
+  $labels = array(
+  'name' => _x('news', 'plural'),
+  'singular_name' => _x('news', 'singular'),
+  'menu_name' => _x('News', 'admin menu'),
+  'name_admin_bar' => _x('news', 'admin bar'),
+  'add_new' => _x('Add New news', 'add new'),
+  'add_new_item' => __('Add New news'),
+  'new_item' => __('New news'),
+  'edit_item' => __('Edit news'),
+  'view_item' => __('View news'),
+  'all_items' => __('All news'),
+  'search_items' => __('Search news'),
+  'not_found' => __('No news found.'),
+  );
+  $args = array(
+  'supports' => $supports,
+  'labels' => $labels,
+  'public' => true,
+  'query_var' => true,
+  'rewrite' => array('slug' => 'news'),
+  'has_archive' => true,
+  'hierarchical' => false,
+  );
+  register_post_type('news', $args);
 }
 
 function create_post_type_updates() {
@@ -281,91 +405,4 @@ add_action('init', 'create_post_type_resource');
 add_action('init', 'create_post_type_updates');
 add_action('init', 'create_post_type_action');
 add_action('init', 'create_post_type_event');
-
-
-/** create taxonomies **/
-
-function add_campaign_taxonomies() {
-  $labels = array(
-    'name' => _x( 'campaigns', 'taxonomy general name' ),
-    'singular_name' => _x( 'Campaign', 'taxonomy singular name' ),
-    'search_items' =>  __( 'Search campaigns' ),
-    'all_items' => __( 'All campaigns' ),
-    'parent_item' => null,
-    'parent_item_colon' => null,
-    'edit_item' => __( 'Edit Campaign' ), 
-    'update_item' => __( 'Update Campaign' ),
-    'add_new_item' => __( 'Add New Campaign' ),
-    'new_item_name' => __( 'New Campaign Name' ),
-    'menu_name' => __( 'Campaign' ),
-  );    
- 
-// Now register the taxonomy
- 
-  register_taxonomy('campaign',array('resource', 'update', 'action', 'post', 'page'), array(
-    'hierarchical' => true,
-    'labels' => $labels,
-    'show_ui' => true,
-    'show_admin_column' => true,
-    'query_var' => true,
-    'rewrite' => array( 'slug' => 'campaign' ),
-  ));
-}
-
-function add_statelocality_taxonomies() {
-  $labels = array(
-    'name' => _x( 'State', 'taxonomy general name' ),
-    'singular_name' => _x( 'State', 'taxonomy singular name' ),
-    'search_items' =>  __( 'Search state/localities' ),
-    'all_items' => __( 'All state/localities' ),
-    'parent_item' => null,
-    'parent_item_colon' => null,
-    'edit_item' => __( 'Edit State' ), 
-    'update_item' => __( 'Update State' ),
-    'add_new_item' => __( 'Add New State' ),
-    'new_item_name' => __( 'New State Name' ),
-    'menu_name' => __( 'State' ),
-  );    
- 
-// Now register the taxonomy
- 
-  register_taxonomy('state',array('resource', 'update', 'action', 'post'), array(
-    'hierarchical' => true,
-    'labels' => $labels,
-    'show_ui' => true,
-    'show_admin_column' => true,
-    'query_var' => true,
-    'rewrite' => array( 'slug' => 'state' ),
-  ));
-}
-
-function add_author_taxonomy() {
-  $labels = array(
-    'name' => _x( 'Author', 'taxonomy general name' ),
-    'singular_name' => _x( 'Author', 'taxonomy singular name' ),
-    'search_items' =>  __( 'Search author' ),
-    'all_items' => __( 'All authors' ),
-    'parent_item' => null,
-    'parent_item_colon' => null,
-    'edit_item' => __( 'Edit author' ), 
-    'update_item' => __( 'Update author' ),
-    'add_new_item' => __( 'Add New author' ),
-    'new_item_name' => __( 'New author Name' ),
-    'menu_name' => __( 'Author' ),
-  );    
- 
-// Now register the taxonomy
- 
-  register_taxonomy('author',array('resource', 'update', 'action', 'post', 'page'), array(
-    'hierarchical' => true,
-    'labels' => $labels,
-    'show_ui' => true,
-    'show_admin_column' => true,
-    'query_var' => true,
-    'rewrite' => array( 'slug' => 'author' ),
-  ));
-}
-
-add_action( 'init', 'add_campaign_taxonomies', 0 );
-add_action( 'init', 'add_statelocality_taxonomies', 0 );
-add_action( 'init', 'add_author_taxonomy', 0 );
+add_action('init', 'create_post_type_news');
