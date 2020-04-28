@@ -23,7 +23,7 @@
             {!! $block['data']['left_column_text_area'] !!}
           </div>
           <div class="col-lg-6">
-
+            {!! $block['data']['right_column_text_area'] !!}
           </div>
         </div>
       </div>

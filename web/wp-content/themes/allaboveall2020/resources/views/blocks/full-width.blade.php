@@ -14,20 +14,27 @@
 
 <div
   data-{{ $block['id'] }}
-  class="{{ $block['classes'] }}"
+  class="{{ $block['classes'] }} border mb-4 mt-4 p-4"
   {!! $block['background_image'] ? ' style="background-image: url(' . $block['background_image'] . ')"' : '' !!}
 >
+@if($block['data']['asterisk'][0] == 'yes')
+  <div class="asterisk asterisk-{!! $block['data']['asterisk_position'] !!}">Asterisk</div>
+@endif
    {{-- start container --}}
    <div class="container">
      <div class="row">
-       <div class="col-lg-10 mx-auto">
-        <p>Columns - {{ $block['data']['columns'] }}</p>
-        <p>Asterisk - {{ $block['data']['asterisk'][0] }}</p>
-        <p>Asterisk Position - {{ $block['data']['asterisk_position'] }}</p>
-        <div>One Col WYSIWYG</div>
-        <div>{!! $block['data']['one_column_wiswyg'] !!}</div>
-         <pre>{{ var_dump($block['data']) }}</pre>
-       </div>
+      @if($block['data']['columns'] == 'one')
+        <div class="col-lg-10 mx-auto">
+          {!! $block['data']['one_column_wiswyg'] !!}
+        </div>
+      @elseif($block['data']['columns'] == 'two')
+        <div class="col-lg-6 mx-auto">
+          {!! $block['data']['left_column_text'] !!}
+        </div>
+        <div class="col-lg-6 mx-auto">
+          <div>{!! $block['data']['right_column_text'] !!}</div>
+        </div>
+      @endif
      </div>
    </div>
 </div>
