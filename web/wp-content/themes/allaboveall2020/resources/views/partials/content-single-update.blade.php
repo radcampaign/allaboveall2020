@@ -6,13 +6,6 @@
     @if ($featured_image) {!! $featured_image_url !!} @endif
     
     @php the_content() @endphp
-    <p><strong>Author(s):</strong></p>
-    <ul>
-      @php($authors = wp_get_post_terms($post->ID, 'author'))
-        @foreach ($authors as $a)
-          <li><a href="{{ get_term_link( $a->slug, 'author') }}">{{ $a->name }}</a></li>
-        @endforeach
-    </ul>
     <p><strong>Campaign(s):</strong></p>
     <ul>
       @php($campaigns = wp_get_post_terms($post->ID, 'campaign'))

@@ -6,13 +6,6 @@
     @if (!empty(the_post_thumbnail())) {{ the_post_thumbnail() }} @endif
     
     @php the_content() @endphp
-    <p><strong>Author(s):</strong></p>
-    <ul>
-      @php($authors = wp_get_post_terms($post->ID, 'author'))
-        @foreach ($authors as $a)
-          <li><a href="{{ get_term_link( $a->slug, 'author') }}">{{ $a->name }}</a></li>
-        @endforeach
-    </ul>
     <p><strong>Campaign(s):</strong></p>
     <ul>
       @php($campaigns = wp_get_post_terms($post->ID, 'campaign'))
@@ -27,6 +20,10 @@
           <li><a href="{{ get_term_link( $sl->slug, 'state') }}">{{ $sl->name }}</a></li>
         @endforeach
     </ul>
+    <div>
+      <p><strong>Form Embed</strong></p>
+      @php(the_field('form_embed'))
+    </div>
     <div>
       <p><strong>Button:</strong> <a href="{{ get_field('button_url') }}" class="btn">{{ get_field('button_text') }}</a></p>
     </div>
