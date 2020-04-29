@@ -19,3 +19,49 @@
     }
   }
 }
+
+.bg-img-upload .full-width-text-inner {
+  padding: 3rem;
+  background: rgba(0, 0, 0, 0.75),;
+  color: white;
+}
+
+.full-width {
+  position: relative;
+}
+
+.asterisk-yes {
+  &.asterisk-top {
+    .asterisk-container {
+      text-align: center;
+      margin-bottom: 2rem;
+
+      img {
+        max-width: 150px;
+      }
+    }
+  }
+
+  &.asterisk-right {
+    padding: 3rem 0;
+    margin: 5rem 0;
+
+    .asterisk-container {
+      position: absolute;
+      right: 0;
+      top: 10%;
+      z-index: 2;
+      max-width: 350px;
+      overflow-x: hidden;
+
+      img {
+        max-width: 500px;
+      }
+    }
+
+    .container-inner {
+      position: relative;
+      z-index: 4;
+    }
+  }
+}
