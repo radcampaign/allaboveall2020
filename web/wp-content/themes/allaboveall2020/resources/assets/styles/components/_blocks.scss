@@ -59,7 +59,7 @@
       position: absolute;
       right: 0;
       top: 10%;
-      z-index: 2;
+      z-index: 5;
       max-width: 350px;
       overflow-x: hidden;
 
@@ -70,7 +70,43 @@
 
     .container-inner {
       position: relative;
+      z-index: 6;
+    }
+  }
+}
+
+.bold-block {
+  padding: 8rem 0;
+  background: black;
+
+  .letter-block {
+    margin: 2rem 0;
+    display: flex;
+    position: relative;
+
+    .letter {
+      background: $primary-color;
+      color: black;
+      font-weight: 600;
+      font-size: 5rem;
+      line-height: 7rem;
+      text-align: center;
+      width: 112px;
+      height: 112px;
+      position: absolute;
+      top: 0;
+      left: 0;
       z-index: 4;
+      box-shadow: -5px -5px 30px black;
+    }
+
+    .content {
+      width: 90%;
+      margin-left: 10%;
+      background: white;
+      min-height: 225px;
+      padding: 2rem 4rem 2rem 6rem;
+      z-index: 3;
     }
   }
 }

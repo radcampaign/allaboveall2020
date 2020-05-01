@@ -5,6 +5,7 @@ h4,
 h5,
 h6 {
   letter-spacing: 0.1rem;
+  font-weight: 600;
 }
 
 .single {
@@ -21,4 +22,12 @@ h6 {
 .head-title {
   font-size: 1rem;
   font-weight: 600;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-large {
+  font-size: 1.5rem;
 }
