@@ -18,18 +18,18 @@
 @if($block['data']['background'] == 'image_filter')
 <div
   data-{{ $block['id'] }}
-  class="{{ $block['classes'] }} {{ $asterisk }}  border bg-img-upload"
+  class="{{ $block['classes'] }} {{ $asterisk }} bg-img-upload"
   {!! $block['background_image'] ? ' style="background-image: url(' . $block['background_image'] . ')"' : '' !!}
 >
 @elseif($block['data']['background'] == 'image_plain')
 <div
   data-{{ $block['id'] }}
-  class="{{ $block['classes'] }} {{ $asterisk }} border bg-img-plain"
+  class="{{ $block['classes'] }} {{ $asterisk }} bg-img-plain"
   {!! $block['background_image'] ? ' style="background-image: url(/)"' : '' !!}>
 @else
 <div
   data-{{ $block['id'] }}
-  class="{{ $block['classes'] }} {{ $asterisk }} border">
+  class="{{ $block['classes'] }} {{ $asterisk }}">
 @endif
   <div class="full-width-text-inner">
   @if($block['data']['asterisk'][0] == 'yes')
