@@ -13,13 +13,11 @@
         </div>
         <div class="header-bottom">
           <nav class="navbar navbar-expand-lg pl-0">
-            <div class="navbar-collapse collapse pl-0" id="headerCollapse">
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headerCollapse" aria-controls="headerCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="far fa-bars"></i>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headerCollapse" aria-controls="headerCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
               </button>
-              @if (has_nav_menu('primary_navigation'))
-                {!! wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'nav']) !!}
-              @endif
+            <div class="navbar-collapse collapse pl-0" id="headerCollapse">
+              @include('components.nav', ['navitems' => App::nav('primary_navigation')])
             </div>
           </nav>
           <ul class="header-social">

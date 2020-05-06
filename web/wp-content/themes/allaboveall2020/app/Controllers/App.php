@@ -11,6 +11,43 @@ class App extends Controller
         return get_bloginfo('name');
     }
 
+    public static function nav($menu) {
+
+      global $wp;
+      $pageurl = home_url( $wp->request ).'/';
+
+      $locations = get_nav_menu_locations();
+      $menu_name = wp_get_nav_menu_object( $locations[ $menu ] );
+      $menuitems = wp_get_nav_menu_items( $menu_name->term_id, array( 'order' => 'DESC' ) );
+      $menulist = json_decode(json_encode($menuitems), true);
+      $navitems = array();
+      $kids = array();
+
+      foreach ($menulist as $delta => $menu_item) {
+        $active = '';
+        if($menu_item['url'] == $pageurl) {
+          $active = 'active';
+        }
+        if(!empty($menu_item['menu_item_parent'])) {
+          foreach($navitems as $key => &$value)
+          { 
+            if ($value['id'] == $menu_item['menu_item_parent']) {
+                $navitems[$key]['children'] = 'yes';
+                $navitems[$key]['child'][] = array('title' => $menu_item['title'], 'url' => $menu_item['url'], 'id' => $menu_item['ID'], 'level' => '2', 'parent' => $menu_item['menu_item_parent'], 'active' => $active);
+                break;
+            } 
+          }
+        }
+        else {
+          $navitems[] = array('title' => $menu_item['title'], 'url' => $menu_item['url'], 'id' => $menu_item['ID'], 'level' => '1', 'children' => 'no', 'active' => $active);
+        }
+      }
+      
+      //echo "<hr><pre>"; print_r($navitems); echo "</pre><hr>";
+      return $navitems;
+    }
+
+
     public static function title()
     {
         if (is_home()) {

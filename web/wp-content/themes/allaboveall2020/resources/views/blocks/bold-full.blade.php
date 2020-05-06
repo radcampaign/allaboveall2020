@@ -26,9 +26,7 @@
             <div class="content">
               <h3 class="text-uppercase">{!! $block['data']['b_info_b_title'] !!}</h3>
               <p>{!! $block['data']['b_info_b_text'] !!}</p>
-              @if(!empty($block['data']['b_info_b_link']['url']))
-                <a href="{!! $block['data']['b_info_b_link']['url'] !!}">Learn More</a>
-              @endif
+              <a href="{!! $block['data']['b_info_b_link']['url'] !!}">Learn More</a>
             </div>
           </div>
         </div>
@@ -38,9 +36,7 @@
             <div class="content">
               <h3 class="text-uppercase">{!! $block['data']['o_info_o_title'] !!}</h3>
               <p>{!! $block['data']['o_info_o_text'] !!}</p>
-              @if(!empty($block['data']['o_info_o_link']['url']))
-                <a href="{!! $block['data']['o_info_o_link']['url'] !!}">Learn More</a>
-              @endif
+              <a href="{!! $block['data']['o_info_o_link']['url'] !!}">Learn More</a>
             </div>
           </div>
         </div>
@@ -52,9 +48,7 @@
             <div class="content">
               <h3 class="text-uppercase">{!! $block['data']['l_info_l_title'] !!}</h3>
               <p>{!! $block['data']['l_info_l_text'] !!}</p>
-              @if(!empty($block['data']['l_info_l_link']['url']))
-                <a href="{!! $block['data']['l_info_l_link']['url'] !!}">Learn More</a>
-              @endif
+              <a href="{!! $block['data']['l_info_l_link']['url'] !!}">Learn More</a>
             </div>
           </div>
         </div>
@@ -64,12 +58,11 @@
             <div class="content">
               <h3 class="text-uppercase">{!! $block['data']['d_info_d_title'] !!}</h3>
               <p>{!! $block['data']['d_info_d_text'] !!}</p>
-              @if(!empty($block['data']['d_info_d_link']['url']))
-                <a href="{!! $block['data']['d_info_d_link']['url'] !!}">Learn More</a>
-              @endif
+              <a href="{!! $block['data']['d_info_d_link']['url'] !!}">Learn More</a>
             </div>
           </div>
         </div>
+        
       </div>
   </div>
 </div>

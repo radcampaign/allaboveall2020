@@ -19,6 +19,19 @@ h6 {
   }
 }
 
+.page-header {
+  padding: 1.5rem;
+  background: $primary-color;
+  margin: 2rem 0;
+
+  h1 {
+    max-width: 1140px;
+    margin: auto;
+    color: black;
+    font-weight: 600;
+  }
+}
+
 .head-title {
   font-size: 1rem;
   font-weight: 600;

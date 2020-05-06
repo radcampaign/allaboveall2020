@@ -24,10 +24,10 @@ const routes = new Router({
 import { library, dom } from '@fortawesome/fontawesome-svg-core';
 // import the icons
 import { faFacebookF, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faSearch, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faArrowUp, faBars } from '@fortawesome/free-solid-svg-icons';
 
 // add the imported icons to the library
-library.add(faFacebookF, faTwitter, faInstagram, faSearch, faArrowUp);
+library.add(faFacebookF, faTwitter, faInstagram, faSearch, faArrowUp, faBars);
 
 // tell FontAwesome to watch the DOM and add the SVGs when it detects icon markup
 dom.watch();

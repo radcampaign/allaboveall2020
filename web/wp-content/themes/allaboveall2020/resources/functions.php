@@ -111,6 +111,7 @@ add_action('after_setup_theme', 'mytheme_setup');
 
 // menu locations
 function register_my_menu() {
+  register_nav_menu('main_menu',__('Main Menu Location'));
   register_nav_menu('footer_navigation',__( 'Footer Menu' ));
   register_nav_menu('header_social',__( 'Header Social' ));
   register_nav_menu('footer_social',__( 'Footer Social' ));
@@ -310,18 +311,18 @@ function create_post_type_action() {
   'post-formats', // post formats
   );
   $labels = array(
-  'name' => _x('actions', 'plural'),
-  'singular_name' => _x('action', 'singular'),
-  'menu_name' => _x('Action', 'admin menu'),
-  'name_admin_bar' => _x('Action', 'admin bar'),
+  'name' => _x('action items', 'plural'),
+  'singular_name' => _x('action item', 'singular'),
+  'menu_name' => _x('Action items', 'admin menu'),
+  'name_admin_bar' => _x('Action item', 'admin bar'),
   'add_new' => _x('Add New', 'add new'),
-  'add_new_item' => __('Add New action'),
-  'new_item' => __('New action'),
-  'edit_item' => __('Edit action'),
-  'view_item' => __('View action'),
-  'all_items' => __('All action'),
-  'search_items' => __('Search action'),
-  'not_found' => __('No action found.'),
+  'add_new_item' => __('Add New action item'),
+  'new_item' => __('New action item'),
+  'edit_item' => __('Edit action item'),
+  'view_item' => __('View action item'),
+  'all_items' => __('All action items'),
+  'search_items' => __('Search action items'),
+  'not_found' => __('No action item found.'),
   );
   $args = array(
   'supports' => $supports,
@@ -332,7 +333,7 @@ function create_post_type_action() {
   'has_archive' => true,
   'hierarchical' => false,
   );
-  register_post_type('action', $args);
+  register_post_type('action_item', $args);
 }
 
 function create_post_type_event() {
@@ -378,3 +379,30 @@ add_action('init', 'create_post_type_updates');
 add_action('init', 'create_post_type_action');
 add_action('init', 'create_post_type_event');
 add_action('init', 'create_post_type_news');
+
+// Removes from admin menu
+add_action( 'admin_menu', 'my_remove_admin_menus' );
+function my_remove_admin_menus() {
+    remove_menu_page( 'edit-comments.php' );
+}
+// Removes from post and pages
+add_action('init', 'remove_comment_support', 100);
+
+function remove_comment_support() {
+    remove_post_type_support( 'post', 'comments' );
+    remove_post_type_support( 'page', 'comments' );
+}
+// Removes from admin bar
+function mytheme_admin_bar_render() {
+    global $wp_admin_bar;
+    $wp_admin_bar->remove_menu('comments');
+}
+add_action( 'wp_before_admin_bar_render', 'mytheme_admin_bar_render' );
+
+add_filter( 'render_block', function( $block_content, $block ) {
+    // Target core/* and core-embed/* blocks.
+    if ( preg_match( '~^core/|core-embed/~', $block['blockName'] ) ) {
+       $block_content = sprintf( '<div class="container"><div class="row"><div class="col-lg-12">%s</div></div></div>', $block_content );
+    }
+    return $block_content;
+}, PHP_INT_MAX - 1, 2 );
