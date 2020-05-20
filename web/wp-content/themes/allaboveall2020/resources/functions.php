@@ -146,7 +146,7 @@ function add_campaign_taxonomies() {
  
 // Now register the taxonomy
  
-  register_taxonomy('campaign',array('resource', 'news', 'update', 'action', 'post', 'page'), array(
+  register_taxonomy('campaign',array('resource', 'news', 'update', 'action_item', 'post', 'page'), array(
     'hierarchical' => true,
     'labels' => $labels,
     'show_ui' => true,
@@ -173,7 +173,7 @@ function add_statelocality_taxonomies() {
  
 // Now register the taxonomy
  
-  register_taxonomy('state',array('resource', 'news', 'update', 'action', 'post'), array(
+  register_taxonomy('state',array('resource', 'news', 'update', 'action_item', 'post'), array(
     'hierarchical' => true,
     'labels' => $labels,
     'show_ui' => true,
@@ -377,7 +377,7 @@ function create_post_type_event() {
 add_action('init', 'create_post_type_resource');
 add_action('init', 'create_post_type_updates');
 add_action('init', 'create_post_type_action');
-add_action('init', 'create_post_type_event');
+//add_action('init', 'create_post_type_event');
 add_action('init', 'create_post_type_news');
 
 // Removes from admin menu
@@ -402,7 +402,7 @@ add_action( 'wp_before_admin_bar_render', 'mytheme_admin_bar_render' );
 add_filter( 'render_block', function( $block_content, $block ) {
     // Target core/* and core-embed/* blocks.
     if ( preg_match( '~^core/|core-embed/~', $block['blockName'] ) ) {
-       $block_content = sprintf( '<div class="container"><div class="row"><div class="col-lg-12">%s</div></div></div>', $block_content );
+       $block_content = sprintf( '<div class="container"><div class="row"><div class="col-lg-10 offset-lg-1">%s</div></div></div>', $block_content );
     }
     return $block_content;
 }, PHP_INT_MAX - 1, 2 );

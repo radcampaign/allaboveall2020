@@ -8,7 +8,7 @@
   &.btn-black {
     @include button-variant($black, $black, $primary-color, $primary-color);
 
-    color: white;
+    color: $primary-color;
 
     &:hover {
       color: black;

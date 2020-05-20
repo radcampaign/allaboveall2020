@@ -24,6 +24,29 @@
 .header-bottom {
   display: flex;
   align-items: center;
+  height: 90%;
+}
+
+.page-header {
+  padding: 1.5rem;
+  background: $primary-color;
+  margin: 2rem 25px;
+  position: relative;
+
+  h1 {
+    text-transform: unset;
+    color: black;
+    font-weight: 600;
+  }
+
+  .header-asterisk {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 0.5rem;
+    max-width: 100px;
+  }
 }
 
 .header-social {

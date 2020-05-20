@@ -1,3 +1,7 @@
 .btn {
   @include button-variant($black, $black, $primary, $primary);
+
+  &.btn-secondary {
+    @include button-variant($primary, $primary, $black, $black);
+  }
 }

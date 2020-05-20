@@ -8,6 +8,40 @@ h6 {
   font-weight: 600;
 }
 
+h1 {
+  font-size: 3rem;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 2.375rem;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: 1.625rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.375rem;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+a {
+  text-decoration: underline;
+  color: black;
+
+  &:hover {
+    text-decoration: none;
+    background: $primary-color;
+  }
+}
+
 .single {
   .entry-title {
     background: $primary-color;
@@ -16,19 +50,6 @@ h6 {
     padding: 1rem;
     margin-top: 2rem;
     margin-bottom: 2rem;
-  }
-}
-
-.page-header {
-  padding: 1.5rem;
-  background: $primary-color;
-  margin: 2rem 0;
-
-  h1 {
-    max-width: 1140px;
-    margin: auto;
-    color: black;
-    font-weight: 600;
   }
 }
 
@@ -43,4 +64,10 @@ h6 {
 
 .text-large {
   font-size: 1.5rem;
+}
+
+blockquote {
+  border-left: $primary-color 5px solid;
+  padding-left: 1rem;
+  margin: 2rem 0;
 }
