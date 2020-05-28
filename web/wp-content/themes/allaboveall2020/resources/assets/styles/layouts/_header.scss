@@ -49,6 +49,12 @@
   }
 }
 
+.home {
+  .page-header {
+    display: none;
+  }
+}
+
 .header-social {
   display: flex;
   margin: 0;
