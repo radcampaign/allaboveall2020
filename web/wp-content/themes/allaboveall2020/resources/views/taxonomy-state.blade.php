@@ -40,8 +40,17 @@
     </div>
   </div>
 </div>
-<div class="image">
-  <img src="{{ $image }}" alt="{{ $slug }} state image">
+<div class="two-col-flex bg-black">
+  <div class="left">
+    <div class="text">
+      <h3 class="display-2">Use your member of congress to support the each woman act</h3>
+      <p class="text-larger">The EACH Women Act is our vision and our message to the Trump-Pence administration: we are fighting for a future where our families can thrive, which includes women making their own decisions about pregnancy and parenting.</p>
+      <a href="/" class="btn btn-green">Speak Up</a>
+    </div>
+  </div>
+  <div class="right image">
+    <img src="{{ $image }}" alt="{{ $slug }} state image">
+  </div>
 </div>
   <div class="container mt-5 mb-5">
     <div class="row">

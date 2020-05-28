@@ -178,3 +178,17 @@
     font-size: 1.25rem;
   }
 }
+
+.two-col-flex {
+  display: flex;
+  align-items: center;
+
+  .left,
+  .right {
+    flex: 1;
+  }
+
+  .text {
+    padding: 0 5rem;
+  }
+}

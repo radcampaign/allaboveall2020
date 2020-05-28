@@ -4,6 +4,7 @@
   color: black;
   border-radius: 0;
   text-transform: uppercase;
+  font-family: "Aaux-Bold", sans-serif;
 
   &.btn-black {
     @include button-variant($black, $black, $primary-color, $primary-color);

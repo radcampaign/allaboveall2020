@@ -1,3 +1,9 @@
+a.navbar-brand {
+  &:hover {
+    background: transparent;
+  }
+}
+
 .navbar {
   .navbar-nav {
     .nav-item {

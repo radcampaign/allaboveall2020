@@ -19,6 +19,22 @@ body {
   color: black;
 }
 
+.bg-black {
+  background: black;
+  color: white;
+
+  .btn-green {
+    &:hover {
+      background: white;
+      color: black;
+    }
+  }
+}
+
+.text-larger {
+  font-size: 1.25rem;
+}
+
 a {
   text-decoration: underline;
 
