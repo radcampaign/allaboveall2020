@@ -14,4 +14,18 @@
       color: black;
     }
   }
+
+  &.btn-white {
+    background: white;
+    color: black;
+  }
+
+  &.btn-black-outline {
+    border: 2px solid black;
+
+    &:hover {
+      background: black;
+      color: white;
+    }
+  }
 }

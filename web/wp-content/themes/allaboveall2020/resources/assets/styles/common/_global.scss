@@ -4,7 +4,7 @@ img {
 }
 
 body {
-  font-family: "Aaux-Bold", sans-serif;
+  font-family: "Aaux-Regular", sans-serif;
 }
 
 .text-white {
@@ -29,4 +29,8 @@ a {
 
 nav a {
   text-decoration: none;
+}
+
+.list-style-none {
+  list-style: none;
 }

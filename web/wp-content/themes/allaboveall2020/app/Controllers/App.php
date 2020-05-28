@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Sober\Controller\Controller;
+use WP_Query;
 
 class App extends Controller
 {
@@ -66,5 +67,35 @@ class App extends Controller
             return __('Not Found', 'sage');
         }
         return get_the_title();
+    }
+
+    public static function taxlist($taxid, $posttype, $numposts) {
+      $args = array(
+        'post_type' => $posttype,
+        'posts_per_page' => $numposts,
+        'orderby' => 'date',
+        'order'   => 'DESC',
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'state',
+                'field' => 'term_id',
+                'terms' => $taxid,
+            )
+        )
+      );
+      $query = new WP_Query( $args );
+      $taxlisting = array();
+      if ($query->have_posts()) {
+        // Start the Loop
+        while ( $query->have_posts() ) : $query->the_post();
+        // Your loop code
+          $taxlisting[] = array('title' => get_the_title(), 'date' => get_the_date(), 'url' => get_the_permalink(), 'excerpt' => get_the_excerpt(), 'posttype' => $posttype, 'test' => $test);
+        endwhile;  
+               
+      } // end of check for query having posts
+      return $taxlisting;
+           
+      // use reset postdata to restore orginal query
+      wp_reset_postdata();
     }
 }
