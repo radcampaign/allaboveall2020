@@ -112,7 +112,7 @@
 }
 
 .background-image {
-  background-image: url("images/bg-image.jpg");
+  background-image: url("../images/bg-image.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   padding: 2rem;
@@ -148,7 +148,7 @@
     margin-top: 1rem;
 
     &::before {
-      content: url("images/green-asterisk-xs.png");
+      content: url("../images/green-asterisk-xs.png");
       position: absolute;
       top: 0;
       left: 0;
