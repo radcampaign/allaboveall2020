@@ -7,6 +7,7 @@
   $image = get_field('featured_image', $tag);
   $tag_content = get_field('taxonomy_content', $tag);
   $slug = $tag->slug;
+  $box = get_field('feature_black_box', $tag);
 @endphp
 
 @section('content')
@@ -30,38 +31,17 @@
       </div>
       <div class="col-lg-6 text-center">
         <div class="black-box box-shadow">
-          <h3>The EACH Women Act</h3>
-          <ul class="asterisk-list">
-            <li>Ensures coverage for abortion for every woman, transgender and gender non-conforming person.</li>
-            <li>Stops politicians from interfering in a wooman's decision to get an abortion</li>
-          </ul>
+          {!! $box !!}
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="two-col-flex bg-black">
-  <div class="left">
-    <div class="text">
-      <h3 class="display-2">Use your member of congress to support the each woman act</h3>
-      <p class="text-larger">The EACH Women Act is our vision and our message to the Trump-Pence administration: we are fighting for a future where our families can thrive, which includes women making their own decisions about pregnancy and parenting.</p>
-      <a href="/" class="btn btn-green">Speak Up</a>
-    </div>
-  </div>
-  <div class="right image">
-    <img src="{{ $image }}" alt="{{ $slug }} state image">
-  </div>
-</div>
+@include('components.featuredaction', ['featuredaction' => App::actionapp($tag_id, 'action_item')])
   <div class="container mt-5 mb-5">
     <div class="row">
-      <div class="col-lg-6">
-        <h3><i class="far fa-file-alt text-green"></i> Resources</h3>
-        @include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'resource', '3')])
-      </div>
-      <div class="col-lg-6">
-        <h3><i class="fas fa-rss text-green"></i> News</h3>
-        @include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'news', '2')])
-      </div>
+      @include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'resource', '3')])
+      @include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'update', '2')])
     </div>
   </div>
 @endsection

@@ -40,9 +40,7 @@
     </div>
   </div>
 </div>
-<div class="image">
-  <img src="{{ $image }}" alt="{{ $slug }} state image">
-</div>
+@include('components.featuredaction', ['featuredaction' => App::actionapp($tag_id, 'action_item')])
   <div class="container mt-5 mb-5">
     <div class="row">
       <div class="col-lg-6">
@@ -51,7 +49,7 @@
       </div>
       <div class="col-lg-6">
         <h3><i class="fas fa-rss text-green"></i> News</h3>
-        @include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'news', '2')])
+        @include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'update', '2')])
       </div>
     </div>
   </div>

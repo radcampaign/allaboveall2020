@@ -75,6 +75,7 @@ class App extends Controller
         'posts_per_page' => $numposts,
         'orderby' => 'date',
         'order'   => 'DESC',
+        'post_status' => 'publish',
         'tax_query' => array(
             array(
                 'taxonomy' => 'state',
@@ -85,15 +86,78 @@ class App extends Controller
       );
       $query = new WP_Query( $args );
       $taxlisting = array();
+      $tax = ucfirst($posttype);
+      if($posttype == 'resource') {
+        $icon = 'far fa-file-alt';
+      }
+      elseif($posttype == 'update') {
+        $icon = 'fas fa-rss';
+      }
+      else {
+
+      }
       if ($query->have_posts()) {
         // Start the Loop
+        $taxlisting[] = array('tax' => $tax, 'icon' => $icon);
         while ( $query->have_posts() ) : $query->the_post();
         // Your loop code
-          $taxlisting[] = array('title' => get_the_title(), 'date' => get_the_date(), 'url' => get_the_permalink(), 'excerpt' => get_the_excerpt(), 'posttype' => $posttype, 'test' => $test);
+          $taxlisting[] = array('title' => get_the_title(), 'date' => get_the_date(), 'url' => get_the_permalink(), 'excerpt' => get_the_excerpt(), 'posttype' => $posttype);
         endwhile;  
                
       } // end of check for query having posts
       return $taxlisting;
+           
+      // use reset postdata to restore orginal query
+      wp_reset_postdata();
+    }
+
+    public static function actionapp($taxid, $posttype) {
+      $args = array(
+        'post_type' => $posttype,
+        'posts_per_page' => 1,
+        'orderby' => 'date',
+        'order'   => 'DESC',
+        'post_status' => 'publish',
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'state',
+                'field' => 'term_id',
+                'terms' => $taxid,
+            )
+        )
+      );
+      $query = new WP_Query( $args );
+      $featuredaction = array();
+      if ($query->have_posts()) {
+        // Start the Loop
+        while ( $query->have_posts() ) : $query->the_post();
+        // Your loop code
+          $featuredaction[] = array('title' => get_the_title(), 'url' => get_the_permalink(), 'excerpt' => get_the_excerpt(), 'image' => get_the_post_thumbnail_url(get_the_ID(),'full'));
+        endwhile;  
+               
+      } // end of check for query having posts
+      else {
+        $args = array(
+        'post_type' => $posttype,
+        'posts_per_page' => 1,
+        'orderby' => 'date',
+        'order'   => 'DESC',
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'state',
+                'field' => 'term_id',
+                'terms' => '11',
+            )
+          )
+        );
+        $query = new WP_Query( $args );
+        $featuredaction = array();
+        while ( $query->have_posts() ) : $query->the_post();
+        // Your loop code
+          $featuredaction[] = array('title' => get_the_title(), 'url' => get_the_permalink(), 'excerpt' => get_the_excerpt(), 'image' => get_the_post_thumbnail_url(get_the_ID(),'full'));
+        endwhile;
+      }
+      return $featuredaction;
            
       // use reset postdata to restore orginal query
       wp_reset_postdata();

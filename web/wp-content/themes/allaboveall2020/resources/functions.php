@@ -273,8 +273,8 @@ function create_post_type_updates() {
   'post-formats', // post formats
   );
   $labels = array(
-  'name' => _x('updates', 'plural'),
-  'singular_name' => _x('updates', 'singular'),
+  'name' => _x('Updates', 'plural'),
+  'singular_name' => _x('Update', 'singular'),
   'menu_name' => _x('Updates', 'admin menu'),
   'name_admin_bar' => _x('Updates', 'admin bar'),
   'add_new' => _x('Add New', 'add new'),
