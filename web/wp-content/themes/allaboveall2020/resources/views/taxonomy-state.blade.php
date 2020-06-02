@@ -30,7 +30,7 @@
         {!! $tag_content !!}
       </div>
       <div class="col-lg-6 text-center">
-        <div class="black-box box-shadow">
+        <div class="black-box box-shadow list-asterisk-green">
           {!! $box !!}
         </div>
       </div>

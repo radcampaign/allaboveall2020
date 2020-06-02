@@ -31,10 +31,6 @@
         </li>
       @endforeach
     </ul>
-    @if(substr($n['posttype'], -1) == 's')
-      <a href="{{ $n['url'] }}" class="btn btn-white btn-black-outline uppercase">More {{ $n['posttype'] }}</a>
-    @else
-      <a href="{{ $n['url'] }}" class="btn btn-white btn-black-outline uppercase">More {{ $n['posttype'] }}s</a>
-    @endif
+      <a href="{{ $n['url'] }}" class="btn btn-white btn-black-outline uppercase">More {{ $title }}</a>
   </div>
 @endif

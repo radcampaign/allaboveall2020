@@ -7,6 +7,7 @@
   $image = get_field('featured_image', $tag);
   $tag_content = get_field('taxonomy_content', $tag);
   $slug = $tag->slug;
+  $box = get_field('feature_black_box', $tag);
 @endphp
 
 @section('content')
@@ -29,12 +30,8 @@
         {!! $tag_content !!}
       </div>
       <div class="col-lg-6 text-center">
-        <div class="black-box box-shadow">
-          <h3>The EACH Women Act</h3>
-          <ul class="asterisk-list">
-            <li>Ensures coverage for abortion for every woman, transgender and gender non-conforming person.</li>
-            <li>Stops politicians from interfering in a wooman's decision to get an abortion</li>
-          </ul>
+        <div class="black-box box-shadow list-asterisk-green">
+          {!! $box !!}
         </div>
       </div>
     </div>
