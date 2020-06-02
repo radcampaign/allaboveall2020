@@ -2,7 +2,11 @@
   border: 20px solid black;
   position: relative;
   padding: 2rem;
-  margin-bottom: 2rem;
+  margin: 3rem 0;
+
+  .col-lg-6 {
+    padding: 0 2.3rem;
+  }
 
   .arrow {
     color: black;
@@ -20,10 +24,26 @@
   }
 }
 
+.full-width-two-col {
+  margin: 2rem 0;
+
+  .container-inner {
+    .row {
+      align-items: center;
+    }
+  }
+}
+
 .bg-img-upload .full-width-text-inner {
   padding: 3rem;
   background: rgba(0, 0, 0, 0.75),;
   color: white;
+}
+
+.bg-black {
+  background: black;
+  color: white;
+  padding: 2rem 0;
 }
 
 .full-width {
@@ -31,6 +51,8 @@
 }
 
 .asterisk-yes {
+  position: relative;
+
   &.asterisk-top {
     margin-top: 10rem;
 

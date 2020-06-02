@@ -1,6 +1,6 @@
 {{--
-  Title: Full-width text section
-  Description: Full width section with a content area and options for background color or image.
+  Title: Full-width one column
+  Description: Full width section with one column and options for background and asterisk.
   Category: layout
   Icon: star-filled
   Keywords: full image text
@@ -11,14 +11,16 @@
   SupportsMode: false
   SupportsMultiple: true
 --}}
-@php($asterisk = 'no-asterisk')
+@php
+  $asterisk = 'no-asterisk';
+@endphp
 @if($block['data']['asterisk'][0] == 'yes')
   @php($asterisk = 'asterisk-yes asterisk-'.$block['data']['asterisk_position'])
 @endif
 @if($block['data']['background'] == 'image_filter')
 <div
   data-{{ $block['id'] }}
-  class="{{ $block['classes'] }} {{ $asterisk }} bg-img-upload"
+  class="full-one-col {{ $block['classes'] }} {{ $asterisk }} bg-img-upload"
   {!! $block['background_image'] ? ' style="background-image: url(' . $block['background_image'] . ')"' : '' !!}
 >
 @elseif($block['data']['background'] == 'image_plain')
@@ -29,7 +31,7 @@
 @else
 <div
   data-{{ $block['id'] }}
-  class="{{ $block['classes'] }} {{ $asterisk }}">
+  class="{{ $block['classes'] }} {{ $asterisk }} bg-{!! $block['data']['background'] !!}">
 @endif
   <div class="full-width-text-inner">
   @if($block['data']['asterisk'][0] == 'yes')
@@ -38,24 +40,9 @@
      {{-- start container --}}
      <div class="container container-inner">
        <div class="row">
-        @if($block['data']['columns'] == 'one')
           <div class="col-lg-10 mx-auto">
             {!! $block['data']['one_column_wiswyg'] !!}
           </div>
-        @elseif($block['data']['columns'] == 'two')
-          <div class="col-lg-6 mx-auto">
-            {!! $block['data']['left_column_text'] !!}
-          </div>
-          <div class="col-lg-6 mx-auto">
-            @if($block['data']['right_column_content'] == 'right_embed')
-              <div>{!! $block['data']['right_column_embed'] !!}</div>
-            @elseif($block['data']['right_column_content'] == 'right_text')
-              <div>{!! $block['data']['right_column_text'] !!}</div>
-            @else
-              <div>{{!! $block['data']['right_column_image'] !!}}</div>
-            @endif
-          </div>
-        @endif
        </div>
      </div>
    </div>

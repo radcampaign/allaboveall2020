@@ -67,7 +67,7 @@ add_filter('template_include', function ($template) {
 }, PHP_INT_MAX);
 
 // custom blocks
-add_filter('sage/blocks/full-width/data', function ($block) {
+add_filter('sage/blocks/full-width-one-col/data', function ($block) {
   // Add all fields to block array.
   $fields = [
     'title',
@@ -79,7 +79,7 @@ add_filter('sage/blocks/full-width/data', function ($block) {
     $block[$field] = get_field($field);
   }
   if (!empty($block['background_image'])) {
-    $block['background_image'] = wp_get_attachment_image_src($block['background_image'], 'hero-1200')[0];
+    $block['background_image'] = wp_get_attachment_image_src($block['background_image'], 'full')[0];
   }
   // Set background color class.
   $block['classes'][] = "bg-{$block['background_color']}";

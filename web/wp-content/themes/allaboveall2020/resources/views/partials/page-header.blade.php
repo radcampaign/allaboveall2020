@@ -8,5 +8,5 @@
       </div>
     </div>
   </div>
-  <img src="/wp-content/themes/allaboveall2020/dist/images/asterisk-white.png" alt="white asterisk" class="header-asterisk" />
+  <img src="/wp/wp-content/themes/allaboveall2020/dist/images/asterisk-white.png" alt="white asterisk" class="header-asterisk" />
 </div>
