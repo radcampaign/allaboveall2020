@@ -30,3 +30,30 @@
     }
   }
 }
+
+.black-button {
+  a {
+    @extend .btn;
+    @extend .btn-black;
+  }
+}
+
+.green-button {
+  margin: 1rem 0;
+
+  a {
+    @extend .btn;
+  }
+}
+
+.bg-img-upload,
+.bg-black {
+  .green-button {
+    a {
+      &:hover {
+        background: white;
+        color: black;
+      }
+    }
+  }
+}

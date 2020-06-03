@@ -1,0 +1,40 @@
+.modal {
+  background: rgba(0, 0, 0, 0.5);
+
+  .modal-dialog {
+    margin-top: 25vh;
+  }
+
+  .modal-content {
+    background: transparent;
+    border: none;
+  }
+
+  .modal-header {
+    border-bottom: none;
+  }
+
+  .close {
+    opacity: 1;
+
+    .fa-times-circle {
+      font-size: 2rem;
+      color: white;
+    }
+  }
+
+  form.search-form {
+    justify-content: center;
+
+    input {
+      border-radius: 0;
+      border: none;
+      padding: 1.25rem;
+
+      &.search-field {
+        padding: 2rem;
+        min-width: 300px;
+      }
+    }
+  }
+}

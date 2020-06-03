@@ -35,10 +35,24 @@
                 }
               }
             ?>
-            <li><a href="/" class="secondary-item"><i class="fas fa-search"></i></a></li>
+            <li><a class="secondary-item" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-search"></i><span class="sr-only">Expand search form</span></a></li>
           </ul>
         </div>
       </div>
     </div>
   </div>
 </header>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="far fa-times-circle"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        @php(get_search_form())
+      </div>
+    </div>
+  </div>
+</div>

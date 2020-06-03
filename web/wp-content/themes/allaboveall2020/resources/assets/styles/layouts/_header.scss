@@ -30,7 +30,7 @@
 .page-header {
   padding: 1.5rem;
   background: $primary-color;
-  margin: 2rem 25px;
+  margin: 1rem 25px;
   position: relative;
 
   h1 {
@@ -75,6 +75,11 @@
 
     a {
       color: black;
+
+      &:hover {
+        color: $primary-color;
+        background: transparent;
+      }
     }
   }
 }
