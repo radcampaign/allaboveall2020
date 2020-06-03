@@ -14,6 +14,7 @@
 @php
   $imgleft = wp_get_attachment_image_src($block['data']['left_column_image'], 'full')[0];
   $imgright = wp_get_attachment_image_src($block['data']['right_column_image'], 'full')[0];
+  $imgstat = wp_get_attachment_image_src($block['data']['right_column_statistics_image'])[0];
   $asterisk = 'no-asterisk';
 @endphp
 @if($block['data']['asterisk'][0] == 'yes')
@@ -28,7 +29,7 @@
 @elseif($block['data']['background'] == 'image_plain')
 <div
   data-{{ $block['id'] }}
-  class="{{ $block['classes'] }} {{ $asterisk }} bg-img-plain" style="background-image: url('');">
+  class="{{ $block['classes'] }} {{ $asterisk }} bg-img-plain" style="background-image: url('/wp-content/uploads/2020/06/bg-image.png'); background-position: cover; background-repeat: no-repeat;">
 @else
 <div
   data-{{ $block['id'] }}
@@ -41,6 +42,20 @@
      {{-- start container --}}
      <div class="container container-inner">
        <div class="row">
+        @if($block['data']['right_column_content'] == 'statistics')
+          <div class="col-lg-8">
+            <div class="map-left">
+              {!! $block['data']['state_column_text'] !!}
+              @include('components.statelist', ['statetermlist' => App::stateTerms()])
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="black-box text-center">
+              {!! $block['data']['right_column_statistics_text'] !!}
+              <img src="{{ $imgstat }}" />
+            </div>
+          </div>
+        @else
           <div class="col-lg-6 mx-auto">
             @if($block['data']['left_column_content'] == 'text')
               <div>{!! $block['data']['left_column_text'] !!}</div>
@@ -57,6 +72,7 @@
               <div><img src="{{ $imgright }}"></div>
             @endif
           </div>
+        @endif
        </div>
      </div>
    </div>

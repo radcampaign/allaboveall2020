@@ -46,6 +46,10 @@
   padding: 2rem 0;
 }
 
+.bg-img-plain {
+  padding: 2rem 0;
+}
+
 .full-width {
   position: relative;
 }
@@ -212,5 +216,32 @@
 
   .text {
     padding: 0 5rem;
+  }
+}
+
+.map-left {
+  padding-right: 5rem;
+
+  @include media-breakpoint-down(md) {
+    padding-right: 0;
+  }
+
+  .select {
+    margin-top: 1rem;
+    max-width: 25%;
+
+    @include media-breakpoint-down(md) {
+      max-width: 80%;
+      margin-left: 10%;
+    }
+  }
+
+  .state-map {
+    margin-top: 1rem;
+    max-width: 75%;
+
+    @include media-breakpoint-down(md) {
+      max-width: 100%;
+    }
   }
 }

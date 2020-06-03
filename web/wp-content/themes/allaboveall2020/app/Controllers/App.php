@@ -12,6 +12,17 @@ class App extends Controller
         return get_bloginfo('name');
     }
 
+    public function stateTerms() {
+      global $wp;
+      $statetermlist = get_terms( array( 
+        'taxonomy' => 'state',
+        'orderby' => 'name',
+        'order' => 'ASC',
+        'hide_empty' => false,
+      ));
+      return $statetermlist;
+    }
+
     public static function nav($menu) {
 
       global $wp;
