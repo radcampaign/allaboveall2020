@@ -36,7 +36,7 @@ define( 'DISALLOW_FILE_MODS', true );
 /**
  * Force SSL
  */
-define( 'FORCE_SSL_ADMIN', true );
+define( 'FORCE_SSL_ADMIN', false );
 
 /**
  * Limit post revisions
@@ -56,7 +56,7 @@ if ( ! isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ):
 	// through here, so <img> tags and the like don't generate mixed-mode
 	// content warnings.
 	if ( isset( $_SERVER['HTTP_USER_AGENT_HTTPS'] ) && $_SERVER['HTTP_USER_AGENT_HTTPS'] == 'ON' ) {
-		$scheme = 'https';
+		$scheme = 'http';
 	}
 	$site_url = getenv( 'WP_HOME' ) !== false ? getenv( 'WP_HOME' ) : $scheme . '://' . $_SERVER['HTTP_HOST'] . '/';
 	define( 'WP_HOME', $site_url );
@@ -65,10 +65,16 @@ if ( ! isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ):
 	/**
 	 * Set Database Details
 	 */
-	define( 'DB_NAME', getenv( 'DB_NAME' ) );
-	define( 'DB_USER', getenv( 'DB_USER' ) );
-	define( 'DB_PASSWORD', getenv( 'DB_PASSWORD' ) !== false ? getenv( 'DB_PASSWORD' ) : '' );
-	define( 'DB_HOST', getenv( 'DB_HOST' ) );
+define( 'DB_NAME', 'allaboveall' );
+
+/** MySQL database username */
+define( 'DB_USER', 'alluser' );
+
+/** MySQL database password */
+define( 'DB_PASSWORD', 'allpass' );
+
+/** MySQL hostname */
+define( 'DB_HOST', 'localhost' );
 
 	/**
 	 * Set debug modes
