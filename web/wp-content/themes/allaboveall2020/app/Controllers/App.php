@@ -122,6 +122,48 @@ class App extends Controller
       wp_reset_postdata();
     }
 
+    public static function campaignlist($taxid, $posttype, $numposts) {
+      $args = array(
+        'post_type' => $posttype,
+        'posts_per_page' => $numposts,
+        'orderby' => 'date',
+        'order'   => 'DESC',
+        'post_status' => 'publish',
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'campaign',
+                'field' => 'term_id',
+                'terms' => $taxid,
+            )
+        )
+      );
+      $query = new WP_Query( $args );
+      $camplisting = array();
+      $tax = ucfirst($posttype);
+      if($posttype == 'resource') {
+        $icon = 'far fa-file-alt';
+      }
+      elseif($posttype == 'update') {
+        $icon = 'fas fa-rss';
+      }
+      else {
+
+      }
+      if ($query->have_posts()) {
+        // Start the Loop
+        $camplisting[] = array('tax' => $tax, 'icon' => $icon);
+        while ( $query->have_posts() ) : $query->the_post();
+        // Your loop code
+          $camplisting[] = array('title' => get_the_title(), 'date' => get_the_date(), 'url' => get_the_permalink(), 'excerpt' => get_the_excerpt(), 'posttype' => $posttype);
+        endwhile;  
+               
+      } // end of check for query having posts
+      return $camplisting;
+           
+      // use reset postdata to restore orginal query
+      wp_reset_postdata();
+    }
+
     public static function actionapp($taxid, $posttype) {
       $args = array(
         'post_type' => $posttype,

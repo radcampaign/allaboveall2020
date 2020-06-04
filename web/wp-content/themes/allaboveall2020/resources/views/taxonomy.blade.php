@@ -2,12 +2,13 @@
 
 @php
   $tag = get_queried_object();
-  $tag_des = $tag->description;
-  $tag_id = $tag->term_id;
-  $image = get_field('featured_image', $tag);
-  $tag_content = get_field('taxonomy_content', $tag);
-  $slug = $tag->slug;
-  $box = get_field('feature_black_box', $tag);
+  $tagarray = get_object_vars($tag);
+  $tag_des = $tagarray['description'];
+  $tag_id = $tagarray['term_id'];
+  $image = get_field('featured_image', $tagarray);
+  $tag_content = get_field('taxonomy_content', $tagarray);
+  $slug = $tagarray['slug'];
+  $box = get_field('feature_black_box', $tagarray);
 @endphp
 
 @section('content')
@@ -40,14 +41,8 @@
 @include('components.featuredaction', ['featuredaction' => App::actionapp($tag_id, 'action_item')])
   <div class="container mt-5 mb-5">
     <div class="row">
-      <div class="col-lg-6">
-        <h3><i class="far fa-file-alt text-green"></i> Resources</h3>
-        @include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'resource', '3')])
-      </div>
-      <div class="col-lg-6">
-        <h3><i class="fas fa-rss text-green"></i> News</h3>
-        @include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'update', '2')])
-      </div>
+      @include('components.camplist', ['camplisting' => App::campaignlist($slug, 'resource', '3')])
+      @include('components.camplist', ['camplisting' => App::campaignlist($slug, 'update', '2')])
     </div>
   </div>
 @endsection
