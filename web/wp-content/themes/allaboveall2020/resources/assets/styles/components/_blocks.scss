@@ -245,3 +245,16 @@
     }
   }
 }
+
+.select-page {
+  width: 50%;
+  margin: 2rem auto;
+
+  @include media-breakpoint-down(md) {
+    width: 80%;
+  }
+}
+
+#mapbase {
+  margin-bottom: 2rem;
+}

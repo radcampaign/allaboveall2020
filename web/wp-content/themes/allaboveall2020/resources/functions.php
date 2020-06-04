@@ -456,4 +456,28 @@ function my_mce_before_init_insert_formats( $init_array ) {
    
 } 
 // Attach callback to 'tiny_mce_before_init' 
-add_filter( 'tiny_mce_before_init', 'my_mce_before_init_insert_formats' ); 
+add_filter( 'tiny_mce_before_init', 'my_mce_before_init_insert_formats' );
+
+function register_shortcodes() {
+  add_shortcode('stateDropdown', 'shortcode_state_dropdown');
+}
+add_action( 'init', 'register_shortcodes' );
+
+function shortcode_state_dropdown($atts, $content = null) {
+  global $wp;
+  $statetermlist = get_terms( array( 
+    'taxonomy' => 'state',
+    'orderby' => 'name',
+    'order' => 'ASC',
+    'hide_empty' => false,
+  ));
+  $statedropdown = '<div class="select select-page">
+  <select id="dynamic_select" class="form-control">
+    <option>Select a State</option>';
+  foreach($statetermlist as $state) {
+    $statedropdown = $statedropdown.'<option value="/state/'.$state->slug.'">'.$state->name.'</option>';
+  }
+  $statedropdown = $statedropdown.'</select></div>';
+  return $statedropdown;
+  wp_reset_postdata();
+}
