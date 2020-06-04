@@ -6,10 +6,6 @@ a.navbar-brand {
 
 .navbar {
   .navbar-nav {
-    .nav-item {
-      padding-right: 1rem;
-    }
-
     a {
       padding-left: 0;
       font-size: 0.875rem;
@@ -21,6 +17,17 @@ a.navbar-brand {
       &:hover {
         background: black;
         color: white;
+      }
+    }
+
+    .nav-item {
+      padding-right: 1rem;
+
+      &.active {
+        a {
+          background: black;
+          color: white;
+        }
       }
     }
 

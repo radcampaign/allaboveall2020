@@ -258,3 +258,27 @@
 #mapbase {
   margin-bottom: 2rem;
 }
+
+.stats-trio {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  text-transform: uppercase;
+  justify-content: center;
+  font-family: "Aaux-Bold", sans-serif;
+
+  .num-large {
+    font-size: 4rem;
+  }
+
+  .text-mid {
+    margin: 0 1rem;
+  }
+}
+
+.stats-large-num {
+  text-align: center;
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  font-family: "Aaux-Bold", sans-serif;
+}

@@ -16,6 +16,7 @@
   $imgright = wp_get_attachment_image_src($block['data']['right_column_image'], 'full')[0];
   $imgstat = wp_get_attachment_image_src($block['data']['right_column_statistics_image'])[0];
   $asterisk = 'no-asterisk';
+  $statnums = get_field('statistics_two_numbers');
 @endphp
 @if($block['data']['asterisk'][0] == 'yes')
   @php($asterisk = 'asterisk-yes asterisk-'.$block['data']['asterisk_position'])
@@ -51,7 +52,20 @@
           </div>
           <div class="col-lg-4">
             <div class="black-box text-center">
-              {!! $block['data']['right_column_statistics_text'] !!}
+              @if($block['data']['statistics_options'] == 'numbers')
+                <div class="stats-trio">
+                  <div class="num-large">{{ $statnums['first_number'] }}</div>
+                  <div class="text-mid">{{ $statnums['middle_text'] }}</div>
+                  <div class="num-large">{{ $statnums['second_number'] }}</div>
+                </div>
+              @elseif($block['data']['statistics_options'] == 'number')
+                <div class="stats-large-num">
+                  {!! $block['data']['statistic_one_large_number'] !!}
+                </div>
+              @endif
+              <div class="mb-3">
+                {!! $block['data']['right_column_statistics_text'] !!}
+              </div>
               <img src="{{ $imgstat }}" />
             </div>
           </div>
