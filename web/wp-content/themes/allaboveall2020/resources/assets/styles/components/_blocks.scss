@@ -282,3 +282,47 @@
   margin-bottom: 1rem;
   font-family: "Aaux-Bold", sans-serif;
 }
+
+.document-download {
+  border: 2px solid black;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: "Aaux-Bold", sans-serif;
+  display: inline-block;
+}
+
+.post-state,
+.post-campaign {
+  text-transform: uppercase;
+  margin-top: 1rem;
+
+  label {
+    font-family: "Aaux-Bold", sans-serif;
+    margin: 0;
+  }
+
+  ul {
+    padding: 0;
+    display: flex;
+    margin: 0;
+
+    li {
+      margin-left: 1rem;
+      list-style: none;
+      padding-bottom: 3px;
+
+      a {
+        padding: 0.35rem;
+        font-size: 0.75rem;
+        background: $gray-200;
+        font-family: "Aaux-Bold", sans-serif;
+        text-decoration: none;
+
+        &:hover {
+          background: $primary-color;
+        }
+      }
+    }
+  }
+}

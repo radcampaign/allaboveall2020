@@ -27,9 +27,10 @@ import { library, dom } from '@fortawesome/fontawesome-svg-core';
 import { faFacebookF, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faSearch, faArrowUp, faBars, faRss } from '@fortawesome/free-solid-svg-icons';
 import { faFileAlt, faTimesCircle, faAngleDown } from '@fortawesome/pro-regular-svg-icons';
+import { faFilePdf } from '@fortawesome/pro-light-svg-icons';
 
 // add the imported icons to the library
-library.add(faFacebookF, faTwitter, faInstagram, faSearch, faArrowUp, faBars, faRss, faFileAlt, faTimesCircle, faAngleDown);
+library.add(faFacebookF, faTwitter, faInstagram, faSearch, faArrowUp, faBars, faRss, faFileAlt, faTimesCircle, faAngleDown, faFilePdf);
 config.searchPseudoElements = true;
 
 // tell FontAwesome to watch the DOM and add the SVGs when it detects icon markup

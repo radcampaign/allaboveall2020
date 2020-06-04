@@ -31,6 +31,10 @@ body {
   }
 }
 
+.bold {
+  font-family: "Aaux-Bold", sans-serif;
+}
+
 .text-larger {
   font-size: 1.25rem;
 }
@@ -49,4 +53,9 @@ nav a {
 
 .list-style-none {
   list-style: none;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
 }
