@@ -10,6 +10,7 @@
         <div class="footer-nav-social">
           <ul>
             <?php
+              $date = date('Y');
               $menu_name = 'footer_social';
               $locations = get_nav_menu_locations();
               $menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
@@ -34,6 +35,7 @@
         </div>
         <div class="footer-text">
           <p>PH (374) 719-3255</p>
+          <p><i class="far fa-copyright"></i> {{ $date }} All* Above All. All Rights Reserved.</p>
         </div>
       </div>
     </div>

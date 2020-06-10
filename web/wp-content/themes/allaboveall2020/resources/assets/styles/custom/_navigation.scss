@@ -4,10 +4,33 @@ a.navbar-brand {
   }
 }
 
+.nav-footer {
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+
+  .menu-item {
+    list-style: none;
+    margin-right: 2rem;
+
+    a {
+      color: white;
+      background: transparent;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-family: "Aaux-Bold", sans-serif;
+
+      &:hover {
+        color: $primary-color;
+        background: transparent;
+      }
+    }
+  }
+}
+
 .navbar {
   .navbar-nav {
-    a {
-      padding-left: 0;
+    .nav-link {
       font-size: 0.875rem;
       text-transform: uppercase;
       font-weight: 600;
@@ -24,7 +47,7 @@ a.navbar-brand {
       padding-right: 1rem;
 
       &.active {
-        a {
+        .nav-link {
           background: black;
           color: white;
         }

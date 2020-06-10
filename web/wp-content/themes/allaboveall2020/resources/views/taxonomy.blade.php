@@ -27,10 +27,10 @@
 <div class="tag-des background-image">
   <div class="container">
     <div class="row">
-      <div class="col-lg-5 offset-lg-1">
+      <div class="col-lg-7 offset-lg-1">
         {!! $tag_content !!}
       </div>
-      <div class="col-lg-6 text-center">
+      <div class="col-lg-4 text-center">
         <div class="black-box box-shadow list-asterisk-green">
           {!! $box !!}
         </div>
