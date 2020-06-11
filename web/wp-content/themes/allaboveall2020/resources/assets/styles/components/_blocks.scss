@@ -57,26 +57,6 @@
 .asterisk-yes {
   position: relative;
 
-  &.asterisk-top {
-    margin-top: 10rem;
-
-    .asterisk-container {
-      position: absolute;
-      top: -50px;
-      left: 0;
-      width: 100%;
-      text-align: center;
-
-      img {
-        max-width: 150px;
-      }
-    }
-
-    .container-inner {
-      margin-top: 4rem;
-    }
-  }
-
   &.asterisk-right {
     padding: 3rem 0;
     margin: 5rem 0;
@@ -97,6 +77,27 @@
     .container-inner {
       position: relative;
       z-index: 6;
+    }
+  }
+
+  &.asterisk-top {
+    margin-top: 10rem;
+
+    .asterisk-container {
+      position: absolute;
+      top: -50px;
+      left: 0;
+      width: 100%;
+      max-width: 100%;
+      text-align: center;
+
+      img {
+        max-width: 150px;
+      }
+    }
+
+    .container-inner {
+      margin-top: 4rem;
     }
   }
 }
@@ -229,7 +230,8 @@
 
   .select {
     margin-top: 1rem;
-    max-width: 25%;
+    max-width: 26%;
+    background-color: white;
 
     @include media-breakpoint-down(md) {
       max-width: 80%;
