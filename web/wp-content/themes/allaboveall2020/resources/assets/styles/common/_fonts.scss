@@ -17,3 +17,13 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: "Aaux-Black";
+  src:
+    url("../fonts/AAUXPROBASIC/AauxProOT-Black.ttf") format("truetype"),
+    url("../fonts/AAUXPROBASIC/AauxProOT-Black.woff") format("woff"),
+    url("../fonts/AAUXPROBASIC/AauxProOTBlack.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+}

@@ -30,7 +30,7 @@
 @elseif($block['data']['background'] == 'image_plain')
 <div
   data-{{ $block['id'] }}
-  class="{{ $block['classes'] }} {{ $asterisk }} bg-img-plain" style="background-image: url('/wp-content/uploads/2020/06/bg-image.png'); background-position: cover; background-repeat: no-repeat;">
+  class="{{ $block['classes'] }} {{ $asterisk }} bg-img-plain" style="background-image: url('/wp-content/uploads/2020/06/bgd-texture.jpg'); background-position: cover; background-repeat: repeat;">
 @else
 <div
   data-{{ $block['id'] }}

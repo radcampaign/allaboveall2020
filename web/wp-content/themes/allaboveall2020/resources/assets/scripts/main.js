@@ -37,6 +37,9 @@ config.searchPseudoElements = true;
 dom.watch();
 
 $(document).ready(function() { 
+  $('.wp-block-group__inner-container').addClass('container');
+  $('.wp-block-columns').addClass('row');
+  $('.wp-block-column').addClass('col');
   var headerTopHeight = ''; 
   headerTopHeight = $('.header-top').outerHeight();
   $('.header-background-bar').height(headerTopHeight);

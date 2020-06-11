@@ -399,14 +399,6 @@ function mytheme_admin_bar_render() {
 }
 add_action( 'wp_before_admin_bar_render', 'mytheme_admin_bar_render' );
 
-add_filter( 'render_block', function( $block_content, $block ) {
-    // Target core/* and core-embed/* blocks.
-    if ( preg_match( '~^core/|core-embed/~', $block['blockName'] ) ) {
-       $block_content = sprintf( '<div class="container"><div class="row"><div class="col-lg-10 offset-lg-1">%s</div></div></div>', $block_content );
-    }
-    return $block_content;
-}, PHP_INT_MAX - 1, 2 );
-
 function wpb_mce_buttons_2($buttons) {
     array_unshift($buttons, 'styleselect');
     return $buttons;

@@ -9,10 +9,11 @@
   &.btn-black {
     @include button-variant($black, $black, $primary-color, $primary-color);
 
-    color: $primary-color;
+    color: $white;
 
     &:hover {
       color: black;
+      background: $primary-color;
     }
   }
 

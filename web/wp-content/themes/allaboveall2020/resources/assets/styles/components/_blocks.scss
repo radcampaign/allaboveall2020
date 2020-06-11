@@ -112,6 +112,7 @@
 
     .letter {
       background: $primary-color;
+      font-family: "Aaux-Black", sans-serif;
       color: black;
       font-weight: 600;
       font-size: 5rem;
@@ -265,7 +266,7 @@
   font-size: 2rem;
   text-transform: uppercase;
   justify-content: center;
-  font-family: "Aaux-Bold", sans-serif;
+  font-family: "Aaux-Black", sans-serif;
 
   .num-large {
     font-size: 4rem;
@@ -280,7 +281,7 @@
   text-align: center;
   font-size: 4rem;
   margin-bottom: 1rem;
-  font-family: "Aaux-Bold", sans-serif;
+  font-family: "Aaux-Black", sans-serif;
 }
 
 .document-download {
