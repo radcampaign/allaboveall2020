@@ -12,9 +12,9 @@
   SupportsMultiple: true
 --}}
 @php
-  $imgleft = wp_get_attachment_image_src($block['data']['left_column_image'], 'full')[0];
-  $imgright = wp_get_attachment_image_src($block['data']['right_column_image'], 'full')[0];
-  $imgstat = wp_get_attachment_image_src($block['data']['right_column_statistics_image'])[0];
+  $imgleft = wp_get_attachment_image_src($block['data']['left_column_image'], 'full', false)[0];
+  $imgright = wp_get_attachment_image_src($block['data']['right_column_image'], 'full', false)[0];
+  $imgstat = wp_get_attachment_image_src($block['data']['right_column_statistics_image'], 'full', false)[0];
   $asterisk = 'no-asterisk';
   $statnums = get_field('statistics_two_numbers');
 @endphp
@@ -43,6 +43,10 @@
      {{-- start container --}}
      <div class="container container-inner">
        <div class="row">
+        @if($block['data']['column_width'] == 'narrow')
+          <div class="col-lg-10 offset-lg-1">
+            <div class="row">
+        @endif
         @if($block['data']['right_column_content'] == 'statistics')
           <div class="col-lg-8">
             <div class="map-left">
@@ -69,6 +73,10 @@
               <img src="{{ $imgstat }}" />
             </div>
           </div>
+          @if($block['data']['column_width'] == 'narrow')
+              </div>
+            </div>
+          @endif
         @else
           <div class="col-lg-6 mx-auto">
             @if($block['data']['left_column_content'] == 'text')

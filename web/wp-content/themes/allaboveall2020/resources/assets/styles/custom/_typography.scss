@@ -52,6 +52,12 @@ a {
     text-decoration: none;
     background: $primary-color;
   }
+
+  &.image-hover {
+    &:hover {
+      background: transparent;
+    }
+  }
 }
 
 .single {

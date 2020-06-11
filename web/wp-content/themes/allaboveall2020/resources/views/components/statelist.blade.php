@@ -6,4 +6,4 @@
   @endforeach
   </select>
 </div>
-<img src="/wp-content/uploads/2020/06/bw-map.png" alt="state map" class="state-map" />
+<a href="/abortion-coverage" class="image-hover"><img src="/wp-content/uploads/2020/06/bw-map.png" alt="state map" class="state-map" /></a>
