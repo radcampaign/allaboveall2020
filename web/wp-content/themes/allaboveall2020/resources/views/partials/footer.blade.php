@@ -6,7 +6,7 @@
           <img src="@asset('images/aaa-logo-white.png')">
         </a>
       </div>
-      <div class="col-lg-9 offset-lg-1">
+      <div class="col-lg-9">
         <div class="footer-nav-social">
           <ul>
             <?php

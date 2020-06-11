@@ -9,10 +9,14 @@
     </div>
     {!! get_search_form(false) !!}
   @endif
-
-  @while(have_posts()) @php the_post() @endphp
-    @include('partials.content-search')
-  @endwhile
-
-  {!! get_the_posts_navigation() !!}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10 offset-lg-1">
+      @while(have_posts()) @php the_post() @endphp
+        @include('partials.content-search')
+      @endwhile
+      {!! get_the_posts_navigation() !!}
+    </div>
+  </div>
+</div>
 @endsection

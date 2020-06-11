@@ -1,0 +1,13 @@
+.updates {
+  .meta {
+    display: flex;
+    color: $gray-550;
+    margin-bottom: 1rem;
+
+    .author {
+      margin-left: 1rem;
+      padding-left: 1rem;
+      border-left: 1px solid $gray-550;
+    }
+  }
+}
