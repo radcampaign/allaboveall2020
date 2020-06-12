@@ -32,6 +32,14 @@
   }
 }
 
+.posts-navigation {
+  margin-bottom: 2rem;
+
+  a {
+    @extend .btn;
+  }
+}
+
 .black-button {
   a {
     @extend .btn;

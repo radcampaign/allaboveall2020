@@ -20,8 +20,6 @@
     <div class="row">
       <div class="col-lg-12">
           <div class="entry-content">
-            @if (!empty(the_post_thumbnail())) {{ the_post_thumbnail() }} @endif
-            
             @php the_content() @endphp
             @if (!empty(get_field('file')))
               <div class="mb-5 mt-5">
