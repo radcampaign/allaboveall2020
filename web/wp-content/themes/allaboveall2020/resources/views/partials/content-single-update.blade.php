@@ -16,7 +16,7 @@
       <div class="col-lg-10 offset-lg-1">
         <div class="meta">
           <div class="date">{!! get_the_date() !!}</div>
-          <div class="author">{!! get_the_author() !!}</div>
+          <div class="author">{!! the_field('author') !!}</div>
         </div>
           <div class="entry-content">
             @if ($featured_image) {!! $featured_image_url !!} @endif
