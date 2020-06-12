@@ -78,7 +78,11 @@
             @if($block['data']['left_column_content'] == 'text')
               <div>{{ the_field('left_column_text') }}</div>
             @else
-              <div><img src="{{ $imgleft }}"></div>
+              @if(!empty($block['data']['left_image_url']))
+                <div><a href="{!! $block['data']['left_image_url']['url'] !!}"><img src="{{ $imgleft }}"></a></div>
+              @else
+                <div><img src="{{ $imgleft }}"></div>
+              @endif
             @endif
           </div>
           <div class="col-lg-6 mx-auto">
@@ -87,7 +91,11 @@
             @elseif($block['data']['right_column_content'] == 'right_text')
               <div>{{ the_field('right_column_text') }}</div>
             @else
-              <div><a href="{!! $block['data']['right_image_url']['url'] !!}"><img src="{{ $imgright }}"></a></div>
+              @if(!empty($block['data']['right_image_url']))
+                <div><a href="{!! $block['data']['right_image_url']['url'] !!}"><img src="{{ $imgright }}"></a></div>
+              @else
+                <div><img src="{{ $imgright }}"></div>
+              @endif
             @endif
           </div>
         @endif
