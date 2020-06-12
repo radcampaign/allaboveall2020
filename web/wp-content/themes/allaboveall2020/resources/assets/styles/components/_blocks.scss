@@ -25,13 +25,18 @@
 }
 
 .full-width-two-col {
-  margin: 2rem 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 
   .container-inner {
     .row {
       align-items: center;
     }
   }
+}
+
+.full-width-one-col {
+  margin: 1rem 0;
 }
 
 .bg-img-upload .full-width-text-inner {
@@ -58,13 +63,13 @@
   position: relative;
 
   &.asterisk-right {
-    padding: 3rem 0;
+    padding: 3rem 0 10rem;
     margin: 5rem 0;
 
     .asterisk-container {
       position: absolute;
       right: 0;
-      top: 10%;
+      top: 5rem;
       z-index: 5;
       max-width: 350px;
       overflow-x: hidden;

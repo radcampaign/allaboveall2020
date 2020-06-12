@@ -70,17 +70,13 @@
               <div class="mb-3">
                 {!! $block['data']['right_column_statistics_text'] !!}
               </div>
-              <img src="{{ $imgstat }}" />
+              <a href="{!! $block['data']['left_image_url']['url'] !!}"><img src="{{ $imgstat }}" /></a>
             </div>
           </div>
-          @if($block['data']['column_width'] == 'narrow')
-              </div>
-            </div>
-          @endif
         @else
           <div class="col-lg-6 mx-auto">
             @if($block['data']['left_column_content'] == 'text')
-              <div>{!! $block['data']['left_column_text'] !!}</div>
+              <div>{{ the_field('left_column_text') }}</div>
             @else
               <div><img src="{{ $imgleft }}"></div>
             @endif
@@ -89,12 +85,16 @@
             @if($block['data']['right_column_content'] == 'right_embed')
               <div>{!! $block['data']['right_column_embed'] !!}</div>
             @elseif($block['data']['right_column_content'] == 'right_text')
-              <div>{!! $block['data']['right_column_text'] !!}</div>
+              <div>{{ the_field('right_column_text') }}</div>
             @else
-              <div><img src="{{ $imgright }}"></div>
+              <div><a href="{!! $block['data']['right_image_url']['url'] !!}"><img src="{{ $imgright }}"></a></div>
             @endif
           </div>
         @endif
+        @if($block['data']['column_width'] == 'narrow')
+              </div>
+            </div>
+          @endif
        </div>
      </div>
    </div>

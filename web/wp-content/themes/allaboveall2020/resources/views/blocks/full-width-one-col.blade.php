@@ -40,7 +40,7 @@
      <div class="container container-inner">
        <div class="row">
           <div class="col-lg-10 mx-auto">
-            {!! $block['data']['one_column_wiswyg'] !!}
+            {{ the_field('one_column_wiswyg') }}
           </div>
        </div>
      </div>
