@@ -20,7 +20,7 @@
         @endphp
         <li class="tax-list-item">
           <h4><a href="{{ $n['url'] }}">{{ $n['title'] }}</a></h4>
-          @if((!empty($n['date'])) && ($n['posttype'] == 'news'))
+          @if((!empty($n['date'])))
             <div class="date">{{ $n['date'] }}</div>
           @endif
           @if(!empty($n['excerpt']))
