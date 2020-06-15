@@ -201,10 +201,17 @@
     font-size: 1.15rem;
   }
 
-  .date {
+  .meta {
+    display: flex;
     color: $gray-550;
     margin: 0.5rem 0;
     font-size: 1rem;
+
+    .name {
+      margin-left: 1rem;
+      padding-left: 1rem;
+      border-left: 1px solid $gray-550;
+    }
   }
 
   h4 {

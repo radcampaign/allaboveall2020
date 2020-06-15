@@ -121,11 +121,13 @@ class App extends Controller
         $posted = get_post_type();
         if($posted == 'news') {
           $link = get_field('publication_link');
+          $name = get_field('publication_name');
         }
         else {
           $link = '';
+          $name = '';
         }
-          $taxlisting[] = array('title' => get_the_title(), 'date' => get_the_date(), 'url' => get_the_permalink(), 'excerpt' => get_the_excerpt(), 'posttype' => $posted, 'link' => $link);
+          $taxlisting[] = array('title' => get_the_title(), 'date' => get_the_date(), 'url' => get_the_permalink(), 'excerpt' => get_the_excerpt(), 'posttype' => $posted, 'link' => $link, 'name' => $name);
         endwhile;  
                
       } // end of check for query having posts
@@ -175,12 +177,14 @@ class App extends Controller
         $posted = get_post_type();
         if($posted == 'news') {
           $link = get_field('publication_link');
+          $name = get_field('publication_name');
         }
         else {
           $link = '';
+          $name = '';
         }
         // Your loop code
-          $camplisting[] = array('title' => get_the_title(), 'date' => get_the_date(), 'url' => get_the_permalink(), 'excerpt' => get_the_excerpt(), 'posttype' => $posted, 'link' => $link);
+          $camplisting[] = array('title' => get_the_title(), 'date' => get_the_date(), 'url' => get_the_permalink(), 'excerpt' => get_the_excerpt(), 'posttype' => $posted, 'link' => $link, 'name' => $name);
         endwhile;  
                
       } // end of check for query having posts

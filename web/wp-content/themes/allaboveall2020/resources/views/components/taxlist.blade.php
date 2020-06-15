@@ -25,7 +25,12 @@
             <h4><a href="{{ $n['url'] }}">{{ $n['title'] }}</a></h4>
           @endif
           @if((!empty($n['date'])))
-            <div class="date">{{ $n['date'] }}</div>
+            <div class="meta">
+              <div class="date">{{ $n['date'] }}</div>
+              @if($n['posttype'] == 'news')
+                <div class="name">{{ $n['name'] }}</div>
+              @endif
+            </div>
           @endif
           @if(!empty($n['excerpt']))
             <div class="excerpt">
