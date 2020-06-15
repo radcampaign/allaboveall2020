@@ -81,8 +81,14 @@ class App extends Controller
     }
 
     public static function taxlist($taxid, $posttype, $numposts) {
+      if($posttype == 'update') {
+        $posts = array($posttype, 'news');
+      }
+      else {
+        $posts = $posttype;
+      }
       $args = array(
-        'post_type' => $posttype,
+        'post_type' => $posts,
         'posts_per_page' => $numposts,
         'orderby' => 'date',
         'order'   => 'DESC',
@@ -112,7 +118,8 @@ class App extends Controller
         $taxlisting[] = array('tax' => $tax, 'icon' => $icon);
         while ( $query->have_posts() ) : $query->the_post();
         // Your loop code
-          $taxlisting[] = array('title' => get_the_title(), 'date' => get_the_date(), 'url' => get_the_permalink(), 'excerpt' => get_the_excerpt(), 'posttype' => $posttype);
+        $posted = get_post_type();
+          $taxlisting[] = array('title' => get_the_title(), 'date' => get_the_date(), 'url' => get_the_permalink(), 'excerpt' => get_the_excerpt(), 'posttype' => $posted);
         endwhile;  
                
       } // end of check for query having posts
@@ -123,8 +130,14 @@ class App extends Controller
     }
 
     public static function campaignlist($taxid, $posttype, $numposts) {
+      if($posttype == 'update') {
+        $posts = array($posttype, 'news');
+      }
+      else {
+        $posts = $posttype;
+      }
       $args = array(
-        'post_type' => $posttype,
+        'post_type' => $posts,
         'posts_per_page' => $numposts,
         'orderby' => 'date',
         'order'   => 'DESC',
@@ -153,8 +166,9 @@ class App extends Controller
         // Start the Loop
         $camplisting[] = array('tax' => $tax, 'icon' => $icon);
         while ( $query->have_posts() ) : $query->the_post();
+        $posted = get_post_type();
         // Your loop code
-          $camplisting[] = array('title' => get_the_title(), 'date' => get_the_date(), 'url' => get_the_permalink(), 'excerpt' => get_the_excerpt(), 'posttype' => $posttype);
+          $camplisting[] = array('title' => get_the_title(), 'date' => get_the_date(), 'url' => get_the_permalink(), 'excerpt' => get_the_excerpt(), 'posttype' => $posted);
         endwhile;  
                
       } // end of check for query having posts

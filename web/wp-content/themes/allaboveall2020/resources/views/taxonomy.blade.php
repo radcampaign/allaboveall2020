@@ -42,7 +42,7 @@
   <div class="container mt-5 mb-5">
     <div class="row">
       @include('components.camplist', ['camplisting' => App::campaignlist($slug, 'resource', '3')])
-      @include('components.camplist', ['camplisting' => App::campaignlist($slug, 'update', '2')])
+      @include('components.camplist', ['camplisting' => App::campaignlist($slug, 'update', '3')])
     </div>
   </div>
 @endsection

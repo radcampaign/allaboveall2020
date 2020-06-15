@@ -209,6 +209,11 @@
 
   h4 {
     font-size: 1.25rem;
+
+    svg {
+      margin-left: 0.5rem;
+      max-width: 0.875rem;
+    }
   }
 }
 
@@ -341,6 +346,10 @@
 
 .homepage-hero {
   margin-top: 1rem;
+
+  h5 {
+    margin-top: 0;
+  }
 
   .full-width-text-inner {
     padding-top: 5rem;

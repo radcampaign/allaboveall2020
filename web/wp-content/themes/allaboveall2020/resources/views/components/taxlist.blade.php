@@ -19,7 +19,11 @@
           }
         @endphp
         <li class="tax-list-item">
-          <h4><a href="{{ $n['url'] }}">{{ $n['title'] }}</a></h4>
+          @if($n['posttype'] == 'news')
+            <h4><a href="{{ $n['url'] }}" target="_blank">{{ $n['title'] }}</a><i class="far fa-external-link-alt"></i></h4>
+          @else
+            <h4><a href="{{ $n['url'] }}">{{ $n['title'] }}</a></h4>
+          @endif
           @if((!empty($n['date'])) && ($n['posttype'] == 'news'))
             <div class="date">{{ $n['date'] }}</div>
           @endif

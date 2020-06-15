@@ -41,7 +41,7 @@
   <div class="container mt-5 mb-5">
     <div class="row">
       @include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'resource', '3')])
-      @include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'update', '2')])
+      @include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'update', '3')])
     </div>
   </div>
 @endsection
