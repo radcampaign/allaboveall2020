@@ -18,7 +18,7 @@
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-10 offset-lg-1">
           <div class="entry-content">
             @php the_content() @endphp
             @if (!empty(get_field('file')))
@@ -27,24 +27,28 @@
                   <a href="{!! $file['url'] !!}" target="_blank" class="document-download"><i class="fal fa-file-pdf"></i>  {!! $filename !!}</a>
               </div>
             @endif
-            <div class="post-campaign flex">
-              <label>Campaign</label>
-              <ul>
-                @php($campaigns = wp_get_post_terms($post->ID, 'campaign'))
-                  @foreach ($campaigns as $c)
-                    <li><a href="{{ get_term_link( $c->slug, 'campaign') }}">{{ $c->name }}</a></li>
-                  @endforeach
-              </ul>
-            </div>
-            <div class="post-state flex">
-              <label>State</label>
-              <ul>
-                @php($states = wp_get_post_terms($post->ID, 'state'))
-                  @foreach ($states as $sl)
-                    <li><a href="{{ get_term_link( $sl->slug, 'state') }}">{{ $sl->name }}</a></li>
-                  @endforeach
-              </ul>
-            </div>
+            @php($campaigns = wp_get_post_terms($post->ID, 'campaign'))
+            @if(!empty($campaigns))
+              <div class="post-campaign flex">
+                <label>Campaign</label>
+                <ul>
+                    @foreach ($campaigns as $c)
+                      <li><a href="{{ get_term_link( $c->slug, 'campaign') }}">{{ $c->name }}</a></li>
+                    @endforeach
+                </ul>
+              </div>
+            @endif
+            @php($states = wp_get_post_terms($post->ID, 'state'))
+            @if(!empty($states))
+              <div class="post-state flex">
+                <label>State</label>
+                <ul>
+                    @foreach ($states as $sl)
+                      <li><a href="{{ get_term_link( $sl->slug, 'state') }}">{{ $sl->name }}</a></li>
+                    @endforeach
+                </ul>
+              </div>
+            @endif
           </div>
       </div>
     </div>
