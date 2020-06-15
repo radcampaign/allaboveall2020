@@ -194,6 +194,25 @@ class App extends Controller
       wp_reset_postdata();
     }
 
+    public static function mapapp() {
+      global $wp;
+      $statetermlist = get_terms( array( 
+        'taxonomy' => 'state',
+        'orderby' => 'name',
+        'order' => 'ASC',
+        'hide_empty' => false,
+      ));
+      $statedropdown = '<div class="select select-page">
+      <select id="dynamic_select" class="form-control">
+        <option>Select a State</option>';
+      foreach($statetermlist as $state) {
+        $statedropdown = $statedropdown.'<option value="/state/'.$state->slug.'">'.$state->name.'</option>';
+      }
+      $statedropdown = $statedropdown.'</select></div>';
+      return $statedropdown;
+      wp_reset_postdata();
+    }
+
     public static function actionapp($taxid, $posttype) {
       $args = array(
         'post_type' => $posttype,
@@ -245,4 +264,5 @@ class App extends Controller
       // use reset postdata to restore orginal query
       wp_reset_postdata();
     }
+
 }

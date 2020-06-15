@@ -29,9 +29,9 @@
       <div class="col-lg-7 offset-lg-1">
         {!! $tag_content !!}
       </div>
-      <div class="col-lg-4 text-center">
-        <div class="black-box box-shadow list-asterisk-green">
-          {!! $box !!}
+      <div class="col-lg-4">
+        <div class="state-box list-asterisk-green">
+          @include('components.statedropdown', ['statedropdown' => App::mapapp()])
         </div>
       </div>
     </div>
