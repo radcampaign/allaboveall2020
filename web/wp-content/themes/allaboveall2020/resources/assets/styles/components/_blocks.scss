@@ -110,6 +110,7 @@
 .bold-block {
   padding: 8rem 0;
   background: black;
+  color: white;
 
   .letter-block {
     margin: 2rem 0;
@@ -137,9 +138,33 @@
       width: 90%;
       margin-left: 10%;
       background: white;
+      color: black;
       min-height: 225px;
       padding: 2rem 4rem 2rem 6rem;
       z-index: 3;
+    }
+  }
+
+  &.bold-tall {
+    background: white;
+    color: black;
+
+    .letter {
+      box-shadow: 0 0 30px black;
+    }
+
+    .content {
+      background: black;
+      color: white;
+
+      .learn-more {
+        color: white;
+
+        &:hover {
+          color: $primary-color;
+          background-color: transparent;
+        }
+      }
     }
   }
 }

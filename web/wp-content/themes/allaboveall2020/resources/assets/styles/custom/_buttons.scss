@@ -30,6 +30,17 @@
       color: white;
     }
   }
+
+  &.btn-white-outline {
+    background: black;
+    border: 2px solid white;
+    color: white;
+
+    &:hover {
+      background: white;
+      color: black;
+    }
+  }
 }
 
 .posts-navigation {
