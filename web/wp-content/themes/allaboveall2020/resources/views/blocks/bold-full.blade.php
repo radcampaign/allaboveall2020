@@ -1,5 +1,5 @@
 {{--
-  Title: BOLD one column block
+  Title: BOLD two columns block
   Description: BOLD section
   Category: layout
   Icon: star-filled

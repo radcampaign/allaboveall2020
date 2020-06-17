@@ -264,5 +264,25 @@ class App extends Controller
       // use reset postdata to restore orginal query
       wp_reset_postdata();
     }
+    public static function resource_page() {
+      $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+      $args = array(
+        'post_type' => 'resource',
+        'posts_per_page' => 6,
+        'orderby' => 'date',
+        'order'   => 'DESC',
+        'paged' => $paged,
+        );
+        $query = new WP_Query( $args );
+        $resourcelisting = array();
+        if($query->have_posts()) {
+          while ( $query->have_posts() ) : $query->the_post();
+            $resourcelisting[] = array('title' => get_the_title(), 'url' => get_the_permalink(), 'image' => get_the_post_thumbnail_url(get_the_ID(),'full'), 'excerpt' => get_the_excerpt());
+          endwhile;
+        }
+        return $resourcelisting;
+
+      wp_reset_postdata();
+    }
 
 }
