@@ -20,7 +20,7 @@
       </div>
     </div>
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-6 offset-lg-3">
           <div class="letter-block">
             <div class="letter">B</div>
             <div class="content">
@@ -32,7 +32,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 offset-lg-3">
           <div class="letter-block">
             <div class="letter">O</div>
             <div class="content">
@@ -46,7 +46,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-6 offset-lg-3">
           <div class="letter-block">
             <div class="letter">L</div>
             <div class="content">
@@ -58,7 +58,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 offset-lg-3">
           <div class="letter-block">
             <div class="letter">D</div>
             <div class="content">
