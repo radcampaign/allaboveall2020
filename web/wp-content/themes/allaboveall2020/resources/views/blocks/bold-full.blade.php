@@ -1,5 +1,5 @@
 {{--
-  Title: BOLD two columns block
+  Title: BOLD one column block
   Description: BOLD section
   Category: layout
   Icon: star-filled
@@ -61,8 +61,7 @@
               <a href="{!! $block['data']['d_info_d_link']['url'] !!}">Learn More</a>
             </div>
           </div>
-        </div>
-        
+        </div> 
       </div>
   </div>
 </div>

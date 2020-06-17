@@ -6,9 +6,9 @@
   $tag_des = $tagarray['description'];
   $tag_id = $tagarray['term_id'];
   $image = get_field('featured_image', $tagarray);
-  $tag_content = get_field('taxonomy_content', $tagarray);
+  $tag_content = get_field('taxonomy_content', $tag);
   $slug = $tagarray['slug'];
-  $box = get_field('feature_black_box', $tagarray);
+  $box = get_field('feature_black_box', $tag);
 @endphp
 
 @section('content')
