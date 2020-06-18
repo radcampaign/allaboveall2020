@@ -265,7 +265,9 @@ class App extends Controller
       wp_reset_postdata();
     }
     public static function resource_page() {
-      $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+      global $paged;
+      $paged = ( get_query_var('page') ) ? get_query_var('page') : 1;
+
       $args = array(
         'post_type' => 'resource',
         'posts_per_page' => 6,
@@ -274,13 +276,40 @@ class App extends Controller
         'paged' => $paged,
         );
         $query = new WP_Query( $args );
-        $resourcelisting = array();
+        $resourcelisting = '';
         if($query->have_posts()) {
           while ( $query->have_posts() ) : $query->the_post();
-            $resourcelisting[] = array('title' => get_the_title(), 'url' => get_the_permalink(), 'image' => get_the_post_thumbnail_url(get_the_ID(),'full'), 'excerpt' => get_the_excerpt());
+            $title = get_the_title();
+            $link = get_the_permalink();
+            $img = get_the_post_thumbnail_url(get_the_ID(),'square_image_500');
+            $exc = get_the_excerpt();
+            //$resourcelisting[] = array('title' => get_the_title(), 'url' => get_the_permalink(), 'image' => get_the_post_thumbnail_url(get_the_ID(),'square_image_500'), 'excerpt' => get_the_excerpt());
+            $resourcelisting = $resourcelisting.'
+            <div class="col-lg-4">
+              <div class="card">
+                <a href="'.$link.'">
+                  <div class="card-background-image">
+                    <img src="'.$img.'" class="bg-image">
+                  </div>
+                  <div class="color-overlay"></div>
+                  <div class="text-overlay">
+                    <div class="text-headline"><h2 class="mt-0">'.$title.'</h2></div>
+                    <div class="text-exc">
+                      '.$exc.'
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>';
           endwhile;
         }
-        return $resourcelisting;
+        $resourcelist = '<div class="row">' 
+        . $resourcelisting 
+        . '<div class="nav-previous">' . get_next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts' ) ) . '</div>'
+        . '<div class="nav-next">' . get_previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>' ) ) . '</div>'
+        . '</div>' .
+        wp_reset_query();
+        return $resourcelist;
 
       wp_reset_postdata();
     }

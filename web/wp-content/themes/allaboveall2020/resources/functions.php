@@ -118,10 +118,10 @@ function register_my_menu() {
 }
 
 add_action( 'init', 'register_my_menu' );
-
+add_action( 'after_setup_theme', 'wpdocs_theme_setup' );
 // image sizes
 function wpdocs_theme_setup() {
-  //add_image_size( 'post_related_image', 500, 350, TRUE );
+  add_image_size( 'square_image_500', 500, 500, TRUE );
   //add_image_size( 'post_featured_image', 2000, 800, TRUE );
 }
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2de3328b40edc604231e0f88b737eae5",
+    "content-hash": "79865f6b274d41b2d7433cd04414024f",
     "packages": [
         {
             "name": "composer/installers",
@@ -539,6 +539,52 @@
             "time": "2020-02-27T09:26:54+00:00"
         },
         {
+            "name": "viper007bond/regenerate-thumbnails",
+            "version": "v3.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Automattic/regenerate-thumbnails.git",
+                "reference": "38361356610f5009cd59f557c64b97679d7efbd6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Automattic/regenerate-thumbnails/zipball/38361356610f5009cd59f557c64b97679d7efbd6",
+                "reference": "38361356610f5009cd59f557c64b97679d7efbd6",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0",
+                "php": ">=5.2.4"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "*",
+                "phpcompatibility/php-compatibility": "*",
+                "phpunit/phpunit": "*",
+                "poststatus/wptest": "dev-master",
+                "sirbrillig/phpcs-variable-analysis": "*",
+                "wp-coding-standards/wpcs": "*"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Mills (Viper007Bond)",
+                    "homepage": "https://alex.blog/"
+                }
+            ],
+            "description": "Regenerate the thumbnails for one or more of your image uploads. Useful when changing their sizes or your theme.",
+            "homepage": "https://alex.blog/wordpress-plugins/regenerate-thumbnails/",
+            "keywords": [
+                "Thumbnails",
+                "plugin",
+                "wordpress"
+            ],
+            "time": "2020-02-13T06:47:22+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v3.6.2",
             "source": {
@@ -618,6 +664,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/all-in-one-seo-pack/"
+        },
+        {
+            "name": "wpackagist-plugin/image-regenerate-select-crop",
+            "version": "5.4.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/image-regenerate-select-crop/",
+                "reference": "tags/5.4.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/image-regenerate-select-crop.5.4.2.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/image-regenerate-select-crop/"
         },
         {
             "name": "wpackagist-plugin/lh-hsts",
@@ -5200,8 +5264,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "radcampaign/wp-all-import-pro": 20,
         "radcampaign/advanced-custom-fields-pro": 20,
+        "radcampaign/wp-all-import-pro": 20,
         "radcampaign/wpai-acf-add-on": 20,
         "roave/security-advisories": 20
     },

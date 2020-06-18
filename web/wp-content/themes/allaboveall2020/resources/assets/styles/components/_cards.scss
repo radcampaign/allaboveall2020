@@ -1,0 +1,66 @@
+.card {
+  height: 350px;
+  position: relative;
+  margin-bottom: 2rem;
+  border: none;
+
+  .card-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .color-overlay {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 2;
+  }
+
+  .text-overlay {
+    position: relative;
+    z-index: 3;
+    padding: 2rem;
+  }
+
+  a {
+    cursor: pointer;
+    display: block;
+    height: 100%;
+    color: white;
+
+    .text-headline {
+      display: block;
+      color: white;
+    }
+
+    .text-exc {
+      display: none;
+      color: black;
+      font-size: 1.25rem;
+    }
+
+    &:hover {
+      background-color: white;
+      border: 10px solid $primary-color;
+
+      .color-overlay,
+      .card-background-image {
+        display: none;
+      }
+
+      .text-headline {
+        display: none;
+      }
+
+      .text-exc {
+        display: block;
+      }
+    }
+  }
+}
