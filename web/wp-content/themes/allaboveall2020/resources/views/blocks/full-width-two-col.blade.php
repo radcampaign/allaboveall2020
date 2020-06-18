@@ -70,7 +70,7 @@
               <div class="mb-3">
                 {!! $block['data']['right_column_statistics_text'] !!}
               </div>
-              <a href="{!! $block['data']['left_image_url']['url'] !!}"><img src="{{ $imgstat }}" /></a>
+              <a href="{!! $block['data']['left_image_url']['url'] !!}" class="image-hover"><img src="{{ $imgstat }}" /></a>
             </div>
           </div>
         @else
@@ -79,7 +79,7 @@
               <div>{{ the_field('left_column_text') }}</div>
             @else
               @if(!empty($block['data']['left_image_url']))
-                <div><a href="{!! $block['data']['left_image_url']['url'] !!}"><img src="{{ $imgleft }}"></a></div>
+                <div><a href="{!! $block['data']['left_image_url']['url'] !!}" class="image-hover"><img src="{{ $imgleft }}"></a></div>
               @else
                 <div><img src="{{ $imgleft }}"></div>
               @endif
@@ -92,7 +92,7 @@
               <div>{{ the_field('right_column_text') }}</div>
             @else
               @if(!empty($block['data']['right_image_url']))
-                <div><a href="{!! $block['data']['right_image_url']['url'] !!}"><img src="{{ $imgright }}"></a></div>
+                <div><a href="{!! $block['data']['right_image_url']['url'] !!}" class="image-hover"><img src="{{ $imgright }}"></a></div>
               @else
                 <div><img src="{{ $imgright }}"></div>
               @endif
