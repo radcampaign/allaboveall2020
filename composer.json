@@ -40,6 +40,7 @@
     "wpackagist-plugin/image-regenerate-select-crop": "^5.4",
     "wpackagist-plugin/lh-hsts": "^1.24",
     "wpackagist-plugin/pantheon-advanced-page-cache": ">=0.3.0",
+    "wpackagist-plugin/prevent-direct-access": "^2.7",
     "wpackagist-plugin/wp-native-php-sessions": ">=0.6.9",
     "wpackagist-theme/twentynineteen": "^1.2"
   },

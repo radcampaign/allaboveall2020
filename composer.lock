@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "79865f6b274d41b2d7433cd04414024f",
+    "content-hash": "54421d70dea2ec886a7cea61aa6f72d9",
     "packages": [
         {
             "name": "composer/installers",
@@ -539,52 +539,6 @@
             "time": "2020-02-27T09:26:54+00:00"
         },
         {
-            "name": "viper007bond/regenerate-thumbnails",
-            "version": "v3.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Automattic/regenerate-thumbnails.git",
-                "reference": "38361356610f5009cd59f557c64b97679d7efbd6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/regenerate-thumbnails/zipball/38361356610f5009cd59f557c64b97679d7efbd6",
-                "reference": "38361356610f5009cd59f557c64b97679d7efbd6",
-                "shasum": ""
-            },
-            "require": {
-                "composer/installers": "~1.0",
-                "php": ">=5.2.4"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "*",
-                "phpcompatibility/php-compatibility": "*",
-                "phpunit/phpunit": "*",
-                "poststatus/wptest": "dev-master",
-                "sirbrillig/phpcs-variable-analysis": "*",
-                "wp-coding-standards/wpcs": "*"
-            },
-            "type": "wordpress-plugin",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Alex Mills (Viper007Bond)",
-                    "homepage": "https://alex.blog/"
-                }
-            ],
-            "description": "Regenerate the thumbnails for one or more of your image uploads. Useful when changing their sizes or your theme.",
-            "homepage": "https://alex.blog/wordpress-plugins/regenerate-thumbnails/",
-            "keywords": [
-                "Thumbnails",
-                "plugin",
-                "wordpress"
-            ],
-            "time": "2020-02-13T06:47:22+00:00"
-        },
-        {
             "name": "vlucas/phpdotenv",
             "version": "v3.6.2",
             "source": {
@@ -718,6 +672,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/pantheon-advanced-page-cache/"
+        },
+        {
+            "name": "wpackagist-plugin/prevent-direct-access",
+            "version": "2.7.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/prevent-direct-access/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/prevent-direct-access.zip?timestamp=1592300254"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/prevent-direct-access/"
         },
         {
             "name": "wpackagist-plugin/wp-native-php-sessions",
@@ -5055,6 +5027,52 @@
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
             "time": "2019-06-13T22:48:21+00:00"
+        },
+        {
+            "name": "viper007bond/regenerate-thumbnails",
+            "version": "v3.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Automattic/regenerate-thumbnails.git",
+                "reference": "38361356610f5009cd59f557c64b97679d7efbd6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Automattic/regenerate-thumbnails/zipball/38361356610f5009cd59f557c64b97679d7efbd6",
+                "reference": "38361356610f5009cd59f557c64b97679d7efbd6",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0",
+                "php": ">=5.2.4"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "*",
+                "phpcompatibility/php-compatibility": "*",
+                "phpunit/phpunit": "*",
+                "poststatus/wptest": "dev-master",
+                "sirbrillig/phpcs-variable-analysis": "*",
+                "wp-coding-standards/wpcs": "*"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Mills (Viper007Bond)",
+                    "homepage": "https://alex.blog/"
+                }
+            ],
+            "description": "Regenerate the thumbnails for one or more of your image uploads. Useful when changing their sizes or your theme.",
+            "homepage": "https://alex.blog/wordpress-plugins/regenerate-thumbnails/",
+            "keywords": [
+                "Thumbnails",
+                "plugin",
+                "wordpress"
+            ],
+            "time": "2020-02-13T06:47:22+00:00"
         },
         {
             "name": "webmozart/assert",
