@@ -477,6 +477,7 @@ add_filter( 'tiny_mce_before_init', 'my_mce_before_init_insert_formats' );
 function register_shortcodes() {
   add_shortcode('stateDropdown', 'shortcode_state_dropdown');
   add_shortcode('pressReleaseList', 'shortcode_press_release_list');
+  add_shortcode('updatesPageList', 'shortcode_update_page_list');
 }
 add_action( 'init', 'register_shortcodes' );
 
@@ -499,6 +500,59 @@ function shortcode_state_dropdown($atts, $content = null) {
   wp_reset_postdata();
 }
 
+function shortcode_update_page_list($atts, $content = null) {
+  $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1; 
+
+  $args = array(
+    'post_type' => 'update',
+    'posts_per_page' => 10,
+    'orderby' => 'date',
+    'order'   => 'DESC',
+    'paged' => $paged,
+  );
+  $query = new WP_Query( $args );
+  $updatelist = '';
+  if($query->have_posts()) {
+    while ( $query->have_posts() ) : $query->the_post();
+      $title = get_the_title();
+      $link = get_the_permalink();
+      $date = get_the_date();
+      $img = get_the_post_thumbnail_url(get_the_ID(),'square_image_500');
+      if(!empty($img)) {
+        $imgcol = '<div class="col-lg-3 img-sq">
+          <a href="'.$link.'">
+            <img src="'.$img.'">
+          </a>
+        </div>';
+      }
+      else {
+        $imgcol = '';
+      }
+      $exc = get_the_excerpt();
+      //$resourcelisting[] = array('title' => get_the_title(), 'url' => get_the_permalink(), 'image' => get_the_post_thumbnail_url(get_the_ID(),'square_image_500'), 'excerpt' => get_the_excerpt());
+      $updatelist = $updatelist.'
+      <div class="row pb-4 mb-3 border-bottom">
+        '.$imgcol.'
+        <div class="col">
+          <h2 class="mt-0"><a href="'.$link.'">'.$title.'</a></h2>
+            <div class="meta">
+              '.$date.'
+            </div>
+            <div class="text-exc">
+              '.$exc.'
+            </div>
+        </div>
+      </div>';
+    endwhile;
+  }
+  $updatedlist = '<div class="container">' 
+  . $updatelist 
+  . '<div class="row"><div class="col-lg-12">'.pagination( $paged, $query->max_num_pages).'</div></div></div>';
+  return $updatedlist;
+
+  wp_reset_postdata();
+}
+
 function shortcode_press_release_list($atts, $content = null) {
   $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1; 
 
@@ -517,6 +571,7 @@ function shortcode_press_release_list($atts, $content = null) {
     while ( $query->have_posts() ) : $query->the_post();
       $title = get_the_title();
       $link = get_the_permalink();
+      $date = get_the_date();
       $img = get_the_post_thumbnail_url(get_the_ID(),'square_image_500');
       if(!empty($img)) {
         $imgcol = '<div class="col-lg-3 img-sq">
@@ -534,7 +589,10 @@ function shortcode_press_release_list($atts, $content = null) {
       <div class="row pb-4 mb-3 border-bottom">
         '.$imgcol.'
         <div class="col">
-          <h2 class="mt-0">'.$title.'</h2>
+          <h2 class="mt-0"><a href="'.$link.'">'.$title.'</a></h2>
+            <div class="meta">
+              '.$date.'
+            </div>
             <div class="text-exc">
               '.$exc.'
             </div>

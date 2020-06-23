@@ -61,7 +61,19 @@ nav a {
 }
 
 .img-sq img {
-  height: 285px;
-  width: 285px;
+  height: 255px;
+  width: 255px;
   object-fit: cover;
+}
+
+.meta {
+  display: flex;
+  color: $gray-550;
+  margin-bottom: 1rem;
+
+  .author {
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 1px solid $gray-550;
+  }
 }
