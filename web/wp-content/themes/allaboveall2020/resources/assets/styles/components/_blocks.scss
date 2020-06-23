@@ -136,6 +136,10 @@
       left: 0;
       z-index: 4;
       box-shadow: -5px -5px 30px black;
+
+      .letter-link {
+        text-decoration: none;
+      }
     }
 
     .content {
