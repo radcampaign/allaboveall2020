@@ -532,9 +532,9 @@ function shortcode_news_page_list($atts, $content = null) {
       </div>';
     endwhile;
   }
-  $newspage = '<div class="container">' 
+  $newspage = '<div class="container"><div class="row"><div class="col-lg-10 offset-lg-1">' 
   . $newslist 
-  . '<div class="row"><div class="col-lg-12">'.pagination( $paged, $query->max_num_pages).'</div></div></div>';
+  . '<div class="row"><div class="col-lg-12">'.pagination( $paged, $query->max_num_pages).'</div></div></div></div></div>';
   return $newspage;
 
   wp_reset_postdata();
@@ -559,7 +559,7 @@ function shortcode_update_page_list($atts, $content = null) {
       $date = get_the_date();
       $img = get_the_post_thumbnail_url(get_the_ID(),'square_image_500');
       if(!empty($img)) {
-        $imgcol = '<div class="col-lg-3 img-sq">
+        $imgcol = '<div class="col-lg-4 img-sq">
           <a href="'.$link.'">
             <img src="'.$img.'">
           </a>
@@ -585,9 +585,9 @@ function shortcode_update_page_list($atts, $content = null) {
       </div>';
     endwhile;
   }
-  $updatedlist = '<div class="container">' 
+  $updatedlist = '<div class="container"><div class="row"><div class="col-lg-10 offset-lg-1">' 
   . $updatelist 
-  . '<div class="row"><div class="col-lg-12">'.pagination( $paged, $query->max_num_pages).'</div></div></div>';
+  . '<div class="row"><div class="col-lg-12">'.pagination( $paged, $query->max_num_pages).'</div></div></div></div></div></div>';
   return $updatedlist;
 
   wp_reset_postdata();
@@ -614,7 +614,7 @@ function shortcode_press_release_list($atts, $content = null) {
       $date = get_the_date();
       $img = get_the_post_thumbnail_url(get_the_ID(),'square_image_500');
       if(!empty($img)) {
-        $imgcol = '<div class="col-lg-3 img-sq">
+        $imgcol = '<div class="col-lg-4 img-sq">
           <a href="'.$link.'">
             <img src="'.$img.'">
           </a>
@@ -640,9 +640,9 @@ function shortcode_press_release_list($atts, $content = null) {
       </div>';
     endwhile;
   }
-  $prlist = '<div class="container">' 
+  $prlist = '<div class="container"><div class="row"><div class="col-lg-10 offset-lg-1">' 
   . $pressreleases 
-  . '<div class="row"><div class="col-lg-12">'.pagination( $paged, $query->max_num_pages).'</div></div></div>';
+  . '<div class="row"><div class="col-lg-12">'.pagination( $paged, $query->max_num_pages).'</div></div></div></div></div></div>';
   return $prlist;
 
   wp_reset_postdata();
