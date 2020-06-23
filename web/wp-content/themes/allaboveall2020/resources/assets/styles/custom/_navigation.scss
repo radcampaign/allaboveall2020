@@ -71,3 +71,35 @@ a.navbar-brand {
 .dropdown:hover > .dropdown-menu {
   display: block;
 }
+
+.page-numbers {
+  padding: 0;
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+
+  li {
+    list-style: none;
+    margin: 0 1rem;
+
+    .page-numbers {
+      background: black;
+      color: white;
+      padding: 0.5rem 1rem;
+      font-family: "Aaux-Bold", sans-serif;
+      text-decoration: none;
+      width: 43px;
+      text-align: center;
+
+      &:hover {
+        background: $primary-color;
+        color: black;
+      }
+    }
+
+    .current {
+      background: $primary-color;
+      color: black;
+    }
+  }
+}
