@@ -478,6 +478,7 @@ function register_shortcodes() {
   add_shortcode('stateDropdown', 'shortcode_state_dropdown');
   add_shortcode('pressReleaseList', 'shortcode_press_release_list');
   add_shortcode('updatesPageList', 'shortcode_update_page_list');
+  add_shortcode('newsPageList', 'shortcode_news_page_list');
 }
 add_action( 'init', 'register_shortcodes' );
 
@@ -497,6 +498,45 @@ function shortcode_state_dropdown($atts, $content = null) {
   }
   $statedropdown = $statedropdown.'</select></div>';
   return $statedropdown;
+  wp_reset_postdata();
+}
+
+function shortcode_news_page_list($atts, $content = null) {
+  $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1; 
+
+  $args = array(
+    'post_type' => 'news',
+    'posts_per_page' => 10,
+    'orderby' => 'date',
+    'order'   => 'DESC',
+    'paged' => $paged,
+  );
+  $query = new WP_Query( $args );
+  $newslist = '';
+  if($query->have_posts()) {
+    while ( $query->have_posts() ) : $query->the_post();
+      $title = get_the_title();
+      $link = get_field('publication_link');
+      $name = get_field('publication_name');
+      $date = get_the_date();
+      //$resourcelisting[] = array('title' => get_the_title(), 'url' => get_the_permalink(), 'image' => get_the_post_thumbnail_url(get_the_ID(),'square_image_500'), 'excerpt' => get_the_excerpt());
+      $newslist = $newslist.'
+      <div class="row pb-4 mb-3 border-bottom">
+        <div class="col">
+          <h3 class="mt-0"><a href="'.$link.'" target="_blank">'.$title.'</a></h3>
+            <div class="meta">
+              <div class="date">'.$date.'</div>
+              <div class="author">'.$name.'</div>
+            </div>
+        </div>
+      </div>';
+    endwhile;
+  }
+  $newspage = '<div class="container">' 
+  . $newslist 
+  . '<div class="row"><div class="col-lg-12">'.pagination( $paged, $query->max_num_pages).'</div></div></div>';
+  return $newspage;
+
   wp_reset_postdata();
 }
 
@@ -534,7 +574,7 @@ function shortcode_update_page_list($atts, $content = null) {
       <div class="row pb-4 mb-3 border-bottom">
         '.$imgcol.'
         <div class="col">
-          <h2 class="mt-0"><a href="'.$link.'">'.$title.'</a></h2>
+          <h3 class="mt-0"><a href="'.$link.'">'.$title.'</a></h3>
             <div class="meta">
               '.$date.'
             </div>
@@ -589,7 +629,7 @@ function shortcode_press_release_list($atts, $content = null) {
       <div class="row pb-4 mb-3 border-bottom">
         '.$imgcol.'
         <div class="col">
-          <h2 class="mt-0"><a href="'.$link.'">'.$title.'</a></h2>
+          <h3 class="mt-0"><a href="'.$link.'">'.$title.'</a></h3>
             <div class="meta">
               '.$date.'
             </div>
