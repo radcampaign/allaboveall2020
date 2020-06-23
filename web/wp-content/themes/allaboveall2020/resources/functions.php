@@ -91,6 +91,28 @@ Container::getInstance()
         ]);
     }, true);
 
+if ( ! function_exists( 'pagination' ) ) :
+  function pagination( $paged = '', $max_page = '' )
+  {
+      $big = 999999999; // need an unlikely integer
+      if( ! $paged )
+          $paged = get_query_var('paged');
+      if( ! $max_page )
+          $max_page = $wp_query->max_num_pages;
+
+      return paginate_links( array(
+          'base'       => str_replace($big, '%#%', esc_url(get_pagenum_link( $big ))),
+          'format'     => '?paged=%#%',
+          'current'    => max( 1, $paged ),
+          'total'      => $max_page,
+          'mid_size'   => 1,
+          'prev_text'  => __('«'),
+          'next_text'  => __('»'),
+          'type'       => 'list'
+      ) );
+  }
+endif;
+
 // remove comments
 add_action( 'init', 'comments_init' );
 function comments_init() {
@@ -454,6 +476,7 @@ add_filter( 'tiny_mce_before_init', 'my_mce_before_init_insert_formats' );
 // shortcoodes
 function register_shortcodes() {
   add_shortcode('stateDropdown', 'shortcode_state_dropdown');
+  add_shortcode('pressReleaseList', 'shortcode_press_release_list');
 }
 add_action( 'init', 'register_shortcodes' );
 
@@ -473,6 +496,57 @@ function shortcode_state_dropdown($atts, $content = null) {
   }
   $statedropdown = $statedropdown.'</select></div>';
   return $statedropdown;
+  wp_reset_postdata();
+}
+
+function shortcode_press_release_list($atts, $content = null) {
+  $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1; 
+
+  $args = array(
+    'post_type' => 'update',
+    'posts_per_page' => 10,
+    'orderby' => 'date',
+    'order'   => 'DESC',
+    'paged' => $paged,
+    'meta_key'  => 'press_release',
+    'meta_value' => '1',
+  );
+  $query = new WP_Query( $args );
+  $pressreleases = '';
+  if($query->have_posts()) {
+    while ( $query->have_posts() ) : $query->the_post();
+      $title = get_the_title();
+      $link = get_the_permalink();
+      $img = get_the_post_thumbnail_url(get_the_ID(),'square_image_500');
+      if(!empty($img)) {
+        $imgcol = '<div class="col-lg-3 img-sq">
+          <a href="'.$link.'">
+            <img src="'.$img.'">
+          </a>
+        </div>';
+      }
+      else {
+        $imgcol = '';
+      }
+      $exc = get_the_excerpt();
+      //$resourcelisting[] = array('title' => get_the_title(), 'url' => get_the_permalink(), 'image' => get_the_post_thumbnail_url(get_the_ID(),'square_image_500'), 'excerpt' => get_the_excerpt());
+      $pressreleases = $pressreleases.'
+      <div class="row pb-4 mb-3 border-bottom">
+        '.$imgcol.'
+        <div class="col">
+          <h2 class="mt-0">'.$title.'</h2>
+            <div class="text-exc">
+              '.$exc.'
+            </div>
+        </div>
+      </div>';
+    endwhile;
+  }
+  $prlist = '<div class="container">' 
+  . $pressreleases 
+  . '<div class="row"><div class="col-lg-12">'.pagination( $paged, $query->max_num_pages).'</div></div></div>';
+  return $prlist;
+
   wp_reset_postdata();
 }
 

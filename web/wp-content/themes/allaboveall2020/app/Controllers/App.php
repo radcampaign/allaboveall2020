@@ -265,28 +265,6 @@ class App extends Controller
       wp_reset_postdata();
     }
     public static function resource_page() {
-      if ( ! function_exists( 'pagination' ) ) :
-        function pagination( $paged = '', $max_page = '' )
-        {
-            $big = 999999999; // need an unlikely integer
-            if( ! $paged )
-                $paged = get_query_var('paged');
-            if( ! $max_page )
-                $max_page = $wp_query->max_num_pages;
-
-            return paginate_links( array(
-                'base'       => str_replace($big, '%#%', esc_url(get_pagenum_link( $big ))),
-                'format'     => '?paged=%#%',
-                'current'    => max( 1, $paged ),
-                'total'      => $max_page,
-                'mid_size'   => 1,
-                'prev_text'  => __('«'),
-                'next_text'  => __('»'),
-                'type'       => 'list'
-            ) );
-        }
-      endif;
-
       $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1; 
 
       $args = array(

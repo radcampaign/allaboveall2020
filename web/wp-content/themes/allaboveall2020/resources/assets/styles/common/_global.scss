@@ -59,3 +59,9 @@ nav a {
   display: flex;
   align-items: center;
 }
+
+.img-sq img {
+  height: 285px;
+  width: 285px;
+  object-fit: cover;
+}
