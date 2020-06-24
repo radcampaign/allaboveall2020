@@ -355,6 +355,7 @@ class App extends Controller
               $state, 
               $camp,
             ),
+          's' => $_GET['keyword'],
         );
       }
       elseif(!empty($_GET['campaign'])) {
@@ -366,6 +367,7 @@ class App extends Controller
           'post_status' => 'publish',
           'paged' => $paged,
           'tax_query' => array($camp),
+          's' => $_GET['keyword'],
         );
       }
       elseif(!empty($_GET['state'])) {
@@ -377,6 +379,7 @@ class App extends Controller
           'post_status' => 'publish',
           'paged' => $paged,
           'tax_query' => array($state),
+          's' => $_GET['keyword'],
         );
       }
       elseif(!empty($_GET['keyword'])) {
@@ -399,6 +402,7 @@ class App extends Controller
           'post_status' => 'publish',
           'paged' => $paged,
           'tax_query' => array($state, $camp),
+          's' => $_GET['keyword'],
         );
       }
 
