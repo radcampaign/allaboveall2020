@@ -382,17 +382,6 @@ class App extends Controller
           's' => $_GET['keyword'],
         );
       }
-      elseif(!empty($_GET['keyword'])) {
-        $args = array(
-          'post_type' => 'resource',
-          'posts_per_page' => 6,
-          'orderby' => 'date',
-          'order'   => 'DESC',
-          'post_status' => 'publish',
-          'paged' => $paged,
-          's' => $_GET['keyword'],
-        );
-      }
       else {
         $args = array(
           'post_type' => 'resource',
