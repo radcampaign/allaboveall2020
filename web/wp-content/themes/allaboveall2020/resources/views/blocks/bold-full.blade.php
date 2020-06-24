@@ -24,7 +24,7 @@
           <div class="letter-block">
             <div class="letter"><a class="letter-link" href="{!! $block['data']['b_info_b_link']['url'] !!}">B<a></div>
             <div class="content">
-              <h3 class="text-uppercase">{!! $block['data']['b_info_b_title'] !!}</h3>
+              <h3 class="text-uppercase mt-0">{!! $block['data']['b_info_b_title'] !!}</h3>
               <p>{!! $block['data']['b_info_b_text'] !!}</p>
               <a href="{!! $block['data']['b_info_b_link']['url'] !!}">Learn More</a>
             </div>
@@ -34,7 +34,7 @@
           <div class="letter-block">
             <div class="letter"><a class="letter-link" href="{!! $block['data']['b_info_b_link']['url'] !!}">O</a></div>
             <div class="content">
-              <h3 class="text-uppercase">{!! $block['data']['o_info_o_title'] !!}</h3>
+              <h3 class="text-uppercase mt-0">{!! $block['data']['o_info_o_title'] !!}</h3>
               <p>{!! $block['data']['o_info_o_text'] !!}</p>
               <a href="{!! $block['data']['o_info_o_link']['url'] !!}">Learn More</a>
             </div>
@@ -46,7 +46,7 @@
           <div class="letter-block">
             <div class="letter"><a class="letter-link" href="{!! $block['data']['b_info_b_link']['url'] !!}">L</a></div>
             <div class="content">
-              <h3 class="text-uppercase">{!! $block['data']['l_info_l_title'] !!}</h3>
+              <h3 class="text-uppercase mt-0">{!! $block['data']['l_info_l_title'] !!}</h3>
               <p>{!! $block['data']['l_info_l_text'] !!}</p>
               <a href="{!! $block['data']['l_info_l_link']['url'] !!}">Learn More</a>
             </div>
@@ -56,7 +56,7 @@
           <div class="letter-block">
             <div class="letter"><a class="letter-link" href="{!! $block['data']['b_info_b_link']['url'] !!}">D</a></div>
             <div class="content">
-              <h3 class="text-uppercase">{!! $block['data']['d_info_d_title'] !!}</h3>
+              <h3 class="text-uppercase mt-0">{!! $block['data']['d_info_d_title'] !!}</h3>
               <p>{!! $block['data']['d_info_d_text'] !!}</p>
               <a href="{!! $block['data']['d_info_d_link']['url'] !!}">Learn More</a>
             </div>

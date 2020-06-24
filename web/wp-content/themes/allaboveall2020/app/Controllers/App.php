@@ -213,6 +213,68 @@ class App extends Controller
       wp_reset_postdata();
     }
 
+    public static function stateFilter($statevalue) {
+      global $wp;
+      if(!empty($statevalue)) {
+        $stated = $statevalue;
+      }
+      else {
+        $stated = '';
+      }
+      $statelist = get_terms( array( 
+        'taxonomy' => 'state',
+        'orderby' => 'name',
+        'order' => 'ASC',
+        'hide_empty' => false,
+      ));
+      $state_select = '<div class="select select-page filter-control">
+      <select name="state" class="form-control">
+        <option value="">Select a State</option>';
+      foreach($statelist as $state) {
+        if($state->term_id != 11) {
+          if($state->term_id == $stated) {
+            $state_select = $state_select.'<option value="'.$state->term_id.'" selected>'.$state->name.'</option>';
+          }
+          else {
+            $state_select = $state_select.'<option value="'.$state->term_id.'">'.$state->name.'</option>';
+          }
+        }
+      }
+      $state_select = $state_select.'</select></div>';
+      return $state_select;
+      wp_reset_postdata();
+    }
+
+    public static function campaignFilter($campvalue) {
+      global $wp;
+      if(!empty($campvalue)) {
+        $campaign = $campvalue;
+      }
+      else {
+        $campaign = '';
+      }
+      $camplist = get_terms( array( 
+        'taxonomy' => 'campaign',
+        'orderby' => 'name',
+        'order' => 'ASC',
+        'hide_empty' => false,
+      ));
+      $campaign_select = '<div class="select select-page filter-control">
+      <select name="campaign" class="form-control">
+        <option value="">Select a Campaign</option>';
+      foreach($camplist as $camp) {
+        if($camp->term_id == $campaign) {
+          $campaign_select = $campaign_select.'<option value="'.$camp->term_id.'" selected>'.$camp->name.'</option>';
+        }
+        else {
+          $campaign_select = $campaign_select.'<option value="'.$camp->term_id.'">'.$camp->name.'</option>';
+        }
+      }
+      $campaign_select = $campaign_select.'</select></div>';
+      return $campaign_select;
+      wp_reset_postdata();
+    }
+
     public static function actionapp($taxid, $posttype) {
       $args = array(
         'post_type' => $posttype,
@@ -265,15 +327,81 @@ class App extends Controller
       wp_reset_postdata();
     }
     public static function resource_page() {
-      $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1; 
+      $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 
-      $args = array(
-        'post_type' => 'resource',
-        'posts_per_page' => 6,
-        'orderby' => 'date',
-        'order'   => 'DESC',
-        'paged' => $paged,
+      if(!empty($_GET['campaign'])) {
+        $camp = array(
+                'taxonomy' => 'campaign',
+                'field' => 'term_id',
+                'terms' => $_GET['campaign'],
+            );
+      }
+      if(!empty($_GET['state'])) {
+        $state = array(
+                'taxonomy' => 'state',
+                'field' => 'term_id',
+                'terms' => $_GET['state'],
+            );
+      }
+      if((!empty($_GET['state'])) && (!empty($_GET['campaign']))) {
+        $args = array(
+          'post_type' => 'resource',
+          'posts_per_page' => 6,
+          'orderby' => 'date',
+          'order'   => 'DESC',
+          'paged' => $paged,
+          'tax_query' => array(
+              'relation' => 'AND',
+              $state, 
+              $camp,
+            ),
         );
+      }
+      elseif(!empty($_GET['campaign'])) {
+        $args = array(
+          'post_type' => 'resource',
+          'posts_per_page' => 6,
+          'orderby' => 'date',
+          'order'   => 'DESC',
+          'post_status' => 'publish',
+          'paged' => $paged,
+          'tax_query' => array($camp),
+        );
+      }
+      elseif(!empty($_GET['state'])) {
+        $args = array(
+          'post_type' => 'resource',
+          'posts_per_page' => 6,
+          'orderby' => 'date',
+          'order'   => 'DESC',
+          'post_status' => 'publish',
+          'paged' => $paged,
+          'tax_query' => array($state),
+        );
+      }
+      elseif(!empty($_GET['keyword'])) {
+        $args = array(
+          'post_type' => 'resource',
+          'posts_per_page' => 6,
+          'orderby' => 'date',
+          'order'   => 'DESC',
+          'post_status' => 'publish',
+          'paged' => $paged,
+          's' => $_GET['keyword'],
+        );
+      }
+      else {
+        $args = array(
+          'post_type' => 'resource',
+          'posts_per_page' => 6,
+          'orderby' => 'date',
+          'order'   => 'DESC',
+          'post_status' => 'publish',
+          'paged' => $paged,
+          'tax_query' => array($state, $camp),
+        );
+      }
+
         $query = new WP_Query( $args );
         $resourcelisting = '';
         if($query->have_posts()) {
@@ -304,7 +432,7 @@ class App extends Controller
         }
         $resourcelist = '<div class="row">' 
         . $resourcelisting 
-        . '</div><div class="row"><div class="col-lg-12">'.pagination( $paged, $query->max_num_pages).'</div></div>';
+        . '</div><div class="row"><div class="col-lg-12">'.pagination( $paged, $query->max_num_pages).'</div></div><div class="row"></div>';
         return $resourcelist;
 
       wp_reset_postdata();
