@@ -521,6 +521,10 @@ function shortcode_news_page_list($atts, $content = null) {
       $link = get_field('publication_link');
       $name = get_field('publication_name');
       $date = get_the_date();
+      $named = '';
+      if(!empty($name)) {
+        $named = '<div class="author">'.$name.'</div>';
+      }
       //$resourcelisting[] = array('title' => get_the_title(), 'url' => get_the_permalink(), 'image' => get_the_post_thumbnail_url(get_the_ID(),'square_image_500'), 'excerpt' => get_the_excerpt());
       $newslist = $newslist.'
       <div class="row pb-4 mb-3 border-bottom">
@@ -528,7 +532,7 @@ function shortcode_news_page_list($atts, $content = null) {
           <h3 class="mt-0"><a href="'.$link.'" target="_blank">'.$title.'</a></h3>
             <div class="meta">
               <div class="date">'.$date.'</div>
-              <div class="author">'.$name.'</div>
+              '.$named.'
             </div>
         </div>
       </div>';
