@@ -2,7 +2,9 @@
   <select id="dynamic_select" class="form-control">
     <option>Select a state</option>
   @foreach($statetermlist as $state)
-    <option value="/state/{{ $state->slug }}">{{ $state->name }}</option>
+    @if($state->term_id != '11')
+      <option value="/state/{{ $state->slug }}">{{ $state->name }}</option>
+    @endif
   @endforeach
   </select>
 </div>
