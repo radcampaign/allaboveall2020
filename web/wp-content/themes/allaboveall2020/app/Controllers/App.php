@@ -277,6 +277,34 @@ class App extends Controller
       wp_reset_postdata();
     }
 
+    public static function typeFilter($typevalue) {
+      global $wp;
+      if(!empty($typevalue)) {
+        $typ = $typevalue;
+      }
+      else {
+        $typ = '';
+      }
+
+      $field = get_field_object('field_5ed674ce955f2');
+
+      $type_select = '<div class="select select-page filter-control">
+      <select name="resourcetype" class="form-control">
+        <option value="">Select a Resource Type</option>';
+      
+      foreach ($field['choices'] as $value => $label) {
+        if($value == $typ) {
+          $type_select = $type_select.'<option value="'.$value.'" selected>'.$label.'</option>';
+        }
+        else {
+          $type_select = $type_select.'<option value="'.$value.'">'.$label.'</option>';
+        }
+      }
+      $type_select = $type_select.'</select></div>';
+      return $type_select;
+      wp_reset_postdata();
+    }
+
     public static function actionapp($taxid, $posttype) {
       $args = array(
         'post_type' => $posttype,
@@ -345,6 +373,15 @@ class App extends Controller
                 'terms' => $_GET['state'],
             );
       }
+      if(!empty($_GET['resourcetype'])) {
+        $rtype = array('relation' => 'OR');
+        $rtype[] = array(
+          'key'     => 'resource_type',
+          'value'   => $_GET['resourcetype'],
+          'compare' => 'LIKE',
+        );
+      }
+
       if((!empty($_GET['state'])) && (!empty($_GET['campaign']))) {
         $args = array(
           'post_type' => 'resource',
@@ -370,6 +407,7 @@ class App extends Controller
           'paged' => $paged,
           'tax_query' => array($camp),
           's' => $_GET['keyword'],
+          'meta_query' => $rtype,
         );
       }
       elseif(!empty($_GET['state'])) {
@@ -382,6 +420,18 @@ class App extends Controller
           'paged' => $paged,
           'tax_query' => array($state),
           's' => $_GET['keyword'],
+          'meta_query' => $rtype,
+        );
+      }
+      elseif(!empty($_GET['resourcetype'])) {
+        $args = array(
+          'post_type'   => 'resource',
+          'posts_per_page' => 6,
+          'orderby'     => 'date',
+          'order'       => 'DESC',
+          'post_status' => 'publish',
+          'paged'       => $paged,
+          'meta_query' => $rtype,
         );
       }
       else {
@@ -392,19 +442,24 @@ class App extends Controller
           'order'   => 'DESC',
           'post_status' => 'publish',
           'paged' => $paged,
-          'tax_query' => array($state, $camp),
           's' => $_GET['keyword'],
+          'meta_query' => $rtype,
         );
       }
 
         $query = new WP_Query( $args );
+        global $wpdb;
         $resourcelisting = '';
         if($query->have_posts()) {
+          //$qu = $query->request;
           while ( $query->have_posts() ) : $query->the_post();
             $title = get_the_title();
             $link = get_the_permalink();
             $img = get_the_post_thumbnail_url(get_the_ID(),'square_image_500');
-            $exc = get_the_excerpt();
+            $exc = '';
+            if(!empty(get_the_excerpt())) {
+              $exc = get_the_excerpt();
+            }
             //$resourcelisting[] = array('title' => get_the_title(), 'url' => get_the_permalink(), 'image' => get_the_post_thumbnail_url(get_the_ID(),'square_image_500'), 'excerpt' => get_the_excerpt());
             $resourcelisting = $resourcelisting.'
             <div class="col-lg-4">
@@ -424,6 +479,9 @@ class App extends Controller
               </div>
             </div>';
           endwhile;
+        }
+        else {
+          $resourcelisting = '<div class="row"><div class="col-lg-12"><h3>No Resources Found</h3><p>Your search did not yield any resources. Please adjust the filters and try again.</p></div></div>';
         }
         $resourcelist = '<div class="row">' 
         . $resourcelisting 

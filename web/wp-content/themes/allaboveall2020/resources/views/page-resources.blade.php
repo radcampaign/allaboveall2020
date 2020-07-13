@@ -12,6 +12,9 @@
   if(!empty($_GET['campaign'])) {
     $campvalue = $_GET['campaign'];
   }
+  if(!empty($_GET['resourcetype'])) {
+    $typevalue = $_GET['resourcetype'];
+  }
 @endphp
 <div class="content">
       @section('content')
@@ -25,6 +28,7 @@
               <form method="GET" action="/resources" class="resource-filter-form">
                 @include('components.state_select', ['state_select' => App::stateFilter($statevalue)])
                 @include('components.camp_select', ['campaign_select' => App::campaignFilter($campvalue)])
+                @include('components.type_select', ['type_select' => App::typeFilter($typevalue)])
                 <div class="filter-control"><input type="text" name="keyword" placeholder="Enter Keyword" value="{{ $key }}"  class="form-control" /></div>
                 <input type="submit" class="btn mr-3" value="Filter" />
                 <a href="/resources" class="reset text-small">Reset</a>
