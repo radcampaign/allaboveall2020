@@ -8,6 +8,7 @@
   $tag_content = get_field('taxonomy_content', $tag);
   $slug = $tag->slug;
   $box = get_field('feature_black_box', $tag);
+  $boxcheck = get_field('add_featured_black_box', $tag);
 @endphp
 
 @section('content')
@@ -30,9 +31,15 @@
         {!! $tag_content !!}
       </div>
       <div class="col-lg-4">
-        <div class="state-box list-asterisk-green">
-          @include('components.statedropdown', ['statedropdown' => App::mapapp()])
-        </div>
+        @if($boxcheck[0] == 'yes')
+          <div class="black-box box-shadow list-asterisk-green">
+            {!! $box !!}
+          </div>
+        @else
+          <div class="state-box list-asterisk-green">
+            @include('components.statedropdown', ['statedropdown' => App::mapapp()])
+          </div>
+        @endif
       </div>
     </div>
   </div>
