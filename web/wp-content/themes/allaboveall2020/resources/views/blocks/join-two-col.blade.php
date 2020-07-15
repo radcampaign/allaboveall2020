@@ -13,11 +13,11 @@
 --}}
 
 <div class="container">
-  <div class="row">
+  <div class="row join-embed">
     <div class="col-lg-3 offset-lg-1">
       <h2>{!! $block['data']['left_headline'] !!}</h2>
     </div>
-    <div class="col-lg-7">
+    <div class="col-lg-5 offset-lg-1">
       {!! $block['data']['right_embed'] !!}
     </div>
   </div>

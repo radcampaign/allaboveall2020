@@ -406,3 +406,19 @@
     margin: 2rem 0;
   }
 }
+
+.join-embed {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  h2 {
+    margin: 0;
+  }
+
+  .advocacy-actionwidget {
+    iframe {
+      min-height: 280px !important;
+      height: 280px;
+    }
+  }
+}
