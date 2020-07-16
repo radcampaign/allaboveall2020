@@ -8,7 +8,7 @@
     top: 0;
     right: 0;
     background: black;
-    height: 82px;
+    height: 50px;
   }
 
   .container {
@@ -28,6 +28,7 @@
   text-transform: uppercase;
   display: flex;
   position: relative;
+  padding-left: 0.5rem;
 
   .head-title {
     margin-top: 0;
@@ -51,6 +52,7 @@
   align-items: center;
   height: 90%;
   max-height: 50px;
+  margin-top: 45px;
 }
 
 .page-header {
