@@ -356,8 +356,15 @@ class App extends Controller
       // use reset postdata to restore orginal query
       wp_reset_postdata();
     }
-    public static function resource_page() {
+    public static function listing_page($posttype) {
       $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+      if($posttype == 'news') {
+        $posttype = array('news', 'update');
+        $posts = 'News or Updates';
+      }
+      else {
+        $posts = 'Resources';
+      }
 
       if(!empty($_GET['campaign'])) {
         $camp = array(
@@ -384,7 +391,7 @@ class App extends Controller
 
       if((!empty($_GET['state'])) && (!empty($_GET['campaign']))) {
         $args = array(
-          'post_type' => 'resource',
+          'post_type' => $posttype,
           'posts_per_page' => 6,
           'orderby' => 'date',
           'order'   => 'DESC',
@@ -399,7 +406,7 @@ class App extends Controller
       }
       elseif(!empty($_GET['campaign'])) {
         $args = array(
-          'post_type' => 'resource',
+          'post_type' => $posttype,
           'posts_per_page' => 6,
           'orderby' => 'date',
           'order'   => 'DESC',
@@ -412,7 +419,7 @@ class App extends Controller
       }
       elseif(!empty($_GET['state'])) {
         $args = array(
-          'post_type' => 'resource',
+          'post_type' => $posttype,
           'posts_per_page' => 6,
           'orderby' => 'date',
           'order'   => 'DESC',
@@ -423,20 +430,9 @@ class App extends Controller
           'meta_query' => $rtype,
         );
       }
-      elseif(!empty($_GET['resourcetype'])) {
-        $args = array(
-          'post_type'   => 'resource',
-          'posts_per_page' => 6,
-          'orderby'     => 'date',
-          'order'       => 'DESC',
-          'post_status' => 'publish',
-          'paged'       => $paged,
-          'meta_query' => $rtype,
-        );
-      }
       else {
         $args = array(
-          'post_type' => 'resource',
+          'post_type' => $posttype,
           'posts_per_page' => 6,
           'orderby' => 'date',
           'order'   => 'DESC',
@@ -449,7 +445,7 @@ class App extends Controller
 
         $query = new WP_Query( $args );
         global $wpdb;
-        $resourcelisting = '';
+        $contentlisting = '';
         if($query->have_posts()) {
           //$qu = $query->request;
           while ( $query->have_posts() ) : $query->the_post();
@@ -460,33 +456,57 @@ class App extends Controller
             if(!empty(get_the_excerpt())) {
               $exc = get_the_excerpt();
             }
-            //$resourcelisting[] = array('title' => get_the_title(), 'url' => get_the_permalink(), 'image' => get_the_post_thumbnail_url(get_the_ID(),'square_image_500'), 'excerpt' => get_the_excerpt());
-            $resourcelisting = $resourcelisting.'
-            <div class="col-lg-4">
-              <div class="card">
-                <a href="'.$link.'">
-                  <div class="card-background-image">
-                    <img src="'.$img.'" class="bg-image">
+            //$contentlisting[] = array('title' => get_the_title(), 'url' => get_the_permalink(), 'image' => get_the_post_thumbnail_url(get_the_ID(),'square_image_500'), 'excerpt' => get_the_excerpt());
+            if($posttype == 'resource') {
+              $contentlisting = $contentlisting.'
+                <div class="col-lg-4">
+                  <div class="card">
+                    <a href="'.$link.'">
+                      <div class="card-background-image">
+                        <img src="'.$img.'" class="bg-image">
+                      </div>
+                      <div class="color-overlay"></div>
+                      <div class="text-overlay">
+                        <div class="text-headline"><h2 class="mt-0">'.$title.'</h2></div>
+                        <div class="text-exc">
+                          '.$exc.'
+                        </div>
+                      </div>
+                    </a>
                   </div>
-                  <div class="color-overlay"></div>
-                  <div class="text-overlay">
-                    <div class="text-headline"><h2 class="mt-0">'.$title.'</h2></div>
-                    <div class="text-exc">
-                      '.$exc.'
-                    </div>
+                </div>';
+            }
+            else {
+              if(get_post_type() == 'update') {
+                $image = '<div class="col-lg-4"><img src="'.$img.'"></div>';
+              }
+              else {
+                $image = '';
+              }
+              $contentlisting = $contentlisting.'
+                <div class="row">
+                  '.$image.'
+                  <div class="col">
+                    <h3><a href="'.$link.'">'.$title.'</a></h3>
+                    <p>'.$exc.'</p>
                   </div>
-                </a>
-              </div>
-            </div>';
+                </div>
+              ';
+            }
           endwhile;
+          if($posttype == 'resource') {
+            $contentlist = '<div class="row">' 
+            . $contentlisting 
+            . '</div><div class="row"><div class="col-lg-12">'.pagination( $paged, $query->max_num_pages).'</div></div><div class="row"></div>';
+          }
+          else {
+            $contentlist = $contentlisting.'<div class="row"><div class="col-lg-12">'.pagination( $paged, $query->max_num_pages).'</div></div>';
+          }
         }
         else {
-          $resourcelisting = '<div class="row"><div class="col-lg-12"><h3>No Resources Found</h3><p>Your search did not yield any resources. Please adjust the filters and try again.</p></div></div>';
+          $contentlist = '<div class="row"><div class="col-lg-12"><h3>No '.$posts.' Found</h3><p>Your search did not yield any posts. Please adjust the filters and try again.</p></div></div>';
         }
-        $resourcelist = '<div class="row">' 
-        . $resourcelisting 
-        . '</div><div class="row"><div class="col-lg-12">'.pagination( $paged, $query->max_num_pages).'</div></div><div class="row"></div>';
-        return $resourcelist;
+        return $contentlist;
 
       wp_reset_postdata();
     }

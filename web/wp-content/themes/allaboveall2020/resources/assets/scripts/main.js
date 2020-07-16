@@ -35,14 +35,15 @@ config.searchPseudoElements = true;
 
 // tell FontAwesome to watch the DOM and add the SVGs when it detects icon markup
 dom.watch();
+$('iframe.advocacy-actionwidget-iframe').attr('scrolling', 'none');
 
 $(document).ready(function() { 
   $('.wp-block-group__inner-container').addClass('container');
   $('.wp-block-columns').addClass('row');
   $('.wp-block-column').addClass('col');
-  var headerTopHeight = ''; 
-  headerTopHeight = $('.header-top').outerHeight();
-  $('.header-background-bar').height(headerTopHeight);
+  /*var headerTopHeight = ''; 
+  headerTopHeight = $('.header-top').height();
+  $('.header-background-bar').height(headerTopHeight);*/
 
   $('#dynamic_select').on('change', function () {
     var url = $(this).val(); // get selected value

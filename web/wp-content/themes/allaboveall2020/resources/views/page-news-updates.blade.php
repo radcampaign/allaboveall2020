@@ -25,17 +25,16 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
-              <form method="GET" action="/resources" class="resource-filter-form">
+              <form method="GET" action="/news-updates" class="resource-filter-form">
                 @include('components.state_select', ['state_select' => App::stateFilter($statevalue)])
                 @include('components.camp_select', ['campaign_select' => App::campaignFilter($campvalue)])
-                @include('components.type_select', ['type_select' => App::typeFilter($typevalue)])
                 <div class="filter-control"><input type="text" name="keyword" placeholder="Enter Keyword" value="{{ $key }}"  class="form-control" /></div>
                 <input type="submit" class="btn mr-3" value="Filter" />
-                <a href="/resources" class="reset text-small">Reset</a>
+                <a href="/news-updates" class="reset text-small">Reset</a>
               </form>
             </div>
           </div>
         </div>
-        @include('components.resourcelist', ['contentlist' => App::listing_page('resource')])
+        @include('components.resourcelist', ['contentlist' => App::listing_page('news')])
       @endsection
 </div>
