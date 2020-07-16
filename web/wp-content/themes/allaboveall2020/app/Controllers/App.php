@@ -83,9 +83,11 @@ class App extends Controller
     public static function taxlist($taxid, $posttype, $numposts) {
       if($posttype == 'update') {
         $posts = array($posttype, 'news');
+        $base = 'news-updates';
       }
       else {
         $posts = $posttype;
+        $base = 'resources';
       }
       $args = array(
         'post_type' => $posts,
@@ -115,7 +117,7 @@ class App extends Controller
       }
       if ($query->have_posts()) {
         // Start the Loop
-        $taxlisting[] = array('tax' => $tax, 'icon' => $icon);
+        $taxlisting[] = array('tax' => $tax, 'icon' => $icon, 'base' => $base, 'baseid' => $taxid);
         while ( $query->have_posts() ) : $query->the_post();
         // Your loop code
         $posted = get_post_type();
@@ -137,12 +139,14 @@ class App extends Controller
       wp_reset_postdata();
     }
 
-    public static function campaignlist($taxid, $posttype, $numposts) {
+    public static function campaignlist($taxid, $posttype, $numposts, $tagid) {
       if($posttype == 'update') {
         $posts = array($posttype, 'news');
+        $base = 'news-updates';
       }
       else {
         $posts = $posttype;
+        $base = 'resources';
       }
       $args = array(
         'post_type' => $posts,
@@ -172,7 +176,7 @@ class App extends Controller
       }
       if ($query->have_posts()) {
         // Start the Loop
-        $camplisting[] = array('tax' => $tax, 'icon' => $icon);
+        $camplisting[] = array('tax' => $tax, 'icon' => $icon, 'campaign' => $taxid, 'base' => $base, 'baseid' => $tagid);
         while ( $query->have_posts() ) : $query->the_post();
         $posted = get_post_type();
         if($posted == 'news') {

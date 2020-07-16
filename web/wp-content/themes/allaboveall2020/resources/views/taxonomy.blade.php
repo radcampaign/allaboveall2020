@@ -41,8 +41,8 @@
 @include('components.featuredaction', ['featuredaction' => App::actionapp($tag_id, 'action_item')])
   <div class="container mt-5 mb-5">
     <div class="row">
-      @include('components.camplist', ['camplisting' => App::campaignlist($slug, 'resource', '3')])
-      @include('components.camplist', ['camplisting' => App::campaignlist($slug, 'update', '3')])
+      @include('components.camplist', ['camplisting' => App::campaignlist($slug, 'resource', '3', $tag_id)])
+      @include('components.camplist', ['camplisting' => App::campaignlist($slug, 'update', '3', $tag_id)])
     </div>
   </div>
 @endsection

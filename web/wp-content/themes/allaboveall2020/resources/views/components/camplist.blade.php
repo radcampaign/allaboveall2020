@@ -40,6 +40,6 @@
         </li>
       @endforeach
     </ul>
-      <a href="{{ $n['url'] }}" class="btn btn-white btn-black-outline uppercase">More {{ $title }}</a>
+      <a href="/{{ $camplisting[0]['base'] }}?campaign={{ $camplisting[0]['baseid'] }}" class="btn btn-white btn-black-outline uppercase">More {{ $title }}</a>
   </div>
 @endif

@@ -40,6 +40,6 @@
         </li>
       @endforeach
     </ul>
-      <a href="/{{ $taxlisting[0]['tax'] }}" class="btn btn-white btn-black-outline uppercase">More {{ $title }}</a>
+      <a href="/{{ $taxlisting[0]['base'] }}?state={{ $taxlisting[0]['baseid'] }}" class="btn btn-white btn-black-outline uppercase">More {{ $title }}</a>
   </div>
 @endif
