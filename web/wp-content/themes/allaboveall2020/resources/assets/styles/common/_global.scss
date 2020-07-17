@@ -86,17 +86,15 @@ nav a {
   }
 }
 
-ul {
-  li.list-asterisk {
-    position: relative;
-    padding-right: 2rem;
-    margin-top: 1rem;
+.list-asterisk a {
+  position: relative;
+  padding-right: 2rem;
+  margin-top: 1rem;
 
-    &::after {
-      content: url("../images/green-asterisk-xs.png");
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
+  &::after {
+    content: url("../images/green-asterisk-xs.png");
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }
