@@ -95,6 +95,12 @@
     }
   }
 
+  &.join-block-template {
+    .asterisk-container {
+      top: 0;
+    }
+  }
+
   &.asterisk-top {
     margin-top: 10rem;
 

@@ -37,5 +37,6 @@
           </div>
         </div>
         @include('components.resourcelist', ['contentlist' => App::listing_page('resource')])
+        @include('partials.joinblock')
       @endsection
 </div>

@@ -45,4 +45,5 @@
       @include('components.camplist', ['camplisting' => App::campaignlist($slug, 'update', '3', $tag_id)])
     </div>
   </div>
+  @include('partials.joinblock')
 @endsection

@@ -51,4 +51,5 @@
       @include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'update', '3')])
     </div>
   </div>
+  @include('partials.joinblock')
 @endsection
