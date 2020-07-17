@@ -422,3 +422,30 @@
     }
   }
 }
+
+.action-item {
+  padding: 0;
+
+  .img {
+    padding: 0;
+  }
+
+  .text {
+    padding: 0;
+
+    .text-inner {
+      padding: 3rem 5rem;
+      color: white;
+
+      h2 {
+        a {
+          color: white;
+
+          &:hover {
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}

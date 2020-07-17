@@ -440,26 +440,26 @@ class App extends Controller
           'posts_per_page' => 6,
           'post_status' => 'publish',
           'paged' => $paged,
-          'meta_query'  => array(
+          'meta_query' => array(
           'relation' => 'OR',
+            array(
+              'key' => 'sticky',
+              'compare' => 'NOT EXISTS',
+            ),
+            array(
+              'relation' => 'OR',
               array(
-                  'key'     => 'sticky',
-                  'compare' => 'NOT EXISTS',
+                  'key' => 'sticky',
+                  'value' => 'on',
               ),
               array(
-                  'relation' => 'OR',
-                  array(
-                      'key'   => 'sticky',
-                      'value' => 'on',
-                  ),
-                  array(
-                      'key'     => 'sticky',
-                      'value'   => 'on',
-                      'compare' => '!=',
-                  ),
+                  'key' => 'sticky',
+                  'value' => 'on',
+                  'compare' => '!=',
               ),
+            ),
           ),
-          'orderby'     => array( 'meta_value' => 'DESC', 'date' => 'DESC' ),
+          'orderby' => array( 'meta_value' => 'DESC', 'date' => 'DESC' ),
         );
       }
 

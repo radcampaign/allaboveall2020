@@ -35,6 +35,10 @@ body {
   }
 }
 
+.reverse {
+  flex-direction: row-reverse;
+}
+
 .bold {
   font-family: "Aaux-Bold", sans-serif;
 }
@@ -79,5 +83,20 @@ nav a {
     margin-left: 1rem;
     padding-left: 1rem;
     border-left: 1px solid $gray-550;
+  }
+}
+
+ul {
+  li.list-asterisk {
+    position: relative;
+    padding-right: 2rem;
+    margin-top: 1rem;
+
+    &::after {
+      content: url("../images/green-asterisk-xs.png");
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
   }
 }

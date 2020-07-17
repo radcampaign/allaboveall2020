@@ -144,7 +144,7 @@ add_action( 'after_setup_theme', 'wpdocs_theme_setup' );
 // image sizes
 function wpdocs_theme_setup() {
   add_image_size( 'square_image_500', 500, 500, TRUE );
-  //add_image_size( 'post_featured_image', 2000, 800, TRUE );
+  add_image_size( '1200x800', 1200, 800, TRUE );
 }
 
 /** create taxonomies **/
@@ -462,6 +462,12 @@ function my_mce_before_init_insert_formats( $init_array ) {
           'classes' => 'text-uppercase',
           'wrapper' => true,
       ),
+      array(
+          'title' => 'List Asterisk',
+          'block' => 'li',
+          'classes' => 'list-asterisk',
+          'wrapper' => true,
+      ),
   );  
   // Insert the array, JSON ENCODED, into 'style_formats'
   $init_array['style_formats'] = json_encode( $style_formats );  
@@ -479,8 +485,62 @@ function register_shortcodes() {
   add_shortcode('pressReleaseList', 'shortcode_press_release_list');
   add_shortcode('updatesPageList', 'shortcode_update_page_list');
   add_shortcode('newsPageList', 'shortcode_news_page_list');
+  add_shortcode('actionsTwo', 'shortcode_action_two');
 }
 add_action( 'init', 'register_shortcodes' );
+
+function shortcode_action_two($atts, $content = null) {
+  $args = array(
+    'post_type' => 'action_item',
+    'posts_per_page' => 2,
+    'post_status' => 'publish',
+    'meta_query' => array(
+    'relation' => 'OR',
+      array(
+        'key' => 'sticky',
+        'compare' => 'NOT EXISTS',
+      ),
+      array(
+        'relation' => 'OR',
+        array(
+            'key' => 'sticky',
+            'value' => 'on',
+        ),
+        array(
+            'key' => 'sticky',
+            'value' => 'on',
+            'compare' => '!=',
+        ),
+      ),
+    ),
+    'orderby' => array( 'meta_value' => 'DESC', 'date' => 'DESC' ),
+  );
+  $query = new WP_Query( $args );
+  if($query->have_posts()) {
+    $n = 1;
+    while ( $query->have_posts() ) : $query->the_post();
+      $title = get_the_title();
+      $btn = '';
+      if(!empty(get_field('button_url'))) {
+        $link = get_field('button_url');
+        $link_target = $link['target'] ? $link['target'] : '_self';
+        $btn = '<div class="green-button"><a href="'.$link['url'].'" target="'.$link_target.'"">'.get_field('button_text').'</a></div>';
+      }
+      $class = '';
+      if($n == 1) {
+        $class = 'reverse';
+      }
+      $action_items = $action_items.'
+      <div class="container-fluid action-item bg-black">
+        <div class="row '.$class.'">
+          <div class="col-lg-6 img"><img src="'.get_the_post_thumbnail_url(get_the_ID(),'1200x800').'"></div>
+          <div class="col-lg-6 text"><div class="text-inner"><h2><a href="'.get_the_permalink().'">'.get_the_title().'</a></h2><p>'.get_the_excerpt().'</p>'.$btn.'</div></div>
+        </div></div>';
+        $n++;
+    endwhile;
+  }
+  return $action_items;
+}
 
 function shortcode_state_dropdown($atts, $content = null) {
   global $wp;
