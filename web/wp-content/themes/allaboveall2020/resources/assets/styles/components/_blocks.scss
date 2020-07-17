@@ -87,6 +87,12 @@
       position: relative;
       z-index: 6;
     }
+
+    &.join-asterisk {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      padding-top: 0;
+    }
   }
 
   &.asterisk-top {
