@@ -438,12 +438,28 @@ class App extends Controller
         $args = array(
           'post_type' => $posttype,
           'posts_per_page' => 6,
-          'orderby' => 'date',
-          'order'   => 'DESC',
           'post_status' => 'publish',
           'paged' => $paged,
-          's' => $_GET['keyword'],
-          'meta_query' => $rtype,
+          'meta_query'  => array(
+          'relation' => 'OR',
+              array(
+                  'key'     => 'sticky',
+                  'compare' => 'NOT EXISTS',
+              ),
+              array(
+                  'relation' => 'OR',
+                  array(
+                      'key'   => 'sticky',
+                      'value' => 'on',
+                  ),
+                  array(
+                      'key'     => 'sticky',
+                      'value'   => 'on',
+                      'compare' => '!=',
+                  ),
+              ),
+          ),
+          'orderby'     => array( 'meta_value' => 'DESC', 'date' => 'DESC' ),
         );
       }
 
