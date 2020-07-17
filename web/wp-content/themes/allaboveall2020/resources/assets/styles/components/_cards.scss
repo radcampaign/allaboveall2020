@@ -25,7 +25,7 @@
   .text-overlay {
     position: relative;
     z-index: 3;
-    padding: 2rem;
+    padding: 1rem;
   }
 
   a {
@@ -37,12 +37,16 @@
     .text-headline {
       display: block;
       color: white;
+
+      h2 {
+        font-size: 2rem;
+      }
     }
 
     .text-exc {
       display: none;
       color: black;
-      font-size: 1.25rem;
+      font-size: 1.35rem;
     }
 
     &:hover {

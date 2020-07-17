@@ -474,7 +474,7 @@ class App extends Controller
             $img = get_the_post_thumbnail_url(get_the_ID(),'square_image_500');
             $exc = '';
             if(!empty(get_the_excerpt())) {
-              $exc = wp_trim_words(strip_shortcodes(get_the_excerpt()),'40');
+              $exc = wp_trim_words(strip_shortcodes(get_the_excerpt()),'35');
             }
             if($posttype == 'resource') {
               $contentlisting = $contentlisting.'
