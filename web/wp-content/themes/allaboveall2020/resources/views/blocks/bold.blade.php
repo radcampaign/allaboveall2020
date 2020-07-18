@@ -64,6 +64,14 @@
             <div class="content">
               <h3 class="text-uppercase">{!! $block['data']['d_info_d_title'] !!}</h3>
               <p>{!! $block['data']['d_info_d_text'] !!}</p>
+              @if(!empty($block['data']['click_to_tweek_link']))
+                @if(!empty($block['data']['click_to_tweet_button_text']))
+                  @php($text = $block['data']['click_to_tweet_button_text'])
+                @else
+                  @php($text = 'Tweet')
+                @endif
+                <a href="{!! $block['data']['click_to_tweek_link'] !!}" target="_blank" class="btn btn-primary">{{ $text }}</a>
+              @endif
               @if(!empty($block['data']['d_info_d_link']['url']))
                 <a href="{!! $block['data']['d_info_d_link']['url'] !!}" class="btn btn-white-outline">Learn More</a>
               @endif

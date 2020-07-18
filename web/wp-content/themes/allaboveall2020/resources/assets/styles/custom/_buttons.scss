@@ -41,6 +41,16 @@
       color: black;
     }
   }
+
+  &.btn-primary {
+    background: $primary-color;
+    color: black;
+
+    &:hover {
+      background: white;
+      color: black;
+    }
+  }
 }
 
 .posts-navigation {
