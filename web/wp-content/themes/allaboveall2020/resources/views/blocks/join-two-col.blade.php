@@ -17,9 +17,13 @@
     $asterisk = 'asterisk-yes asterisk-right join-asterisk';
     $asteriskblock = '<div class="asterisk-container"><img src="/wp-content/uploads/2020/04/asterisk-green.png"></div>';
   }
-  
 @endphp
-<div class="data-{{ $block['id'] }} {{ $asterisk }}">
+{{ $opendiv }}
+  @if($block['data']['join_embed_background'] == 'default')
+    <div class="data-{{ $block['id'] }} {{ $asterisk }} pt-3 pb-3 mb-4" style="background-image: url('/wp-content/uploads/2020/06/bgd-texture.jpg'); background-position: cover; background-repeat: repeat;">
+  @else
+    <div class="data-{{ $block['id'] }} {{ $asterisk }} bg-white">
+  @endif
   <div class="full-width-text-inner">
     {!! $asteriskblock !!}
     <div class="container container-inner">
