@@ -469,8 +469,18 @@ class App extends Controller
         if($query->have_posts()) {
           //$qu = $query->request;
           while ( $query->have_posts() ) : $query->the_post();
-            $title = get_the_title();
-            $link = get_the_permalink();
+            $name = get_field('publication_name');
+            $named = '';
+            if(!empty($name)) {
+              $named = '<div class="author">'.$name.'</div>';
+            }
+            if(!empty(get_field('publication_link'))) {
+              $icon = 'far fa-external-link-alt';
+              $link = '<a href="'.get_field('publication_link').'" target="_blank">'.get_the_title().'</a> <i class="'.$icon.'"></i>';
+            }
+            else {
+              $link = '<a href="'.get_the_permalink().'">'.get_the_title().'</a>';
+            }
             $img = get_the_post_thumbnail_url(get_the_ID(),'square_image_500');
             $exc = '';
             if(!empty(get_the_excerpt())) {
@@ -506,7 +516,11 @@ class App extends Controller
                 <div class="row">
                   '.$image.'
                   <div class="col">
-                    <h3><a href="'.$link.'">'.$title.'</a></h3>
+                    <h3>'.$link.'</h3>
+                    <div class="meta">
+                      <div class="date">'.get_the_date().'</div>
+                      '.$named.'
+                    </div>
                     <p>'.$exc.'</p>
                   </div>
                 </div>
