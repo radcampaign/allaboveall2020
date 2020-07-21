@@ -583,15 +583,12 @@ function shortcode_news_page_list($atts, $content = null) {
   $newslist = '';
   if($query->have_posts()) {
     while ( $query->have_posts() ) : $query->the_post();
-      $title = get_the_title();
-      $link = get_field('publication_link');
       if(!empty(get_field('publication_link'))) {
-        $link = get_field('publication_link');
         $icon = '<i class="far fa-external-link-alt"></i>';
+        $title = '<a href="'.get_field('publication_link').'" target="_blank">'.get_the_title().'</a> '.$icon;
       }
       else {
-        $link = get_the_permalink();
-        $icon = '';
+        $title = '<a href="'.get_the_permalink().'">'.get_the_title().'</a>';
       }
       $name = get_field('publication_name');
       $date = get_the_date();
@@ -603,7 +600,7 @@ function shortcode_news_page_list($atts, $content = null) {
       $newslist = $newslist.'
       <div class="row pb-4 mb-3 border-bottom">
         <div class="col">
-          <h3 class="mt-0"><a href="'.$link.'" target="_blank">'.$title.'</a> '.$icon.'</h3>
+          <h3 class="mt-0">'.$title.'</h3>
             <div class="meta">
               <div class="date">'.$date.'</div>
               '.$named.'
