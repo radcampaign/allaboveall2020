@@ -2,6 +2,7 @@
 @php
   $statevalue = '';
   $campvalue = '';
+  $typevalue = '';
 
   if(!empty($_GET['keyword'])) {
     $key = $_GET['keyword'];

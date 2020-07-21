@@ -157,7 +157,7 @@ class App extends Controller
         'tax_query' => array(
             array(
                 'taxonomy' => 'campaign',
-                'field' => 'term_id',
+                'field' => 'slug',
                 'terms' => $taxid,
             )
         )
