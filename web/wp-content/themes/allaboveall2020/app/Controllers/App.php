@@ -487,6 +487,7 @@ class App extends Controller
               $exc = wp_trim_words(strip_shortcodes(get_the_excerpt()),'35');
             }
             if($posttype == 'resource') {
+              $link = get_the_permalink();
               $contentlisting = $contentlisting.'
                 <div class="col-lg-4">
                   <div class="card">
@@ -496,7 +497,7 @@ class App extends Controller
                       </div>
                       <div class="color-overlay"></div>
                       <div class="text-overlay">
-                        <div class="text-headline"><h2 class="mt-0">'.$title.'</h2></div>
+                        <div class="text-headline"><h2 class="mt-0">'.get_the_title().'</h2></div>
                         <div class="text-exc">
                           '.$exc.'
                         </div>

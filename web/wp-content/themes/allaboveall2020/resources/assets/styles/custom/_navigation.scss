@@ -9,6 +9,10 @@ a.navbar-brand {
   margin: 0 0 1rem;
   display: flex;
 
+  @include media-breakpoint-down(md) {
+    display: block;
+  }
+
   .menu-item {
     list-style: none;
     margin-right: 2rem;
@@ -30,6 +34,10 @@ a.navbar-brand {
 
 .navbar {
   .navbar-nav {
+    @include media-breakpoint-down(md) {
+      display: block;
+    }
+
     .nav-link {
       font-size: 1rem;
       text-transform: uppercase;

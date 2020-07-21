@@ -35,6 +35,12 @@ body {
   }
 }
 
+.footnote {
+  border-top: 1px solid $gray-550;
+  padding-top: 1rem;
+  color: $gray-550;
+}
+
 .reverse {
   flex-direction: row-reverse;
 }

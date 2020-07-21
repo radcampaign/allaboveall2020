@@ -468,6 +468,12 @@ function my_mce_before_init_insert_formats( $init_array ) {
           'classes' => 'list-asterisk',
           'wrapper' => true,
       ),
+      array(
+          'title' => 'Footnote',
+          'block' => 'div',
+          'classes' => 'footnote',
+          'wrapper' => true,
+      ),
   );  
   // Insert the array, JSON ENCODED, into 'style_formats'
   $init_array['style_formats'] = json_encode( $style_formats );  
@@ -579,6 +585,14 @@ function shortcode_news_page_list($atts, $content = null) {
     while ( $query->have_posts() ) : $query->the_post();
       $title = get_the_title();
       $link = get_field('publication_link');
+      if(!empty(get_field('publication_link'))) {
+        $link = get_field('publication_link');
+        $icon = '<i class="far fa-external-link-alt"></i>';
+      }
+      else {
+        $link = get_the_permalink();
+        $icon = '';
+      }
       $name = get_field('publication_name');
       $date = get_the_date();
       $named = '';
@@ -589,7 +603,7 @@ function shortcode_news_page_list($atts, $content = null) {
       $newslist = $newslist.'
       <div class="row pb-4 mb-3 border-bottom">
         <div class="col">
-          <h3 class="mt-0"><a href="'.$link.'" target="_blank">'.$title.'</a></h3>
+          <h3 class="mt-0"><a href="'.$link.'" target="_blank">'.$title.'</a> '.$icon.'</h3>
             <div class="meta">
               <div class="date">'.$date.'</div>
               '.$named.'

@@ -13,10 +13,8 @@
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-lg-10 offset-lg-1">
+      <div class="col-lg-6">
           <div class="entry-content">
-            @if (!empty(the_post_thumbnail())) {{ the_post_thumbnail() }} @endif
-            
             @php the_content() @endphp
             <!-- <a href="{{ get_field('button_url') }}" class="btn">{{ get_field('button_text') }}</a> -->
             <div class="post-campaign flex">
@@ -37,10 +35,12 @@
                   @endforeach
               </ul>
             </div>
-            <div class="action-embed">
-              @php(the_field('form_embed'))
-            </div>
-          </di>
+          </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="action-embed">
+          @php(the_field('form_embed'))
+        </div>
       </div>
     </div>
   </div>
