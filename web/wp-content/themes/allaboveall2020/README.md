@@ -118,3 +118,13 @@ Keep track of development and community news.
 * Read and subscribe to the [Roots Blog](https://roots.io/blog/)
 * Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
 * Listen to the [Roots Radio podcast](https://roots.io/podcast/)
+
+***************************************
+All Above All Note:
+
+## Phone2Action
+
+ * CSS is found resources > assets > styles > custom > p2a.css
+ * JS is found: resources > sssets > scripts > p2a.js
+
+

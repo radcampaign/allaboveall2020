@@ -1,0 +1,249 @@
+// action form
+
+.p2a-campaign {
+  background: #fff;
+  color: #000;
+}
+
+.p2a-action-form input[type=email], .p2a-action-form input[type=number], .p2a-action-form input[type=tel], .p2a-action-form input[type=text], .p2a-action-form select  {
+  border-radius: 0;
+  border: 2px solid #000;
+  height: 40px;
+  font-size: 1rem;
+}
+
+.p2a-action-form textarea {
+  border-radius: 0;
+  border: 2px solid #000;
+  height: 150px;
+  font-size: 1rem;
+}
+
+.p2a-campaign-action .p2a-message-label,
+.p2a-campaign-action .p2a-message-intro,
+.p2a-campaign-action .p2a-form-heading,
+.p2a-badge-greeting,
+.p2a-advocate-name,
+.p2a-advocate-location {
+  color: #000;
+}
+
+a.p2a-cookie-reset {
+  color: #000 !important;
+  text-decoration: underline;
+}
+
+a.p2a-cookie-reset:hover {
+  color: #000 !important;
+  background: #0f0 !important;
+}
+
+button.p2a-button-icon-arrow, button.p2a-button-icon {
+  border-radius: 0 !important;
+}
+
+button.p2a-button-icon-arrow:hover, button.p2a-button-icon:hover {
+  color: #fff !important;
+  background: #000 !important;
+}
+
+.p2a-action-form .p2a-checkbox-label,
+.p2a-action-form .p2a-checkbox-label input,
+.p2a-fieldset-optin {
+  color: #000 !important;
+}
+
+footer.p2a-footer {
+  display: none !important;
+}
+
+// header form
+
+#advocate-fields-container .field-required,
+#advocate-fields-container .field-optional {
+  background-color: #fff;
+}
+
+#action-form input {
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid #fff;
+  text-align: left;
+}
+
+#action-form .checkboxes-container {
+  display: none !important;
+}
+
+#maincontent {
+  padding: 10px 0 0 0;
+}
+
+#maincontent p span {
+  color: #fff !important;
+}
+
+#action-form input::placeholder {
+  color: #fff;
+  opacity: 1;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+}
+
+#action-form {
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#action-form .form-group {
+  margin-bottom: 0;
+}
+
+.copyright {
+  display: none;
+}
+
+.btn {
+  border-radius: 0;
+  color: #white !important;
+  background: #0f0;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+}
+
+.btn:hover {
+  color: #fff !important;
+}
+
+#sitecontainer {
+  background-color: transparent;
+  border: none;
+}
+
+.container-inner {
+  border: none;
+}
+
+#sitecontainer .action-container-default-template, label, .action-container-default-template #heading {
+  color: #666 !important;
+}
+
+h1.heading,
+.campaign-description {
+  display: none !important;
+}
+
+.take-action-form {
+  padding: 0;
+}
+
+#zip5 {
+  width: 95%;
+}
+
+form.take-action-form {
+  display: flex;
+  align-items: center;
+}
+
+form.take-action-form #action-form {
+  display: flex;
+}
+
+// join form
+#advocate-fields-container .field-required,
+#advocate-fields-container .field-optional {
+  background-color: #fff;
+}
+
+body {
+  background-color: transparent;
+}
+
+#action-form {
+  max-width: 100%;
+}
+
+.copyright {
+  display: none;
+}
+
+.btn {
+  border-radius: 0;
+  color: #fff !important;
+  background: #000 !important;
+}
+
+.checkboxes-container label {
+  color: #666 !important;
+}
+
+.btn:hover {
+  color: #000 !important;
+  background: #0f0 !important;
+}
+
+#sitecontainer {
+  background-color: transparent;
+  border: none;
+}
+
+.container-inner {
+  border: none;
+}
+
+#sitecontainer .action-container-default-template, label, .action-container-default-template #heading {
+  color: #666 !important;
+}
+
+h1.heading,
+.campaign-description {
+  display: none !important;
+}
+
+.take-action-form {
+  padding: 0;
+}
+#action-form input, #action-form select {
+  border-radius: 0;
+  border: 2px solid #000;
+  height: 40px;
+}
+
+#action-form .checkbox-container input {
+    height: 12px;
+}
+
+.phone-zip {
+  display: flex;
+  width: 100%;
+}
+
+.phone-zip .phone-parent {
+  padding-right: 5px;
+  width: 57%;
+}
+
+.phone-zip .zip-parent {
+  padding-left: 5px;
+  width: 57%;
+}
+
+#zip5 {
+  width: 100%;
+  padding: 0 15px;
+}
+
+.checkboxes-container {
+  text-align: left;
+}
