@@ -497,7 +497,7 @@ class App extends Controller
                       </div>
                       <div class="color-overlay"></div>
                       <div class="text-overlay">
-                        <div class="text-headline"><h2 class="mt-0">'.get_the_title().'</h2></div>
+                        <div class="text-headline"><h3 class="mt-0">'.get_the_title().'</h3></div>
                         <div class="text-exc">
                           '.$exc.'
                         </div>

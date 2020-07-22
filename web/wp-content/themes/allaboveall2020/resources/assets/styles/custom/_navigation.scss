@@ -49,6 +49,30 @@ a.navbar-brand {
         background: black;
         color: white;
       }
+
+      &.desktop-toggle {
+        display: block;
+
+        @include media-breakpoint-down(md) {
+          display: none;
+        }
+      }
+
+      &.mobile-link {
+        display: none;
+
+        @include media-breakpoint-down(md) {
+          display: block;
+        }
+      }
+
+      &.mobile-toggle {
+        display: none;
+
+        @include media-breakpoint-down(md) {
+          display: block;
+        }
+      }
     }
 
     .nav-item {
@@ -60,6 +84,22 @@ a.navbar-brand {
           color: white;
         }
       }
+
+      @include media-breakpoint-down(md) {
+        .nav-link {
+          padding-left: 1rem;
+        }
+
+        &.dropdown {
+          position: relative;
+
+          .mobile-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+          }
+        }
+      }
     }
 
     .dropdown-toggle::after {
@@ -69,6 +109,10 @@ a.navbar-brand {
     .dropdown-menu {
       border: none;
 
+      @include media-breakpoint-down(md) {
+        padding-left: 2rem;
+      }
+
       .dropdown-item {
         padding: 0.5rem;
       }
@@ -77,7 +121,9 @@ a.navbar-brand {
 }
 
 .dropdown:hover > .dropdown-menu {
-  display: block;
+  @include media-breakpoint-up(lg) {
+    display: block;
+  }
 }
 
 .page-numbers {

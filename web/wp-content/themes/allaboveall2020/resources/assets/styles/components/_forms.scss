@@ -57,9 +57,18 @@
   display: flex;
   align-items: center;
 
+  @include media-breakpoint-down(md) {
+    display: block;
+  }
+
   .filter-control {
     max-width: 20%;
     margin: 0 2rem 0 0;
+
+    @include media-breakpoint-down(md) {
+      max-width: 100%;
+      margin: 0 0 2rem 0;
+    }
   }
 }
 

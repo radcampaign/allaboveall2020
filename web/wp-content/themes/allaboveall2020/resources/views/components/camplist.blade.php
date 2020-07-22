@@ -20,7 +20,11 @@
         @endphp
         <li class="tax-list-item">
           @if($n['posttype'] == 'news')
-            <h4><a href="{{ $n['link'] }}" target="_blank">{{ $n['title'] }}</a><i class="far fa-external-link-alt"></i></h4>
+            @if(!empty($n['link']))
+              <h4><a href="{{ $n['link'] }}" target="_blank">{{ $n['title'] }}</a><i class="far fa-external-link-alt"></i></h4>
+            @else
+              <h4><a href="{{ $n['url'] }}"> {{ $n['title'] }}</a></h4>
+            @endif
           @else
             <h4><a href="{{ $n['url'] }}">{{ $n['title'] }}</a></h4>
           @endif

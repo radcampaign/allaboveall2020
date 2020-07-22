@@ -19,6 +19,10 @@ h1 {
   font-size: 3rem;
   text-transform: uppercase;
   margin-bottom: 0;
+
+  @include media-breakpoint-down(md) {
+    font-size: 2rem;
+  }
 }
 
 h2 {
