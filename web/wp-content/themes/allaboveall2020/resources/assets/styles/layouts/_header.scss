@@ -141,6 +141,20 @@
   margin: 0;
   padding: 0;
 
+  &.social-desktop {
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+  }
+
+  &.social-mobile {
+    display: none;
+
+    @include media-breakpoint-down(md) {
+      display: flex;
+    }
+  }
+
   li {
     list-style: none;
     padding-left: 1rem;
@@ -162,21 +176,5 @@
         background: transparent;
       }
     }
-  }
-}
-
-.social-desktop {
-  display: block;
-
-  @include media-breakpoint-down(md) {
-    display: none;
-  }
-}
-
-.social-mobile {
-  display: none;
-
-  @include media-breakpoint-down(md) {
-    display: flex;
   }
 }

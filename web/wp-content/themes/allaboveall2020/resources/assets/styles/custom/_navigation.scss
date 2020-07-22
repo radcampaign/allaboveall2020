@@ -85,6 +85,10 @@ a.navbar-brand {
         }
       }
 
+      .mobile-toggle {
+        display: none;
+      }
+
       @include media-breakpoint-down(md) {
         .nav-link {
           padding-left: 1rem;
@@ -95,6 +99,7 @@ a.navbar-brand {
 
           .mobile-toggle {
             position: absolute;
+            display: block;
             top: 0;
             right: 0;
           }
