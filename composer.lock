@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "abe847bf56e5215197dd795d966c8ff8",
+    "content-hash": "040d62ad168b759e0c119f6a35e5df9c",
     "packages": [
         {
             "name": "composer/installers",
@@ -733,6 +733,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wordfence/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-fail2ban",
+            "version": "4.3.0.5",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-fail2ban/",
+                "reference": "tags/4.3.0.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-fail2ban.4.3.0.5.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-fail2ban/"
         },
         {
             "name": "wpackagist-plugin/wp-native-php-sessions",

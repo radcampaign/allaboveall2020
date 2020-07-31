@@ -43,6 +43,7 @@
     "wpackagist-plugin/prevent-direct-access": "^2.7",
     "wpackagist-plugin/redirection": "^4.8",
     "wpackagist-plugin/wordfence": "^7.4",
+    "wpackagist-plugin/wp-fail2ban": "4.3.0.5",
     "wpackagist-plugin/wp-native-php-sessions": ">=0.6.9",
     "wpackagist-theme/twentynineteen": "^1.2"
   },
