@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "040d62ad168b759e0c119f6a35e5df9c",
+    "content-hash": "ef4a4c600495f5e6d255280fdedb2f4a",
     "packages": [
         {
             "name": "composer/installers",
@@ -625,6 +625,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/all-in-one-seo-pack/"
+        },
+        {
+            "name": "wpackagist-plugin/analytics-for-wp",
+            "version": "1.4.7",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/analytics-for-wp/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/analytics-for-wp.zip?timestamp=1591541006"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/analytics-for-wp/"
         },
         {
             "name": "wpackagist-plugin/image-regenerate-select-crop",
