@@ -70,7 +70,19 @@
                 @else
                   @php($text = 'Tweet')
                 @endif
-                <a href="{!! $block['data']['click_to_tweek_link'] !!}" target="_blank" class="btn btn-primary">{{ $text }}</a>
+                <div class="tweet-block mb-3">
+                  <div class="row tweet-row">
+                    <div class="col-lg-2"><i class="fab fa-twitter"></i></div>
+                    <div class="col-lg-10">
+                      <p>{!! $block['data']['click_to_tweet_info_text'] !!}</p>
+                    </div>
+                  </div>
+                  <div class="row pb-3">
+                    <div class="col-lg-12 mt-3 text-center">
+                      <a href="{!! $block['data']['click_to_tweek_link'] !!}" target="_blank" class="btn btn-white-outline">{{ $text }}</a>
+                    </div>
+                  </div>
+                </div>
               @endif
               @if(!empty($block['data']['d_info_d_link']['url']))
                 <a href="{!! $block['data']['d_info_d_link']['url'] !!}" class="btn btn-white-outline">Learn More</a>

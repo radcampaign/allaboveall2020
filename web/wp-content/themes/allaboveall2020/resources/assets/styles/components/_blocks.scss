@@ -480,3 +480,21 @@
     }
   }
 }
+
+.tweet-block {
+  border: 2px solid white;
+  padding: 1rem;
+
+  .tweet-row {
+    align-items: center;
+  }
+
+  .col-lg-2 {
+    text-align: center;
+
+    .fa-twitter {
+      font-size: 3rem;
+      color: $primary-color;
+    }
+  }
+}
