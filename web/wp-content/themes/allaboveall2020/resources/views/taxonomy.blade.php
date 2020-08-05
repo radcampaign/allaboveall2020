@@ -38,7 +38,7 @@
     </div>
   </div>
 </div>
-@include('components.featuredaction', ['featuredaction' => App::actionapp($tag_id, 'action_item')])
+@include('components.featuredaction', ['featuredaction' => App::actionappcamp($tag_id, 'action_item')])
 <div class="bg-gray">
   <div class="container pt-3 pb-5">
     <div class="row">

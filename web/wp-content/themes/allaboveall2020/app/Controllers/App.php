@@ -308,7 +308,39 @@ class App extends Controller
       return $type_select;
       wp_reset_postdata();
     }
-
+    public static function actionappcamp($taxid, $posttype) {
+      $args = array(
+        'post_type' => $posttype,
+        'posts_per_page' => 1,
+        'orderby' => 'date',
+        'order'   => 'DESC',
+        'post_status' => 'publish',
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'campaign',
+                'field' => 'term_id',
+                'terms' => $taxid,
+            )
+        )
+      );
+      $query = new WP_Query( $args );
+      $featuredaction = array();
+      if ($query->have_posts()) {
+        // Start the Loop
+        while ( $query->have_posts() ) : $query->the_post();
+        // Your loop code
+          $featuredaction[] = array('title' => get_the_title(), 'url' => get_the_permalink(), 'excerpt' => get_the_excerpt(), 'image' => get_the_post_thumbnail_url(get_the_ID(),'full'));
+        endwhile;  
+               
+      } // end of check for query having posts
+      else {
+        $featuredaction = array();
+      }
+      return $featuredaction;
+           
+      // use reset postdata to restore orginal query
+      wp_reset_postdata();
+    }
     public static function actionapp($taxid, $posttype) {
       $args = array(
         'post_type' => $posttype,
@@ -338,15 +370,25 @@ class App extends Controller
         $args = array(
         'post_type' => $posttype,
         'posts_per_page' => 1,
-        'orderby' => 'date',
-        'order'   => 'DESC',
-        'tax_query' => array(
+        'post_status' => 'publish',
+        'relation' => 'OR',
             array(
-                'taxonomy' => 'state',
-                'field' => 'term_id',
-                'terms' => '11',
-            )
-          )
+              'key' => 'sticky',
+              'compare' => 'NOT EXISTS',
+            ),
+            array(
+              'relation' => 'OR',
+              array(
+                  'key' => 'sticky',
+                  'value' => 'on',
+              ),
+              array(
+                  'key' => 'sticky',
+                  'value' => 'on',
+                  'compare' => '!=',
+              ),
+            ),
+          'orderby' => array( 'meta_value' => 'DESC', 'date' => 'DESC' ),
         );
         $query = new WP_Query( $args );
         $featuredaction = array();
