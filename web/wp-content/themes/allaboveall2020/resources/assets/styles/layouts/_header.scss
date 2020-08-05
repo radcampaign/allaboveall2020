@@ -11,9 +11,7 @@
     height: 50px;
 
     @include media-breakpoint-down(md) {
-      width: 100%;
-      left: 0;
-      right: unset;
+      display: none;
     }
   }
 
@@ -43,17 +41,12 @@
   padding-left: 0.5rem;
 
   @include media-breakpoint-down(md) {
-    z-index: 5;
+    display: none;
   }
 
   .head-title {
     margin-top: 0;
     flex: 0 0 23%;
-
-    @include media-breakpoint-down(md) {
-      flex: 0 0 40%;
-      font-size: 0.875rem;
-    }
   }
 
   .advocacy-actionwidget {

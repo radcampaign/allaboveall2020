@@ -12,12 +12,26 @@
     img {
       max-width: 100px;
     }
+
+    @include media-breakpoint-down(md) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    .col-lg-2 {
+      text-align: center;
+    }
   }
 }
 
 .footer-nav-social ul {
   padding: 0;
   display: flex;
+
+  @include media-breakpoint-down(md) {
+    justify-content: space-around;
+  }
 
   li {
     list-style: none;
