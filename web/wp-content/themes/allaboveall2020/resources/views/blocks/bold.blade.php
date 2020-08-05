@@ -72,8 +72,8 @@
                 @endif
                 <div class="tweet-block mb-3">
                   <div class="row tweet-row">
-                    <div class="col-lg-2"><i class="fab fa-twitter"></i></div>
-                    <div class="col-lg-10">
+                    <div class="col-lg-3"><i class="fab fa-twitter"></i></div>
+                    <div class="col-lg-9">
                       <p>{!! $block['data']['click_to_tweet_info_text'] !!}</p>
                     </div>
                   </div>
