@@ -21,7 +21,7 @@
     </div>
       <div class="row">
         <div class="col-lg-8 offset-lg-2">
-          <div class="letter-block">
+          <div class="letter-block" id="letterB">
             <div class="letter">B</div>
             <div class="content">
               <h3 class="text-uppercase">{!! $block['data']['b_info_b_title'] !!}</h3>
@@ -33,7 +33,7 @@
           </div>
         </div>
         <div class="col-lg-8 offset-lg-2">
-          <div class="letter-block">
+          <div class="letter-block" id="letterO">
             <div class="letter">O</div>
             <div class="content">
               <h3 class="text-uppercase">{!! $block['data']['o_info_o_title'] !!}</h3>
@@ -47,7 +47,7 @@
       </div>
       <div class="row">
         <div class="col-lg-8 offset-lg-2">
-          <div class="letter-block">
+          <div class="letter-block" id="letterL">
             <div class="letter">L</div>
             <div class="content">
               <h3 class="text-uppercase">{!! $block['data']['l_info_l_title'] !!}</h3>
@@ -59,12 +59,12 @@
           </div>
         </div>
         <div class="col-lg-8 offset-lg-2">
-          <div class="letter-block">
+          <div class="letter-block" id="letterD">
             <div class="letter">D</div>
             <div class="content">
               <h3 class="text-uppercase">{!! $block['data']['d_info_d_title'] !!}</h3>
               <p>{!! $block['data']['d_info_d_text'] !!}</p>
-              @if(!empty($block['data']['click_to_tweek_link']))
+              @if(!empty($block['data']['click_to_tweet_link']))
                 @if(!empty($block['data']['click_to_tweet_button_text']))
                   @php($text = $block['data']['click_to_tweet_button_text'])
                 @else
@@ -79,7 +79,7 @@
                   </div>
                   <div class="row pb-3">
                     <div class="col-lg-12 mt-3 text-center">
-                      <a href="{!! $block['data']['click_to_tweek_link'] !!}" target="_blank" class="btn btn-white-outline">{{ $text }}</a>
+                      <a href="{!! $block['data']['click_to_tweet_link'] !!}" target="_blank" class="btn btn-white-outline">{{ $text }}</a>
                     </div>
                   </div>
                 </div>

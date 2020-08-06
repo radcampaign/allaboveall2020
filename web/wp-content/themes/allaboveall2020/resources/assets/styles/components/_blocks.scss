@@ -126,6 +126,41 @@
   }
 }
 
+.post-state,
+.post-campaign {
+  text-transform: uppercase;
+  margin-top: 1rem;
+
+  label {
+    font-family: "Aaux-Bold", sans-serif;
+    margin: 0;
+  }
+
+  ul {
+    padding: 0;
+    display: flex;
+    margin: 0;
+
+    li {
+      margin-left: 1rem;
+      list-style: none;
+      padding-bottom: 3px;
+
+      a {
+        padding: 0.35rem;
+        font-size: 0.75rem;
+        background: $gray-200;
+        font-family: "Aaux-Bold", sans-serif;
+        text-decoration: none;
+
+        &:hover {
+          background: $primary-color;
+        }
+      }
+    }
+  }
+}
+
 .bold-block {
   padding: 8rem 0;
   background: black;
@@ -165,6 +200,14 @@
       min-height: 225px;
       padding: 2rem 4rem 2rem 6rem;
       z-index: 3;
+
+      a {
+        color: white;
+
+        &:hover {
+          color: black;
+        }
+      }
     }
   }
 
@@ -368,41 +411,6 @@
   display: inline-block;
 }
 
-.post-state,
-.post-campaign {
-  text-transform: uppercase;
-  margin-top: 1rem;
-
-  label {
-    font-family: "Aaux-Bold", sans-serif;
-    margin: 0;
-  }
-
-  ul {
-    padding: 0;
-    display: flex;
-    margin: 0;
-
-    li {
-      margin-left: 1rem;
-      list-style: none;
-      padding-bottom: 3px;
-
-      a {
-        padding: 0.35rem;
-        font-size: 0.75rem;
-        background: $gray-200;
-        font-family: "Aaux-Bold", sans-serif;
-        text-decoration: none;
-
-        &:hover {
-          background: $primary-color;
-        }
-      }
-    }
-  }
-}
-
 .post-state {
   margin-top: 2rem;
 }
@@ -469,7 +477,7 @@
       color: white;
 
       h2 {
-        a {
+        .action-h2-link {
           color: white;
 
           &:hover {

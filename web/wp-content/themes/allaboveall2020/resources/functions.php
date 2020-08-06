@@ -536,7 +536,7 @@ function shortcode_sticky_action($atts, $content = null) {
       <div class="container-fluid action-item bg-black">
         <div class="row">
           <div class="col-lg-6 img"><img src="'.get_the_post_thumbnail_url(get_the_ID(),'1200x800').'"></div>
-          <div class="col-lg-6 text"><div class="text-inner"><h2 class="mt-0"><a href="'.get_the_permalink().'">'.get_the_title().'</a></h2><p>'.get_the_excerpt().'</p>'.$btn.'</div></div>
+          <div class="col-lg-6 text"><div class="text-inner"><h2 class="mt-0"><a href="'.get_the_permalink().'" class="action-h2-link">'.get_the_title().'</a></h2><p>'.get_the_excerpt().'</p>'.$btn.'</div></div>
         </div></div>';
     endwhile;
   }
