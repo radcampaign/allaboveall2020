@@ -65,8 +65,8 @@ web/wp-content/backupwordpress-*/
 web/wp-content/managewp/backups/
 web/wp-content/advanced-cache.php
 web/wp-content/wp-cache-config.php
-web/sitemap.xml
-web/sitemap.xml.gz
+!web/sitemap.xml
+!web/sitemap.xml.gz
 *.log
 
 # @TODO writable paths
