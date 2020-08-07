@@ -1,0 +1,14 @@
+{
+    "name": "radcampaign/wpai-acf-add-on",
+    "description": "Rad Campaign's Composer-enabled mirror of WP All-Import ACF Add On",
+    "type": "wordpress-plugin",
+    "require": {
+        "composer/installers": "^1.7"
+    },
+    "authors": [
+        {
+            "name": "Xaq Rothman",
+            "email": "xaq@radcampaign.com"
+        }
+    ]
+}
