@@ -247,7 +247,7 @@ abstract class Field implements FieldInterface {
         $parsedData = $this->getParsedData();
 
         // If update is not allowed
-        if (!empty($this->importData['articleData']['ID']) && ! \pmai_is_acf_update_allowed($this->importData['container_name'] . $field['name'], $this->parsingData['import']->options, $this->parsingData['import']->id) && empty($parsedData['xpath']['only_append_new'])) {
+        if (!empty($this->importData['articleData']['ID']) && ! \pmai_is_acf_update_allowed($this->importData['container_name'] . $field['name'], $this->parsingData['import']->options, $this->parsingData['import']->id)) {
             $this->parsingData['logger'] && call_user_func($this->parsingData['logger'], sprintf(__('- Field `%s` is skipped attempted to import options', 'wp_all_import_acf_add_on'), $this->getFieldName()));
             return FALSE;
         }
@@ -488,7 +488,7 @@ abstract class Field implements FieldInterface {
                 }
             }
         }
-        return $value;
+        return is_array($value) ? array_map('trim', $value) : trim($value);
     }
 
     /**
