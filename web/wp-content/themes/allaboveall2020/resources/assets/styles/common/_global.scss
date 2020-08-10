@@ -104,7 +104,7 @@ nav a {
   &::after {
     content: url("../images/green-asterisk-xs.png");
     position: absolute;
-    top: 0;
+    bottom: 0;
     right: 0;
   }
 }
