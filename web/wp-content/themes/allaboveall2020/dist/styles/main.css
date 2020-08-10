@@ -17377,6 +17377,12 @@ blockquote {
   background: transparent;
 }
 
+/* line 175, resources/assets/styles/layouts/_header.scss */
+
+.headline-asterisk {
+  position: absolute;
+}
+
 /* line 1, resources/assets/styles/layouts/_footer.scss */
 
 .site-footer {
