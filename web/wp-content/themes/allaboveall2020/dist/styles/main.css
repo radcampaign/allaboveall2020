@@ -17487,6 +17487,7 @@ body#tinymce {
   border-radius: 0;
   text-transform: uppercase;
   font-family: "Aaux-Bold", sans-serif;
+  font-weight: 800;
 }
 
 /* line 13, node_modules/bootstrap/scss/mixins/_hover.scss */
@@ -17588,7 +17589,7 @@ body#tinymce {
           box-shadow: 0 0 0 0.2rem rgba(38, 255, 38, 0.5);
 }
 
-/* line 9, resources/assets/styles/custom/_buttons.scss */
+/* line 10, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-black,
 .comment-form input.btn-black[type="submit"],
@@ -17715,7 +17716,7 @@ body#tinymce {
           box-shadow: 0 0 0 0.2rem rgba(38, 38, 38, 0.5);
 }
 
-/* line 14, resources/assets/styles/custom/_buttons.scss */
+/* line 15, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-black:hover,
 .comment-form input.btn-black:hover[type="submit"],
@@ -17727,7 +17728,7 @@ body#tinymce {
   background: #0f0;
 }
 
-/* line 20, resources/assets/styles/custom/_buttons.scss */
+/* line 21, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-white,
 .comment-form input.btn-white[type="submit"],
@@ -17739,7 +17740,7 @@ body#tinymce {
   color: black;
 }
 
-/* line 25, resources/assets/styles/custom/_buttons.scss */
+/* line 26, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-black-outline,
 .comment-form input.btn-black-outline[type="submit"],
@@ -17750,7 +17751,7 @@ body#tinymce {
   border: 2px solid black;
 }
 
-/* line 28, resources/assets/styles/custom/_buttons.scss */
+/* line 29, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-black-outline:hover,
 .comment-form input.btn-black-outline:hover[type="submit"],
@@ -17762,7 +17763,7 @@ body#tinymce {
   color: white;
 }
 
-/* line 34, resources/assets/styles/custom/_buttons.scss */
+/* line 35, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-white-outline,
 .comment-form input.btn-white-outline[type="submit"],
@@ -17775,7 +17776,7 @@ body#tinymce {
   color: white;
 }
 
-/* line 39, resources/assets/styles/custom/_buttons.scss */
+/* line 40, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-white-outline:hover,
 .comment-form input.btn-white-outline:hover[type="submit"],
@@ -17787,7 +17788,7 @@ body#tinymce {
   color: black;
 }
 
-/* line 45, resources/assets/styles/custom/_buttons.scss */
+/* line 46, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-primary,
 .comment-form input.btn-primary[type="submit"],
@@ -17799,7 +17800,7 @@ body#tinymce {
   color: black;
 }
 
-/* line 49, resources/assets/styles/custom/_buttons.scss */
+/* line 50, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-primary:hover,
 .comment-form input.btn-primary:hover[type="submit"],
@@ -17811,19 +17812,19 @@ body#tinymce {
   color: black;
 }
 
-/* line 56, resources/assets/styles/custom/_buttons.scss */
+/* line 57, resources/assets/styles/custom/_buttons.scss */
 
 .posts-navigation {
   margin-bottom: 2rem;
 }
 
-/* line 71, resources/assets/styles/custom/_buttons.scss */
+/* line 72, resources/assets/styles/custom/_buttons.scss */
 
 .green-button {
   margin: 1rem 0;
 }
 
-/* line 83, resources/assets/styles/custom/_buttons.scss */
+/* line 84, resources/assets/styles/custom/_buttons.scss */
 
 .bg-img-upload .green-button a:hover,
 .bg-black .green-button a:hover {
