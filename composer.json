@@ -36,6 +36,7 @@
     "roots/wp-password-bcrypt": "^1.0.0",
     "rvtraveller/qs-composer-installer": "^1.1",
     "vlucas/phpdotenv": "^3.1.0",
+    "wpackagist-plugin/addthis": "^6.2",
     "wpackagist-plugin/all-in-one-seo-pack": "^3.2",
     "wpackagist-plugin/analytics-for-wp": "^1.4",
     "wpackagist-plugin/image-regenerate-select-crop": "^5.4",

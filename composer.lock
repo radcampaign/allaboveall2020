@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef4a4c600495f5e6d255280fdedb2f4a",
+    "content-hash": "7b34df2ec05d89734f74278ed819b9f1",
     "packages": [
         {
             "name": "composer/installers",
@@ -607,6 +607,24 @@
                 "environment"
             ],
             "time": "2020-07-14T19:04:52+00:00"
+        },
+        {
+            "name": "wpackagist-plugin/addthis",
+            "version": "6.2.6",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/addthis/",
+                "reference": "tags/6.2.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/addthis.6.2.6.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/addthis/"
         },
         {
             "name": "wpackagist-plugin/all-in-one-seo-pack",
