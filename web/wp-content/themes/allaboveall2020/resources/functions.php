@@ -122,6 +122,11 @@ function comments_init() {
   remove_post_type_support( 'event', 'comments' );
   remove_post_type_support( 'action', 'comments' );
 }
+function my_load_scripts($hook) {
+  wp_enqueue_script('addthis', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f2c7e68c4ab46b7', array(), null, true);
+};
+
+add_action('wp_enqueue_scripts', 'my_load_scripts');
 
 // Logo
 function mytheme_setup() {
