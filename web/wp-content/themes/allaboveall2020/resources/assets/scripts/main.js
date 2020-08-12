@@ -52,6 +52,9 @@ $(document).ready(function() {
     }
     return false;
   });
+  if(! $('#campaignResourceUpdateRow').children().length > 0 ) {
+    $('#campaignResourceUpdateRow').parents('.bg-gray').addClass('hide');
+  }
 });
 
 // Load Events

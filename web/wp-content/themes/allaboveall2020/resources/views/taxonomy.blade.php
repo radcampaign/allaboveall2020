@@ -44,7 +44,7 @@
 @include('components.featuredaction', ['featuredaction' => App::actionappcamp($tag_id, 'action_item')])
 <div class="bg-gray">
   <div class="container pt-3 pb-5">
-    <div class="row">
+    <div class="row" id="campaignResourceUpdateRow">
       @include('components.camplist', ['camplisting' => App::campaignlist($slug, 'resource', '3', $tag_id)])
       @include('components.camplist', ['camplisting' => App::campaignlist($slug, 'update', '3', $tag_id)])
     </div>
