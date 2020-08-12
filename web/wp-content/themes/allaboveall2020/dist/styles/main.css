@@ -18888,7 +18888,24 @@ a.navbar-brand:hover {
   border: none;
 }
 
-/* line 7, resources/assets/styles/components/_cards.scss */
+@media (max-width: 1199.98px) {
+  /* line 1, resources/assets/styles/components/_cards.scss */
+
+  .card {
+    height: 290px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  /* line 1, resources/assets/styles/components/_cards.scss */
+
+  .card {
+    height: 300px;
+    overflow: hidden;
+  }
+}
+
+/* line 16, resources/assets/styles/components/_cards.scss */
 
 .card .card-background-image {
   position: absolute;
@@ -18897,7 +18914,15 @@ a.navbar-brand:hover {
   z-index: 1;
 }
 
-/* line 14, resources/assets/styles/components/_cards.scss */
+@media (max-width: 991.98px) {
+  /* line 16, resources/assets/styles/components/_cards.scss */
+
+  .card .card-background-image {
+    height: 300px;
+  }
+}
+
+/* line 27, resources/assets/styles/components/_cards.scss */
 
 .card .color-overlay {
   position: absolute;
@@ -18910,7 +18935,7 @@ a.navbar-brand:hover {
   z-index: 2;
 }
 
-/* line 25, resources/assets/styles/components/_cards.scss */
+/* line 38, resources/assets/styles/components/_cards.scss */
 
 .card .text-overlay {
   position: relative;
@@ -18918,7 +18943,7 @@ a.navbar-brand:hover {
   padding: 1rem;
 }
 
-/* line 31, resources/assets/styles/components/_cards.scss */
+/* line 44, resources/assets/styles/components/_cards.scss */
 
 .card a {
   cursor: pointer;
@@ -18927,21 +18952,30 @@ a.navbar-brand:hover {
   color: white;
 }
 
-/* line 37, resources/assets/styles/components/_cards.scss */
+/* line 50, resources/assets/styles/components/_cards.scss */
 
 .card a .text-headline {
   display: block;
   color: white;
 }
 
-/* line 41, resources/assets/styles/components/_cards.scss */
+/* line 54, resources/assets/styles/components/_cards.scss */
 
 .card a .text-headline h3 {
   font-size: 2.25rem;
   line-height: 2.75rem;
 }
 
-/* line 47, resources/assets/styles/components/_cards.scss */
+@media (max-width: 1199.98px) {
+  /* line 54, resources/assets/styles/components/_cards.scss */
+
+  .card a .text-headline h3 {
+    font-size: 1.75rem;
+    line-height: 2.25rem;
+  }
+}
+
+/* line 65, resources/assets/styles/components/_cards.scss */
 
 .card a .text-exc {
   display: none;
@@ -18949,27 +18983,35 @@ a.navbar-brand:hover {
   font-size: 1.35rem;
 }
 
-/* line 53, resources/assets/styles/components/_cards.scss */
+@media (max-width: 1199.98px) {
+  /* line 65, resources/assets/styles/components/_cards.scss */
+
+  .card a .text-exc {
+    font-size: 1rem;
+  }
+}
+
+/* line 75, resources/assets/styles/components/_cards.scss */
 
 .card a:hover {
   background-color: white;
   border: 10px solid #0f0;
 }
 
-/* line 57, resources/assets/styles/components/_cards.scss */
+/* line 79, resources/assets/styles/components/_cards.scss */
 
 .card a:hover .color-overlay,
 .card a:hover .card-background-image {
   display: none;
 }
 
-/* line 62, resources/assets/styles/components/_cards.scss */
+/* line 84, resources/assets/styles/components/_cards.scss */
 
 .card a:hover .text-headline {
   display: none;
 }
 
-/* line 66, resources/assets/styles/components/_cards.scss */
+/* line 88, resources/assets/styles/components/_cards.scss */
 
 .card a:hover .text-exc {
   display: block;

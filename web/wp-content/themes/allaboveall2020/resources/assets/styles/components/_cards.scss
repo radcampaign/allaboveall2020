@@ -4,11 +4,24 @@
   margin-bottom: 2rem;
   border: none;
 
+  @include media-breakpoint-down(lg) {
+    height: 290px;
+  }
+
+  @include media-breakpoint-down(md) {
+    height: 300px;
+    overflow: hidden;
+  }
+
   .card-background-image {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
+
+    @include media-breakpoint-down(md) {
+      height: 300px;
+    }
   }
 
   .color-overlay {
@@ -41,6 +54,11 @@
       h3 {
         font-size: 2.25rem;
         line-height: 2.75rem;
+
+        @include media-breakpoint-down(lg) {
+          font-size: 1.75rem;
+          line-height: 2.25rem;
+        }
       }
     }
 
@@ -48,6 +66,10 @@
       display: none;
       color: black;
       font-size: 1.35rem;
+
+      @include media-breakpoint-down(lg) {
+        font-size: 1rem;
+      }
     }
 
     &:hover {
