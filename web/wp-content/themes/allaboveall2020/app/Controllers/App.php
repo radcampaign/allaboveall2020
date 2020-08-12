@@ -550,7 +550,12 @@ class App extends Controller
             }
             else {
               if(get_post_type() == 'update') {
-                $image = '<div class="col-lg-4"><img src="'.$img.'"></div>';
+                if(!empty($img)) {
+                  $image = '<div class="col-lg-4"><img src="'.$img.'"></div>';
+                }
+                else {
+                  $image = '';
+                }
               }
               else {
                 $image = '';
