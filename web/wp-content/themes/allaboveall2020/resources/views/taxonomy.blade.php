@@ -9,6 +9,7 @@
   $tag_content = get_field('taxonomy_content', $tag);
   $slug = $tagarray['slug'];
   $box = get_field('feature_black_box', $tag);
+  $join = get_field('show_join_form', $tag);
 @endphp
 
 @section('content')
@@ -49,5 +50,7 @@
     </div>
   </div>
 </div>
-  @include('partials.joinblock')
+  @if($join[0] == 'yes')
+    @include('partials.joinblock')
+  @endif
 @endsection
