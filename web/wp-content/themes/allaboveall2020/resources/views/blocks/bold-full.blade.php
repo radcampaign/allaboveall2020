@@ -89,7 +89,7 @@
                 @else
                   @php($text = 'Tweet')
                 @endif
-                <div class="tweet-block mb-3">
+                <div class="tweet-block mb-3 mt-3 tweet-block-black">
                   <div class="row tweet-row">
                     <div class="col-lg-3"><i class="fab fa-twitter"></i></div>
                     <div class="col-lg-9">

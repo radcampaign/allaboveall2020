@@ -18865,11 +18865,22 @@ a.navbar-brand:hover {
 /* line 506, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block {
-  border: 2px solid white;
   padding: 1rem;
 }
 
-/* line 510, resources/assets/styles/components/_blocks.scss */
+/* line 507, resources/assets/styles/components/_blocks.scss */
+
+.tweet-block.tweet-block-white {
+  border: 2px solid white;
+}
+
+/* line 511, resources/assets/styles/components/_blocks.scss */
+
+.tweet-block.tweet-block-black {
+  border: 2px solid black;
+}
+
+/* line 517, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .tweet-row {
   -webkit-box-align: center;
@@ -18877,20 +18888,20 @@ a.navbar-brand:hover {
           align-items: center;
 }
 
-/* line 514, resources/assets/styles/components/_blocks.scss */
+/* line 521, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .col-lg-3 {
   text-align: center;
 }
 
-/* line 517, resources/assets/styles/components/_blocks.scss */
+/* line 524, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .col-lg-3 .fa-twitter {
   font-size: 3rem;
   color: #0f0;
 }
 
-/* line 523, resources/assets/styles/components/_blocks.scss */
+/* line 530, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .col-lg-9 {
   padding-left: 0;

@@ -504,7 +504,14 @@
 }
 
 .tweet-block {
-  border: 2px solid white;
+  &.tweet-block-white {
+    border: 2px solid white;
+  }
+
+  &.tweet-block-black {
+    border: 2px solid black;
+  }
+
   padding: 1rem;
 
   .tweet-row {

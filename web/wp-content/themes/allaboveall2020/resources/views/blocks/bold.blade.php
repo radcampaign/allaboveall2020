@@ -64,13 +64,13 @@
             <div class="content">
               <h3 class="text-uppercase">{!! $block['data']['d_info_d_title'] !!}</h3>
               <p>{!! $block['data']['d_info_d_text'] !!}</p>
-              @if(!empty($block['data']['click_to_tweet_link']))
+              @if(!empty($block['data']['click_to_tweek_link']))
                 @if(!empty($block['data']['click_to_tweet_button_text']))
                   @php($text = $block['data']['click_to_tweet_button_text'])
                 @else
                   @php($text = 'Tweet')
                 @endif
-                <div class="tweet-block mb-3">
+                <div class="tweet-block mb-3 tweet-block-white">
                   <div class="row tweet-row">
                     <div class="col-lg-3"><i class="fab fa-twitter"></i></div>
                     <div class="col-lg-9">
