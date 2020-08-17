@@ -70,7 +70,7 @@
                 @else
                   @php($text = 'Tweet')
                 @endif
-                <div class="tweet-block mb-3 tweet-block-white">
+                <div class="tweet-block mb-3 mt-4 tweet-block-white">
                   <div class="row tweet-row">
                     <div class="col-lg-3"><i class="fab fa-twitter"></i></div>
                     <div class="col-lg-9">
@@ -79,7 +79,7 @@
                   </div>
                   <div class="row pb-3">
                     <div class="col-lg-12 mt-3 text-center">
-                      <a href="{!! $block['data']['click_to_tweet_link'] !!}" target="_blank" class="btn btn-white-outline">{{ $text }}</a>
+                      <a href="{!! $block['data']['click_to_tweek_link'] !!}" target="_blank" class="btn btn-white-outline">{{ $text }}</a>
                     </div>
                   </div>
                 </div>

@@ -581,13 +581,22 @@ function shortcode_action_two($atts, $content = null) {
     while ( $query->have_posts() ) : $query->the_post();
       $title = get_the_title();
       $btn = '';
-      if(!empty(get_field('button_url'))) {
-        $link = get_field('button_url');
-        $link_target = $link['target'] ? $link['target'] : '_self';
+      $link = get_field('button_url');
+      if(!empty(get_field('button_url')['url'])) {
+        if(strpos($link['url'], 'p2a.co') !== false) {
+          $link_target = '_blank';
+        }
+        else {
+          $link_target = '_self';
+        }
         $btn = '<div class="green-button"><a href="'.$link['url'].'" target="'.$link_target.'"">'.get_field('button_text').'</a></div>';
       }
+      else {
+        $link = get_the_permalink();
+        $link_target = 'self';
+      }
       $action_items = $action_items.'
-          <div class="col-lg-6"><h3><a href="'.get_the_permalink().'">'.get_the_title().'</a></h3><p>'.get_the_excerpt().'</p>'.$btn.'</div>';
+          <div class="col-lg-6"><h3><a href="'.$link['url'].'" target="'.$link_target.'">'.get_the_title().'</a></h3><p>'.get_the_excerpt().'</p>'.$btn.'</div>';
     endwhile;
     $action_items = $action_items.'</div></div></div>';
   }

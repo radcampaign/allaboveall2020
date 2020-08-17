@@ -202,8 +202,6 @@
       z-index: 3;
 
       a {
-        color: black;
-
         &:hover {
           color: black;
         }
@@ -233,16 +231,18 @@
       box-shadow: 0 0 30px black;
     }
 
-    .content {
-      background: black;
-      color: white;
-
-      .learn-more {
+    .letter-block {
+      .content {
+        background: black;
         color: white;
 
-        &:hover {
-          color: $primary-color;
-          background-color: transparent;
+        a {
+          color: white;
+
+          &:hover {
+            color: $primary-color;
+            background-color: transparent;
+          }
         }
       }
     }

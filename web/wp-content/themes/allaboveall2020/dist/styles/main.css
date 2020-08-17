@@ -18427,66 +18427,60 @@ a.navbar-brand:hover {
   z-index: 3;
 }
 
-/* line 204, resources/assets/styles/components/_blocks.scss */
-
-.bold-block .letter-block .content a {
-  color: black;
-}
-
-/* line 207, resources/assets/styles/components/_blocks.scss */
+/* line 205, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a:hover {
   color: black;
 }
 
-/* line 212, resources/assets/styles/components/_blocks.scss */
+/* line 210, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a.btn-black-outline:hover {
   color: white;
 }
 
-/* line 217, resources/assets/styles/components/_blocks.scss */
+/* line 215, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a.btn-white-outline {
   color: white;
 }
 
-/* line 220, resources/assets/styles/components/_blocks.scss */
+/* line 218, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a.btn-white-outline:hover {
   color: black;
 }
 
-/* line 228, resources/assets/styles/components/_blocks.scss */
+/* line 226, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall {
   background: white;
   color: black;
 }
 
-/* line 232, resources/assets/styles/components/_blocks.scss */
+/* line 230, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter {
   -webkit-box-shadow: 0 0 30px black;
           box-shadow: 0 0 30px black;
 }
 
-/* line 236, resources/assets/styles/components/_blocks.scss */
+/* line 235, resources/assets/styles/components/_blocks.scss */
 
-.bold-block.bold-tall .content {
+.bold-block.bold-tall .letter-block .content {
   background: black;
   color: white;
 }
 
-/* line 240, resources/assets/styles/components/_blocks.scss */
+/* line 239, resources/assets/styles/components/_blocks.scss */
 
-.bold-block.bold-tall .content .learn-more {
+.bold-block.bold-tall .letter-block .content a {
   color: white;
 }
 
-/* line 243, resources/assets/styles/components/_blocks.scss */
+/* line 242, resources/assets/styles/components/_blocks.scss */
 
-.bold-block.bold-tall .content .learn-more:hover {
+.bold-block.bold-tall .letter-block .content a:hover {
   color: #0f0;
   background-color: transparent;
 }
