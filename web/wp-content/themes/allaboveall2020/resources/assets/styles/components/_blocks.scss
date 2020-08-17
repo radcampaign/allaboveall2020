@@ -207,6 +207,12 @@
         &:hover {
           color: black;
         }
+
+        &.btn-black-outline {
+          &:hover {
+            color: white;
+          }
+        }
       }
     }
   }

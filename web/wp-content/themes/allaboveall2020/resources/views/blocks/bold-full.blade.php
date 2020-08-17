@@ -83,6 +83,26 @@
               @if(!empty($block['data']['d_info_d_link']['url']))
                 <a href="{!! $block['data']['d_info_d_link']['url'] !!}">Learn More</a>
               @endif
+              @if(!empty($block['data']['d_info_click_to_tweet_link']))
+                @if(!empty($block['data']['d_info_click_to_tweet_button_text']))
+                  @php($text = $block['data']['d_info_click_to_tweet_button_text'])
+                @else
+                  @php($text = 'Tweet')
+                @endif
+                <div class="tweet-block mb-3">
+                  <div class="row tweet-row">
+                    <div class="col-lg-3"><i class="fab fa-twitter"></i></div>
+                    <div class="col-lg-9">
+                      <p>{!! $block['data']['d_info_click_to_tweet_info_text'] !!}</p>
+                    </div>
+                  </div>
+                  <div class="row pb-3">
+                    <div class="col-lg-12 mt-3 text-center">
+                      <a href="{!! $block['data']['d_info_click_to_tweet_link'] !!}" target="_blank" class="btn btn-black-outline">{{ $text }}</a>
+                    </div>
+                  </div>
+                </div>
+              @endif
             </div>
           </div>
         </div> 
