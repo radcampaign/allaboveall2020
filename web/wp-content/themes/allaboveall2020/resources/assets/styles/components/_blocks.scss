@@ -216,6 +216,10 @@
 
         &.btn-white-outline {
           color: white;
+
+          &:hover {
+            color: black;
+          }
         }
       }
     }
