@@ -6,6 +6,7 @@
   text-transform: uppercase;
   font-family: "Aaux-Bold", sans-serif;
   font-weight: 800;
+  padding: 0.5rem 1rem;
 
   &.btn-black {
     @include button-variant($black, $black, $primary-color, $primary-color);

@@ -27,7 +27,7 @@
 <div class="tag-des background-image">
   <div class="container">
     <div class="row">
-      <div class="col-lg-7 offset-lg-1">
+      <div class="col-lg-8">
         {!! $tag_content !!}
       </div>
       <div class="col-lg-4">
