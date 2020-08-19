@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b34df2ec05d89734f74278ed819b9f1",
+    "content-hash": "c5682dd744d4e3ce84975d51ff4605ca",
     "packages": [
         {
             "name": "composer/installers",
@@ -697,6 +697,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/lh-hsts/"
+        },
+        {
+            "name": "wpackagist-plugin/miniorange-2-factor-authentication",
+            "version": "5.4.14",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/miniorange-2-factor-authentication/",
+                "reference": "tags/5.4.14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/miniorange-2-factor-authentication.5.4.14.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/miniorange-2-factor-authentication/"
         },
         {
             "name": "wpackagist-plugin/pantheon-advanced-page-cache",
@@ -3005,6 +3023,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {
