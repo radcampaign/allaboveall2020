@@ -157,6 +157,10 @@
       padding: 0;
     }
 
+    &:nth-child(3) {
+      padding: 0 1rem 0 0;
+    }
+
     &:last-child {
       border-left: 1px solid $gray-400;
     }

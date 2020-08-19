@@ -47,6 +47,9 @@
                     if($s->title == 'Twitter') {
                       echo '<li><a href="'.$s->url.'" class="secondary-item"><i class="fab fa-twitter"></i></a></li>';
                     }
+                    if($s->title == 'Instagram') {
+                      echo '<li><a href="'.$s->url.'" class="secondary-item"><i class="fab fa-instagram"></i></a></li>';
+                    }
                   }
                 ?>
                 <li><a class="secondary-item" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-search"></i><span class="sr-only">Expand search form</span></a></li>
@@ -65,6 +68,9 @@
                 }
                 if($s->title == 'Twitter') {
                   echo '<li><a href="'.$s->url.'" class="secondary-item"><i class="fab fa-twitter"></i></a></li>';
+                }
+                if($s->title == 'Instagram') {
+                  echo '<li><a href="'.$s->url.'" class="secondary-item"><i class="fab fa-instagram"></i></a></li>';
                 }
               }
             ?>
