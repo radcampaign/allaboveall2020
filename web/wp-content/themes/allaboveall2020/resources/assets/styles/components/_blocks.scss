@@ -187,6 +187,11 @@
       z-index: 4;
       box-shadow: -5px -5px 30px black;
 
+      @include media-breakpoint-down(md) {
+        right: 0;
+        margin: auto;
+      }
+
       .letter-link {
         text-decoration: none;
       }
@@ -200,6 +205,16 @@
       min-height: 225px;
       padding: 2rem 4rem 2rem 6rem;
       z-index: 3;
+
+      @include media-breakpoint-down(md) {
+        margin-left: 5%;
+        padding: 5rem 2rem 2rem;
+        margin-top: 4rem;
+
+        h3 {
+          margin-top: 0;
+        }
+      }
 
       a {
         &:hover {
@@ -529,5 +544,9 @@
 
   .col-lg-9 {
     padding-left: 0;
+
+    @include media-breakpoint-down(md) {
+      padding-left: 15px;
+    }
   }
 }

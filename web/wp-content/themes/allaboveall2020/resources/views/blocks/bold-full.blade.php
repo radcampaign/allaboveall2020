@@ -14,7 +14,7 @@
 <div class="bold-block">
   <div class="container">
     <div class="row">
-      <div class="col-lg-6 offset-lg-3 top-text text-center">
+      <div class="col-lg-8 offset-lg-2 top-text text-center">
         <h2 class="text-white text-uppercase">{!! $block['data']['bold_title'] !!}</h2>
         <p class="text-white text-large">{!! $block['data']['bold_text'] !!}</p>
       </div>
