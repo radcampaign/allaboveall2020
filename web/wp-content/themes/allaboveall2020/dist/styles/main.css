@@ -18249,25 +18249,59 @@ a.navbar-brand:hover {
 
 /* line 63, resources/assets/styles/components/_blocks.scss */
 
+.featured-action {
+  padding: 0;
+}
+
+/* line 66, resources/assets/styles/components/_blocks.scss */
+
+.featured-action .right {
+  text-align: right;
+}
+
+/* line 70, resources/assets/styles/components/_blocks.scss */
+
+.featured-action .display-2 {
+  margin-top: 0;
+}
+
+/* line 75, resources/assets/styles/components/_blocks.scss */
+
+.featured-action .image img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 450px;
+}
+
+@media (max-width: 991.98px) {
+  /* line 75, resources/assets/styles/components/_blocks.scss */
+
+  .featured-action .image img {
+    height: auto;
+  }
+}
+
+/* line 86, resources/assets/styles/components/_blocks.scss */
+
 .asterisk-yes {
   position: relative;
 }
 
-/* line 66, resources/assets/styles/components/_blocks.scss */
+/* line 89, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right {
   padding: 3rem 0 10rem;
 }
 
 @media (max-width: 991.98px) {
-  /* line 66, resources/assets/styles/components/_blocks.scss */
+  /* line 89, resources/assets/styles/components/_blocks.scss */
 
   .asterisk-yes.asterisk-right {
     display: none;
   }
 }
 
-/* line 73, resources/assets/styles/components/_blocks.scss */
+/* line 96, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right .asterisk-container {
   position: absolute;
@@ -18278,20 +18312,20 @@ a.navbar-brand:hover {
   overflow-x: hidden;
 }
 
-/* line 81, resources/assets/styles/components/_blocks.scss */
+/* line 104, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right .asterisk-container img {
   max-width: 500px;
 }
 
-/* line 86, resources/assets/styles/components/_blocks.scss */
+/* line 109, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right .container-inner {
   position: relative;
   z-index: 6;
 }
 
-/* line 91, resources/assets/styles/components/_blocks.scss */
+/* line 114, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right.join-asterisk {
   margin-bottom: 0;
@@ -18300,26 +18334,26 @@ a.navbar-brand:hover {
 }
 
 @media (max-width: 991.98px) {
-  /* line 91, resources/assets/styles/components/_blocks.scss */
+  /* line 114, resources/assets/styles/components/_blocks.scss */
 
   .asterisk-yes.asterisk-right.join-asterisk {
     display: block;
   }
 }
 
-/* line 103, resources/assets/styles/components/_blocks.scss */
+/* line 126, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.join-block-template .asterisk-container {
   top: 0;
 }
 
-/* line 108, resources/assets/styles/components/_blocks.scss */
+/* line 131, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top {
   margin-top: 10rem;
 }
 
-/* line 111, resources/assets/styles/components/_blocks.scss */
+/* line 134, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top .asterisk-container {
   position: absolute;
@@ -18330,19 +18364,19 @@ a.navbar-brand:hover {
   text-align: center;
 }
 
-/* line 119, resources/assets/styles/components/_blocks.scss */
+/* line 142, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top .asterisk-container img {
   max-width: 150px;
 }
 
-/* line 124, resources/assets/styles/components/_blocks.scss */
+/* line 147, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top .container-inner {
   margin-top: 4rem;
 }
 
-/* line 130, resources/assets/styles/components/_blocks.scss */
+/* line 153, resources/assets/styles/components/_blocks.scss */
 
 .post-state,
 .post-campaign {
@@ -18350,7 +18384,7 @@ a.navbar-brand:hover {
   margin-top: 1rem;
 }
 
-/* line 135, resources/assets/styles/components/_blocks.scss */
+/* line 158, resources/assets/styles/components/_blocks.scss */
 
 .post-state label,
 .post-campaign label {
@@ -18358,7 +18392,7 @@ a.navbar-brand:hover {
   margin: 0;
 }
 
-/* line 140, resources/assets/styles/components/_blocks.scss */
+/* line 163, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul,
 .post-campaign ul {
@@ -18369,7 +18403,7 @@ a.navbar-brand:hover {
   margin: 0;
 }
 
-/* line 145, resources/assets/styles/components/_blocks.scss */
+/* line 168, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul li,
 .post-campaign ul li {
@@ -18378,7 +18412,7 @@ a.navbar-brand:hover {
   padding-bottom: 3px;
 }
 
-/* line 150, resources/assets/styles/components/_blocks.scss */
+/* line 173, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul li a,
 .post-campaign ul li a {
@@ -18389,14 +18423,14 @@ a.navbar-brand:hover {
   text-decoration: none;
 }
 
-/* line 157, resources/assets/styles/components/_blocks.scss */
+/* line 180, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul li a:hover,
 .post-campaign ul li a:hover {
   background: #0f0;
 }
 
-/* line 165, resources/assets/styles/components/_blocks.scss */
+/* line 188, resources/assets/styles/components/_blocks.scss */
 
 .bold-block {
   padding: 8rem 0;
@@ -18404,7 +18438,7 @@ a.navbar-brand:hover {
   color: white;
 }
 
-/* line 170, resources/assets/styles/components/_blocks.scss */
+/* line 193, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block {
   margin: 2rem 0;
@@ -18414,7 +18448,7 @@ a.navbar-brand:hover {
   position: relative;
 }
 
-/* line 175, resources/assets/styles/components/_blocks.scss */
+/* line 198, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .letter {
   background: #0f0;
@@ -18435,7 +18469,7 @@ a.navbar-brand:hover {
 }
 
 @media (max-width: 991.98px) {
-  /* line 175, resources/assets/styles/components/_blocks.scss */
+  /* line 198, resources/assets/styles/components/_blocks.scss */
 
   .bold-block .letter-block .letter {
     right: 0;
@@ -18443,13 +18477,13 @@ a.navbar-brand:hover {
   }
 }
 
-/* line 196, resources/assets/styles/components/_blocks.scss */
+/* line 219, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .letter .letter-link {
   text-decoration: none;
 }
 
-/* line 201, resources/assets/styles/components/_blocks.scss */
+/* line 224, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content {
   width: 90%;
@@ -18462,7 +18496,7 @@ a.navbar-brand:hover {
 }
 
 @media (max-width: 991.98px) {
-  /* line 201, resources/assets/styles/components/_blocks.scss */
+  /* line 224, resources/assets/styles/components/_blocks.scss */
 
   .bold-block .letter-block .content {
     margin-left: 5%;
@@ -18470,72 +18504,72 @@ a.navbar-brand:hover {
     margin-top: 4rem;
   }
 
-  /* line 215, resources/assets/styles/components/_blocks.scss */
+  /* line 238, resources/assets/styles/components/_blocks.scss */
 
   .bold-block .letter-block .content h3 {
     margin-top: 0;
   }
 }
 
-/* line 221, resources/assets/styles/components/_blocks.scss */
+/* line 244, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a:hover {
   color: black;
 }
 
-/* line 226, resources/assets/styles/components/_blocks.scss */
+/* line 249, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a.btn-black-outline:hover {
   color: white;
 }
 
-/* line 231, resources/assets/styles/components/_blocks.scss */
+/* line 254, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a.btn-white-outline {
   color: white;
 }
 
-/* line 234, resources/assets/styles/components/_blocks.scss */
+/* line 257, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a.btn-white-outline:hover {
   color: black;
 }
 
-/* line 242, resources/assets/styles/components/_blocks.scss */
+/* line 265, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall {
   background: white;
   color: black;
 }
 
-/* line 246, resources/assets/styles/components/_blocks.scss */
+/* line 269, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter {
   -webkit-box-shadow: 0 0 30px black;
           box-shadow: 0 0 30px black;
 }
 
-/* line 251, resources/assets/styles/components/_blocks.scss */
+/* line 274, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block .content {
   background: black;
   color: white;
 }
 
-/* line 255, resources/assets/styles/components/_blocks.scss */
+/* line 278, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block .content a {
   color: white;
 }
 
-/* line 258, resources/assets/styles/components/_blocks.scss */
+/* line 281, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block .content a:hover {
   color: #0f0;
   background-color: transparent;
 }
 
-/* line 268, resources/assets/styles/components/_blocks.scss */
+/* line 291, resources/assets/styles/components/_blocks.scss */
 
 .background-image {
   background-image: url(/wp-content/themes/allaboveall2020/dist/images/bg-image.jpg);
@@ -18544,14 +18578,14 @@ a.navbar-brand:hover {
   padding: 2rem;
 }
 
-/* line 275, resources/assets/styles/components/_blocks.scss */
+/* line 298, resources/assets/styles/components/_blocks.scss */
 
 .box-shadow {
   -webkit-box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.75);
 }
 
-/* line 281, resources/assets/styles/components/_blocks.scss */
+/* line 304, resources/assets/styles/components/_blocks.scss */
 
 .black-box {
   padding: 2rem;
@@ -18562,13 +18596,13 @@ a.navbar-brand:hover {
   text-align: left;
 }
 
-/* line 289, resources/assets/styles/components/_blocks.scss */
+/* line 312, resources/assets/styles/components/_blocks.scss */
 
 .black-box h3 {
   margin-bottom: 2rem;
 }
 
-/* line 294, resources/assets/styles/components/_blocks.scss */
+/* line 317, resources/assets/styles/components/_blocks.scss */
 
 .list-asterisk-green ul {
   list-style: none;
@@ -18576,7 +18610,7 @@ a.navbar-brand:hover {
   font-size: 1.15rem;
 }
 
-/* line 299, resources/assets/styles/components/_blocks.scss */
+/* line 322, resources/assets/styles/components/_blocks.scss */
 
 .list-asterisk-green ul li {
   position: relative;
@@ -18584,7 +18618,7 @@ a.navbar-brand:hover {
   margin-top: 1rem;
 }
 
-/* line 304, resources/assets/styles/components/_blocks.scss */
+/* line 327, resources/assets/styles/components/_blocks.scss */
 
 .list-asterisk-green ul li::before {
   content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAYCAYAAAAPtVbGAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDowMkJFMUUwODk5MUIxMUVBQTFGQjgwQTVENEU2N0ZDQyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDowMkJFMUUwOTk5MUIxMUVBQTFGQjgwQTVENEU2N0ZDQyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkUwOUU3NEZGOTkxNzExRUFBMUZCODBBNUQ0RTY3RkNDIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkUwOUU3NTAwOTkxNzExRUFBMUZCODBBNUQ0RTY3RkNDIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+ywPUTwAAAylJREFUeNqsVltIk2EYfjbXWLiVeCjWYSqepfBCQ8iQQDP0ZlLsoqRdpJB04YVBEMikhC66CLqywIJKu7CwvDA6KEiMyCwRJNSl4VTUwSpzC9Ednr5vNFlz8P9C78sP3/f97/c+/3v+tSSh9mljW4eRRl8/+607uYedCJex7BPEspCFk376k9Xe0yIBhRBK8sFnGsFIuQuufHnmh9+4gpX9cj2Dmdy3eHtKysl9AAF9EEGdWGqEWs02hYmQQwxpbbT1pjDl5x7uWXvBF9YZzuQkMSkoLZFcxapBF135Ur6d7deF/NNyln+oZ/3zeCsTgvSx70xUmeQ0pnnttD+KPRMfsOqks6KDHW1aasMaarbePeGTc4ogV3n1VqzCRCyUhitZ+U5P/Ub8u252NyiCeOjZl83sb0pA8RZE3SjcZVSVXcMcPmmiaU0JKJbzmOfy0pu+oxQe5GB1MpP9agBSmfpjghNHEumRaQeZqsMYPumFN90Dz36NzERBRhh/m2FeESmbAwUqRemnMYyVOuE8Ie4sF6N4MhOZbj1EzCS6hRb3Ttyihs00LznouBGx5Bd+7V3H+m78Z1rGsvkmbl5zw23BcR5//7+tiGVZzJpRjpZdwZXboxg9JiwyiHhE3krSQRf82y4UyQDDhoyliKMvAxleEZMvIibzNth6NdJnYYS1S1g6sIrVlE1s6r/je7oJJp8DjhuiR1WrASlAgUsE/7Md9kencfqVYu+SzwM+uKjkikM8tLCLuzaj+xKWjMs+JpLpqGKdyAYpm50SyEM+tHexqzH2rIY1r3vYcz7AgG6r1Ysa2Ga6FtqwMH1MyUVSrhGN9zvReTlaW2/wpmYa04UynltyrWhNqKAOdQOHcXjBAst8Axp6hM+nE4hFZkczmjvv4d6l6GEucr/+I1XEIoiGts1lPvpMi1w8OMvZHLmvZe3LeHc95uMLsXeE65p62Wvb1rvEXMAc5xRHaAtb7sSDDHGoStWMlyXxkR8VBcc5XmKgYT0KIKfkFKcKVIMMcEDVD8FZnn0WnR9NbOpS+yMRqeY1wWpIBPhuFrLcFahwWmHtV9vH/ggwAK2Jc+q3bTnwAAAAAElFTkSuQmCC);
@@ -18593,26 +18627,26 @@ a.navbar-brand:hover {
   left: 0;
 }
 
-/* line 313, resources/assets/styles/components/_blocks.scss */
+/* line 336, resources/assets/styles/components/_blocks.scss */
 
 .tax-list {
   margin-top: 2rem;
 }
 
-/* line 317, resources/assets/styles/components/_blocks.scss */
+/* line 340, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item {
   margin-bottom: 2rem;
 }
 
-/* line 320, resources/assets/styles/components/_blocks.scss */
+/* line 343, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item .excerpt {
   color: #999;
   font-size: 1.15rem;
 }
 
-/* line 325, resources/assets/styles/components/_blocks.scss */
+/* line 348, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item .meta {
   display: -webkit-box;
@@ -18623,7 +18657,7 @@ a.navbar-brand:hover {
   font-size: 1rem;
 }
 
-/* line 331, resources/assets/styles/components/_blocks.scss */
+/* line 354, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item .meta .name {
   margin-left: 1rem;
@@ -18631,20 +18665,20 @@ a.navbar-brand:hover {
   border-left: 1px solid #999;
 }
 
-/* line 338, resources/assets/styles/components/_blocks.scss */
+/* line 361, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item h4 {
   font-size: 1.25rem;
 }
 
-/* line 341, resources/assets/styles/components/_blocks.scss */
+/* line 364, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item h4 svg {
   margin-left: 0.5rem;
   max-width: 0.875rem;
 }
 
-/* line 348, resources/assets/styles/components/_blocks.scss */
+/* line 371, resources/assets/styles/components/_blocks.scss */
 
 .two-col-flex {
   display: -webkit-box;
@@ -18655,7 +18689,7 @@ a.navbar-brand:hover {
           align-items: center;
 }
 
-/* line 352, resources/assets/styles/components/_blocks.scss */
+/* line 375, resources/assets/styles/components/_blocks.scss */
 
 .two-col-flex .left,
 .two-col-flex .right {
@@ -18664,41 +18698,41 @@ a.navbar-brand:hover {
           flex: 1;
 }
 
-/* line 357, resources/assets/styles/components/_blocks.scss */
+/* line 380, resources/assets/styles/components/_blocks.scss */
 
 .two-col-flex .text {
   padding: 0 5rem;
 }
 
 @media (max-width: 991.98px) {
-  /* line 348, resources/assets/styles/components/_blocks.scss */
+  /* line 371, resources/assets/styles/components/_blocks.scss */
 
   .two-col-flex {
     display: block;
   }
 
-  /* line 364, resources/assets/styles/components/_blocks.scss */
+  /* line 387, resources/assets/styles/components/_blocks.scss */
 
   .two-col-flex .text {
     padding-bottom: 2rem;
   }
 }
 
-/* line 370, resources/assets/styles/components/_blocks.scss */
+/* line 393, resources/assets/styles/components/_blocks.scss */
 
 .map-left {
   padding-right: 5rem;
 }
 
 @media (max-width: 991.98px) {
-  /* line 370, resources/assets/styles/components/_blocks.scss */
+  /* line 393, resources/assets/styles/components/_blocks.scss */
 
   .map-left {
     padding-right: 0;
   }
 }
 
-/* line 377, resources/assets/styles/components/_blocks.scss */
+/* line 400, resources/assets/styles/components/_blocks.scss */
 
 .map-left .select {
   margin-top: 1rem;
@@ -18707,7 +18741,7 @@ a.navbar-brand:hover {
 }
 
 @media (max-width: 991.98px) {
-  /* line 377, resources/assets/styles/components/_blocks.scss */
+  /* line 400, resources/assets/styles/components/_blocks.scss */
 
   .map-left .select {
     max-width: 80%;
@@ -18715,7 +18749,7 @@ a.navbar-brand:hover {
   }
 }
 
-/* line 388, resources/assets/styles/components/_blocks.scss */
+/* line 411, resources/assets/styles/components/_blocks.scss */
 
 .map-left .state-map {
   margin-top: 1rem;
@@ -18723,14 +18757,14 @@ a.navbar-brand:hover {
 }
 
 @media (max-width: 991.98px) {
-  /* line 388, resources/assets/styles/components/_blocks.scss */
+  /* line 411, resources/assets/styles/components/_blocks.scss */
 
   .map-left .state-map {
     max-width: 100%;
   }
 }
 
-/* line 398, resources/assets/styles/components/_blocks.scss */
+/* line 421, resources/assets/styles/components/_blocks.scss */
 
 .select-page {
   width: 50%;
@@ -18738,20 +18772,20 @@ a.navbar-brand:hover {
 }
 
 @media (max-width: 991.98px) {
-  /* line 398, resources/assets/styles/components/_blocks.scss */
+  /* line 421, resources/assets/styles/components/_blocks.scss */
 
   .select-page {
     width: 100%;
   }
 }
 
-/* line 407, resources/assets/styles/components/_blocks.scss */
+/* line 430, resources/assets/styles/components/_blocks.scss */
 
 #mapbase {
   margin-bottom: 2rem;
 }
 
-/* line 411, resources/assets/styles/components/_blocks.scss */
+/* line 434, resources/assets/styles/components/_blocks.scss */
 
 .stats-trio {
   display: -webkit-box;
@@ -18768,19 +18802,19 @@ a.navbar-brand:hover {
   font-family: "Aaux-Black", sans-serif;
 }
 
-/* line 419, resources/assets/styles/components/_blocks.scss */
+/* line 442, resources/assets/styles/components/_blocks.scss */
 
 .stats-trio .num-large {
   font-size: 4rem;
 }
 
-/* line 423, resources/assets/styles/components/_blocks.scss */
+/* line 446, resources/assets/styles/components/_blocks.scss */
 
 .stats-trio .text-mid {
   margin: 0 1rem;
 }
 
-/* line 428, resources/assets/styles/components/_blocks.scss */
+/* line 451, resources/assets/styles/components/_blocks.scss */
 
 .stats-large-num {
   text-align: center;
@@ -18789,7 +18823,7 @@ a.navbar-brand:hover {
   font-family: "Aaux-Black", sans-serif;
 }
 
-/* line 435, resources/assets/styles/components/_blocks.scss */
+/* line 458, resources/assets/styles/components/_blocks.scss */
 
 .document-download {
   border: 2px solid black;
@@ -18800,51 +18834,51 @@ a.navbar-brand:hover {
   display: inline-block;
 }
 
-/* line 444, resources/assets/styles/components/_blocks.scss */
+/* line 467, resources/assets/styles/components/_blocks.scss */
 
 .post-state {
   margin-top: 2rem;
 }
 
-/* line 448, resources/assets/styles/components/_blocks.scss */
+/* line 471, resources/assets/styles/components/_blocks.scss */
 
 .homepage-hero {
   margin-top: 1rem;
 }
 
-/* line 451, resources/assets/styles/components/_blocks.scss */
+/* line 474, resources/assets/styles/components/_blocks.scss */
 
 .homepage-hero h5 {
   margin-top: 0;
 }
 
-/* line 455, resources/assets/styles/components/_blocks.scss */
+/* line 478, resources/assets/styles/components/_blocks.scss */
 
 .homepage-hero .full-width-text-inner {
   padding-top: 5rem;
   padding-bottom: 15rem;
 }
 
-/* line 462, resources/assets/styles/components/_blocks.scss */
+/* line 485, resources/assets/styles/components/_blocks.scss */
 
 .state-box .select-page {
   margin: 2rem 0;
 }
 
-/* line 467, resources/assets/styles/components/_blocks.scss */
+/* line 490, resources/assets/styles/components/_blocks.scss */
 
 .join-embed {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
-/* line 471, resources/assets/styles/components/_blocks.scss */
+/* line 494, resources/assets/styles/components/_blocks.scss */
 
 .join-embed h2 {
   margin: 0;
 }
 
-/* line 475, resources/assets/styles/components/_blocks.scss */
+/* line 498, resources/assets/styles/components/_blocks.scss */
 
 .join-embed .advocacy-actionwidget {
   -webkit-box-shadow: none !important;
@@ -18853,14 +18887,14 @@ a.navbar-brand:hover {
   border: none !important;
 }
 
-/* line 480, resources/assets/styles/components/_blocks.scss */
+/* line 503, resources/assets/styles/components/_blocks.scss */
 
 .join-embed .advocacy-actionwidget iframe {
   min-height: 280px !important;
   height: 280px;
 }
 
-/* line 488, resources/assets/styles/components/_blocks.scss */
+/* line 511, resources/assets/styles/components/_blocks.scss */
 
 .action-embed .advocacy-actionwidget {
   -webkit-box-shadow: none !important;
@@ -18869,62 +18903,62 @@ a.navbar-brand:hover {
   border: none !important;
 }
 
-/* line 495, resources/assets/styles/components/_blocks.scss */
+/* line 518, resources/assets/styles/components/_blocks.scss */
 
 .action-item {
   padding: 0 15px 0 0;
 }
 
-/* line 498, resources/assets/styles/components/_blocks.scss */
+/* line 521, resources/assets/styles/components/_blocks.scss */
 
 .action-item .img {
   padding: 0;
 }
 
-/* line 502, resources/assets/styles/components/_blocks.scss */
+/* line 525, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text {
   padding: 0;
 }
 
-/* line 505, resources/assets/styles/components/_blocks.scss */
+/* line 528, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text .text-inner {
   padding: 3rem 5rem;
   color: white;
 }
 
-/* line 510, resources/assets/styles/components/_blocks.scss */
+/* line 533, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text .text-inner h2 .action-h2-link {
   color: white;
 }
 
-/* line 513, resources/assets/styles/components/_blocks.scss */
+/* line 536, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text .text-inner h2 .action-h2-link:hover {
   color: black;
 }
 
-/* line 522, resources/assets/styles/components/_blocks.scss */
+/* line 545, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block {
   padding: 1rem;
 }
 
-/* line 523, resources/assets/styles/components/_blocks.scss */
+/* line 546, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block.tweet-block-white {
   border: 2px solid white;
 }
 
-/* line 527, resources/assets/styles/components/_blocks.scss */
+/* line 550, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block.tweet-block-black {
   border: 2px solid black;
 }
 
-/* line 533, resources/assets/styles/components/_blocks.scss */
+/* line 556, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .tweet-row {
   -webkit-box-align: center;
@@ -18932,27 +18966,27 @@ a.navbar-brand:hover {
           align-items: center;
 }
 
-/* line 537, resources/assets/styles/components/_blocks.scss */
+/* line 560, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .col-lg-3 {
   text-align: center;
 }
 
-/* line 540, resources/assets/styles/components/_blocks.scss */
+/* line 563, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .col-lg-3 .fa-twitter {
   font-size: 3rem;
   color: #0f0;
 }
 
-/* line 546, resources/assets/styles/components/_blocks.scss */
+/* line 569, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .col-lg-9 {
   padding-left: 0;
 }
 
 @media (max-width: 991.98px) {
-  /* line 546, resources/assets/styles/components/_blocks.scss */
+  /* line 569, resources/assets/styles/components/_blocks.scss */
 
   .tweet-block .col-lg-9 {
     padding-left: 15px;

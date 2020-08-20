@@ -1,5 +1,5 @@
 @foreach($featuredaction as $fa)
-<div class="two-col-flex bg-black">
+<div class="two-col-flex featured-action bg-black">
   <div class="left">
     <div class="text">
       <h3 class="display-2">{{ $fa['title'] }}</h3>

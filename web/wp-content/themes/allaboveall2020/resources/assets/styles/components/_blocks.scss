@@ -60,6 +60,29 @@
   position: relative;
 }
 
+.featured-action {
+  padding: 0;
+
+  .right {
+    text-align: right;
+  }
+
+  .display-2 {
+    margin-top: 0;
+  }
+
+  .image {
+    img {
+      object-fit: cover;
+      height: 450px;
+
+      @include media-breakpoint-down(md) {
+        height: auto;
+      }
+    }
+  }
+}
+
 .asterisk-yes {
   position: relative;
 
