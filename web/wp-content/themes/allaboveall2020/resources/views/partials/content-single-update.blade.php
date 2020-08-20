@@ -16,7 +16,7 @@
       <div class="col-lg-10 offset-lg-1">
         <div class="meta">
           <div class="date">{!! get_the_date() !!}</div>
-          <div class="author">{!! the_field('author') !!}</div>
+          @if(!empty(the_field('author')))<div class="author">{!! the_field('author') !!}</div>@endif
         </div>
           <div class="entry-content">
             @if ($featured_image) {!! $featured_image_url !!} @endif
@@ -27,9 +27,9 @@
             <div class="post-campaign flex">
               <label>Campaign</label>
               <ul>
-                  @foreach ($campaigns as $c)
-                    <li><a href="{{ get_term_link( $c->slug, 'campaign') }}">{{ $c->name }}</a></li>
-                  @endforeach
+                @foreach ($campaigns as $c)
+                  <li><a href="{{ get_term_link( $c->slug, 'campaign') }}">{{ $c->name }}</a></li>
+                @endforeach
               </ul>
             </div>
             @endif

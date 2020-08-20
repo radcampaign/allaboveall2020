@@ -39,6 +39,6 @@
           </div>
         </div>
         @include('components.resourcelist', ['contentlist' => App::listing_page('resource')])
-        @include('partials.joinblock')
+        @include('partials.joinblock-bg')
       @endsection
 </div>

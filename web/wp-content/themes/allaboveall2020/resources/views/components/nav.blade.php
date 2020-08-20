@@ -12,7 +12,7 @@
           <a class="mobile-toggle dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">+</a>
           <div class="dropdown-menu">
             @foreach($nav_item['child'] as $child)
-              <a href="{{ $child['url'] }}" class="dropdown-item">{{ $child['title'] }}</a>
+              <a href="{{ $child['url'] }}" class="dropdown-item child-{{ $child['active'] }}">{{ $child['title'] }}</a>
             @endforeach
           </div>
         </li>

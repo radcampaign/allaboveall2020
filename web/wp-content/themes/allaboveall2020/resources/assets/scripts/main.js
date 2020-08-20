@@ -41,6 +41,7 @@ $(document).ready(function() {
   $('.wp-block-group__inner-container').addClass('container');
   $('.wp-block-columns').addClass('row');
   $('.wp-block-column').addClass('col');
+  $('.dropdown-item.child-active').parents('.nav-item').addClass('active');
   /*var headerTopHeight = ''; 
   headerTopHeight = $('.header-top').height();
   $('.header-background-bar').height(headerTopHeight);*/
