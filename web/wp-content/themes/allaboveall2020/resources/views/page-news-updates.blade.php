@@ -17,7 +17,6 @@
     $typevalue = $_GET['resourcetype'];
   }
 @endphp
-<div class="content">
       @section('content')
         @while(have_posts()) @php the_post() @endphp
           @include('partials.page-header')
@@ -41,4 +40,3 @@
         @include('components.resourcelist', ['contentlist' => App::listing_page('news')])
         @include('partials.joinblock')
       @endsection
-</div>
