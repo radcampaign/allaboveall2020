@@ -587,7 +587,6 @@ function shortcode_action_two($atts, $content = null) {
           $link_target = '_blank';
         }
         else {
-          $link_target = '_self';
         }
         $btn = '<div class="green-button"><a href="'.$link['url'].'" target="'.$link_target.'"">'.get_field('button_text').'</a></div>';
       }

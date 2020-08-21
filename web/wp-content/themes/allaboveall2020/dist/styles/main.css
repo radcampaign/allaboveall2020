@@ -16880,25 +16880,31 @@ h5 {
 
 /* line 59, resources/assets/styles/custom/_typography.scss */
 
+.tooltip {
+  width: 500px;
+}
+
+/* line 63, resources/assets/styles/custom/_typography.scss */
+
 a {
   text-decoration: underline;
   color: black;
 }
 
-/* line 63, resources/assets/styles/custom/_typography.scss */
+/* line 67, resources/assets/styles/custom/_typography.scss */
 
 a:hover {
   text-decoration: none;
   background: #0f0;
 }
 
-/* line 69, resources/assets/styles/custom/_typography.scss */
+/* line 73, resources/assets/styles/custom/_typography.scss */
 
 a.image-hover:hover {
   background: transparent;
 }
 
-/* line 76, resources/assets/styles/custom/_typography.scss */
+/* line 80, resources/assets/styles/custom/_typography.scss */
 
 .single .entry-title {
   background: #0f0;
@@ -16909,39 +16915,39 @@ a.image-hover:hover {
   margin-bottom: 2rem;
 }
 
-/* line 86, resources/assets/styles/custom/_typography.scss */
+/* line 90, resources/assets/styles/custom/_typography.scss */
 
 .head-title {
   font-size: 1rem;
   font-weight: 600;
 }
 
-/* line 91, resources/assets/styles/custom/_typography.scss */
+/* line 95, resources/assets/styles/custom/_typography.scss */
 
 .text-uppercase {
   text-transform: uppercase;
 }
 
-/* line 95, resources/assets/styles/custom/_typography.scss */
+/* line 99, resources/assets/styles/custom/_typography.scss */
 
 .text-large {
   font-size: 1.5rem;
 }
 
-/* line 99, resources/assets/styles/custom/_typography.scss */
+/* line 103, resources/assets/styles/custom/_typography.scss */
 
 .text-small {
   font-size: 0.875rem;
 }
 
-/* line 103, resources/assets/styles/custom/_typography.scss */
+/* line 107, resources/assets/styles/custom/_typography.scss */
 
 .text-font-black {
   font-family: "Aaux-Black", sans-serif;
   font-weight: 800;
 }
 
-/* line 108, resources/assets/styles/custom/_typography.scss */
+/* line 112, resources/assets/styles/custom/_typography.scss */
 
 blockquote {
   border-left: #0f0 5px solid;

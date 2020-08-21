@@ -482,6 +482,7 @@ class App extends Controller
           'posts_per_page' => 6,
           'post_status' => 'publish',
           'paged' => $paged,
+          's' => $_GET['keyword'],
           'meta_query' => array(
           'relation' => 'OR',
             array(

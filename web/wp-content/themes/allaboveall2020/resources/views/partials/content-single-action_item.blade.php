@@ -26,6 +26,7 @@
                   @endforeach
               </ul>
             </div>
+            @if(!empty(wp_get_post_terms($post->ID, 'state')))
             <div class="post-state flex">
               <label>State</label>
               <ul>
@@ -35,6 +36,7 @@
                   @endforeach
               </ul>
             </div>
+            @endif
           </div>
       </div>
       <div class="col-lg-6">

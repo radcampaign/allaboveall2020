@@ -70,7 +70,7 @@
               <div class="mb-3">
                 {!! $block['data']['right_column_statistics_text'] !!}
               </div>
-              <a href="{!! $block['data']['left_image_url']['url'] !!}" class="image-hover"><img src="{{ $imgstat }}" /></a>
+              <a href="{!! $block['data']['statistics_url']['url'] !!}" class="image-hover"><img src="{{ $imgstat }}" /></a>
             </div>
           </div>
         @else
