@@ -3,7 +3,7 @@
 Plugin Name: Prevent Direct Access
 Plugin URI: https://preventdirectaccess.com/?utm_source=user-website&utm_medium=pluginpage&utm_campaign=plugin-author-link
 Description: Prevent Direct Access provides a simple solution to prevent Google indexing as well as the public from accessing your files without permission. This plugin is required for our Gold version to work properly.
-Version: 2.7.0
+Version: 2.7.1
 Author: BWPS
 Author URI: https://preventdirectaccess.com/?utm_source=user-website&utm_medium=pluginsite_link&utm_campaign=pda-lite
 Tags: files, management
@@ -31,7 +31,7 @@ define( 'PDA', __FILE__ );
 define( 'PDA_HOME_PAGE', 'https://preventdirectaccess.com/?utm_source=user-website&utm_medium=%s&utm_campaign=%s' );
 define( 'PDA_DOWNLOAD_PAGE', 'https://preventdirectaccess.com/pricing/?utm_source=user-website&amp;utm_medium=settings&amp;utm_campaign=sidebar-cta' );
 define( 'PDA_TEXTDOMAIN', 'prevent-direct-access' );
-define( 'PDAF_VERSION', '2.7.0' );
+define( 'PDAF_VERSION', '2.7.1' );
 define( 'PDA_LITE_BASE_URL', plugin_dir_url( __FILE__ ) );
 define( 'PDA_LITE_BASE_DIR', plugin_dir_path( __FILE__ ) );
 
@@ -218,17 +218,6 @@ class Pda_Admin {
 				<?php
 			}
 
-			$is_licensed = get_option( 'pda_is_licensed' );
-			// Only show notices if PDA Gold has never activated and entered license before.
-			if ( ! defined( 'PDA_GOLD_V3_VERSION' ) && empty( $is_licensed ) ) {
-				?>
-				<div class="error is-dismissible notice">
-					<p><b><?php esc_html_e( 'Prevent Direct Access: ', 'prevent-direct-access' ); ?></b>Upgrade to <a target="_blank" rel="noopener"
-								href="https://preventdirectaccess.com/?utm_source=user-website&utm_medium=notification&utm_campaign=notification-link">Gold version</a> for more
-						nifty extra features!</p>
-				</div>
-				<?php
-			}
 			if ( is_plugin_active( 'json-rest-api/plugin.php' ) ) {
 				// plugin is activated.
 				?>
@@ -240,7 +229,7 @@ class Pda_Admin {
 				<?php
 			}
 
-			if ( $this->is_file_limitation_over() ) {
+			if ( $this->is_file_limitation_to_show_warn() ) {
 				?>
 				<style>
 					.notice.pda-notice {
@@ -347,16 +336,16 @@ class Pda_Admin {
 						</div>
 						<div class="pda-notice-content">
 							<h3><?php _e( 'Like Prevent Direct Access? You\'ll fall in love with its Gold version!', 'prevent-direct-access' ); ?></h3>
-							<p><?php _e( 'Our Free version only allows you to protect up to 9 files. Please upgrade to ' ); ?>
+							<p><?php _e( 'Our PDA Lite allows you to protect up to 9 files.' ); ?>
 								<a target="_blank"
 								   href="<?php echo sprintf( constant( 'PDA_HOME_PAGE' ), 'notification', 'notification-link' ) ?>"
-								   target="_blank"><?php _e( 'Gold version', 'prevent-direct-access' ); ?></a> for more
+								   target="_blank"><?php _e( 'Upgrade to Gold version', 'prevent-direct-access' ); ?></a> for more
 								nifty features!</p>
 						</div>
 						<div class="pda-install-now">
 							<a class="button pda-install-button" target="_blank"
 							   href="<?php echo sprintf( constant( 'PDA_HOME_PAGE' ), 'notification', 'notification-cta' ) ?>"><i
-										class="dashicons dashicons-download"></i><?php _e( 'Get Gold version Now!', 'prevent-direct-access' ); ?>
+										class="dashicons dashicons-download"></i><?php _e( 'Get it now!', 'prevent-direct-access' ); ?>
 							</a>
 						</div>
 					</div>
@@ -589,6 +578,15 @@ class Pda_Admin {
 		$config     = include( 'includes/config.php' );
 
 		return $limitation >= $config->ms;
+	}
+
+	public function is_file_limitation_to_show_warn() {
+
+		$repository = new Repository;
+		$limitation = $repository->check_advance_file_limitation();
+		$config     = include( 'includes/config.php' );
+
+		return $limitation >= $config->ms_warn;
 	}
 
 	public function insert_prevent_direct_access( $post_id, $is_prevented ) {

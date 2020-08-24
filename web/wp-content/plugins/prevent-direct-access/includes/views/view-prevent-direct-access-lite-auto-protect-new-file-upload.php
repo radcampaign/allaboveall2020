@@ -10,17 +10,17 @@
 	<td>
 		<p>
 			<label>
-				<?php echo esc_html__( 'Auto-protect New File Uploads', 'prevent-direct-access-lite' ); ?>
+				<?php echo esc_html__( 'Auto-protect New File Uploads', 'prevent-direct-access' ); ?>
 				<span class="pda_upgrade_advice">
 					<a rel="noopener" target="_blank" href="https://preventdirectaccess.com/pricing/">
 						<span class="pda_dashicons dashicons dashicons-lock">
-							<span class="pda_upgrade_tooltip"><?php echo esc_html__( 'Available in Gold version', 'prevent-direct-access-lite' ) ?></span>
+							<span class="pda_upgrade_tooltip"><?php echo esc_html__( 'Available in Gold version', 'prevent-direct-access' ) ?></span>
 						</span>
 					</a>
 				</span>	
 			</label>
 			<span>
-		        <?php echo esc_html__( 'Automatically protect all new file uploads', 'prevent-direct-access-lite' ); ?>
+		        <?php echo esc_html__( 'Automatically protect all new file uploads', 'prevent-direct-access' ); ?>
             </span>
 		</p>
 	</td>

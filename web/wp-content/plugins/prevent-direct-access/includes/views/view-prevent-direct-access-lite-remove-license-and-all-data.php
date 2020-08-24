@@ -8,12 +8,12 @@
 	</td>
     <td>
         <p>
-            <label><?php echo esc_html__( 'Remove Data Upon Uninstall', 'prevent-direct-access-lite' ) ?>
+            <label><?php echo esc_html__( 'Remove Data Upon Uninstall', 'prevent-direct-access' ) ?>
             <span>
-                <?php echo esc_html__( PDA_Lite_Constants::WARNING_PLAN, 'prevent-direct-access-lite' ) ?>
+                <?php echo esc_html__( PDA_Lite_Constants::WARNING_PLAN, 'prevent-direct-access' ) ?>
             </span>
             </label>
-            <?php echo esc_html__( 'Remove your license and ALL related data upon uninstall. Your license may not be used on this website again or elsewhere anymore.', 'prevent-direct-access-lite' ) ?>
+            <?php echo esc_html__( 'Remove your license and ALL related data upon uninstall. Your license may not be used on this website again or elsewhere anymore.', 'prevent-direct-access' ) ?>
         </p>
     </td>
 </tr>

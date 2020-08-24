@@ -1,44 +1,45 @@
 === Prevent Direct Access - Protect WordPress Files ===
 Contributors: gaupoit, rexhoang, wpdafiles, buildwps
 Donate link: https://preventdirectaccess.com/pricing/?utm_source=wordpress&utm_medium=plugin&utm_campaign=donation
-Tags: protect uploads, file protection, media files, downloads, attachments, protect files, protect videos, secure downloads, expiring links, protect wordpress files
-Requires at least: 4.0
+Tags: protect uploads, file protection, media files, downloads, secure downloads
+Requires at least: 4.7
+Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Tested up to: 5.4
-Stable tag: 2.2
+Tested up to: 5.5
+Stable tag: 5.4
 
 A simple way to prevent search engines and the public from indexing and accessing your files without complex user authentication.
 
 == Description ==
 
-Prevent Direct Access provides a simple solution to protect your WordPress files as well as prevent Google, other search engines and unwanted users from indexing and stealing your hard-to-produce ebooks, documents, and videos.
+Prevent Direct Access (PDA) provides a simple solution to protect your WordPress files as well as prevent Google, other search engines and unwanted users from indexing and stealing your hard-to-produce ebooks, documents, and videos.
 
-We've created an intuitive user interface under Media library list view. It's simple and easy to use. You'll be able to protect your private files in no time.
+We've created an intuitive user interface under Media Library list view. It's simple and easy to use. You'll be able to protect your private files in no time.
 
-= An Inside Look at Prevent Direct Access Gold =
+= An Inside Look at Prevent Direct Access (PDA) Gold =
 https://www.youtube.com/watch?v=37wP7TTcW4Q
 
-Our Free version offers the following features:
+Our PDA Lite version offers the following features:
 
 == Protect WordPress Media Library File Uploads ==
-Prevent Direct Access is designed to protect all your WordPress media files such as images (PNG, JPEG), documents (PDF, DOCX, PPTX), audios, and videos (MP4, MP3) that you upload to your website under Media library or via Media, Pages or Posts.
+Prevent Direct Access is designed to protect all your WordPress media files such as images (PNG, JPEG), documents (PDF, DOCX, PPTX), audios, and videos (MP4, MP3) that you upload to your website under Media Library or via Media, Pages or Posts.
 
 Once protected, only the file's author can access them directly. Unwanted users will be redirected to your 404 not found page when attempting to read and download these file URLs.
 
 == Customize "No Access" Page ==
-Instead of redirecting unauthorized users to the 404 page, you can show them an custom page, e.g registration or login page. Users will have to log into your site in order to access these protected files.
+Instead of redirecting unauthorized users to the 404 page, you can show them a custom page, e.g registration or login page. Users will have to log into your site in order to access these protected files.
 
 == Auto-generate Private URLs ==
-Once a WordPress file is protected, Prevent Direct Access will automatically generate a private download link containing random string for you to access or share this private file with others.
+Once a WordPress file is protected, Prevent Direct Access will automatically generate a private download link containing a random string for you to access or share this private file with others.
 
 You can then copy that private download link to clipboard and subsequently paste it on your browsers and/or email by clicking on the Copy URL button.
 
 == Restrict Access based on IP Addresses ==
-Private Download Links can be accessed by anyone who know the exact URL. You have an option to block unwanted IP addresses from accessing your private links. You can also epxire them automatically by clicks or time with our Gold version.
+Private Download Links can be accessed by anyone who knows the exact URL. You have an option to block unwanted IP addresses from accessing your private links. You can also expire them automatically by clicks or time with our PDA Gold version.
 
 == Block Google from Indexing your Files ==
-Prevent Direct Access explicitly tells Google and other search engines not to index any of your protected files so that their content and original URLs will never appear on the search results.
+Prevent Direct Access (PDA) explicitly tells Google and other search engines not to index any of your protected files so that their content and original URLs will never appear on the search results.
 
 == Prevent Image Hotlinking ==
 Our plugin also stops others from stealing and using your images on their website by linking them directly from your website, which could slow down your website significantly.
@@ -46,22 +47,28 @@ Our plugin also stops others from stealing and using your images on their websit
 == Protect WordPress Uploads Directory ==
 The `wp-content/uploads` folder where all your uploaded images and files are stored will also be protected. No one will be able to see and browse the content on that folder anymore.
 
-> #### Gold Version
-> Our [Gold version](https://preventdirectaccess.com/features/?utm_source=wp.org&utm_medium=plugin_desc_link&utm_campaign=pda_lite&utm_content=premium-after-gold-heading) offers more advanced features:
+> #### Prevent Direct Access Gold Version
+> Our [PDA Gold](https://preventdirectaccess.com/features/?utm_source=wp.org&utm_medium=plugin_desc_link&utm_campaign=pda_lite&utm_content=premium-after-gold-heading) offers more advanced features:
 >
 >* Protect unlimited files and all file types
->* Restrict protected file access to logged-in users
+>* Protect new file uploads automatically or on the fly
+>* Restrict protected file access to logged-in users or custom user roles
 >* Search and replace unprotected URLs in content
->* Create & customize unlimited Private Donwload Links
+>* Create & customize unlimited Private Download Links
 >* Expire Private Download Links by days and clicks
 >* Protect all files under specific folders on WordPress root and uploads directory using [Folder Access Restriction](https://preventdirectaccess.com/extensions/wordpress-restrict-page-file-access/?utm_source=wp.org&utm_medium=plugin-desc&utm_campaign=pda_lite&utm_content=premium-after-gold-features)
 >* Restrict access to WooCommerce order page by IP addresses using [WooCommerce Integration](https://preventdirectaccess.com/extensions/woocommerce-integration/?utm_source=wp.org&utm_medium=plugin-desc&utm_campaign=pda_lite&utm_content=premium-after-gold-features) extension
 >* Integrate with Multisite, Amazon S3, and top membership plugins
+>* [Integrate with LearnDash plugin](https://preventdirectaccess.com/docs/grant-learndash-courses-access-enrolled-students/?utm_source=wp.org&utm_medium=plugin-desc&utm_campaign=pda_lite&utm_content=premium-after-gold-features) to grant course materials access to enrolled students only
 >* Protect multiple files at once and many other premium features
 >
-> Check out our [Prevent Direct Access Gold](https://preventdirectaccess.com/features/?utm_source=wp.org&utm_medium=plugin-desc&utm_campaign=pda_lite&utm_content=premium-after-gold-features) now.
->
-> If you need any help with the plugin or want to request new features, feel free to contact us through [this form](https://preventdirectaccess.com/contact/?utm_source=wp.org&utm_medium=plugin_desc_link&utm_campaign=pda_lite&utm_content=contact-after-gold-features) or drop us an email at [hello@preventdirectaccess.com](mailto:hello@preventdirectaccess.com)
+> Check out our [Prevent Direct Access (PDA) Gold](https://preventdirectaccess.com/features/?utm_source=wp.org&utm_medium=plugin-desc&utm_campaign=pda_lite&utm_content=premium-after-gold-features) now.
+
+= Documentation and support =
+
+* For documentation and tutorials go to our [Documentation](https://preventdirectaccess.com/docs/?utm_source=wp.org&utm_medium=guide-link&utm_campaign=prevent-direct-access-lite)
+* Check out [compatible hosting, themes, and plugins](https://preventdirectaccess.com/docs/compatible-wordpress-plugins/?utm_source=wp.org&utm_medium=guide-link&utm_campaign=prevent-direct-access-lite) with PPWP
+* If you have any more questions or want to request new features, contact us through [this form](https://preventdirectaccess.com/contact/?utm_source=wp.org&utm_medium=plugin_desc_link&utm_campaign=pda_lite&utm_content=contact-after-gold-features) or drop us an email at [hello@preventdirectaccess.com](mailto:hello@preventdirectaccess.com)
 
 
 == Installation ==
@@ -107,26 +114,30 @@ Prevent Direct Access supports websites hosted on Apache servers out of the box.
 In case you're using WP Engine or other NGINX servers, please [check out this instruction](https://preventdirectaccess.com/docs/nginx-support/?utm_source=wp.org&utm_medium=plugin_desc_link&utm_campaign=pda_lite&utm_content=wpengine-on-faq) on how to update the server configuration so that our plugin (both Free & Gold version) will work correctly as expected.
 
 = Why do I see a warning message on top after activating the plugin? =
-The plugin needs to add some mod_rewrite rules to your website .htaccess file (located on your website root folder) to prevents direct access to your files on the server.
+The plugin needs to add some mod_rewrite rules to your website .htaccess file (located on your website root folder) to prevent direct access to your files on the server.
 
-So it's likely that your .htaccess is not writable (with at least 644 permission; whose owner must be also accessable by your apache server such as `www-data`). If that's the case, you must either make it writable or manually update your .htaccess with the mod_rewrite rules found under Settings > Permalinks.
+So it's likely that your .htaccess is not writable (with at least 644 permission; whose owner must be also accessible by your apache server such as `www-data`). If that's the case, you must either make it writable or manually update your .htaccess with the mod_rewrite rules found under Settings > Permalinks.
 
 = Why do I see the popup box that says I can protect only 9 files? =
-The free version of this plugin offers protection up to 9 files only. Please [check out our Gold version](https://preventdirectaccess.com/features/?utm_source=wp-plugin-repo&utm_medium=plugin-desc&utm_campaign=premium-on-faq) which offer unlimited protected files and other premium features.
+= Why can’t I protect more files? =
+The Lite version of this plugin offers protection up to 9 files only. Please [check out PDA Gold](https://preventdirectaccess.com/features/?utm_source=wp-plugin-repo&utm_medium=plugin-desc&utm_campaign=premium-on-faq) which offers unlimited protected files and many more premium features.
 
-More documentation can be found in [our FAQ](https://preventdirectaccess.com/faq/?utm_source=wp.org&utm_medium=plugin_desc_link&utm_campaign=pda_lite&utm_content=faq-on-faq).
+
 
 == Screenshots ==
-1. Once you have installed the plugin, please click Activate
+1. Once you have installed the plugin, click Activate
 2. Go to Media to protect your files. Prevent Direct Access works best on List View.
-3. You will notice there an extra column called "Prevent Direct Access" auto-generated by our plugin. Click on "Configure file protection" to open a popup that allows you to protect your private file.
-4. Click on "Protect this file" button on the popup.
-5. The file is now "protected". Its File Access Permission is set to "The file's author", which means it's accessible to the file's author only. Other users are able to access your protected file using private download link.
-6. The free version of Prevent Direct Access allows you to protect up to 9 files. A notification will show up when the number of protected files reaches the limit. Check out our Gold version which offers unlimited file protection, custom file access permission and many other premium features.
+3. You will notice there an extra column called "Prevent Direct Access" auto-generated by our plugin. Click on "Configure file protection" and start protecting your private file.
+4. Click on "Protect this file" button to make the file private .
+5. The file is now "protected". Its File Access Permission is set to "The file's author", which means it's accessible to the file's author only. Other users are able to access your protected file using a private download link.
+6. The free version of Prevent Direct Access allows you to protect up to 9 files. A notification will show up when the number of protected files reaches the limit. Check out our PDA Gold version which offers unlimited file protection, custom file access permission and many other premium features.
 
 == Changelog ==
 
-= 2.7.0 June 16, 2020=
+= 2.7.1 August 24, 2020 =
+* Fix PHP notices with WP 5.5
+
+= 2.7.0 June 16, 2020 =
 * PDA Gold requires PDA Lite
 * Un-protecting files don't update _pda_protection value
 * Remove unused files & folders
@@ -220,7 +231,7 @@ More documentation can be found in [our FAQ](https://preventdirectaccess.com/faq
 * Tweak: Change the plugin's logic to cater for those files that couldn't be found in the _postmeta table
 
 = 2.1.2 =
-* Fix Twitter, Googleplus and Facebook open graph issue
+* Fix Twitter, Google Plus and Facebook open graph issue
 
 = 2.1.1 =
 * Fix .htaccess rules to recognize the special characters

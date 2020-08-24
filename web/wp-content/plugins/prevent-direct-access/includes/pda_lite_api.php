@@ -28,21 +28,33 @@ if ( ! class_exists('PDA_Lite_API') ) {
             register_rest_route(PDA_Lite_Constants::PREFIX_API_NAME, '/files/(?P<id>\d+)', array(
                 'methods' => 'POST',
                 'callback' => array($this, 'protect_files'),
+                'permission_callback' => function () {
+                    return current_user_can( 'upload_files' );
+                },
             ));
 
             register_rest_route(PDA_Lite_Constants::PREFIX_API_NAME, '/private-urls/(?P<id>\d+)', array(
                 'methods' => 'GET',
                 'callback' => array($this, 'list_private_links'),
+                'permission_callback' => function () {
+                    return current_user_can( 'upload_files' );
+                },
             ));
 
             register_rest_route(PDA_Lite_Constants::PREFIX_API_NAME, '/files/(?P<id>\d+)', array(
                 'methods' => 'GET',
                 'callback' => array($this, 'is_protected'),
+                'permission_callback' => function () {
+                    return current_user_can( 'upload_files' );
+                },
             ));
 
             register_rest_route(PDA_Lite_Constants::PREFIX_API_NAME, '/un-protect-files/(?P<id>\d+)', array(
                 'methods' => 'POST',
                 'callback' => array($this, 'un_protect_files'),
+                'permission_callback' => function () {
+                    return current_user_can( 'upload_files' );
+                },
             ));
         }
 

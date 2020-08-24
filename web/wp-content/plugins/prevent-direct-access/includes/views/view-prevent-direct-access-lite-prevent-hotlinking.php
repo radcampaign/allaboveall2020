@@ -9,9 +9,9 @@
 
     <td>
         <p>
-            <label><?php echo esc_html__( 'Prevent Image Hotlinking', 'prevent-direct-access-lite' ) ?>
+            <label><?php echo esc_html__( 'Prevent Image Hotlinking', 'prevent-direct-access' ) ?>
             </label>
-            <?php echo esc_html__( 'Prevent other people from stealing and using your images or files without permission', 'prevent-direct-access-lite' ) ?>
+            <?php echo esc_html__( 'Prevent other people from stealing and using your images or files without permission', 'prevent-direct-access' ) ?>
         </p>
     </td>
 </tr>

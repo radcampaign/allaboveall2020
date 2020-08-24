@@ -9,12 +9,12 @@
 
     <td>
         <p>
-            <label><?php echo esc_html__( 'Enable Debug Logs?', 'prevent-direct-access-lite' ) ?>
+            <label><?php echo esc_html__( 'Enable Debug Logs?', 'prevent-direct-access' ) ?>
             <span>
-                <?php echo esc_html__( PDA_Lite_Constants::WARNING_PLAN, 'prevent-direct-access-lite' ) ?>
+                <?php echo esc_html__( PDA_Lite_Constants::WARNING_PLAN, 'prevent-direct-access' ) ?>
             </span>
             </label>
-            <?php echo esc_html__( 'Log (fatal) errors of your entire website which speeds up the troubleshooting process when problems occur', 'prevent-direct-access-lite' ) ?>
+            <?php echo esc_html__( 'Log (fatal) errors of your entire website which speeds up the troubleshooting process when problems occur', 'prevent-direct-access' ) ?>
         </p>
     </td>
 </tr>

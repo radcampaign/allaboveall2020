@@ -8,11 +8,11 @@
 	</td>
 	<td>
 		<p>
-			<label><?php echo esc_html__( 'Search & Replace', 'prevent-direct-access-lite' ) ?>
+			<label><?php echo esc_html__( 'Search & Replace', 'prevent-direct-access' ) ?>
 			</label>
-			<?php echo esc_html__( 'Search and auto-replace new protected files whose URLs are already embedded in content', 'prevent-direct-access-lite' ) ?>
+			<?php echo esc_html__( 'Search and auto-replace new protected files whose URLs are already embedded in content', 'prevent-direct-access' ) ?>
 			<span>
-                <?php echo esc_html__( PDA_Lite_Constants::WARNING_PLAN, 'prevent-direct-access-lite' ) ?>
+                <?php echo esc_html__( PDA_Lite_Constants::WARNING_PLAN, 'prevent-direct-access' ) ?>
             </span>
 		</p>
 	</td>

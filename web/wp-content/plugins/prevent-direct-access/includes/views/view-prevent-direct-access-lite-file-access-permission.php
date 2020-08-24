@@ -2,19 +2,16 @@
     <td class="feature-input"><span class="feature-input"></span></td>
     <td>
 	    <p>
-		    <label><?php echo esc_html__( 'Set File Access Permission', 'prevent-direct-access-lite' ) ?>
-			    <!--            <span>-->
-			    <!--                --><?php //echo esc_html__( PDA_Lite_Constants::WARNING_PLAN, 'prevent-direct-access-lite' ) ?>
-			    <!--            </span>-->
+		    <label><?php echo esc_html__( 'Set File Access Permission', 'prevent-direct-access' ) ?>
                 <span class="pda_upgrade_advice">
 					<a rel="noopener" target="_blank" href="https://preventdirectaccess.com/pricing/">
 						<span class="pda_dashicons dashicons dashicons-lock">
-							<span class="pda_upgrade_tooltip"><?php echo esc_html__( 'Available in Gold version', 'prevent-direct-access-lite' ) ?></span>
+							<span class="pda_upgrade_tooltip"><?php echo esc_html__( 'Available in Gold version', 'prevent-direct-access' ) ?></span>
 						</span>
 					</a>
 				</span>
 		    </label>
-		    <?php echo esc_html__( 'Select user roles who can access protected files through their file URLs', 'prevent-direct-access-lite' ) ?>
+		    <?php echo esc_html__( 'Select user roles who can access protected files through their file URLs', 'prevent-direct-access' ) ?>
 	    </p>
         <select id="file_access_permission">
             <option value="admin_users" disabled="true"><?php echo esc_html__( 'Admin users', 'prevent-direct-access' ) ?></option>

@@ -29,7 +29,7 @@ if (empty($user_meta)) { ?>
 			</form>
 			<p style="display: none;" class="newsletter_inform">
 				<label class="pda_signup_newsletter" for="pda_signup_newsletter">
-                    <?php echo __('Congrats! You\'ve subscribed to our newsletter and now stand a chance to win our 1-year Gold license for free.', 'pda') ?></br>
+                    <?php echo __('Congrats! You\'ve subscribed to our newsletter and now stand a chance to win our 1-year Gold license for free.', 'prevent-direct-access') ?></br>
 					<?php echo __('Stay tuned for our updates :)', 'prevent-direct-access') ?>
 				</label>
 			</p>

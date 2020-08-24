@@ -40,7 +40,7 @@ class SettingsPage
         ?>
         <div class="wrap">
             <div id="icon-themes" class="icon32"></div>
-            <h2><?php _e('Prevent Direct Access Settings', 'pda-setting'); ?></h2>
+            <h2><?php _e('Prevent Direct Access Settings', 'prevent-direct-access'); ?></h2>
 
             <?php
                 $activate_tab = isset($_GET['tab']) ? $_GET['tab'] : 'general';
@@ -72,10 +72,10 @@ class SettingsPage
     function render_tabs($active_tab) {
         ?>
         <h2 class="nav-tab-wrapper">
-            <a href="?page=wp_pda_options&tab=general" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _e('Settings', 'pda-setting'); ?></a>
+            <a href="?page=wp_pda_options&tab=general" class="nav-tab <?php echo $active_tab == 'general' ? 'nav-tab-active' : ''; ?>"><?php _e('Settings', 'prevent-direct-access'); ?></a>
 <!--            <a href="?page=wp_pda_settings_options&tab=advance" class="nav-tab --><?php //echo $active_tab == 'advance' ? 'nav-tab-active' : ''; ?><!--">--><?php //_e('Advance Settings', 'pda-setting'); ?><!--</a>-->
-            <a href="?page=wp_pda_options&tab=iplock" class="nav-tab <?php echo $active_tab == 'iplock' ? 'nav-tab-active' : ''; ?>"><?php _e('IP Restriction', 'pda-setting'); ?></a>
-            <a href="?page=wp_pda_options&tab=faq" class="nav-tab <?php echo $active_tab == 'faq' ? 'nav-tab-active' : ''; ?>"><?php _e('FAQ/Troubleshooting', 'pda-setting'); ?></a>
+            <a href="?page=wp_pda_options&tab=iplock" class="nav-tab <?php echo $active_tab == 'iplock' ? 'nav-tab-active' : ''; ?>"><?php _e('IP Restriction', 'prevent-direct-access'); ?></a>
+            <a href="?page=wp_pda_options&tab=faq" class="nav-tab <?php echo $active_tab == 'faq' ? 'nav-tab-active' : ''; ?>"><?php _e('FAQ/Troubleshooting', 'prevent-direct-access'); ?></a>
 <!--            <a href="?page=wp_pda_settings_options&tab=about" class="nav-tab --><?php //echo $active_tab == 'about' ? 'nav-tab-active' : ''; ?><!--">--><?php //_e('About', 'pda=setting'); ?><!--</a>-->
         </h2>
         <?php
@@ -208,7 +208,7 @@ class SettingsPage
                                 <td></td>
                                 <td>
                                     <div class="save_general_btn">
-                                        <input type="submit" value="<?php _e('Save Changes', 'pda-setting'); ?>" class="button button-primary" id="pda_free_general" name="pda_free_general">
+                                        <input type="submit" value="<?php _e('Save Changes', 'prevent-direct-access'); ?>" class="button button-primary" id="pda_free_general" name="pda_free_general">
                                     </div>
                                 </td>
                             </tr>
@@ -282,7 +282,7 @@ class SettingsPage
                         <a target="_blank" href="<?php echo sprintf(constant( 'PDA_HOME_PAGE' ), 'user-website' , "settings-notification-link") ?>" target="_blank"><?php _e( 'Gold version' ); ?></a> to change default settings!</p>
                 </div>
                 <div class="pda-install-now">
-                    <a class="button pda-install-button" target="_blank" href="<?php echo sprintf(constant( 'PDA_HOME_PAGE' ), 'settings', 'sidebar-cta') ?>"><i class="dashicons dashicons-download"></i><?php _e( 'Get Gold version Now!' ); ?></a>
+                    <a class="button pda-install-button" target="_blank" href="<?php echo sprintf(constant( 'PDA_HOME_PAGE' ), 'settings', 'sidebar-cta') ?>"><i class="dashicons dashicons-download"></i><?php _e( 'Get it now!' ); ?></a>
                 </div>
             </div>
         </div>
@@ -293,7 +293,7 @@ class SettingsPage
         ?>
             <div class="main_container">
 <!--                --><?php //$this->render_notification_toast(); ?>
-                <h3><?php _e('General Options', 'pda-setting')?></h3>
+                <h3><?php _e('General Options', 'prevent-direct-access')?></h3>
                 <form method="post"  action="">
                     <div class="metabox-holder">
                         <div class="postbox">
@@ -301,25 +301,25 @@ class SettingsPage
                                 <table cellpadding="8">
                                     <tbody>
                                     <tr>
-                                        <td><?php _e('Enable remote log?', 'pda-setting'); ?></td>
+                                        <td><?php _e('Enable remote log?', 'prevent-direct-access'); ?></td>
                                         <td>
                                             <input id='prefix_url' name='prefix_url' type='checkbox' />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><?php _e('Apply for logged users?', 'pda-setting'); ?></td>
+                                        <td><?php _e('Apply for logged users?', 'prevent-direct-access'); ?></td>
                                         <td>
                                             <input id='view_by_logged_user' type='checkbox' />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><?php _e('Prefix url', 'pda-setting'); ?></td>
+                                        <td><?php _e('Prefix url', 'prevent-direct-access'); ?></td>
                                         <td>
                                             <input id='prefix_url' name='prefix_url' type='text' value="private" />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><?php _e('Auto protect new uploaded files 123?', 'pda-setting'); ?></td>
+                                        <td><?php _e('Auto protect new uploaded files 123?', 'prevent-direct-access'); ?></td>
                                         <td>
                                             <input id='pda_auto_protect_new_files' name='prefix_url' type='checkbox' />
                                         </td>
@@ -329,7 +329,7 @@ class SettingsPage
                             </div>
                         </div>
                     </div>
-                    <input type="submit" value="<?php _e('Save Changes', 'pda-setting'); ?>" class="button button-primary" id="submit_general" name="submit_general">
+                    <input type="submit" value="<?php _e('Save Changes', 'prevent-direct-access'); ?>" class="button button-primary" id="submit_general" name="submit_general">
                 </form>
             </div>
         <?php
@@ -351,21 +351,21 @@ class SettingsPage
         $this->render_subscribe_form();
         ?>
             <div class="main_container">
-                <h3><?php _e('Prevent Direct Access Gold', 'pda-setting'); ?></h3>
+                <h3><?php _e('Prevent Direct Access Gold', 'prevent-direct-access'); ?></h3>
                 <div>
 <!--                    <div class="postbox">-->
 <!--                        <div class="inside">-->
 
-                            <p><?php _e('Upgrade to Prevent Direct Access Gold NOW and enjoy many more powerful features:', 'pda-setting'); ?></p>
+                            <p><?php _e('Upgrade to Prevent Direct Access Gold NOW and enjoy many more powerful features:', 'prevent-direct-access'); ?></p>
                             <ul class="wpep_pro_upgrade_list">
-                                <li><span class="dashicons dashicons-yes"></span><?php _e('Protect Multiple Files simultaneously', 'pda-setting'); ?></li>
-                                <li><span class="dashicons dashicons-yes"></span><?php _e('Create Unlimited Private URLs', 'pda-setting'); ?></li>
-                                <li><span class="dashicons dashicons-yes"></span><?php _e('Grant Logged-in Users Special Access', 'pda-setting'); ?></li>
-                                <li><span class="dashicons dashicons-yes"></span><?php _e('Search & Replace Unprotected URLs in content', 'pda-setting'); ?></li>
-                                <li><span class="dashicons dashicons-yes"></span><?php _e('Integrate with Top Membership Plugins', 'pda-setting'); ?></li>
-                                <li><span class="dashicons dashicons-yes"></span><?php _e('Support Multisite and NGINX servers', 'pda-setting'); ?></li>
+                                <li><span class="dashicons dashicons-yes"></span><?php _e('Protect Multiple Files simultaneously', 'prevent-direct-access'); ?></li>
+                                <li><span class="dashicons dashicons-yes"></span><?php _e('Create Unlimited Private URLs', 'prevent-direct-access'); ?></li>
+                                <li><span class="dashicons dashicons-yes"></span><?php _e('Grant Logged-in Users Special Access', 'prevent-direct-access'); ?></li>
+                                <li><span class="dashicons dashicons-yes"></span><?php _e('Search & Replace Unprotected URLs in content', 'prevent-direct-access'); ?></li>
+                                <li><span class="dashicons dashicons-yes"></span><?php _e('Integrate with Top Membership Plugins', 'prevent-direct-access'); ?></li>
+                                <li><span class="dashicons dashicons-yes"></span><?php _e('Support Multisite and NGINX servers', 'prevent-direct-access'); ?></li>
                             </ul>
-                            <a href="<?php echo sprintf(constant( 'PDA_DOWNLOAD_PAGE' ), 'settings', 'sidebar-cta') ?>" target="_blank" class="button-primary"><?php _e('Download Now', 'pda-setting'); ?></a>
+                            <a href="<?php echo sprintf(constant( 'PDA_DOWNLOAD_PAGE' ), 'settings', 'sidebar-cta') ?>" target="_blank" class="button-primary"><?php _e('Download Now', 'prevent-direct-access'); ?></a>
 <!--                        </div>-->
 <!--                    </div>-->
                 </div>
@@ -376,12 +376,12 @@ class SettingsPage
     function render_like_plugin_column() {
         ?>
             <div class="main_container">
-            	<h3><?php _e('Like this Plugin?', 'pda-setting'); ?></h3>
+            	<h3><?php _e('Like this Plugin?', 'prevent-direct-access'); ?></h3>
 <!--                <div class="metabox-holder">-->
 <!--                    <div class="postbox">-->
                         <div class="inside">
 
-                            <p><?php _e('If you like <b>Prevent Direct Access</b>, please leave us a <span class="pda-star dashicons dashicons-star-filled"></span> rating to motivate the team to work harder, add more powerful features and support you even better :) </br> A huge thanks in advance!', 'pda-setting'); ?></p>
+                            <p><?php _e('If you like <b>Prevent Direct Access</b>, please leave us a <span class="pda-star dashicons dashicons-star-filled"></span> rating to motivate the team to work harder, add more powerful features and support you even better :) </br> A huge thanks in advance!', 'prevent-direct-access'); ?></p>
                             <p><a href="https://wordpress.org/support/plugin/prevent-direct-access/reviews/#new-post" target="_blank" class="button-primary"><?php _e("Let's do it", 'prevent-direct-access'); ?></a></p>
 
                             <?php

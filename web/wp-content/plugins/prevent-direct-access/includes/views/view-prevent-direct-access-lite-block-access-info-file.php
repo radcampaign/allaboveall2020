@@ -7,12 +7,12 @@
 	</td>
     <td>
         <p>
-            <label><?php echo esc_html__( 'Block Access to Sensitive Files', 'prevent-direct-access-lite' ) ?>
+            <label><?php echo esc_html__( 'Block Access to Sensitive Files', 'prevent-direct-access' ) ?>
             <span>
-              <?php echo esc_html__( PDA_Lite_Constants::WARNING_PLAN, 'prevent-direct-access-lite' ) ?>
+              <?php echo esc_html__( PDA_Lite_Constants::WARNING_PLAN, 'prevent-direct-access' ) ?>
             </span>
             </label>
-            <?php echo esc_html__( 'Block access to readme.html, license.txt, and wp-config-sample.php files', 'prevent-direct-access-lite' ) ?>
+            <?php echo esc_html__( 'Block access to readme.html, license.txt, and wp-config-sample.php files', 'prevent-direct-access' ) ?>
         </p>
     </td>
 </tr>

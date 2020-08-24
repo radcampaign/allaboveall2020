@@ -8,10 +8,10 @@
     </td>
 	<td>
 		<p>
-			<label><?php echo esc_html__( 'Generate Private Link Once Protected', 'prevent-direct-access-lite' ) ?>
+			<label><?php echo esc_html__( 'Generate Private Link Once Protected', 'prevent-direct-access' ) ?>
 			</label>
-			<?php echo esc_html__( 'Automatically create a new private link once the file is protected', 'prevent-direct-access-lite' ) ?><span>
-                <?php echo esc_html__( PDA_Lite_Constants::WARNING_PLAN, 'prevent-direct-access-lite' ) ?>
+			<?php echo esc_html__( 'Automatically create a new private link once the file is protected', 'prevent-direct-access' ) ?><span>
+                <?php echo esc_html__( PDA_Lite_Constants::WARNING_PLAN, 'prevent-direct-access' ) ?>
             </span>
 		</p>
 	</td>

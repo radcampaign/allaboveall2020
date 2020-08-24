@@ -15,7 +15,7 @@ function pda_menu() {
 
 function pda_settings() {
     if(!current_user_can('manage_options')) {
-        wp_die( __('You do not have sufficient permissions to access this page.') );
+        wp_die( __('You do not have sufficient permissions to access this page.', 'prevent-direct-access') );
     }
 
     ?>
@@ -110,7 +110,7 @@ function pda_settings() {
                         <a target="_blank" href="<?php echo sprintf(constant( 'PDA_HOME_PAGE' ), 'user-website' , "settings-notification-link") ?>" target="_blank"><?php _e( 'Gold version' ); ?></a> to change default settings!</p>
                 </div>
                 <div class="pda-install-now">
-                    <a class="button pda-install-button" target="_blank" href="<?php echo sprintf(constant( 'PDA_HOME_PAGE' ), 'user-website', 'settings-notification-cta') ?>"><i class="dashicons dashicons-download"></i><?php _e( 'Get Gold version Now!' ); ?></a>
+                    <a class="button pda-install-button" target="_blank" href="<?php echo sprintf(constant( 'PDA_HOME_PAGE' ), 'user-website', 'settings-notification-cta') ?>"><i class="dashicons dashicons-download"></i><?php _e( 'Get it now!' ); ?></a>
                 </div>
             </div>
         </div>
