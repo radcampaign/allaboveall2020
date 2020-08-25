@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="page-header-inner">
-            <div class="post-headline">Resource</div>
+            <div class="post-headline">Resources</div>
           </div>
         </div>
       </div>
