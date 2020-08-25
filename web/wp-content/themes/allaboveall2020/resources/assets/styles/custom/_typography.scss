@@ -59,6 +59,10 @@ h5 {
 .display-2 {
   font-size: 2.5rem;
   text-transform: uppercase;
+
+  @include media-breakpoint-down(md) {
+    font-size: 2rem;
+  }
 }
 
 .tooltip {

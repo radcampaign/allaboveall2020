@@ -210,7 +210,9 @@ class App extends Controller
       <select id="dynamic_select" class="form-control">
         <option>Select a State</option>';
       foreach($statetermlist as $state) {
-        if($state->term_id != '11') {
+        if(($state->term_id == '11') || ($state->term_id == '29')) {
+        }
+        else {
           $statedropdown = $statedropdown.'<option value="/state/'.$state->slug.'">'.$state->name.'</option>';
         }
       }

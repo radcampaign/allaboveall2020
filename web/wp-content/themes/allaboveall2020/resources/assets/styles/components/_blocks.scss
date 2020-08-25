@@ -18,6 +18,11 @@
     padding-left: 1rem;
     padding-bottom: 1rem;
 
+    @include media-breakpoint-down(md) {
+      overflow: hidden;
+      right: -1.3rem;
+    }
+
     .icon {
       transform: rotate(45deg);
     }
@@ -130,6 +135,10 @@
 
   &.asterisk-top {
     margin-top: 10rem;
+
+    @include media-breakpoint-down(md) {
+      margin-top: 5rem;
+    }
 
     .asterisk-container {
       position: absolute;
@@ -355,13 +364,13 @@
   margin-bottom: 2rem;
 
   .excerpt {
-    color: $gray-550;
+    color: $gray-600;
     font-size: 1.15rem;
   }
 
   .meta {
     display: flex;
-    color: $gray-550;
+    color: $gray-600;
     margin: 0.5rem 0;
     font-size: 1rem;
 
@@ -393,6 +402,10 @@
 
   .text {
     padding: 0 5rem;
+
+    @include media-breakpoint-down(md) {
+      padding: 0 2rem;
+    }
   }
 
   @include media-breakpoint-down(md) {
