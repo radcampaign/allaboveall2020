@@ -17,6 +17,7 @@
           <div class="entry-content">
             @php the_content() @endphp
             <!-- <a href="{{ get_field('button_url') }}" class="btn">{{ get_field('button_text') }}</a> -->
+            @if(!empty(wp_get_post_terms($post->ID, 'campaign')))
             <div class="post-campaign flex">
               <label>Campaign</label>
               <ul>
@@ -26,6 +27,7 @@
                   @endforeach
               </ul>
             </div>
+            @endif
             @if(!empty(wp_get_post_terms($post->ID, 'state')))
             <div class="post-state flex">
               <label>State</label>
