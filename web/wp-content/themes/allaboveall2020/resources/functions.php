@@ -614,8 +614,10 @@ function shortcode_state_dropdown($atts, $content = null) {
   <select id="dynamic_select" class="form-control">
     <option>Select a State</option>';
   foreach($statetermlist as $state) {
-    if($state->term_id != '11') {
-      $statedropdown = $statedropdown.'<option value="/state/'.$state->slug.'">'.$state->name.'</option>';
+    if(($state->term_id == '11') || ($state->term_id == '29')) {
+    }
+    else {
+      $statedropdown = $statedropdown.'<option value="/state/'.$state->slug.'">'.$state->name.' - '.$state->term_id.'</option>';
     }
   }
   $statedropdown = $statedropdown.'</select></div>';
