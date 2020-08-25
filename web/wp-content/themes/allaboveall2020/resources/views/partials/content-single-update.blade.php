@@ -1,10 +1,17 @@
+@php
+  $press = get_field('press_release');
+@endphp
 <article @php post_class('mb-4') @endphp>
   <div class="page-header">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
           <div class="page-header-inner">
-            <h1>{!! get_the_title() !!}</h1>
+            @if($press == 1)
+              <div class="post-headline">Press</div>
+            @else
+              <div class="post-headline">Updates</div>
+            @endif
           </div>
         </div>
       </div>
@@ -14,6 +21,7 @@
   <div class="container updates">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
+        <h1 class="pageh1">{!! get_the_title() !!}</h1>
         <div class="meta">
           <div class="date">{!! get_the_date() !!}</div>
           @if(!empty(get_field('author')))

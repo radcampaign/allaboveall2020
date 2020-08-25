@@ -16833,6 +16833,12 @@ h1 {
   margin-bottom: 0;
 }
 
+/* line 22, resources/assets/styles/custom/_typography.scss */
+
+h1.pageh1 {
+  margin-bottom: 2rem;
+}
+
 @media (max-width: 991.98px) {
   /* line 17, resources/assets/styles/custom/_typography.scss */
 
@@ -16841,7 +16847,7 @@ h1 {
   }
 }
 
-/* line 27, resources/assets/styles/custom/_typography.scss */
+/* line 31, resources/assets/styles/custom/_typography.scss */
 
 h2 {
   font-size: 2.375rem;
@@ -16849,21 +16855,21 @@ h2 {
   text-transform: uppercase;
 }
 
-/* line 33, resources/assets/styles/custom/_typography.scss */
+/* line 37, resources/assets/styles/custom/_typography.scss */
 
 h3 {
   font-size: 1.625rem;
   line-height: 2.1rem;
 }
 
-/* line 38, resources/assets/styles/custom/_typography.scss */
+/* line 42, resources/assets/styles/custom/_typography.scss */
 
 h4 {
   font-size: 1.5rem;
   line-height: 2rem;
 }
 
-/* line 43, resources/assets/styles/custom/_typography.scss */
+/* line 47, resources/assets/styles/custom/_typography.scss */
 
 h5 {
   font-size: 1.375rem;
@@ -16871,7 +16877,14 @@ h5 {
   text-transform: uppercase;
 }
 
-/* line 49, resources/assets/styles/custom/_typography.scss */
+/* line 53, resources/assets/styles/custom/_typography.scss */
+
+.post-headline {
+  font-size: 3rem;
+  font-family: "Aaux-Black", sans-serif;
+}
+
+/* line 58, resources/assets/styles/custom/_typography.scss */
 
 .display-1 {
   line-height: 1.1;
@@ -16879,7 +16892,7 @@ h5 {
 }
 
 @media (max-width: 991.98px) {
-  /* line 49, resources/assets/styles/custom/_typography.scss */
+  /* line 58, resources/assets/styles/custom/_typography.scss */
 
   .display-1 {
     font-size: 2rem;
@@ -16887,7 +16900,7 @@ h5 {
   }
 }
 
-/* line 59, resources/assets/styles/custom/_typography.scss */
+/* line 68, resources/assets/styles/custom/_typography.scss */
 
 .display-2 {
   font-size: 2.5rem;
@@ -16895,40 +16908,40 @@ h5 {
 }
 
 @media (max-width: 991.98px) {
-  /* line 59, resources/assets/styles/custom/_typography.scss */
+  /* line 68, resources/assets/styles/custom/_typography.scss */
 
   .display-2 {
     font-size: 2rem;
   }
 }
 
-/* line 68, resources/assets/styles/custom/_typography.scss */
+/* line 77, resources/assets/styles/custom/_typography.scss */
 
 .tooltip {
   width: 500px;
 }
 
-/* line 72, resources/assets/styles/custom/_typography.scss */
+/* line 81, resources/assets/styles/custom/_typography.scss */
 
 a {
   text-decoration: underline;
   color: black;
 }
 
-/* line 76, resources/assets/styles/custom/_typography.scss */
+/* line 85, resources/assets/styles/custom/_typography.scss */
 
 a:hover {
   text-decoration: none;
   background: #0f0;
 }
 
-/* line 82, resources/assets/styles/custom/_typography.scss */
+/* line 91, resources/assets/styles/custom/_typography.scss */
 
 a.image-hover:hover {
   background: transparent;
 }
 
-/* line 89, resources/assets/styles/custom/_typography.scss */
+/* line 98, resources/assets/styles/custom/_typography.scss */
 
 .single .entry-title {
   background: #0f0;
@@ -16939,39 +16952,39 @@ a.image-hover:hover {
   margin-bottom: 2rem;
 }
 
-/* line 99, resources/assets/styles/custom/_typography.scss */
+/* line 108, resources/assets/styles/custom/_typography.scss */
 
 .head-title {
   font-size: 1rem;
   font-weight: 600;
 }
 
-/* line 104, resources/assets/styles/custom/_typography.scss */
+/* line 113, resources/assets/styles/custom/_typography.scss */
 
 .text-uppercase {
   text-transform: uppercase;
 }
 
-/* line 108, resources/assets/styles/custom/_typography.scss */
+/* line 117, resources/assets/styles/custom/_typography.scss */
 
 .text-large {
   font-size: 1.5rem;
 }
 
-/* line 112, resources/assets/styles/custom/_typography.scss */
+/* line 121, resources/assets/styles/custom/_typography.scss */
 
 .text-small {
   font-size: 0.875rem;
 }
 
-/* line 116, resources/assets/styles/custom/_typography.scss */
+/* line 125, resources/assets/styles/custom/_typography.scss */
 
 .text-font-black {
   font-family: "Aaux-Black", sans-serif;
   font-weight: 800;
 }
 
-/* line 121, resources/assets/styles/custom/_typography.scss */
+/* line 130, resources/assets/styles/custom/_typography.scss */
 
 blockquote {
   border-left: #0f0 5px solid;

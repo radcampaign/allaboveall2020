@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="page-header-inner">
-            <h1>{!! get_the_title() !!}</h1>
+            <div class="post-headline">Resource</div>
           </div>
         </div>
       </div>
@@ -19,6 +19,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
+        <h1>{!! get_the_title() !!}</h1>
           <div class="entry-content">
             @php the_content() @endphp
             @if (!empty(get_field('file')))
