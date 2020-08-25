@@ -617,7 +617,7 @@ function shortcode_state_dropdown($atts, $content = null) {
     if(($state->term_id == '11') || ($state->term_id == '29')) {
     }
     else {
-      $statedropdown = $statedropdown.'<option value="/state/'.$state->slug.'">'.$state->name.' - '.$state->term_id.'</option>';
+      $statedropdown = $statedropdown.'<option value="/state/'.$state->slug.'">'.$state->name.'</option>';
     }
   }
   $statedropdown = $statedropdown.'</select></div>';
