@@ -16777,6 +16777,13 @@ nav a {
   right: 6px;
 }
 
+/* line 116, resources/assets/styles/common/_global.scss */
+
+a[href^=tel] {
+  color: inherit;
+  text-decoration: none;
+}
+
 @font-face {
   font-family: "Aaux-Bold";
   src: url(/wp-content/themes/allaboveall2020/dist/fonts/AAUXPROBASIC/AauxProOT-Bold.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/AAUXPROBASIC/AauxProOT-Bold.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/AAUXPROBASIC/AauxProOTBold.otf) format("opentype");

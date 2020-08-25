@@ -112,3 +112,8 @@ nav a {
     right: 6px;
   }
 }
+
+a[href^=tel] {
+  color: inherit;
+  text-decoration: none;
+}
