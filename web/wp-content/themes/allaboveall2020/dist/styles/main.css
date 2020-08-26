@@ -18144,7 +18144,14 @@ a.navbar-brand:hover {
   color: black;
 }
 
-/* line 173, resources/assets/styles/custom/_navigation.scss */
+/* line 175, resources/assets/styles/custom/_navigation.scss */
+
+.page-numbers li.dots-no-hover .page-numbers:hover {
+  background: black;
+  color: white;
+}
+
+/* line 182, resources/assets/styles/custom/_navigation.scss */
 
 .page-numbers li .current {
   background: #0f0;

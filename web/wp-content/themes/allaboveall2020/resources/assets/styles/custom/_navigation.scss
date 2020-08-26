@@ -170,6 +170,15 @@ a.navbar-brand {
       }
     }
 
+    &.dots-no-hover {
+      .page-numbers {
+        &:hover {
+          background: black;
+          color: white;
+        }
+      }
+    }
+
     .current {
       background: $primary-color;
       color: black;
