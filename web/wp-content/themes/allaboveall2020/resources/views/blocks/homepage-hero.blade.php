@@ -25,7 +25,7 @@
         </div>
         <div class="col-lg-6 mx-auto">
           <div class="right-body mb-3">{!! $block['data']['right_text'] !!}</div>
-          <a href="{!! $block['data']['button_url'] !!}" class="btn btn-green">{!! $block['data']['button_text'] !!}</a>
+          <a href="{!! $block['data']['button_url'] !!}" class="btn btn-green">{{ $block['data']['button_text'] }}</a>
         </div>
       </div>
     </div>
