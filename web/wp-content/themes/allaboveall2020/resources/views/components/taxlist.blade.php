@@ -23,10 +23,10 @@
             @if(!empty($n['link']))
               <h4><a href="{{ $n['link'] }}" target="_blank">{!! $n['title'] !!}</a><i class="far fa-external-link-alt"></i></h4>
             @else
-              <h4><a href="{{ $n['url'] }}"> {{ $n['title'] }}</a></h4>
+              <h4><a href="{{ $n['url'] }}"> {!! $n['title'] !!}</a></h4>
             @endif
           @else
-            <h4><a href="{{ $n['url'] }}">{{ $n['title'] }}</a></h4>
+            <h4><a href="{{ $n['url'] }}">{!! $n['title'] !!}</a></h4>
           @endif
           @if((!empty($n['date'])))
             <div class="meta">
