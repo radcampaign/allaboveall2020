@@ -34,7 +34,7 @@
           @endif
         </div>
         <div class="footer-text">
-          <p class="footer-phone">PH (374) 719-3255</p>
+          <p class="footer-phone">PH (347) 719-3255</p>
           <p><i class="far fa-copyright"></i> {{ $date }} All* Above All. All Rights Reserved.</p>
         </div>
       </div>
