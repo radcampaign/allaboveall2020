@@ -255,9 +255,9 @@ class MocURL
 
 	private static function callAPI($url, $json_string, $headers = array("Content-Type: application/json")) {
 		//For testing (0, false)
-		//For Production (1, true)
+		//For Production (2, true)
 		
-		$sslhost=0;
+		$sslhost=2;
 		$sslpeer=false;
 		
 		$ch = curl_init($url);

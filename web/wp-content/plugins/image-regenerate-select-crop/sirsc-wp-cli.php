@@ -122,7 +122,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			}
 
 			$verbose = self::is_verbose( $assoc_args );
-			extract( $config ); // PHPCS:ignore WordPress.Functions.DontExtract
+			extract( $config ); //phpcs:ignore
 			if ( ! empty( $post_type ) && ! empty( $size_name ) && ! empty( $all_sizes ) ) {
 				global $wpdb;
 				$execute_sizes = array();
@@ -188,7 +188,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			}
 
 			$verbose = self::is_verbose( $assoc_args );
-			extract( $config ); // PHPCS:ignore WordPress.Functions.DontExtract
+			extract( $config ); //phpcs:ignore
 			if ( ! empty( $post_type ) && ! empty( $size_name ) && ! empty( $all_sizes ) ) {
 				global $wpdb;
 				$execute_sizes = array();
@@ -253,16 +253,21 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		 */
 		public function rawcleanup( $args, $assoc_args ) {
 			$is_forced = ( ! empty( $assoc_args['force'] ) ) ? true : false;
-			$config = self::prepare_args( array_merge( $args, array(
-				'is_cleanup'  => true,
-				'the_command' => 'rawcleanup',
-			) ) );
+			$config = self::prepare_args(
+				array_merge(
+					$args,
+					array(
+						'is_cleanup'  => true,
+						'the_command' => 'rawcleanup',
+					)
+				)
+			);
 			if ( ! is_array( $config ) ) {
 				return;
 			}
 
 			$verbose = self::is_verbose( $assoc_args );
-			extract( $config ); // PHPCS:ignore WordPress.Functions.DontExtract
+			extract( $config ); //phpcs:ignore
 			if ( ! empty( $post_type ) ) {
 				$rows = self::make_query( $post_type, $parent_id, 'REMOVE' );
 				if ( ! empty( $rows ) && is_array( $rows ) ) {
@@ -279,7 +284,6 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 										WP_CLI::success( $removable . ' ' . esc_html__( 'was removed', 'sirsc' ) );
 										do_action( 'sirsc_image_file_deleted', $v['ID'], $removable );
 									}
-
 								} else {
 									WP_CLI::line( esc_html__( 'Could not remove', 'sirsc' ) . ' ' . $removable . '. ' . esc_html__( 'The image is missing or it is the original file.', 'sirsc' ) );
 								}
@@ -310,16 +314,21 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		 */
 		public function resetcleanup( $args, $assoc_args ) {
 			$is_forced = ( ! empty( $assoc_args['force'] ) ) ? true : false;
-			$config = self::prepare_args( array_merge( $args, array(
-				'is_cleanup'  => true,
-				'the_command' => 'resetcleanup',
-			) ) );
+			$config = self::prepare_args(
+				array_merge(
+					$args,
+					array(
+						'is_cleanup'  => true,
+						'the_command' => 'resetcleanup',
+					)
+				)
+			);
 			if ( ! is_array( $config ) ) {
 				return;
 			}
 
 			$verbose = self::is_verbose( $assoc_args );
-			extract( $config ); // PHPCS:ignore WordPress.Functions.DontExtract
+			extract( $config ); // phpcs:ignore
 			if ( ! empty( $post_type ) ) {
 				global $wpdb;
 
@@ -426,7 +435,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			}
 
 			$query .= ' ORDER BY p.ID ASC LIMIT 0, 50000';
-			$rows   = $wpdb->get_results( $wpdb->prepare( $query, $args ), ARRAY_A ); //PHPCS:ignore WordPress.WP.PreparedSQL.NotPrepared
+			$rows   = $wpdb->get_results( $wpdb->prepare( $query, $args ), ARRAY_A ); //phpcs:ignore
 			return $rows;
 		}
 	}

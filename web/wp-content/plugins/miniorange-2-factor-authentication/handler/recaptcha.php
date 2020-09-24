@@ -25,7 +25,7 @@
 						{
 							$userIp 	= $moWpnsUtility->get_client_ip();
 							$mocURL 	= new MocURL;
-							$response 	= $mocURL->validate_recaptcha($userIp,$_POST['g-recaptcha-response']);
+							$response 	= $mocURL->validate_recaptcha($userIp,sanitize_text_field($_POST['g-recaptcha-response']));
 							$content	= json_decode($response, true);
 							if(isset($content['error-codes']) && in_array("invalid-input-secret", $content['error-codes']))
 								echo "<br><br><h2 style=color:red;text-align:center>Invalid Secret Key.</h2>";

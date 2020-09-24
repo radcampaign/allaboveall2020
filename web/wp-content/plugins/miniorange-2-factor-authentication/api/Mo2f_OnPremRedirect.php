@@ -23,7 +23,7 @@ class Mo2f_OnPremRedirect {
 	}
 
 	function mo2f_kba_onpremise(){
-		$session_id_encrypt = isset( $_POST['session_id'] ) ? $_POST['session_id'] : null;
+		$session_id_encrypt = isset( $_POST['session_id'] ) ? sanitize_text_field($_POST['session_id']) : null;
 		if(isset($_POST['validate'])){
 			$user_id = wp_get_current_user()->ID;
 		}
@@ -39,7 +39,7 @@ class Mo2f_OnPremRedirect {
 			$all_ques_ans = $all_ques_ans[0];
 			$ans_1 = $all_ques_ans[$questions_challenged[0]['question']];
 			$ans_2 = $all_ques_ans[$questions_challenged[1]['question']];
-			$check_trust_device = isset( $_POST['mo2f_trust_device'] ) ? $_POST['mo2f_trust_device'] : 'false';
+			$check_trust_device = isset( $_POST['mo2f_trust_device'] ) ? sanitize_text_field($_POST['mo2f_trust_device']) : 'false';
 			$mo2f_rba_status = MO2f_Utility::mo2f_retrieve_user_temp_values( 'mo2f_rba_status',$session_id_encrypt );
 
 			$pass2fa = new Miniorange_Password_2Factor_Login;
@@ -90,7 +90,7 @@ class Mo2f_OnPremRedirect {
 	function mo2f_google_authenticator_onpremise($otpToken){
 		include_once dirname(dirname( __FILE__ )) . DIRECTORY_SEPARATOR. 'handler'.DIRECTORY_SEPARATOR. 'twofa' . DIRECTORY_SEPARATOR . 'gaonprem.php';
 		$gauth_obj= new Google_auth_onpremise();
-		$session_id_encrypt = isset( $_POST['session_id'] ) ? $_POST['session_id'] : null;
+		$session_id_encrypt = isset( $_POST['session_id'] ) ? sanitize_text_field($_POST['session_id']) : null;
 		if(is_user_logged_in()){
 			$user = wp_get_current_user();
 			$user_id = $user->ID;

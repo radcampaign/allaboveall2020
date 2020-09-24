@@ -533,7 +533,6 @@ function mo2f_get_activated_second_factor( $user ) {
 function mo2f_update_and_sync_user_two_factor( $user_id, $userinfo ) {
 	global $Mo2fdbQueries;
 	$mo2f_second_factor = isset( $userinfo['authType'] ) && ! empty( $userinfo['authType'] ) ? $userinfo['authType'] : 'NONE';
-	
 	if(MO2F_IS_ONPREM)
 	{
 		$mo2f_second_factor = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user_id );

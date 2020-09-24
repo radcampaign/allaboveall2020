@@ -187,8 +187,8 @@
 	{
 		$enable_login= isset($postData['mo_wpns_activate_recaptcha_for_login']) 		? true : false;
 		$enable_reg  = isset($postData['mo_wpns_activate_recaptcha_for_registration'])  ? true : false;
-		$site_key 	 = $_POST['mo_wpns_recaptcha_site_key'];
-		$secret_key  = $_POST['mo_wpns_recaptcha_secret_key']; 
+		$site_key 	 = sanitize_text_field($_POST['mo_wpns_recaptcha_site_key']);
+		$secret_key  = sanitize_text_field($_POST['mo_wpns_recaptcha_secret_key']); 
 
 		update_option( 'mo_wpns_activate_recaptcha_for_login'		, $enable_login );
 		update_option( 'mo_wpns_recaptcha_site_key'			 		, $site_key     );

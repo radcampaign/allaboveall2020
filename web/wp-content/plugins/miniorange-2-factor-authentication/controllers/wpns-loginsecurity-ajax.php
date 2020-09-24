@@ -9,6 +9,20 @@ class wpns_ajax
 	function mo_login_security_ajax(){
 		 
 		add_action( 'wp_ajax_wpns_login_security', array($this,'wpns_login_security') );
+		add_action( 'wp_ajax_mo2f_ajax', array($this,'mo2f_ajax') );
+		add_action( 'wp_ajax_nopriv_mo2f_ajax', array($this,'mo2f_ajax') );
+	}
+
+	function mo2f_ajax(){
+		$GLOBALS['mo2f_is_ajax_request'] = true;
+		switch ($_POST['mo2f_ajax_option']) {
+				case "mo2f_ajax_kba":
+					$this->mo2f_ajax_kba();break;
+				case "mo2f_ajax_login":
+					$this->mo2f_ajax_login(); break;
+				case "mo2f_ajax_otp":
+					$this->mo2f_ajax_otp(); break;
+		}
 	}
 
 		function wpns_login_security(){
@@ -35,6 +49,30 @@ class wpns_ajax
 				case 'wpns_logout_form':
 					$this->wpns_logout_form();	break;
 					
+			}
+		}
+
+
+		function mo2f_ajax_otp(){
+			$obj = new Miniorange_Password_2Factor_Login();
+			$obj->check_miniorange_soft_token($_POST);	
+		}
+		function mo2f_ajax_kba(){
+			$obj = new Miniorange_Password_2Factor_Login();
+			$obj->check_kba_validation($_POST);			
+		}
+		function mo2f_ajax_login()
+		{	
+			if(!wp_verify_nonce(sanitize_text_field($_POST['nonce']),'miniorange-2-factor-login-nonce'))
+			{
+				wp_send_json("ERROR");
+				exit;
+			}
+			else
+			{
+				$username = sanitize_text_field($_POST['username']);
+				$password = sanitize_text_field($_POST['password'] );
+				apply_filters( 'authenticate', null, $username, $password );
 			}
 		}
 			function wpns_logout_form()

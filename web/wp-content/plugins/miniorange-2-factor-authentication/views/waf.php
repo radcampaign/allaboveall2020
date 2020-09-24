@@ -2,6 +2,7 @@
 global $mo2f_dirName;
 $setup_dirName = $mo2f_dirName.'views'.DIRECTORY_SEPARATOR.'twofa'.DIRECTORY_SEPARATOR.'link_tracer.php';
  include $setup_dirName;
+ include_once $mo2f_dirName.'handler'.DIRECTORY_SEPARATOR.'WAF'.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'mo-waf-db-common.php';
  ?><div id="wpns_message" style=" padding-top:8px"></div>
 <div class="mo_wpns_divided_layout_tab">
 <div class="mo_wpns_tab">
@@ -9,6 +10,7 @@ $setup_dirName = $mo2f_dirName.'views'.DIRECTORY_SEPARATOR.'twofa'.DIRECTORY_SEP
   <button class="tablinks" onclick="waf_function(event, 'settings')" id="settingsTab">Settings</button>
   <button class="tablinks" onclick="waf_function(event, 'real_time')" id="RealTimeTab">Real Time Blocking</button>
   <button class="tablinks" onclick="waf_function(event, 'rate_limiting')" id="RateLimitTab">Rate Limiting</button>
+  <button class="tablinks" onclick="waf_function(event, 'waf_report')" id="ReportTab">Report</button>
 </div>
 </div>
 <br>
@@ -67,6 +69,34 @@ $setup_dirName = $mo2f_dirName.'views'.DIRECTORY_SEPARATOR.'twofa'.DIRECTORY_SEP
 
 </div>
 
+<div id="waf_report" class="tabcontent">
+	<div class="mo_wpns_divided_layout">
+		<div class="mo_wpns_setting_layout">
+			<h2>Blocked attacks Report</h2>
+
+			<div id="waf_attack_table">
+				<table id="waf_report_table" class="display">
+				<thead><tr><th>IP Address&emsp;&emsp;</th><th>Type of attack&emsp;&emsp;</th><th>time of blocking&emsp;&emsp;</th><th>Input&emsp;&emsp;</th></tr></thead>
+				<tbody>
+
+<?php			
+			$mo_wpns_handler 		= new MoWpnsHandler();
+			$blockedattacks 		= $mo_wpns_handler->get_blocked_attacks();
+			global $mo2f_dirName;
+			foreach($blockedattacks as $blockedattack)
+			{
+echo 			"<tr class='mo_wpns_not_bold'><td>".$blockedattack->ip."</td><td>".retrivefullname($blockedattack->type)."</td>";
+			
+echo 			"<td>".date("M j, Y, g:i:s a",$blockedattack->time)."</td><td>".$blockedattack->input."</td></tr>";
+			} 
+?>
+					</tbody>
+					</table>
+			</div>	
+		
+		</div>
+	</div>
+</div>
 
 <div id="real_time" class="tabcontent">
 	<div class="mo_wpns_divided_layout">
@@ -802,7 +832,9 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 
 
 		});
-
+		jQuery("#waf_report_table").DataTable({
+				"order": [[ 3, "desc" ]]
+			});
 		
 
 		jQuery('#XSS').click(function(){
@@ -1186,6 +1218,9 @@ jQuery('#SettingPage').click(function(){
 jQuery('#RTBPage').click(function(){
 	document.getElementById("RealTimeTab").click();
 });
+jQuery('#waf_report').click(function(){
+	document.getElementById("ReportTab").click();
+});
 	
 function waf_function(evt, cityName) {
   var i, tabcontent, tablinks;
@@ -1236,6 +1271,10 @@ function waf_function(evt, cityName) {
 	else if(tab == "rate_limiting")
 	{
 		document.getElementById("RateLimitTab").click();	
+	}
+	else if(tab == "waf_report")
+	{
+		document.getElementById("ReportTab").click();	
 	}
 	else 
 	{

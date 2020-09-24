@@ -17,7 +17,7 @@
 								<span hidden="" id="mo_wpns_help_curl_desc" class="mo_wpns_help_desc" style="display: none;">
 								<ol>
 								<li>Open php.ini file located under the PHP installation folder.</li>
-								<li>Search for extension=php_curl.dll.</li>
+								<li>Search for extension=curl.dll.</li>
 								<li>Uncomment it by removing the semi-colon(;) in front of it.
 								Restart the Apache Server.</li></ol>
 								For any further queries, please <a href="mailto:2fasupport@xecurify.com" target="blank">contact us</a>. 

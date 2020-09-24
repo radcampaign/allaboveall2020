@@ -180,6 +180,11 @@
 		delete_user_meta( $user->ID, 'mo2f_google_auth');			
 		delete_user_meta( $user->ID, 'mo2f_email_miniOrange');		
 		delete_user_meta( $user->ID, 'mo2f_kba_challenge');
+		delete_user_meta( $user->ID, 'mo2f_otp_email_code');
+		delete_user_meta( $user->ID, 'mo2f_otp_email_time');
+		delete_user_meta( $user->ID, 'tempRegEmail');
+		delete_user_meta( $user->ID, 'mo2f_EV_txid');
+		
 	}
  	
 	//drop custom db tables

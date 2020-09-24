@@ -478,7 +478,6 @@ function prompt_user_for_miniorange_app_setup($current_user_id, $login_status, $
 
 function prompt_user_for_google_authenticator_setup($current_user_id, $login_status, $login_message){
 	$mo2f_google_auth=json_decode(get_user_meta($current_user_id,'mo2f_google_auth', true),true);
-
 	$data = isset($mo2f_google_auth) ? $mo2f_google_auth['ga_qrCode'] : null;
 	$ga_secret = isset($mo2f_google_auth) ? $mo2f_google_auth['ga_secret'] : null;
 
@@ -672,6 +671,13 @@ function prompt_user_for_google_authenticator_setup($current_user_id, $login_sta
             });
             jQuery('a[href="#mo2f_scanbarcode_a"]').click(function(){
                 jQuery("#mo2f_scanbarcode_a").toggle();
+            });
+            jQuery(document).ready(function() {
+                jQuery('.mo2f_gauth').qrcode({
+                    'render': 'image',
+                    size: 175,
+                    'text': jQuery('.mo2f_gauth').data('qrcode')
+                });
             });
             </script>
             </body>

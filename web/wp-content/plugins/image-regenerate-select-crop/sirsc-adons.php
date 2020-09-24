@@ -117,11 +117,13 @@ class SIRSC_Adons extends SIRSC_Image_Regenerate_Select_Crop {
 	 */
 	public static function regenerate_options() {
 		global $wpdb;
-		$wpdb->query( $wpdb->prepare(
-			' DELETE FROM ' . $wpdb->options . ' WHERE option_name like %s or option_name like %s ',
-			'%sirsc_adon%',
-			'%sirsc-adon%'
-		) );
+		$wpdb->query(
+			$wpdb->prepare(
+				' DELETE FROM ' . $wpdb->options . ' WHERE option_name like %s or option_name like %s ',
+				'%sirsc_adon%',
+				'%sirsc-adon%'
+			)
+		);
 	}
 
 	/**
@@ -205,12 +207,14 @@ class SIRSC_Adons extends SIRSC_Image_Regenerate_Select_Crop {
 			self::$adons[ $key ]['buy_url']     = $default[ $key ]['buy_url'];
 			if ( file_exists( SIRSC_ADONS_FOLDER . $key . '/class-sirsc-' . $key . '.php' ) ) {
 				if ( ! empty( self::$adons[ $key ]['available'] ) && ! empty( self::$adons[ $key ]['active'] ) ) {
-					self::sirsc_add_menu_items( array(
-						'slug'  => 'sirsc-adon-' . $key,
-						'title' => $value['name'],
-						'url'   => admin_url( 'admin.php?page=sirsc-adon-' . $key ),
-						'icon'  => $value['icon'],
-					) );
+					self::sirsc_add_menu_items(
+						array(
+							'slug'  => 'sirsc-adon-' . $key,
+							'title' => $value['name'],
+							'url'   => admin_url( 'admin.php?page=sirsc-adon-' . $key ),
+							'icon'  => $value['icon'],
+						)
+					);
 					include_once SIRSC_ADONS_FOLDER . $key . '/class-sirsc-' . $key . '.php';
 				}
 			}
@@ -493,11 +497,13 @@ class SIRSC_Adons extends SIRSC_Image_Regenerate_Select_Crop {
 		if ( empty( $item['price'] ) && ! empty( $item['free'] ) ) {
 			esc_html_e( 'Free', 'sirsc' );
 		} else {
-			echo esc_html( sprintf(
-				// Translators: %1$s - adon price.
-				__( '&euro; %1$s / year', 'sirsc' ),
-				number_format( $item['price'], 2, '.', '' )
-			) );
+			echo esc_html(
+				sprintf(
+					// Translators: %1$s - adon price.
+					__( '&euro; %1$s / year', 'sirsc' ),
+					number_format( $item['price'], 2, '.', '' )
+				)
+			);
 		}
 		?>
 		</b>

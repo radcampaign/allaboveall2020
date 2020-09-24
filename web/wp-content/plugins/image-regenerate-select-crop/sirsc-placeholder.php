@@ -45,9 +45,8 @@ class SIRSC_Image_Placeholder {
 	 */
 	public static function init() {
 		if ( ! defined( 'SIRSC_PLACEHOLDER_FOLDER' ) ) {
-			$upload_dir = wp_upload_dir();
-			$dest_url   = $upload_dir['baseurl'] . '/placeholders';
-			$dest_path  = $upload_dir['basedir'] . '/placeholders';
+			$dest_url  = plugin_dir_url( '/assets/placeholders', __FILE__ );
+			$dest_path = plugin_dir_path( '/assets/placeholders', __FILE__ );
 			if ( ! file_exists( $dest_path ) ) {
 				@wp_mkdir_p( $dest_path );
 			}
@@ -97,7 +96,7 @@ class SIRSC_Image_Placeholder {
 		$pixel = new ImagickPixel( '#' . mt_rand( 10, 99 ) . mt_rand( 10, 99 ) . mt_rand( 10, 99 ) );
 		$im->newImage( $iw, $ih, $pixel );
 		$draw->setFillColor( '#FFFFFF' );
-		$draw->setFont( 'Arial' );
+		$draw->setFont( SIRSC_PLUGIN_FOLDER . '/assets/fonts/arial.ttf' );
 		$draw->setFontSize( 12 );
 		$draw->setGravity( Imagick::GRAVITY_CENTER );
 		$im->annotateImage( $draw, 0, 0, 0, $sw . 'x' . $sh );

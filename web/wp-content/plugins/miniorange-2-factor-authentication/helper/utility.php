@@ -38,6 +38,17 @@ class MoWpnsUtility
 			return true;
 		return false;
 	}
+
+    public static function rand()
+    {
+        $length = wp_rand(0, 15);
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[wp_rand(0, strlen($characters) - 1)];
+        }
+        return $randomString;
+    }
 	
 	public static function is_curl_installed()
 	{
@@ -316,6 +327,12 @@ class MoWpnsUtility
 			$db_value = get_option($value, $GLOBALS[$value]);
 		}
 		return $db_value;
+	}
+	public static function checkSecurity(){
+
+		$guestcustomer = new Customer_Setup();
+
+		$guestcustomer->guest_audit();
 	}
 	
 }

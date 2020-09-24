@@ -30,13 +30,19 @@ class Miniorange_Mobile_Login {
 		global $Mo2fdbQueries;
 		$currentuser = wp_authenticate_username_password( $user, $username, $password );
 		if ( is_wp_error( $currentuser ) ) {
-			return $currentuser;
+				if(MO2f_Utility::get_index_value('GLOBALS','mo2f_is_ajax_request')){
+					$data = array('notice' => '<div style="border-left:3px solid #dc3232;">&nbsp; Invalid User Credentials', );
+					wp_send_json_success($data);	
+				}
+				else{
+					return $currentuser;
+				}
 		} else {
 			if(MO2F_IS_ONPREM and (!MoWpnsUtility::get_mo2f_db_option('mo2f_login_option', 'get_option') or get_option('mo2f_enable_login_with_2nd_factor')))
 			{
 				$attributes  = isset( $_POST['miniorange_rba_attribures'] ) ? $_POST['miniorange_rba_attribures'] : null;
-            	$session_id  = isset( $_POST['session_id'] ) ? $_POST['session_id'] : null;
-				$redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : null;
+            	$session_id  = isset( $_POST['session_id'] ) ? sanitize_text_field($_POST['session_id']) : null;
+				$redirect_to = isset( $_REQUEST['redirect_to'] ) ? esc_url_raw($_REQUEST['redirect_to']) : null;
                 $handleSecondFactor = new Miniorange_Password_2Factor_Login();
                 if(is_null($session_id)) {
                     $session_id	= $handleSecondFactor->create_session();
@@ -51,7 +57,7 @@ class Miniorange_Mobile_Login {
 			$pass2fa_login_session       = new Miniorange_Password_2Factor_Login();
             $session_id=$pass2fa_login_session->create_session();
 			$mo2f_configured_2FA_method           = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $currentuser->ID );
-			$redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : null;
+			$redirect_to = isset( $_REQUEST['redirect_to'] ) ? esc_url_raw($_REQUEST['redirect_to']) : null;
 			if ( $mo2f_configured_2FA_method ) {
 				$mo2f_user_email               = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $currentuser->ID );
 				$mo2f_user_registration_status = $Mo2fdbQueries->get_user_detail( 'mo_2factor_user_registration_status', $currentuser->ID );
@@ -84,7 +90,7 @@ class Miniorange_Mobile_Login {
 	function mo2f_redirectto_wp_login() {
 		global $Mo2fdbQueries;
 		$pass2fa_login_session       = new Miniorange_Password_2Factor_Login();
-		 $session_id  = isset( $_POST['session_id'] ) ? $_POST['session_id'] : null;
+		 $session_id  = isset( $_POST['session_id'] ) ? sanitize_text_field($_POST['session_id']) : null;
                 if(is_null($session_id)) {
                      $session_id=$pass2fa_login_session->create_session();
                 }
@@ -161,7 +167,7 @@ class Miniorange_Mobile_Login {
 		$bootstrappath = plugins_url( 'includes/css/bootstrap.min.css?version='.MO2F_VERSION.'', dirname(dirname(__FILE__)) );
 		$bootstrappath = str_replace('/handler/includes/css', '/includes/css', $bootstrappath);
 		wp_enqueue_style( 'bootstrap_script', $bootstrappath );
-		wp_enqueue_script( 'bootstrap_script', plugins_url( 'includes/js/bootstrap.min.js', dirname(__FILE__ )) );
+		wp_enqueue_script( 'bootstrap_script', plugins_url( 'includes/js/bootstrap.min.js', dirname(dirname(__FILE__ ))) );
 	}
 
 	function mo_2_factor_hide_login() {
@@ -179,7 +185,7 @@ class Miniorange_Mobile_Login {
 
 	function mo_auth_success_message() {
 		$message = isset($_SESSION['mo2f_login_message']) ? $_SESSION['mo2f_login_message'] : '';
-		 $session_id  = isset( $_POST['session_id'] ) ? $_POST['session_id'] : null;
+		 $session_id  = isset( $_POST['session_id'] ) ? sanitize_text_field($_POST['session_id']) : null;
 		$message = MO2f_Utility::mo2f_retrieve_user_temp_values( 'mo2f_login_message', $session_id   );
 		//if the php session folder has insufficient permissions, cookies to be used
 		
@@ -195,7 +201,7 @@ class Miniorange_Mobile_Login {
 	function mo_auth_error_message() {
 		$id      = "login_error1";
 		//if the php session folder has insufficient permissions, cookies to be used
-		$session_id  = isset( $_POST['session_id'] ) ? $_POST['session_id'] : null;
+		$session_id  = isset( $_POST['session_id'] ) ? sanitize_text_field($_POST['session_id']) : null;
 		$message = MO2f_Utility::mo2f_retrieve_user_temp_values( 'mo2f_login_message', $session_id );
 		//if the php session folder has insufficient permissions, cookies to be used
 		if($message=='')
@@ -216,7 +222,7 @@ class Miniorange_Mobile_Login {
 
 	function miniorange_login_form_fields( $mo2fa_login_status = null, $mo2fa_login_message = null ) {
 		global $Mo2fdbQueries;
-		$session_id_encrypt = isset( $_POST['session_id'] ) ? $_POST['session_id'] : (isset( $_POST['session_id'] ) ? $_POST['session_id'] : null);
+		$session_id_encrypt = isset( $_POST['session_id'] ) ? sanitize_text_field($_POST['session_id']): null;
         $pass2fa_login_session       = new Miniorange_Password_2Factor_Login();
            
 		if(is_null($session_id_encrypt)) {
@@ -229,7 +235,7 @@ class Miniorange_Mobile_Login {
 				
 			if(MO2F_IS_ONPREM)
 			{
-				$userName = isset($_POST['mo2fa_username']) ? $_POST['mo2fa_username'] : '';
+				$userName = isset($_POST['mo2fa_username']) ? sanitize_text_field($_POST['mo2fa_username']) : '';
 
 				if(!empty($userName))
 				{
@@ -243,7 +249,7 @@ class Miniorange_Mobile_Login {
 					}
 				}
 			}
-			if ( $login_status_phone_enable == 'MO_2_FACTOR_LOGIN_WHEN_PHONELOGIN_ENABLED' && isset( $_POST['miniorange_login_nonce'] ) && wp_verify_nonce( $_POST['miniorange_login_nonce'], 'miniorange-2-factor-login-nonce' ) ) {
+			if ( $login_status_phone_enable == 'MO_2_FACTOR_LOGIN_WHEN_PHONELOGIN_ENABLED' && isset( $_POST['miniorange_login_nonce'] ) && wp_verify_nonce( sanitize_text_field($_POST['miniorange_login_nonce']), 'miniorange-2-factor-login-nonce' ) ) {
 				$this->mo_2_factor_show_login_with_password_when_phonelogin_enabled();
 				$this->mo_2_factor_show_wp_login_form_when_phonelogin_enabled();
 				$user            = isset( $_SESSION['mo2f_current_user'] ) ? unserialize( $_SESSION['mo2f_current_user'] ) : null;
@@ -327,10 +333,10 @@ class Miniorange_Mobile_Login {
                 	?>
                     <input type="button" name="miniorange_login_submit" style="width:100% !important;"
                            onclick="mouserloginsubmit();" id="miniorange_login_submit"
-                           class="button button-primary button-large"
+                           class="miniorange-button button-add"
                            value="<?php echo mo2f_lt( 'Login with 2nd factor' ); ?>"/>
                 </p>
-                <br><br><br>
+                <br>
 				<?php if ( ! $mo2f_enable_login_with_2nd_factor ) { ?><br><br><?php } ?>
             </div>
         </div>
@@ -363,7 +369,7 @@ class Miniorange_Mobile_Login {
 	}
 
 	function miniorange_login_footer_form() {
-		 $session_id_encrypt = isset( $_POST['session_id'] ) ? $_POST['session_id'] : (isset( $_POST['session_id'] ) ? $_POST['session_id'] : null);
+		 $session_id_encrypt = isset( $_POST['session_id'] ) ? sanitize_text_field($_POST['session_id'])  : null;
 		$pass2fa_login_session       = new Miniorange_Password_2Factor_Login();       
 	   if(is_null($session_id_encrypt)) {
             $session_id_encrypt=$pass2fa_login_session->create_session();

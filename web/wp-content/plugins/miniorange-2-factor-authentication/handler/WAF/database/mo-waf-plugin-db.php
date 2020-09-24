@@ -1,4 +1,6 @@
 <?php
+	
+	include_once('mo-waf-db-common.php');
 	function setting_file()
 	{
 		global $prefix,$dbcon;
@@ -55,7 +57,8 @@
         $results 	= $wpdb->get_results($query);
         return $results[0]->count;
     }
-   
+  	
+
 	function CheckRate($ipaddress)
 	{
 		global $wpdb;

@@ -19,7 +19,7 @@
 				wp_die( __( 'You are not authorised to perform this action.'));
 			else if(get_option('mo_wpns_enable_comment_recaptcha'))
 			{
-				if(is_wp_error($moWpnsUtility->verify_recaptcha($_POST['g-recaptcha-response'])))
+				if(is_wp_error($moWpnsUtility->verify_recaptcha(sanitize_text_field($_POST['g-recaptcha-response']))))
 					wp_die( __( 'Invalid captcha. Please verify captcha again.'));
 			}
 			return $comment_data;

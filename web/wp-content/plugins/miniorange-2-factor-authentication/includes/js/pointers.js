@@ -171,7 +171,7 @@
             scrollTop: $pointer.offset().top-120
         }, 300, function() { // when scroll complete
             
-            console.log($pointer);
+          
             MAP.last_pointer = $pointer;
 
             var $widget = $pointer.pointer('widget');
@@ -427,7 +427,7 @@
                          $('html, body').animate({ // scroll page to pointer
                             scrollTop: $pointer.offset().top+30
                         }, 100, function() { // when scroll complete
-                            console.log($pointer);
+                            
                             MAP.last_pointer = $pointer;
                             var $widget = $pointer.pointer('widget');
                             MAP.setNext( $widget, MAP.current_pointer.data );

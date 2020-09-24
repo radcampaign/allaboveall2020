@@ -13,7 +13,7 @@ class Mo2f_ajax_dashboard
 			else if($tab_count == 0)
 				update_site_option('mo_2f_switch_all', 0);
 			$santizied_post=isset($_POST['switch_val'])? sanitize_text_field($_POST['switch_val']):null;
-			switch($_POST['option'])
+			switch(sanitize_text_field($_POST['option']))
 			{
 				case "tab_all_switch":
 					$this->mo2f_handle_all_enable($santizied_post);
@@ -65,12 +65,12 @@ class Mo2f_ajax_dashboard
 		$user_id= $user->user_ID;
 		if($POSTED){
 			$Mo2fdbQueries->update_user_deails($user_id, array('mo_2factor_user_registration_status', 'MO_2_FACTOR_PLUGIN_SETTINGS'));
-			if($_POST['tab_2fa_switch'])
+			if(sanitize_text_field($_POST['tab_2fa_switch']))
 				do_action('wpns_show_message',MoWpnsMessages::showMessage('TWO_FACTOR_ENABLE'),'SUCCESS');
 		}
 		else{
 			$Mo2fdbQueries->update_user_deails($user_id, array('mo_2factor_user_registration_status', 0));
-			if($_POST['tab_2fa_switch'])
+			if(sanitize_text_field($_POST['tab_2fa_switch']))
 				do_action('wpns_show_message',MoWpnsMessages::showMessage('TWO_FACTOR_DISABLE'),'ERROR');
 		}
 	}
@@ -81,7 +81,7 @@ class Mo2f_ajax_dashboard
 			update_site_option('mo2f_tab_count', get_site_option('mo2f_tab_count')+1);
 			if (isset($_POST['option'] )) 
 			{
-				if($_POST['option'] == 'tab_waf_switch')
+				if(sanitize_text_field($_POST['option']) == 'tab_waf_switch')
 				{
 					do_action('wpns_show_message',MoWpnsMessages::showMessage('WAF_ENABLE'),'SUCCESS');
 				}
@@ -103,7 +103,7 @@ class Mo2f_ajax_dashboard
 		 	$cont 	.= '# END miniOrange WAF'.PHP_EOL;
 		 	$file =str_replace($cont,'',$file);
 			file_put_contents($dir_name1, $file);
-			if($_POST['option'] == 'tab_waf_switch')
+			if(sanitize_text_field($_POST['option']) == 'tab_waf_switch')
 				do_action('wpns_show_message',MoWpnsMessages::showMessage('WAF_DISABLE'),'ERROR');
 		}
 	}
@@ -114,7 +114,7 @@ class Mo2f_ajax_dashboard
 			update_site_option('mo2f_tab_count', get_site_option('mo2f_tab_count')+1);
 			if (isset($_POST['option'] )) 
 			{
-			if($_POST['option'] == 'tab_login_switch')
+			if(sanitize_text_field($_POST['option']) == 'tab_login_switch')
 				do_action('wpns_show_message',MoWpnsMessages::showMessage('LOGIN_ENABLE'),'SUCCESS');
 			}
 		}
@@ -137,7 +137,7 @@ class Mo2f_ajax_dashboard
 			update_site_option('mo_wpns_enable_comment_spam_blocking', false);
 			update_site_option('mo_wpns_enable_comment_recaptcha', false);
 			update_site_option('mo2f_htaccess_file', 0);
-			if($_POST['option'] == 'tab_login_switch')
+			if(sanitize_text_field($_POST['option']) == 'tab_login_switch')
 				do_action('wpns_show_message',MoWpnsMessages::showMessage('LOGIN_DISABLE'),'ERROR');
 		}
 	}
@@ -148,7 +148,7 @@ class Mo2f_ajax_dashboard
 			update_site_option('mo2f_tab_count', get_site_option('mo2f_tab_count')+1);
 			if (isset($_POST['option'] )) 
 			{
-			if($_POST['option'] == 'tab_backup_switch')
+			if(sanitize_text_field($_POST['option']) == 'tab_backup_switch')
 				do_action('wpns_show_message',MoWpnsMessages::showMessage('BACKUP_ENABLE'),'SUCCESS');
 			}
 		}
@@ -160,7 +160,7 @@ class Mo2f_ajax_dashboard
         	update_site_option('mo2f_enable_cron_backup', 0);
         	$handler_obj->file_backup_deactivate();
         	update_site_option('mo2f_enable_cron_file_backup', 0);
-        	if($_POST['option'] == 'tab_backup_switch')
+        	if(sanitize_text_field($_POST['option']) == 'tab_backup_switch')
         		do_action('wpns_show_message',MoWpnsMessages::showMessage('BACKUP_DISABLE'),'ERROR');
 		}
 	}
@@ -171,13 +171,13 @@ class Mo2f_ajax_dashboard
 			update_site_option('mo2f_tab_count', get_site_option('mo2f_tab_count')+1);
 			if (isset($_POST['option'] )) 
 			{
-			if($_POST['option'] == 'tab_malware_switch')
+			if(sanitize_text_field($_POST['option']) == 'tab_malware_switch')
 				do_action('wpns_show_message',MoWpnsMessages::showMessage('MALWARE_ENABLE'),'SUCCESS');
 			}
 		}else{
 			update_site_option('mo_2f_switch_malware', 0);
 			update_site_option('mo2f_tab_count', get_site_option('mo2f_tab_count')-1);
-			if($_POST['option'] == 'tab_malware_switch')
+			if(sanitize_text_field($_POST['option']) == 'tab_malware_switch')
 				do_action('wpns_show_message',MoWpnsMessages::showMessage('MALWARE_DISABLE'),'ERROR');
 		}
 	}
@@ -188,7 +188,7 @@ class Mo2f_ajax_dashboard
 			update_site_option('mo2f_tab_count', get_site_option('mo2f_tab_count')+1);
 			if (isset($_POST['option'] )) 
 			{
-			if($_POST['option'] == 'tab_block_switch')
+			if(sanitize_text_field($_POST['option']) == 'tab_block_switch')
 				do_action('wpns_show_message',MoWpnsMessages::showMessage('ADV_BLOCK_ENABLE'),'SUCCESS');
 			}
 		}
@@ -200,7 +200,7 @@ class Mo2f_ajax_dashboard
 			update_site_option('mo_wpns_enable_user_agent_blocking', 0);
 			update_site_option('mo_wpns_referrers', false);
 			update_site_option('mo_wpns_countrycodes', false);
-			if($_POST['option'] == 'tab_block_switch')
+			if(sanitize_text_field($_POST['option']) == 'tab_block_switch')
 				do_action('wpns_show_message',MoWpnsMessages::showMessage('ADV_BLOCK_DISABLE'),'ERROR');
 		}
 	}

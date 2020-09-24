@@ -116,7 +116,7 @@
                                                 {
                                                     if(!is_ip_whitelisted($ipaddress))
                                                     {
-                                                        block_ip($ipaddress,'ALE');         //Attack Limit Exceed
+                                                        block_ip($ipaddress,'Attack limit Exceeded');         //Attack Limit Exceed
                                                     }
                                                 }
 

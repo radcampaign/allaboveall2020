@@ -17,6 +17,7 @@
     global $wpdb,$mowpnshandle;
     $mowpnshandle   = new MoWpnsHandler();
     $ipaddress      = get_ipaddress();
+    $ipaddress      = sanitize_text_field($ipaddress);
     if($mowpnshandle->is_ip_blocked($ipaddress))
     {
         if(!$mowpnshandle->is_whitelisted($ipaddress))
@@ -121,7 +122,7 @@
                                             if(!$mowpnshandle->is_whitelisted($ipaddress))
                                             {
                                                 if(!$mowpnshandle->is_ip_blocked($ipaddress))
-                                                    $mowpnshandle->block_ip($ipaddress,'ALE',true);         //Attack Limit Exceed
+                                                    $mowpnshandle->block_ip($ipaddress,'Attack limit Exceeded',true);         //Attack Limit Exceed
                                             }
                                         }
 

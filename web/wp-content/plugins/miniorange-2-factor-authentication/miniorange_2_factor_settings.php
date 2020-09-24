@@ -3,7 +3,7 @@
  * Plugin Name: miniOrange 2 Factor Authentication
  * Plugin URI: https://miniorange.com
  * Description: This plugin provides various two-factor authentication methods as an additional layer of security after the default wordpress login. We Support Google/Authy/LastPass Authenticator, QR Code, Push Notification, Soft Token and Security Questions(KBA) for 3 User in the free version of the plugin.
- * Version: 5.4.14
+ * Version: 5.4.21
  * Author: miniOrange
  * Author URI: https://miniorange.com
  * Text Domain: miniorange-2-factor-authentication
@@ -11,7 +11,7 @@
  */
 	include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'mo2f_db_options.php';
     define( 'MO_HOST_NAME', 'https://login.xecurify.com' );
-	define( 'MO2F_VERSION', '5.4.14' );
+	define( 'MO2F_VERSION', '5.4.21' );
 	define( 'MO2F_TEST_MODE', false );
 	define( 'MO2F_IS_ONPREM', get_option('is_onprem'));
 	class Miniorange_twoFactor{
@@ -23,8 +23,7 @@
 			add_action( 'admin_menu'				 , array( $this, 'mo_wpns_widget_menu'		  	   )		);
 			add_action( 'admin_enqueue_scripts'		 , array( $this, 'mo_wpns_settings_style'	       )		);
 			add_action( 'admin_enqueue_scripts'		 , array( $this, 'mo_wpns_settings_script'	       )	    );
-			add_action( 'wpns_show_message'		 	 , array( $this, 'mo_show_message' 				   ), 1 , 2 );
-			
+			add_action( 'wpns_show_message'		 	 , array( $this, 'mo_show_message' 				   ), 1 , 2 );		
 			add_action( 'admin_init'                 , array( $this, 'miniorange_reset_save_settings'  )         );		
 			add_filter('manage_users_columns'        , array( $this, 'mo2f_mapped_email_column'        )         );
 			add_action('manage_users_custom_column'  , array( $this, 'mo2f_mapped_email_column_content'), 10,  3 );
@@ -38,8 +37,64 @@
 			$this->includes();
 			$notify = new miniorange_security_notification;
 		    add_action('wp_dashboard_setup', array($notify,'my_custom_dashboard_widgets'));
-		
-		}
+
+		    $customShort = new TwoFACustomRegFormShortcode();
+            add_action('admin_init',array( $this, 'mo2f_enable_register_shortcode' ));
+            add_action('admin_init',array( $customShort, 'mo_enqueue_shortcode' ));
+            add_shortcode('mo2f_enable_register',array($this,'mo2f_enable_register_shortcode'));
+            if(defined("DIGIMEMBER_DIR"))
+			{
+				add_action( 'wp_footer', array( $this, 'mo_wpns_ajax_login_script'));
+			}
+
+        }
+
+        public function mo2f_enable_register_shortcode()
+        {
+            $submitSelector = get_site_option('mo2f_custom_submit_selector');
+            $formName=        get_site_option('mo2f_custom_form_name');
+            $emailField =     get_site_option('mo2f_custom_email_selector');
+            $authType   =     get_site_option('mo2f_custom_auth_type');
+            $phoneSelector =  get_site_option('mo2f_custom_phone_selector');
+
+            if(get_site_option('mo2f_customerkey') > 0)
+                $isRegistered =   get_site_option('mo2f_customerkey');
+            else $isRegistered = 'false';
+
+
+			$formAjax = array(".um-form", ".wpcf7-form", "#um-submit-btn");
+
+            $formRCP = array("#rcp_registration_form",".rcp_form","#rc_registration_form",".rc_form");
+			$formMepr 	= array(".mepr-signup-form");
+
+            if(in_array($formName,$formAjax))
+                $javaScript = 'includes/js/custom-form-ajax.js';
+            else if (in_array($formName,$formRCP))
+                $javaScript = 'includes/js/custom-ajax-rcp.js';
+            else if (in_array($formName,$formMepr))
+                $javaScript = 'includes/js/custom-ajax-mepr.js';
+            else
+                $javaScript = 'includes/js/custom-form.js';
+
+            wp_enqueue_style( 'mo2f_intl_tel_style',  plugin_dir_url(__FILE__).'includes/css/phone.css');
+            wp_enqueue_script( 'mo2f_intl_tel_script',plugin_dir_url(__FILE__).'includes/js/phone.js');
+            wp_register_script('mo2f_otpVerification',plugin_dir_url(__FILE__).$javaScript);
+            wp_localize_script('mo2f_otpVerification', 'otpverificationObj',
+                array('siteURL'=> admin_url( 'admin-ajax.php'),
+                    'nonce'=>wp_create_nonce('ajax-nonce'),
+                    'authType'=>$authType,
+                    'submitSelector'=>$submitSelector,
+                    'formname'=>$formName,
+                    'emailselector'=>$emailField,
+                    'isRegistered' => $isRegistered,
+                    'phoneSelector' => $phoneSelector,
+                    'loaderUrl' 		=> plugin_dir_url(__FILE__).'includes/images/loader.gif',
+                    'isEnabledShortcode' => get_site_option('enable_form_shortcode')));
+            wp_enqueue_script('mo2f_otpVerification');
+
+            //Register Shortcode JavaScript And Pass Parameters To JS
+        }
+
         // As on plugins.php page not in the plugin
         function feedback_request() {
             if ( 'plugins.php' != basename( $_SERVER['PHP_SELF'] ) ) {
@@ -191,12 +246,7 @@
             
         
     }
-	function checkSecurity(){
-			
-			$guestcustomer = new Customer_Setup();
-			
-			$guestcustomer->guest_audit();
-		}
+
 
 
 		function mo_wpns()
@@ -221,7 +271,7 @@
 
 		function mo_wpns_activate()
 		{
-			$this->checkSecurity();
+
 			global $wpnsDbQueries,$Mo2fdbQueries;
 			$userid = wp_get_current_user()->ID;
 			$wpnsDbQueries->mo_plugin_activate();
@@ -294,6 +344,45 @@
 				wp_enqueue_script( 'mo_wpns_min_qrcode_script', plugins_url( "/includes/jquery-qrcode/jquery-qrcode.min.js", __FILE__ ) );
 			}
 		}
+
+
+       
+		function mo_wpns_ajax_login_script($hook){
+	    	if(get_option('mo2f_activate_plugin') and (get_option( 'mo_2factor_admin_registration_status' ) == 'MO_2_FACTOR_CUSTOMER_REGISTERED_SUCCESS' or MO2F_IS_ONPREM )){ 
+		    	wp_enqueue_script( 'dmajax_script', plugins_url('includes/js/dmajax.js',__FILE__ )); 
+				wp_localize_script( 'dmajax_script', 'my_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ));
+				?>
+				<input type="hidden" name="miniorange_login_nonce"
+               	value="<?php echo wp_create_nonce( 'miniorange-2-factor-login-nonce' ); ?>"/>
+				<?php
+				if ( get_option( 'mo2f_remember_device' ) ) {
+					?>
+					<script type="text/javascript">
+					jQuery(".ncore_input_password ").append("<input type='hidden' id='miniorange_rba_attribures' name='miniorange_rba_attribures' value=''/>");
+					</script>
+					 <?php
+					wp_enqueue_script( 'jquery_script', plugins_url( 'includes/js/rba/js/jquery-1.9.1.js', __FILE__ ) );
+					wp_enqueue_script( 'flash_script', plugins_url( 'includes/js/rba/js/jquery.flash.js', __FILE__ ) );
+					wp_enqueue_script( 'uaparser_script', plugins_url( 'includes/js/rba/js/ua-parser.js', __FILE__) );
+					wp_enqueue_script( 'client_script', plugins_url( 'includes/js/rba/js/client.js', __FILE__ ) );
+					wp_enqueue_script( 'device_script', plugins_url( 'includes/js/rba/js/device_attributes.js',__FILE__ ) );
+					wp_enqueue_script( 'swf_script', plugins_url( 'includes/js/rba/js/swfobject.js', __FILE__ ) );
+					wp_enqueue_script( 'font_script', plugins_url( 'includes/js/rba/js/fontdetect.js', __FILE__ ) );
+					wp_enqueue_script( 'murmur_script', plugins_url( 'includes/js/rba/js/murmurhash3.js', __FILE__ ) );							
+					wp_enqueue_script( 'miniorange_script', plugins_url( 'includes/js/rba/js/miniorange-fp.js', __FILE__ ) );
+				}
+				else if( get_option('mo2f_enable_2fa_prompt_on_login_page'))
+				{
+					?>
+					<script type="text/javascript">
+					jQuery(".ncore_input_password ").append('<input type="text" placeholder="No soft Token ? Skip" name="mo_softtoken" id="mo2f_2fa_code" class="mo2f_2fa_code" value="" size="20" style="ime-mode: inactive;">');
+					</script>
+					<?php
+				}
+			}
+		}
+
+
 		function mo_show_message($content,$type) 
 		{
 		     if($type=="CUSTOM_MESSAGE")
@@ -388,7 +477,8 @@
 			require('helper/constants.php');
 			require('helper/messages.php');
 			require('views/common-elements.php');
-			 
+
+			require('handler/twofa/two_fa_short_custom.php');
 			require('controllers/wpns-loginsecurity-ajax.php');
 			require('controllers/malware_scanner/malware_scan_ajax.php');
 			require('controllers/backup/backup_ajax.php');
@@ -403,6 +493,12 @@
 		function miniorange_reset_users($actions, $user_object){
 		    global $Mo2fdbQueries;
 			$mo2f_configured_2FA_method = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user_object->ID );
+
+		$tfa_enabled = $Mo2fdbQueries->get_user_detail( 'mo2f_2factor_enable_2fa_byusers', $user_object->ID );
+		$mo_2factor_user_registration_status = $Mo2fdbQueries->get_user_detail( 'mo_2factor_user_registration_status', $user_object->ID );
+				
+		if($tfa_enabled == 0 && ($mo_2factor_user_registration_status != 'MO_2_FACTOR_PLUGIN_SETTINGS') && $tfa_enabled != '')
+			$mo2f_configured_2FA_method = 1;
 		if ( current_user_can( 'administrator', $user_object->ID )  && $mo2f_configured_2FA_method ) {
 			if(get_current_user_id() != $user_object->ID){
 				$actions['miniorange_reset_users'] = "<a class='miniorange_reset_users' href='" . admin_url( "users.php?page=reset&action=reset_edit&amp;user=$user_object->ID") . "'>" . __( 'Reset 2 Factor', 'cgc_ub' ) . "</a>";
@@ -411,6 +507,7 @@
 		return $actions;
 		
 	}
+
 
 
 	function mo2f_mapped_email_column($columns) {
@@ -446,14 +543,14 @@
 
 		function miniorange_reset_save_settings()
 		{
-		if(isset($_POST['miniorange_reset_2fa_option']) && $_POST['miniorange_reset_2fa_option'] == 'mo_reset_2fa'){
+		if(isset($_POST['miniorange_reset_2fa_option']) && sanitize_text_field($_POST['miniorange_reset_2fa_option']) == 'mo_reset_2fa'){
 				$nonce = sanitize_text_field($_POST['nonce']);
 				if(!wp_verify_nonce($nonce,'ResetTwoFnonce'))
 				{
 					
 					return;
 				}
-				$user_id = isset($_POST['userid']) && !empty($_POST['userid']) ? $_POST['userid'] : '';
+				$user_id = isset($_POST['userid']) && !empty($_POST['userid']) ? sanitize_text_field($_POST['userid']) : '';
 				if(!empty($user_id)){
 					if ( current_user_can( 'edit_user' ) ){
 					    global $Mo2fdbQueries;

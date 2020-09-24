@@ -52,6 +52,7 @@
             "IP Address Range Blocking"=>"https://developers.miniorange.com/docs/security/wordpress/wp-security/range-blocking#ip-range-blocking",
 
             "Browser Blocking"=>"https://developers.miniorange.com/docs/security/wordpress/wp-security/browser-blocking#wp-browser-blocking",
+            "Enable 2FA Role Based" => "https://developers.miniorange.com/docs/security/wordpress/wp-security/enable-two-factor-based-on-roles",
 
 
 );?>

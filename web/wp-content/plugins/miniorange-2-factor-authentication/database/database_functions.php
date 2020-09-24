@@ -273,6 +273,12 @@
 			return $wpdb->get_results("SELECT id, reason, ip_address, created_timestamp FROM ".$this->blockedIPsTable);
 		}
 
+		function get_blocked_attack_list($tableName)
+		{
+			global $wpdb;
+			$tableName = $wpdb->base_prefix.$tableName;
+			return $wpdb->get_results("SELECT ip, type, time, input FROM ".$tableName);
+		}
 
 		function get_blocked_sqli_list()
 		{

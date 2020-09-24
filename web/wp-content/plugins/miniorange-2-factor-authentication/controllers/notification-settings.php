@@ -48,10 +48,10 @@
 	/* ADMIN NOTIFICATION SETTINGS */
         function wpns_handle_admin_email($postValue)
 	{
-		
-        if(validate_email($_POST['admin_email_address'])){
+		$email = sanitize_email($_POST['admin_email_address']);
+        if(validate_email($email)){
 			$admin_email_address_status = isset($postValue['admin_email_address']) ? '1' :'0';
-			update_option('admin_email_address',$postValue['admin_email_address']);
+			update_option('admin_email_address',$email);
 			update_option( 'admin_email_address_status', $admin_email_address_status);
 			do_action('wpns_show_message',MoWpnsMessages::showMessage('EMAIL_SAVED'),'SUCCESS');
 	    }else{
