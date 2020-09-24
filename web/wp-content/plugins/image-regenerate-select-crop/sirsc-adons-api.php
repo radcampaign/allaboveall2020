@@ -78,11 +78,14 @@ class SIRSC_Adons_API {
 			'store_code' => self::PLUGIN_STORE_CODE,
 			'domain'     => get_site_url(),
 		);
-		$response = wp_remote_post( self::PLUGIN_API_URL . '?action=' . $action, array(
-			'method'  => 'POST',
-			'timeout' => 120,
-			'body'    => array_merge( $default, $args ),
-		) );
+		$response = wp_remote_post(
+			self::PLUGIN_API_URL . '?action=' . $action,
+			array(
+				'method'  => 'POST',
+				'timeout' => 120,
+				'body'    => array_merge( $default, $args ),
+			)
+		);
 		if ( ! is_wp_error( $response ) ) {
 			$data = wp_remote_retrieve_body( $response );
 			if ( is_wp_error( $data ) ) {
@@ -129,10 +132,13 @@ class SIRSC_Adons_API {
 	 */
 	public static function activate_license_key( $slug, $sku, $key ) {
 		self::update_adon_property( $slug, 'license_key', $key );
-		$rez = self::do_api_call( 'license_key_activate', array(
-			'sku'         => $sku,
-			'license_key' => $key,
-		) );
+		$rez = self::do_api_call(
+			'license_key_activate',
+			array(
+				'sku'         => $sku,
+				'license_key' => $key,
+			)
+		);
 		if ( ! empty( $rez->data ) ) {
 			if ( ! empty( $rez->data->activation_id ) ) {
 				self::update_adon_property( $slug, 'activation_id', $rez->data->activation_id );
@@ -164,11 +170,14 @@ class SIRSC_Adons_API {
 	 */
 	public static function validate_license_key( $slug, $sku, $key, $id ) {
 		if ( ! empty( $id ) ) {
-			$rez = self::do_api_call( 'license_key_validate', array(
-				'sku'           => $sku,
-				'license_key'   => $key,
-				'activation_id' => $id,
-			) );
+			$rez = self::do_api_call(
+				'license_key_validate',
+				array(
+					'sku'           => $sku,
+					'license_key'   => $key,
+					'activation_id' => $id,
+				)
+			);
 			if ( ! empty( $rez->data ) ) {
 				if ( ! empty( $rez->data->status ) && 'active' === $rez->data->status ) {
 					self::update_adon_property( $slug, 'available', true );
@@ -192,11 +201,14 @@ class SIRSC_Adons_API {
 	 * @return void
 	 */
 	public static function deactivate_license_key( $slug, $sku, $key, $id ) {
-		$rez = self::do_api_call( 'license_key_deactivate', array(
-			'sku'           => $sku,
-			'license_key'   => $key,
-			'activation_id' => $id,
-		) );
+		$rez = self::do_api_call(
+			'license_key_deactivate',
+			array(
+				'sku'           => $sku,
+				'license_key'   => $key,
+				'activation_id' => $id,
+			)
+		);
 	}
 
 	/**

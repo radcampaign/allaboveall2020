@@ -66,18 +66,17 @@ class Customer_Cloud_Setup  {
 		$mo2fApi= new Mo2f_Api();
 		$MoWpnsUtility = new MoWpnsUtility();
 		$company     = get_option( 'mo2f_admin_company' ) != '' ? get_option( 'mo2f_admin_company' ) : $_SERVER['SERVER_NAME'];
-		$applicationName='Wordpress Two Factor;'.$MoWpnsUtility->checkPlugins();
+		$applicationName='Wordpress Two Factor; Multisite: '.is_multisite().' '.$MoWpnsUtility->checkPlugins();
+
 		$fields = array (
 			'emailAddress' => $email,
 			'companyName'=>$company,
 			'cmsName'=>"WP",
-			'applicationType'=>'Two Factor',
+			'applicationType'=>'Two Factor Upgrade',
 			'applicationName'=>$applicationName,
 			'pluginVersion'=>MO2F_VERSION,
 			'inUse'=>$MoWpnsUtility->getFeatureStatus()
 		);
-
-
 
 		$headers = array("Content-Type"=>"application/json","charset"=>"UTF-8","Authorization"=>"Basic");
 
@@ -346,7 +345,7 @@ class Customer_Cloud_Setup  {
 			}
 			$field_string = json_encode( $fields );
 
-
+			
 			$content = $mo2fApi->make_curl_call( $url, $field_string, $headers );
 
 		return $content;

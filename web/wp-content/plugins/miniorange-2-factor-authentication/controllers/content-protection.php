@@ -44,10 +44,10 @@ include $mo2f_dirName . 'views'.DIRECTORY_SEPARATOR.'content-protection.php';
 //Function to save content protection settings
 function wpns_handle_content_protection()
 {		
-	isset($_POST['protect_wp_config']) 			? update_option('mo2f_protect_wp_config'		 , $_POST['protect_wp_config'])			: update_option('mo2f_protect_wp_config'			,0);
-	isset($_POST['prevent_directory_browsing']) ? update_option('mo2f_prevent_directory_browsing', $_POST['prevent_directory_browsing']): update_option('mo2f_prevent_directory_browsing',0);
-	isset($_POST['disable_file_editing']) 		? update_option('mo2f_disable_file_editing'		 , $_POST['disable_file_editing'])		: update_option('mo2f_disable_file_editing'		,0);
-	isset($_POST['mo2f_htaccess_file']) 		? update_option('mo2f_htaccess_file'			 , $_POST['mo2f_htaccess_file']) 		: update_option('mo2f_htaccess_file',0);
+	isset($_POST['protect_wp_config']) 			? update_option('mo2f_protect_wp_config'		 , sanitize_text_field($_POST['protect_wp_config'])	)		 : update_option('mo2f_protect_wp_config'			,0);
+	isset($_POST['prevent_directory_browsing']) ? update_option('mo2f_prevent_directory_browsing', sanitize_text_field($_POST['prevent_directory_browsing'])): update_option('mo2f_prevent_directory_browsing',0);
+	isset($_POST['disable_file_editing']) 		? update_option('mo2f_disable_file_editing'		 , sanitize_text_field($_POST['disable_file_editing']))		 : update_option('mo2f_disable_file_editing'		,0);
+	isset($_POST['mo2f_htaccess_file']) 		? update_option('mo2f_htaccess_file'			 , sanitize_text_field($_POST['mo2f_htaccess_file'])) 		 : update_option('mo2f_htaccess_file',0);
 	if(isset($_POST['restrictAPI'])){
 		update_site_option('mo2f_restrict_restAPI', 1);	
 	}

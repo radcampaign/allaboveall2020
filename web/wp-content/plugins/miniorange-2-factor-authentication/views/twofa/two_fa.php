@@ -26,14 +26,14 @@ else
 			if( !MoWpnsUtility::get_mo2f_db_option('mo2f_is_NC', 'get_option')) 
 			{
 				?>
-				<button class="tablinks" onclick="openTab2fa(this)" id="custom_form_2fa">Form Integration</button>  
+                <button class="tablinks" onclick="openTab2fa(this)" id="custom_form_2fa">Registration Forms <span style="margin-left: 1px; color:white; padding:2px;border-radius: 4px;font-weight: bold;background: orangered;">New </span></button>
 				<button class="tablinks" onclick="openTab2fa(this)" id="login_option_2fa">Login Option</button>
 				<?php
 			}
 			else
 			{
 					?>
-					<button class="tablinks" onclick="openTab2fa(this)" id="custom_form_2fa">Form Integration</button>
+                    <button class="tablinks" onclick="openTab2fa(this)" id="custom_form_2fa">Registration Forms <span style="margin-left: 1px;color:white; padding:2px;border-radius: 4px;font-weight: bold;background: orangered;">New </span></button>
                     <button class="tablinks" onclick="openTab2fa(this)" id="custom_login_2fa">Premium Features</button>
                     <button class="tablinks" onclick="openTab2fa(this)" id="rba_2fa">AddOns</button>
 					<?php

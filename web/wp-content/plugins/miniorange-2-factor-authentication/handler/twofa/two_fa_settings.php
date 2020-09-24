@@ -1580,9 +1580,9 @@ class Miniorange_Authentication {
 				$this->mo_auth_show_error_message();
 			}
 
-		}else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_validate_google_authy_test' ) {
+		}else if  ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_validate_google_authy_test' ) {
 			
-			$nonce = $_POST['mo2f_validate_google_authy_test_nonce'];
+			$nonce = sanitize_text_field($_POST['mo2f_validate_google_authy_test_nonce']);
 		
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-validate-google-authy-test-nonce' ) ) {
 				$error = new WP_Error();
@@ -1677,8 +1677,8 @@ class Miniorange_Authentication {
 
 					}
 			}
-		}else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_google_appname' ) {
-			$nonce = $_POST['mo2f_google_appname_nonce'];
+		}else if  ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_google_appname' ) {
+			$nonce = sanitize_text_field($_POST['mo2f_google_appname_nonce']);
 		
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-google-appname-nonce' ) ) {
 				$error = new WP_Error();
@@ -1687,11 +1687,11 @@ class Miniorange_Authentication {
 				return $error;
 			} else {	
 				
-					update_option('mo2f_google_appname',((isset($_POST['mo2f_google_auth_appname']) && $_POST['mo2f_google_auth_appname']!='') ? $_POST['mo2f_google_auth_appname'] : 'miniOrangeAu'));
+					update_option('mo2f_google_appname',((isset($_POST['mo2f_google_auth_appname']) && $_POST['mo2f_google_auth_appname']!='') ? sanitize_text_field($_POST['mo2f_google_auth_appname']) : 'miniOrangeAu'));
 			}
 
-        }else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_google_authenticator_validate' ) {
-			$nonce = $_POST['mo2f_configure_google_authenticator_validate_nonce'];
+        }else if  ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_configure_google_authenticator_validate' ) {
+			$nonce = sanitize_text_field($_POST['mo2f_configure_google_authenticator_validate_nonce']);
 		
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-google-authenticator-validate-nonce' ) ) {
 				$error = new WP_Error();
@@ -1699,8 +1699,8 @@ class Miniorange_Authentication {
 
 				return $error;
 			} else {	
-				$otpToken  = $_POST['google_token'];
-				$ga_secret = isset( $_POST['google_auth_secret'] ) ? $_POST['google_auth_secret'] : null;
+				$otpToken  = sanitize_text_field($_POST['google_token']);
+				$ga_secret = isset( $_POST['google_auth_secret'] ) ? sanitize_text_field($_POST['google_auth_secret']) : null;
 				
 				if ( MO2f_Utility::mo2f_check_number_length( $otpToken ) ) {
 					$email           = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
@@ -1714,7 +1714,6 @@ class Miniorange_Authentication {
                         }
 	          			$google_auth     = new Miniorange_Rba_Attributes();
 						$google_response = json_decode( $google_auth->mo2f_validate_google_auth( $email, $otpToken, $ga_secret ), true );
-
 						if ( json_last_error() == JSON_ERROR_NONE ) {
 							if ( $google_response['status'] == 'SUCCESS' ) {
 									$enduser  = new Two_Factor_Setup();
@@ -1849,8 +1848,8 @@ class Miniorange_Authentication {
 				}
 			}
 		}
-		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_save_kba' ) {
-			$nonce = $_POST['mo2f_save_kba_nonce'];
+		else if  ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_save_kba' ) {
+			$nonce = sanitize_text_field($_POST['mo2f_save_kba_nonce']);
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-save-kba-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -1951,8 +1950,8 @@ class Miniorange_Authentication {
 				}	
 
 
-		}else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_validate_kba_details' ) {
-			$nonce = $_POST['mo2f_validate_kba_details_nonce'];
+		}else if  ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_validate_kba_details' ) {
+			$nonce = sanitize_text_field($_POST['mo2f_validate_kba_details_nonce']);
 		
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-validate-kba-details-nonce' ) ) {
 				$error = new WP_Error();
@@ -2161,9 +2160,8 @@ class Miniorange_Authentication {
 				}
 			}
 
-		}else if ( ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_save_free_plan_auth_methods' ) ) {// user clicks on Set 2-Factor method
-				 $nonce = $_POST['miniorange_save_form_auth_methods_nonce'];
-
+		}else if ( ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_save_free_plan_auth_methods' ) ) {// user clicks on Set 2-Factor method
+				 $nonce = sanitize_text_field($_POST['miniorange_save_form_auth_methods_nonce']);
 			if ( ! wp_verify_nonce( $nonce, 'miniorange-save-form-auth-methods-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -2186,6 +2184,7 @@ class Miniorange_Authentication {
                 return;
             }           
 			$selected_2FA_method = MO2f_Utility::mo2f_decode_2_factor( isset( $_POST['mo2f_configured_2FA_method_free_plan'] ) ? $_POST['mo2f_configured_2FA_method_free_plan'] : $_POST['mo2f_selected_action_standard_plan'], "wpdb" );
+			$selected_2FA_method = sanitize_text_field($selected_2FA_method);
 			$onprem_methods = array('Google Authenticator','Security Questions');
             $Mo2fdbQueries->insert_user( $user->ID );
             if(MO2F_IS_ONPREM && ! in_array($selected_2FA_method, $onprem_methods) ){
@@ -2265,12 +2264,15 @@ class Miniorange_Authentication {
 				if($selected_2FA_method == 'OTPOverSMS')
 					$selected_2FA_method = 'OTP Over SMS';
 			}
+
 			if(MO2F_IS_ONPREM and ($selected_2FA_method =='Google Authenticator' or $selected_2FA_method == 'Security Questions' or $selected_2FA_method =='OTP Over Email' or $selected_2FA_method == 'Email Verification'))
 				$is_customer_registered = 1;
 			
 			if ( $is_customer_registered ) {
 				$selected_2FA_method        = MO2f_Utility::mo2f_decode_2_factor( isset( $_POST['mo2f_configured_2FA_method_free_plan'] ) ? $_POST['mo2f_configured_2FA_method_free_plan'] : $_POST['mo2f_selected_action_standard_plan'], "wpdb" );
+				$selected_2FA_method 		= sanitize_text_field($selected_2FA_method);
 				$selected_action            = isset( $_POST['mo2f_selected_action_free_plan'] ) ? $_POST['mo2f_selected_action_free_plan'] : $_POST['mo2f_selected_action_standard_plan'];
+				$selected_action 			= sanitize_text_field($selected_action);
 				$user_phone                 = '';
 				if ( isset( $_SESSION['user_phone'] ) ) {
 					$user_phone = $_SESSION['user_phone'] != 'false' ? $_SESSION['user_phone'] : $Mo2fdbQueries->get_user_detail( 'mo2f_user_phone', $user->ID );
@@ -2969,14 +2971,16 @@ class Miniorange_Authentication {
 		$current_method = MO2f_Utility::mo2f_decode_2_factor( $mo2f_configured_2FA_method, "server" );
 
 		$response = json_decode( $enduser->mo2f_update_userinfo( $email, $current_method, $phone, null, null ), true );
-
 		if ( json_last_error() == JSON_ERROR_NONE ) {
 			if ( $response['status'] == 'ERROR' ) {
 				update_option( 'mo2f_message', Mo2fConstants:: langTranslate( $response['message'] ) );
 				$this->mo_auth_show_error_message();
 			} else if ( $response['status'] == 'SUCCESS' ) {
-				$configured_2fa_method = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user->ID );
-
+				$configured_2fa_method = '';
+				if($mo2f_configured_2FA_method =='')
+					$configured_2fa_method = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user->ID );
+				else
+					$configured_2fa_method = $mo2f_configured_2FA_method;
 				if ( in_array( $configured_2fa_method, array( "Google Authenticator", "Authy Authenticator" ) ) ) {
 					update_user_meta( $user->ID, 'mo2f_external_app_type', $configured_2fa_method );
 				}
@@ -2987,8 +2991,9 @@ class Miniorange_Authentication {
 				delete_user_meta( $user->ID, 'configure_2FA' );
 				
 				if($configured_2fa_method == 'OTP Over Email' or $configured_2fa_method=='OTP Over SMS')
-				update_option( 'mo2f_message', Mo2fConstants:: langTranslate( $configured_2fa_method ) . ' ' . Mo2fConstants:: langTranslate( "SET_2FA_otp" ) );
-
+				{
+					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( $configured_2fa_method ) . ' ' . Mo2fConstants:: langTranslate( "SET_2FA_otp" ) );
+				}
 				else
 					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( $configured_2fa_method ) . ' ' . Mo2fConstants:: langTranslate( "SET_2FA" ) );
 

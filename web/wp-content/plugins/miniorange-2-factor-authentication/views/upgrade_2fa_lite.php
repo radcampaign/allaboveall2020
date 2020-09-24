@@ -9,6 +9,7 @@
 		"Google Authenticator",
 		"Security Questions",
 		"Authy Authenticator",
+		"TOTP Based Authenticator",
 		"Email Verification",
 		"OTP Over Email",
 		"OTP Over SMS",
@@ -30,14 +31,21 @@
 		"User role based redirection after Login",
 		"Add custom Security Questions (KBA)",
 		"Customize name in Google Authenticator",
+		"Custom Gateway",		
+		"Security Questions as backup",
+		"App Specific Password from mobile Apps",
 		"Brute Force Protection",
 		"IP Blocking",
 		"Monitoring",
 		"Strong Password",
 		"File Protection",
-		
-		"Security Questions as backup",
-		"App Specific Password from mobile Apps",
+		"Custom SMS Gateway",
+		"Solution Infi",			
+		"Clickatell",													
+		"ClickSend",			
+		"Twilio SMS",													
+		"SendGrid",
+		"Many Other Gateways",
 		"Support"
 	);
 
@@ -54,9 +62,10 @@
 		"Google Authenticator"                                          		=> array( true, true, true, true ),
 		"Security Questions"                                          			=> array( true, true, true, true ),
 		"Authy Authenticator"                                          			=> array( true, true, true, true ),
+		"TOTP Based Authenticator"												=> array( true, true, true, true ),
 		"Email Verification"                                          			=> array( true, true, true, true ),
 		"OTP Over Email"                                          				=> array( true, true, true, true ),
-		"OTP Over SMS"                                          				=> array( false, true, true, true ),
+		"OTP Over SMS"                                          				=> array( true, true, true, true ),
 		"miniOrange QR Code Authentication"                                     => array( false, false, true, true ),
 		"miniOrange Soft Token"                                          		=> array( false, false, true, true ),
 		"miniOrange Push Notification"                                          => array( false, false, true, true ),
@@ -70,7 +79,9 @@
 		"User role based redirection after Login"                               => array( true, true, true, true ),
 		"Add custom Security Questions (KBA)"                                   => array( true, true, true, true ),
 		"Add custom Security Questions (KBA)"                                   => array( true, true, true, true ),
-		"Customize name in Google Authenticator"                    		=> array( true, true, true, true ),
+		"Customize name in Google Authenticator"                    			=> array( true, true, true, true ),
+		"Custom SMS Gateway"                    								=> array( false, true, true, true ),
+
 		"Brute Force Protection"												=> array( false, false, false, true ),
 		"IP Blocking"															=> array( false, false, false, true ),
 		"Monitoring"															=> array( false, false, false, true ),
@@ -90,12 +101,20 @@
 			array( "Priority Support by Email", "Priority Support with GoTo meetings" )
 		),
 
+		"Solution Infi"												=> array( false, true, true,true ),
+		"Clickatell"												=> array( false, true, true,true ),
+		"ClickSend"													=> array( false, true, true,true ),
+		"Many Other Gateways"										=> array( false, true, true,true ),
+		"Custom Gateway"											=> array( false, true, true,true ),		
+		"Twilio SMS"												=> array( false, true, true,true ),
+		"SendGrid"													=> array( false, true, true,true ),
 	);
 
 		$mo2f_feature_description_set = array(
 		"Enter the soft token from the account in your Google Authenticator App to login.",
 		"Answer the three security questions you had set, to login.",
 		"Enter the soft token from the account in your Authy Authenticator App to login.",
+		"Enter the soft token from the account in your TOTP Authenticator App to login.",
 		"Accept the verification link sent to your email to login.",
 		"You will receive a one time passcode via Email.",
 		"You will receive a One Time Passcode via SMS on your Phone",
@@ -117,15 +136,22 @@
 		"According to user's role the particular user will be redirected to specific location",
 		"Custom questions can be added for the Security Questions Method",
 		"You can customize the account name in Google Authenticator app on mobile",
+		"Have your own gateway? You can use it, no need to purchase SMS then.",
+		"Allows for login using security questions in cases where physical access to the mobile isn’t possible",
+		"For access wordpress on different moblie apps, app specific passwords can be set",
 		"This protects your site from attacks which tries to gain access / login to a site with random usernames and passwords.",
 		"Allows you to manually/automatically block any IP address that seems malicious from accessing your website. ",
 		"Monitor activity of your users. For ex:- login activity, error report",
 		"Enforce users to set a strong password.",
 		"Allows you to protect sensitive files through the malware scanner and other security features.",
-		
-		"Allows for login using security questions in cases where physical access to the mobile isn’t possible",
-		"For access wordpress on different moblie apps, app specific passwords can be set",
-		"24/7 support is available."
+		"Custom SMS Gateway",
+		"Configure and test to add Solution Infi as custom gateway",
+		"Configure and test to add Clickatell as custom gateway",
+		"Configure and test to add ClickSend as custom gateway",
+		"Configure and test to add Twilio SMS as custom gateway",
+		"Configure and test to add SendGrid as custom gateway",
+		"Not Listed? Configure and test to add it as custom gateway",
+		"24/7 support is available.",
 	);
 	$mo2f_addons_set		=	array(
 		"RBA & Trusted Devices Management",
@@ -190,60 +216,56 @@
                     		<div style="float: left;">
                     		<?php
                     	}
-						
-							?>
-							<div>
-							<?php
-							if ( gettype( $f_feature_set_with_plan[0] ) == "boolean" ) 
+							
+								if ( gettype( $f_feature_set_with_plan[0] ) == "boolean" && ($feature_set != "Other Features" )&& ($feature_set != "Custom SMS Gateway" )) 
 								{
-								if ($feature_set != "Backup Methods") {
 									echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[0] );
+								} elseif($feature_set == "Support") {
+									echo 'Basic Support by Email';
 								}
-								else
-								{
-									echo mo2f_get_binary_equivalent_2fa_lite( false);
-								}
-							} elseif($feature_set == "Support") {
-								echo 'Basic Support by Email';
-							}
-							if ($feature_set != "Other Features" && $feature_set != "Support") 
-							{
-								echo $feature_set;
-							}
-							
-							?>
-						</div></div>
-						<?php
-							
-							if ($feature_set == "Other Features") 
-							{
-								?>
-
-							<div style="float: left;">
 								
-								<h3 style="float: left;">&nbsp;Other Features</h3>
-								<?php 
+								if ($feature_set == "Other Features" ) 
+								{
+									?>
+									<h3 style="float: left;">&nbsp;Other Features</h3>
+									<?php 
+								}
+								elseif ($feature_set == "Custom SMS Gateway" ) 
+								{
+									?>
+									<h3 style="float: left;">&nbsp;Custom SMS Gateway
+									<?php 
+								}
+								elseif ($feature_set != "Support")
+								{
+									echo $feature_set;
+								}
+								?>
+								</div>
+								<div>
+							<?php
+							if ($feature_set == "Backup Methods") {
+								echo mo2f_features_on_hover_2fa_lite("Security Questions is available as a backup method");
 							}
 							
-							else
+							elseif ($feature_set != "Other Features" && $feature_set != "Custom SMS Gateway") 
 							{
+								echo mo2f_features_on_hover_2fa_lite($mo2f_feature_description_set[$i]);
+							}
+							?></div>
+							<?php
+								if ($feature_set == "Backup Methods") {
+									?>
+									<div style="width: 100%;text-align: left;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Security Questions (KBA)</div>
+									<?php 
+								}
+
 							?>
-							<div style="float: right;">
 							<?php
 							
-								if ($feature_set == "Backup Methods") {
-								
-									echo mo2f_features_on_hover_2fa_lite("Backup Method is not available in free plugin.");
-								}
-								elseif ($feature_set != "Other Features") 
-									{
-										echo mo2f_features_on_hover_2fa_lite($mo2f_feature_description_set[$i]);
-									}
-							}
-							?>
-							</div><?php
-						
-						?>
+						 ?>
+							</div>
+							
                     </td>
                     <td class="mo2f_black_background"></td>
                     <td  class="mo2f_padding_style"><?php
@@ -260,7 +282,7 @@
                     		<?php
                     	}
 							
-								if ( gettype( $f_feature_set_with_plan[1] ) == "boolean" ) {
+								if ( gettype( $f_feature_set_with_plan[1] ) == "boolean" && ($feature_set != "Other Features" )&& ($feature_set != "Custom SMS Gateway" )) {
 									echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[1] );
 								} elseif($feature_set == "Support") {
 									echo 'Priority Support by Email';
@@ -270,6 +292,14 @@
 								{
 									?>
 									<h3 style="float: left;">&nbsp;Other Features</h3>
+									<?php 
+								}
+								elseif ($feature_set == "Custom SMS Gateway" ) 
+								{
+									?>
+									<h3 style="float: left;">&nbsp;Custom SMS Gateway&nbsp;&nbsp;
+									<a  style="text-decoration:none;" href="https://login.xecurify.com/moas/login?redirectUrl=https://login.xecurify.com/moas/admin/customer/smsconfig" target="_blank">Test Now</a>
+									</h3>
 									<?php 
 								}
 								elseif ($feature_set != "Support")
@@ -284,7 +314,7 @@
 								echo mo2f_features_on_hover_2fa_lite("Security Questions is available as a backup method");
 							}
 							
-							elseif ($feature_set != "Other Features") 
+							elseif ($feature_set != "Other Features" && $feature_set != "Custom SMS Gateway") 
 							{
 								echo mo2f_features_on_hover_2fa_lite($mo2f_feature_description_set[$i]);
 							}
@@ -316,7 +346,7 @@
                     		<?php
                     	}
 						
-								if ( gettype( $f_feature_set_with_plan[2] ) == "boolean" ) {
+								if ( gettype( $f_feature_set_with_plan[2] ) == "boolean" && ($feature_set != "Other Features" )&& ($feature_set != "Custom SMS Gateway" )) {
 									echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[2] );
 								} elseif($feature_set == "Support") {
 									echo 'Priority Support by Email, Priority Support with GoTo meetings';
@@ -325,6 +355,14 @@
 								{
 									?>
 									<h3 style="float: left;">&nbsp;Other Features</h3>
+									<?php 
+								}
+								elseif ($feature_set == "Custom SMS Gateway") 
+								{
+									?>
+									<h3 style="float: left;">&nbsp;Custom SMS Gateway&nbsp;&nbsp;
+									<a  style="text-decoration:none;" href="https://login.xecurify.com/moas/login?redirectUrl=https://login.xecurify.com/moas/admin/customer/smsconfig" target="_blank">Test Now</a>
+									</h3>
 									<?php 
 								}
 								elseif($feature_set != "Support")
@@ -338,7 +376,7 @@
 							if ($feature_set == "Backup Methods") {
 								echo mo2f_features_on_hover_2fa_lite("Security Questions, OTP Over Email, Backup Codes are available as a backup method");
 							}
-							elseif ($feature_set != "Other Features") 
+							elseif ($feature_set != "Other Features"&& $feature_set != "Custom SMS Gateway") 
 							{
 								echo mo2f_features_on_hover_2fa_lite($mo2f_feature_description_set[$i]);
 							}
@@ -371,7 +409,7 @@
                     		<?php
                     	}
 						
-								if ( gettype( $f_feature_set_with_plan[3] ) == "boolean" ) {
+								if ( gettype( $f_feature_set_with_plan[3] ) == "boolean" && ($feature_set != "Other Features" )&& ($feature_set != "Custom SMS Gateway" )) {
 									echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[3] );
 								} elseif($feature_set == "Support") {
 									echo 'Priority Support by Email, Priority Support with GoTo meetings';
@@ -382,6 +420,14 @@
 									<h3 style="float: left;">&nbsp;Other Features</h3>
 									<?php 
 								}
+								elseif ($feature_set == "Custom SMS Gateway" ) 
+								{
+									?>
+									<h3 style="float: left;">&nbsp;Custom SMS Gateway&nbsp;&nbsp;
+									<a  style="text-decoration:none;" href="https://login.xecurify.com/moas/login?redirectUrl=https://login.xecurify.com/moas/admin/customer/smsconfig" target="_blank">Test Now</a>
+									</h3>
+									<?php 
+								}								
 								elseif($feature_set != "Support")
 								{
 									echo $feature_set;
@@ -393,7 +439,7 @@
 							if ($feature_set == "Backup Methods") {
 								echo mo2f_features_on_hover_2fa_lite("Security Questions, OTP Over Email, Backup Codes are available as a backup method");
 							}
-							elseif ($feature_set != "Other Features") 
+							elseif ($feature_set != "Other Features" && $feature_set != "Custom SMS Gateway") 
 							{
 								echo mo2f_features_on_hover_2fa_lite($mo2f_feature_description_set[$i]);
 							}
@@ -497,9 +543,30 @@
 
                 <hr><br>
 			<?php } ?>
+            <b>* Multisite</b>
+            <p><?php echo mo2f_lt( 'For your first license 3 subsites will be activated automatically on the same domain. And if you wish to use it for more please contact support ' ); ?></p>
+            <hr>
+            <br>
             <b>**** SMS Charges</b>
             <p><?php echo mo2f_lt( 'If you wish to choose OTP Over SMS / OTP Over SMS and Email as your authentication method,
                     SMS transaction prices & SMS delivery charges apply and they depend on country. SMS validity is for lifetime.' ); ?></p>
+            <hr>
+            <br>
+            <b>***** Custom SMS Gateways</b>
+            <p>
+            	<ol>
+            		<li>Plivo</li>
+            		<li>Solution Infi</li>
+            		<li>Clickatell</li>
+            		<li>ClickSend</li>
+            		<li>Telesign SMS Verify</li>
+            		<li>Telize</li>
+            		<li>Twilio SMS</li>
+            		<li>SendGrid</li>
+            		<li>Many Other Gateways</li>
+            	</ol>
+           	You can test custom gateway <a  style="text-decoration:none;" href="https://login.xecurify.com/moas/login?redirectUrl=https://login.xecurify.com/moas/admin/customer/smsconfig" target="_blank">[HERE]</a>
+            </p>
             <hr>
             <br>
             <div>
@@ -538,7 +605,7 @@ function mo2f_create_li_2fa_lite( $mo2f_array ) {
 function mo2f_get_binary_equivalent_2fa_lite( $mo2f_var ) {
 	switch ( $mo2f_var ) {
 		case 1:
-			return "<div style='color: #20b2aa;font-size: large;float:left;margin:0px 5px;'>✔</div>";
+			return "<div style='color: #20b2aa;font-size: x-large;float:left;margin:0px 5px;'>🗸</div>";
 		case 0:
 			return "<div style='color: red;font-size: x-large;float:left;margin:0px 5px;'>×</div>";
 		default:

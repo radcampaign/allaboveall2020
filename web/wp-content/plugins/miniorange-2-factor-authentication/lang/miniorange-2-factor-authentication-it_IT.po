@@ -3213,7 +3213,7 @@ msgstr "Open php. ini (il suo solito in/etc/o nella cartella php sul server)"
 
 #: miniorange_2_factor_troubleshooting.php:19
 msgid ""
-"Search for extension=php_curl.dll. Uncomment it by removing the semi-"
+"Search for extension=curl.dll. Uncomment it by removing the semi-"
 "colon( ; ) in front of it."
 msgstr ""
 "Cercare l'estensione = php_curl. dll. Decommentarlo rimuovendo il punto e "

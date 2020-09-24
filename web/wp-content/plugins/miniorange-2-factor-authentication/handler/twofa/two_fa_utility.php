@@ -549,6 +549,19 @@ class MO2f_Utility {
         return FALSE;
     }
 
+    public static function get_index_value($var,$index){
+    	switch ($var) {
+    		case 'GLOBALS':
+    			return isset($GLOBALS[$index])?$GLOBALS[$index]:false;
+    			break;
+    		
+    		default:
+    			return false;
+    			break;
+    	}
+	}
+
+
 }
 
 ?>

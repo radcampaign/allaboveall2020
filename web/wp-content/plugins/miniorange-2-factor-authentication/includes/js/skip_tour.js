@@ -1,5 +1,5 @@
 jQuery(document).ready( function(){
-    console.log('tested');
+    
     jQuery('#skip-plugin-tour').onclick(function(e) {
         e.preventDefault();
         var rml_post_id = jQuery(this).data( 'id' );

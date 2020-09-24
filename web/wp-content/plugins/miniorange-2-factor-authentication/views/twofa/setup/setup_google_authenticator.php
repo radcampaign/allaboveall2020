@@ -31,7 +31,7 @@ function mo2f_configure_google_authenticator( $user ) {
                     </select>
                 </div>
 
-                 <div id="links_to_apps_tour" style="background-color:white;padding:5px;margin-left:40px;width:75%">
+                 <div id="links_to_apps_tour" style="background-color:white;padding:5px;margin-left:40px;">
                 <span id="links_to_apps"></span>
                 </div>
                 <h4><span id="step_number"></span><?php echo mo2f_lt( 'Scan the QR code from the Authenticator App.' ); ?></h4>

@@ -169,7 +169,7 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
         <input type="hidden" name="option" value="" />
         <span>
                         <h2>Select Roles to enable 2-Factor for Users <b  style="font-size: 70%;color: red;">(Upto 3 users in Free version)</b>
-                        <a href= '<?php echo $two_factor_premium_doc['Enble 2fa'];?>' target="_blank">
+                        <a href= '<?php echo $two_factor_premium_doc['Enable 2FA Role Based'];?>' target="_blank">
                         <span class="dashicons dashicons-text-page" style="font-size:19px;color:#269eb3;float: right;"></span>
                         
                         </a></h2>
@@ -189,373 +189,35 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
         </div>
     </div>
 
-    <?php if(0) 
 
-    {
-        ?>
-    <div class="mo_wpns_setting_layout" id="2fa_method">
-        <h3>Use Other Authentication Methods <span style="color: red;">[  Only available for one user(administrator) ]</span></h3><hr>
-        <h3 style="color: #20b2aa;">Authentication Methods</h3>
-        <table><tr>
-            <h4>1.&nbsp;OTP over SMS&nbsp;&nbsp;&nbsp;&nbsp;
-            2.&nbsp;OTP over Email&nbsp;&nbsp;&nbsp;&nbsp; 
-            3.&nbsp;miniOrange QR code&nbsp;&nbsp;&nbsp;&nbsp;
-            4.&nbsp;miniOrange Soft Token&nbsp;&nbsp;&nbsp;&nbsp;
-            5.&nbsp;miniOrange Push Notification</h4>
-        </tr>
-        <tr><h4>
-            6.&nbsp;Google Authenticator&nbsp;&nbsp;&nbsp;&nbsp;
-            7.&nbsp;Security Questions</h4>
-        </tr></table>
-        <br>
-        <h3 style="color: #20b2aa;">Single two-factor code for your multiple websites</h3>
-        <p> You can manage one two-factor code for multiple websites. You can use the same second-factor code to log in to all your websites on which miniOrange 2-factor plugin is installed. It will keep the second factor in sync on all your website.
 
-        <hr>
-        <h2  style="text-align: center;"> Enable Two-Factor for One User
-            <label class='mo_wpns_switch' >
-                <input type="checkbox" name="singleUser" id="singleUser" onclick="display_cloud_popup()" />
-                <span class='mo_wpns_slider mo_wpns_round'></span>
-            </label>
-        </h2>
-        <p style="color: red;text-align: center;"><b>[ WARNING ]:</b>You have to Register with miniorange</p>
-    </div>
-<?php } ?>
-    <div id="single_user" class="modal">
-        <div  class="modal-content">
-
-            <div class="modal-header">
-                <h3 class="modal-title" style="text-align: center; font-size: 20px; color: #2980b9">
-                    Are you sure you want to do that?
-                </h3>
-                </div>
             
 
 
-            <div class="modal-body" style="height: auto;background-color: beige;">
                 
-            <div style="text-align: center;">
-
-                 <?php 
-                $user_id = get_current_user_id();
-                global $Mo2fdbQueries;
-                $mo2f_configured_2FA_method        = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user_id );
-                if($mo2f_configured_2FA_method)
-                {
-                 ?>
 
 
-                 <?php }
-                ?>
+
                
-                <br>
-                <h4 style="color: red;">You need to reconfigure second-factor by registering in miniOrange.</h4>
-                <h4 style="color: red;">It will be available for one user in free plan.</h4>
                 
-                </div></div>
-            <div class="modal-footer">
-                <button type="button" class="mo_wpns_button mo_wpns_button1 modal-button" style="width: 30%;background-color:#61ace5;" id="ConfirmCloudButton">Confirm</button>
-                <button type="button" class="mo_wpns_button mo_wpns_button1 modal-button" style="width: 30%;background-color:#ff4168;" id="closeConfirmCloud">Cancel</button>
 
-            </div>
-            </div>
-        </div>
-    <div class="modal" id="mo2f_confirmcloud">
-        <div id="cloud_modal1" class="modal-content" >
 
-            <div class="modal-header">
-            <div id="msg">
-                        <p class="modal-body-para">
-                            The following 2-Factor Authentication methods are available in miniOrange cloud version.
-                            <br>
-                            <b><p class="modal-body-para" style="color: red;text-align: center;">
-                                Choose any method to continue.
-                            </p></b>
-                        </p>
-                        <?php
-                        echo '
     
     
     
-    <button class="mo_wpns_button mo_wpns_button1 mo_2f_cloud_switch_modal" id="google_auth_cloud" ><b style="font-weight: 700; color:black;"><img src='.plugin_dir_url(dirname(dirname(__FILE__))) . 'includes/images/google_authy.jpg'.' alt="Snow" style="width:15%; height:35px; float:left;">Google/Authy Authenticator</b> </button>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-                        if(MoWpnsUtility::get_mo2f_db_option('mo2f_is_NC', 'get_option') == 0)
-                        { ?>
-                            <button id="email_verification_cloud" class="mo_wpns_button mo_wpns_button1" style="width:100%;" onclick="configureOrSet2ndFactor_free_plan('EmailVerification','select2factor', '1')">Click here to Configure <b style="font-weight: 700; color:black;">Email Verification</b> </button>
-                        <?php 
-                            echo "<br>";
-                        }
                         
-                        echo '
-    <button class="mo_wpns_button mo_wpns_button1" id="secu_que_cloud" style="width:44%;height:70px;background-color:#e2efef;border: 1px solid black; text-align:right;background-color:#e2efef;" ><b style="font-weight: 700; color:black;"><img src='.plugin_dir_url(dirname(dirname(__FILE__))) . 'includes/images/authmethods/SecurityQuestions.png'.' alt="Snow" style="width:15%; height:35px; float:left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Security Questions</b> </button>
-    ';
-                        echo "<br>";
-                        echo "<br>";
-                        echo '
-    <button class="mo_wpns_button mo_wpns_button1 mo_2f_cloud_switch_modal" id="otp_over_sms_cloud" ><b style="font-weight: 700; color:black;"><img src='.plugin_dir_url(dirname(dirname(__FILE__))) . 'includes/images/authmethods/OTPOverSMS.png'.' alt="Snow" style="width:15%; height:35px; float:left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTP OVER SMS</b> </button>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
      
-                        echo '
-    <button class="mo_wpns_button mo_wpns_button1 mo_2f_cloud_switch_modal" id="otp_over_email_cloud"  ><b style="font-weight: 700; color:black;"><img src='.plugin_dir_url(dirname(dirname(__FILE__))) . 'includes/images/authmethods/OTPOverEmail.png'.' alt="Snow" style="width:15%; height:35px; float:left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTP OVER EMail</b> </button>
-    ';
-                        echo "<br>";
-                        echo "<br>";
-                        echo '
-    <button class="mo_wpns_button mo_wpns_button1 mo_2f_cloud_switch_modal" id="mo_qr_code_cloud"  ><b style="font-weight: 700; color:black;"><img src='.plugin_dir_url(dirname(dirname(__FILE__))) . 'includes/images/authmethods/miniOrangeQRCodeAuthentication.png'.' alt="Snow" style="width:15%; height:35px; float:left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;miniOrange QR Code</b> </button>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-                        echo '
-    <button class="mo_wpns_button mo_wpns_button1 mo_2f_cloud_switch_modal" id="mo_soft_token_cloud" ><b style="font-weight: 700; color:black;"><img src='.plugin_dir_url(dirname(dirname(__FILE__))) . 'includes/images/authmethods/miniOrangeSoftToken.png'.' alt="Snow" style="width:15%; height:35px; float:left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;miniOrange Soft Token</b> </button>
-    ';
-                        echo "<br>";
-                        echo "<br>";
-                        echo '
-    <button class="mo_wpns_button mo_wpns_button1 mo_2f_cloud_switch_modal" id="mo_push_noti_cloud"  ><b style="font-weight: 700; color:black;"><img src='.plugin_dir_url(dirname(dirname(__FILE__))) . 'includes/images/authmethods/miniOrangePushNotification.png'.' alt="Snow" style="width:15%; height:35px; float:left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;miniOrange Push Notification</b> </button>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-                        ?>
-                    </div>
         
-    </div>
-</div></div>
 
     <script>
         
         
-        function display_cloud_popup()
-        {
-            jQuery('#single_user').css('display','block');
-            jQuery('.modal-content').css('width', '25%');
-        }
-        jQuery('#closeConfirmCloud').click(function(){
-                jQuery('#single_user').css('display', 'none');
-                jQuery( "#singleUser" ).prop( "checked", false );
-        });
-        jQuery('#ConfirmCloudButton').click(function(){
-            jQuery('#mo2f_confirmcloud').css('display','block');
-            jQuery('.modal-content').css('width', '50%');
-            jQuery('#single_user').css('display', 'none');
                    
             
-        });
-       
-
-        jQuery('#otp_over_sms_cloud').click(function(){
-
-            var enablecloud = jQuery("input[name='singleUser']:checked").val();
-            var nonce = '<?php echo wp_create_nonce("singleUserNonce");?>';
-            var data = {
-                'action'                    : 'mo_two_factor_ajax',
-                'mo_2f_two_factor_ajax'     : 'mo2f_single_user',
-                'nonce' :  nonce,
-                'enablecloud' :  enablecloud
-            };
-            jQuery.post(ajaxurl, data, function(response) {
-
-                if(response == 'true'){ 
-                    jQuery('#mo2f_configured_2FA_method_free_plan').val('OTPOverSMS');
-                    jQuery('#mo2f_selected_action_free_plan').val('configure2factor');
-                    jQuery('#mo2f_save_free_plan_auth_methods_form').submit();
-                    openTab2fa(setup_2fa);
-                }
-                else 
-                {
-                    jQuery('#mo2f_confirmcloud').css('display', 'none');
-                    jQuery( "#singleUser" ).prop( "checked", false );
-                    jQuery('#single_user').css('display', 'none');
-                     
-                    jQuery('#mo_scan_message').empty();
-                    jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp&nbsp <b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.");
-                    window.onload =  nav_popup();
-                }
-            });
-        });
-       
-        jQuery('#otp_over_email_cloud').click(function(){
-
-            var enablecloud = jQuery("input[name='singleUser']:checked").val();
-            var nonce = '<?php echo wp_create_nonce("singleUserNonce");?>';
-            var data = {
-                'action'                    : 'mo_two_factor_ajax',
-                'mo_2f_two_factor_ajax'     : 'mo2f_single_user',
-                'nonce' :  nonce,
-                'enablecloud' :  enablecloud
-            };
-            jQuery.post(ajaxurl, data, function(response) {
-
-                if(response == 'true'){ 
-                    jQuery('#mo2f_configured_2FA_method_free_plan').val('OTPOverEmail');
-                    jQuery('#mo2f_selected_action_free_plan').val('select2factor');
-                    jQuery('#mo2f_save_free_plan_auth_methods_form').submit();
-                    openTab2fa(setup_2fa);
-                }
-                else 
-                {
-                    jQuery('#mo2f_confirmcloud').css('display', 'none');
-                    jQuery( "#singleUser" ).prop( "checked", false );
-                    jQuery('#single_user').css('display', 'none');
-                     
-                    jQuery('#mo_scan_message').empty();
-                    jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp&nbsp <b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.</div></div>");
-                    window.onload =  nav_popup();
-                }
-            });
-        });
        
 
 
-        jQuery('#secu_que_cloud').click(function(){
 
-            var enablecloud = jQuery("input[name='singleUser']:checked").val();
-            var nonce = '<?php echo wp_create_nonce("singleUserNonce");?>';
-            var data = {
-                'action'                    : 'mo_two_factor_ajax',
-                'mo_2f_two_factor_ajax'     : 'mo2f_single_user',
-                'nonce' :  nonce,
-                'enablecloud' :  enablecloud
-            };
-            jQuery.post(ajaxurl, data, function(response) {
-
-                if(response == 'true'){ 
-                    jQuery('#mo2f_configured_2FA_method_free_plan').val('SecurityQuestions');
-                    jQuery('#mo2f_selected_action_free_plan').val('configure2factor');
-                    jQuery('#mo2f_save_free_plan_auth_methods_form').submit();
-                    openTab2fa(setup_2fa);
-                }
-                else 
-                {
-                    jQuery('#mo2f_confirmcloud').css('display', 'none');
-                    jQuery( "#singleUser" ).prop( "checked", false );
-                    jQuery('#single_user').css('display', 'none');
-                     
-                    jQuery('#mo_scan_message').empty();
-                    jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp&nbsp <b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.</div></div>");
-                    window.onload =  nav_popup();
-                }
-            });
-        });
-        
-        jQuery('#google_auth_cloud').click(function(){
-
-            var enablecloud = jQuery("input[name='singleUser']:checked").val();
-            var nonce = '<?php echo wp_create_nonce("singleUserNonce");?>';
-            var data = {
-                'action'                    : 'mo_two_factor_ajax',
-                'mo_2f_two_factor_ajax'     : 'mo2f_single_user',
-                'nonce' :  nonce,
-                'enablecloud' :  enablecloud
-            };
-            jQuery.post(ajaxurl, data, function(response) {
-
-                if(response == 'true'){ 
-                    jQuery('#mo2f_configured_2FA_method_free_plan').val('GoogleAuthenticator');
-                    jQuery('#mo2f_selected_action_free_plan').val('configure2factor');
-                    jQuery('#mo2f_save_free_plan_auth_methods_form').submit();
-                    openTab2fa(setup_2fa);
-                }
-                else 
-                {
-                    jQuery('#mo2f_confirmcloud').css('display', 'none');
-                    jQuery( "#singleUser" ).prop( "checked", false );
-                    jQuery('#single_user').css('display', 'none');
-                     
-                    jQuery('#mo_scan_message').empty();
-                    jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp&nbsp <b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.</div></div>");
-                    window.onload =  nav_popup();
-                }
-            });
-        });
-        jQuery('#mo_qr_code_cloud').click(function(){
-
-            var enablecloud = jQuery("input[name='singleUser']:checked").val();
-            var nonce = '<?php echo wp_create_nonce("singleUserNonce");?>';
-            var data = {
-                'action'                    : 'mo_two_factor_ajax',
-                'mo_2f_two_factor_ajax'     : 'mo2f_single_user',
-                'nonce' :  nonce,
-                'enablecloud' :  enablecloud
-            };
-            jQuery.post(ajaxurl, data, function(response) {
-
-                if(response == 'true'){ 
-                    jQuery('#mo2f_go_back_form').submit();
-                    jQuery('#mo2f_configured_2FA_method_free_plan').val('miniOrangeQRCodeAuthentication');
-                    jQuery('#mo2f_selected_action_free_plan').val('configure2factor');
-                    jQuery('#mo2f_save_free_plan_auth_methods_form').submit();
-                    openTab2fa(setup_2fa);
-                }
-                else 
-                {
-                    jQuery('#mo2f_confirmcloud').css('display', 'none');
-                    jQuery( "#singleUser" ).prop( "checked", false );
-                    jQuery('#single_user').css('display', 'none');
-                     
-                    jQuery('#mo_scan_message').empty();
-                    jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp&nbsp <b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.</div></div>");
-                    window.onload =  nav_popup();
-                }
-            });
-        });
-        jQuery('#mo_soft_token_cloud').click(function(){
-
-            var enablecloud = jQuery("input[name='singleUser']:checked").val();
-            var nonce = '<?php echo wp_create_nonce("singleUserNonce");?>';
-            var data = {
-                'action'                    : 'mo_two_factor_ajax',
-                'mo_2f_two_factor_ajax'     : 'mo2f_single_user',
-                'nonce' :  nonce,
-                'enablecloud' :  enablecloud
-            };
-            jQuery.post(ajaxurl, data, function(response) {
-
-                if(response == 'true'){ 
-                    jQuery('#mo2f_go_back_form').submit();
-                    jQuery('#mo2f_configured_2FA_method_free_plan').val('miniOrangeSoftToken');
-                    jQuery('#mo2f_selected_action_free_plan').val('configure2factor');
-                    jQuery('#mo2f_save_free_plan_auth_methods_form').submit();
-                    openTab2fa(setup_2fa);
-                }
-                else 
-                {
-                    jQuery('#mo2f_confirmcloud').css('display', 'none');
-                    jQuery( "#singleUser" ).prop( "checked", false );
-                    jQuery('#single_user').css('display', 'none');
-                     
-                    jQuery('#mo_scan_message').empty();
-                    jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp&nbsp <b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.</div></div>");
-                    window.onload =  nav_popup();
-                }
-            });
-        });
-        jQuery('#mo_push_noti_cloud').click(function(){
-
-            var enablecloud = jQuery("input[name='singleUser']:checked").val();
-            var nonce = '<?php echo wp_create_nonce("singleUserNonce");?>';
-            var data = {
-                'action'                    : 'mo_two_factor_ajax',
-                'mo_2f_two_factor_ajax'     : 'mo2f_single_user',
-                'nonce' :  nonce,
-                'enablecloud' :  enablecloud
-            };
-            jQuery.post(ajaxurl, data, function(response) {
-
-                if(response == 'true'){ 
-                    jQuery('#mo2f_go_back_form').submit();
-                    jQuery('#mo2f_configured_2FA_method_free_plan').val('miniOrangePushNotification');
-                    jQuery('#mo2f_selected_action_free_plan').val('configure2factor');
-                    jQuery('#mo2f_save_free_plan_auth_methods_form').submit();
-                    openTab2fa(setup_2fa);
-                }
-                else 
-                {
-                    jQuery('#mo2f_confirmcloud').css('display', 'none');
-                    jQuery( "#singleUser" ).prop( "checked", false );
-                    jQuery('#single_user').css('display', 'none');
-                     
-                    jQuery('#mo_scan_message').empty();
-                    jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp&nbsp <b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.</div></div>");
-                    window.onload =  nav_popup();
-                }
-            });
-        });
 
         jQuery("#save_role_2FA").click(function(){
             var enabledrole = [];

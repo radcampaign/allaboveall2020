@@ -6,36 +6,52 @@ Donate link: https://miniorange.com/
 Requires at least: 3.0.1
 Tested up to: 5.5
 Requires PHP: 5.3.0
-Stable tag: 5.4.14
+Stable tag: 5.4.21
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Simple & Easy 2FA setup with any Authenticator App like Google, Microsoft, Authy, LastPass Authenticator & other. Also supports Email verificaion, SMS Verification, QR Code, Push Notification, Soft Token and Security Questions.
+2FA,OTP on login and Registration for all forms with SMS, Email, other Apps like Microsoft, Duo, LastPass & more. Supports Email verificaion, SMS Verification, QR Code, Push Notification and Security Questions.
 
 == Description ==
 
-**Note: The plugin is GDPR Compliant and supports wide variety of Language Translation**
-
 Have a completely Secure login to your WordPress website using this FREE, Simple & very easy to setup plugin. It provides two factor authentication (2FA, MFA) whenever login to your WordPress website ensuring no unauthorised access to your website.
 
+= User Identity Verification or OTP Verification =
+Login and Registration: Verify users on login and Registration with different authentication methods like SMS Verification, Email, Google Authenticator, Authy Authenticator, Duo, Microsoft Authenticator, TOTP Based Authenticator, Security Questions and many others. Easy OTP Verification with SMS Verification and Email Verification.
+
+= Third Party Custom SMS Gateway =
+Premium plugin supports any third party custom SMS Gateway. If you don't have your own SMS gateway you can use miniOrange gateway. Send SMS all over the world.
+* Some Famous Gateways Supported: 
+	* Twilio
+	* Clickatell
+	* ClickSend
+	* SendGrid
+	* Plivo
+	* GatewayApi
+
+Others not listed gateway can be tested on our site, Test your Gateway: [Custom Gateway](https://login.xecurify.com/moas/login?redirectUrl=https://login.xecurify.com/moas/admin/customer/smsconfig)
+	
+= All Registartion Forms Supported = 
+OTP Verification on all the Registration and Login forms to verify users. Use this shortcode for Registration([mo2f_enable_register]). Settings in <b>Two Factor -> Registration Forms</b>.
+
 <h4>Supports variety of WordPress forms and plugins</h4>
-* Woocommerce : <a href="https://wordpress.org/plugins/woocommerce/">Woocommerce</a>
-* BuddyPress : <a href="https://wordpress.org/plugins/buddypress/">BuddyPress</a>
-* bbpress : <a href="https://wordpress.org/plugins/bbpress/">bbPress</a>
-* Ultimate Member – User Profile & Membership Form : <a href="https://wordpress.org/plugins/ultimate-member/">Ultimate Member – User Profile & Membership Form</a>
-* Restrict Content Pro Form : <a href="https://wordpress.org/plugins/restrict-content/">Restrict Content Form</a>
-* My theme Login Form :<a href="https://wordpress.org/plugins/theme-my-login/">My theme Login Form</a>
-* User Registration – Custom Registration Form : <a href="https://wordpress.org/plugins/user-registration/">User Registration – Custom Registration Form</a>
-* Custom Login Page Customizer Form :<a href="https://wordpress.org/plugins/loginpress/">Custom Login Page Customizer Form</a>
-* Admin Custom Login Form : <a href="https://wordpress.org/plugins/admin-custom-login/">Admin Custom Login Form</a>
-* RegistrationMagic – Custom Registration Forms : <a href="https://wordpress.org/plugins/custom-registration-form-builder-with-submission-manager/">RegistrationMagic – Custom Registration Forms</a>
- and more.
+* Woocommerce : [Woocommerce](https://wordpress.org/plugins/woocommerce/)
+* BuddyPress: [BuddyPress form](https://wordpress.org/plugins/buddypress/)
+* bbpress: [bbpress form](https://wordpress.org/plugins/bbpress/)
+* Ultimate Member – User Profile & Membership: [Ultimate Member – User Profile & Membership Form](https://wordpress.org/plugins/ultimate-member/)
+* Restrict Content Pro: [Restrict Content Pro Form](https://wordpress.org/plugins/restrict-content/)
+* My theme Login: [My theme Login Form](https://wordpress.org/plugins/theme-my-login/)
+* User Registration – Custom Registration: [User Registration – Custom Registration Form](https://wordpress.org/plugins/bbpress/)
+* Custom Login Page Customizer: [Custom Login Page Customizer Form](https://wordpress.org/plugins/loginpress/)
+* Admin Custom Login: [Admin Custom Login Form](https://wordpress.org/plugins/admin-custom-login/)
+* RegistrationMagic – Custom Registration :[RegistrationMagic – Custom Registration Forms](https://wordpress.org/plugins/custom-registration-form-builder-with-submission-manager/)
+* Digimember
+* Paid Membership Pro
+* Memberpress Pro
+* And many more
 
-<h4>Prevent Account Sharing Between Users</h4>
-Many video sharing and E-learning platforms want to prevent sharing of account between the users. This can be done using miniOrange Two factor plugin. Also, e-learning portals can use this to their advantage. It can be used on any websites which create and sell courses. It can be integrated with plugins like Learndash.
-Other sites like premium video content or any premium content where you want users not to share passwords between friends and Family then you can go for this solution.
 
-<h4>FREE Plugin Features</h4>
+= FREE Plugin Features = 
 * Simplified & easy user interface.
 * Two Factor Authentication (2FA) for **3 User** forever FREE!
 * **Variety of Authentication Methods:** Any App supporting TOTP algorithm like Google, Authy, LastPass Authenticator, QR Code, Push Notification, Soft Token and Security Questions(KBA)
@@ -45,8 +61,10 @@ Other sites like premium video content or any premium content where you want use
 * Two Factor Authentication (2FA) allows authentication on login page itself for Google Authenticator & miniOrange Soft Token.
 * Brute force attack prevention & IP Blocking.
 * User login Monitorning.
+* RCP Login and Registration Suppport
+* OTP Verification of Ulimate Member Registartion form
 
-<h4>Standard Plugin Features</h4>
+= Standard Plugin Features =
 
 * Two Factor Authentication (2FA) for Users as per the upgrade *( User-based pricing )*
 * **Available Authentication Methods:** Google, Authy, LastPass Authenticator, QR Code, Push Notification, Soft Token, Security Questions(KBA), OTP Over Email, OTP Over SMS, OTP Over SMS and Email, Email Verification. *( SMS credits need to be purchased as per the need)*
@@ -57,7 +75,7 @@ Other sites like premium video content or any premium content where you want use
 * User role based redirection after Login [Guide](https://docs.miniorange.com/documentation/custom-redirect-login-url), Customize account name in Google Authenticator app [Guide](https://docs.miniorange.com/documentation/google-authenticator-app-name)
 * Custom Security Questions (KBA) [Guide](https://docs.miniorange.com/documentation/custom-security-questions)
 
-<h4>Premium Plugin Features</h4>
+= Premium Plugin Features =
 
 * Two Factor Authentication (2FA) for Users as per the upgrade *( User-based pricing )*
 * **Available Authentication Methods:** Google, Authy, LastPass Authenticator, QR Code, Push Notification, Soft Token, Security Questions(KBA), OTP Over Email, OTP Over SMS, OTP Over SMS and Email, Email Verification, Hardware Token. *( SMS and Email credits need to be purchased as per the need)*
@@ -66,7 +84,7 @@ Other sites like premium video content or any premium content where you want use
 * **Backup Methods:** KBA(Security Questions), OTP Over Email, Backup Codes [Guide](https://docs.miniorange.com/documentation/want-configure-backup-methods-users-can-configure-case-locked-site-not-able-log)
 * Multisite compatible.
 * Force Two factor for users [Guide](https://docs.miniorange.com/documentation/enforce-2fa-users)
-* Email notification to users asking them to set up Two Factor Authentication (2FA) [Guide](https://docs.miniorange.com/documentation/want-send-email-notification-users-setting-2-factor).
+* Email notification to users asking them to set up Two Factor Authentication (2FA) [Guide](https://docs.miniorange.com/documentation/want-send-email-notification-users-setting-2-factor)
 * User role based redirection after Login [Guide](https://docs.miniorange.com/documentation/custom-redirect-login-url), Custom Security Questions (KBA) [Guide](https://docs.miniorange.com/documentation/custom-security-questions), Customize account name in Google Authenticator app [Guide](https://docs.miniorange.com/documentation/google-authenticator-app-name).
 * Enable Two Factor Authentication (2FA) for specific Users/User Roles [Guide](https://docs.miniorange.com/documentation/enable-two-factor-based-roles)
 * Choose specific authentication methods for Users [Guide](https://docs.miniorange.com/documentation/specific-set-authentication-methods-based-role)
@@ -75,7 +93,7 @@ Other sites like premium video content or any premium content where you want use
 * Remember Device [Guide](https://docs.miniorange.com/documentation/remember-my-device)
 * **Add-Ons Included:** RBA & Trusted Devices Management Add-on, Personalization Add-on and Short Codes Add-on
 
-<h4>Enterprise Plugin Features</h4>
+= Enterprise Plugin Features =
 
 * Two Factor Authentication (2FA) for Users as per the upgrade *( User-based pricing )*
 * **Available Authentication Methods:** Google, Authy, LastPass Authenticator, QR Code, Push Notification, Soft Token, Security Questions(KBA), OTP Over Email, OTP Over SMS, OTP Over SMS and Email, Email Verification, Hardware Token. *( SMS and Email credits need to be purchased as per the need)*
@@ -92,6 +110,10 @@ Other sites like premium video content or any premium content where you want use
 * **Brute force attack prevention, IP Blocking & User login Monitorning. **
 * File protection & strong password
 
+
+= Prevent Account Sharing Between Users =
+Many video sharing and E-learning platforms want to prevent sharing of account between the users. This can be done using miniOrange Two factor plugin. Also, e-learning portals can use this to their advantage. It can be used on any websites which create and sell courses. It can be integrated with plugins like Learndash.
+Other sites like premium video content or any premium content where you want users not to share passwords between friends and Family then you can go for this solution.
 
 = Additional Features =
 * **Complete Web Security suite to protect wordpress from any attacks**
@@ -116,14 +138,14 @@ Other sites like premium video content or any premium content where you want use
 * **Reporting**
 * **Audit Log**
 
-Check all the features here: <a href="https://security.miniorange.com/" target="_blank">miniOrange Website</a>
+Check all the features here: [miniOrange Website](https://security.miniorange.com/)
 
-<h4>Why do you need to register?</h4>
+= Why do you need to register? =
 
 miniOrange Two-factor Plugin uses miniOrange APIs to communicate between your WP and miniOrange. To keep this communication secure, we ask you to register and assign you API keys specific to your account. This way your account and users calls can be only accessed by API keys assigned to you.
 Adding to this, you can also use the same account on multiple applications and your users do not have to maintain multiple accounts or 2-factors.
 
-<h4>Add Ons [Applicable for Free and Standard Plans, Inclusive in the Premium Plan]</h4>
+= Add Ons [Applicable for Free and Standard Plans, Inclusive in the Premium Plan] =
 
 * RBA & Trusted Devices Management Add-on Features
  * Remember Device
@@ -132,7 +154,7 @@ Adding to this, you can also use the same account on multiple applications and y
  * Personalization Add-on Features
  * Custom UI of Two Factor Authentication (2FA) popups
  * Custom Email and SMS Templates
- * Customize 'powered by' Logo
+ * Customize 'Powered by' Logo
  * Customize Plugin Icon
  * Customize Plugin Name
 
@@ -142,16 +164,20 @@ Adding to this, you can also use the same account on multiple applications and y
  * Option to 'Enable Remember Device' from a custom login form
  * On-Demand ShortCodes for specific functionalities ( like for enabling 2FA for specific pages)
 
-<h4>Apps Supported by the plugin:</h4>
+= Apps Supported by the plugin =
 * miniOrange Authenticator App.
 * Google Authenticator App.
+* Duo Authenticator App.
+* Microsoft Authenticator Authenticator App.
 * Authy 2-Factor Authentication App [STANDARD / PREMIUM FEATURE]
 
 <h4>Useful blog posts about two factor authenticaion plugin </h4>
-* <a href="https://themeisle.com/blog/how-to-add-two-factor-authentication-to-wordpress/">Beginner’s Guide: How to Add Two-Factor Authentication to WordPress</a>
-* <a href="https://phppot.com/wordpress/how-to-add-wordpress-two-factor-authentication-2fa-using-google-authenticator-plugin/">How to Add WordPress Two-Factor Authentication (2FA)</a>
+*[Beginner’s Guide: How to Add Two-Factor Authentication to WordPress](https://themeisle.com/blog/how-to-add-two-factor-authentication-to-wordpress/)
+*[How to Add WordPress Two-Factor Authentication (2FA)](https://phppot.com/wordpress/how-to-add-wordpress-two-factor-authentication-2fa-using-google-authenticator-plugin/)
 
 Customized solutions and Active support is available. Email us at info@miniorange.com or call us at +1 9786589387.
+
+**Note: The plugin is GDPR Compliant and supports wide variety of Language Translation**
 
 == Installation ==
 
@@ -173,7 +199,6 @@ Customized solutions and Active support is available. Email us at info@miniorang
 
 <b>Video Guide</b>	:<br>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/vVGXjedIaGs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 
 
 == Frequently Asked Questions ==
@@ -306,8 +331,42 @@ miniOrange authentication service has 15+ authentication methods.One time passco
 
 == Changelog ==
 
+= 5.4.21 =
+* Google Authenticator-Two Factor Authentication (2FA, SMS) :
+* Sanitization of some input values.
+
+= 5.4.20 =
+* Google Authenticator-Two Factor Authentication (2FA, SMS) :
+* Google Authenticator Qr code fix.
+* My theme login Login fix.
+
+= 5.4.19 =
+* Google Authenticator-Two Factor Authentication (2FA, OTP) : Google Authenticator cloud fix.
+
+= 5.4.18 =
+* Google Authenticator-Two Factor Authentication (2FA, OTP) : 
+*Added missing file
+
+= 5.4.17 =
+* Google Authenticator-Two Factor Authentication (2FA, OTP) : 
+	*Digimember Form Support
+	*Memberpress Form Support
+	*SMS Verification Support
+	*OTP Verification on Woocommerce Registration
+
+= 5.4.16 =
+* Google Authenticator-Two Factor Authentication (2FA, OTP) : Quick form fix.
+
+= 5.4.15 =
+* Google Authenticator-Two Factor Authentication (2FA, OTP) : 
+	* Theme My Login plugin Support
+	* Ultimate Memember Registration Support
+	* Woocommerce Registration Support
+	* Ultimate Memember Redirect
+	* Restrict Content Pro Login and Registration
+
 = 5.4.14 =
-* Google Authenticator-Two Factor Authentication (2FA) : Performance improvement with fixes in Security Questions. And User Email verification and Phone Verification issues resolved.
+* Google Authenticator-Two Factor Authentication (2FA, OTP) : Performance improvement with fixes in Security Questions. And User Email verification and Phone Verification issues resolved.
 
 = 5.4.13 =
 * Google Authenticator-Two Factor Authentication (2FA, MFA) : Support Form Improvement.
@@ -816,6 +875,40 @@ More descriptive setup messages and UI changes.
 
 == Upgrade Notice ==
 
+= 5.4.21 =
+* Google Authenticator-Two Factor Authentication (2FA, SMS) :
+* Sanitization of some input values.
+
+= 5.4.20 =
+* Google Authenticator-Two Factor Authentication (2FA, SMS) : 
+* Google Authenticator Qr code fix.
+* My theme login Login fix.
+
+= 5.4.19 =
+* Google Authenticator-Two Factor Authentication (2FA, OTP) : Google Authenticator cloud fix.
+
+= 5.4.18 =
+* Google Authenticator-Two Factor Authentication (2FA, OTP) :
+* Added missing file
+
+= 5.4.17 =
+* Google Authenticator-Two Factor Authentication (2FA, OTP) :
+	*Digimember Form Support
+	*Memberpress Form Support
+	*SMS Verification Support
+	*OTP Verification on Woocommerce Registration
+
+= 5.4.16 =
+* Google Authenticator-Two Factor Authentication (2FA, OTP) : Quick form fix.
+
+= 5.4.15 =
+* Google Authenticator-Two Factor Authentication (2FA, OTP) : 
+	* Theme My Login plugin Support
+	* Ultimate Memember Registration Support
+	* Woocommerce Registration Support
+	* Ultimate Memember Redirect
+	* Restrict Content Pro Login and Registration
+	
 = 5.4.14 =
 * Google Authenticator-Two Factor Authentication (2FA, MFA) : Performance improvement with fixes in Security Questions. And User Email verification and Phone Verification issues resolved.
 

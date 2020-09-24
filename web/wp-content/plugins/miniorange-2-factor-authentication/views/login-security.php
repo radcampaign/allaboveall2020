@@ -10,7 +10,7 @@ echo '
 		<div class="mo_wpns_setting_layout" id ="mo2f_bruteforce">';
 
 
-echo ' 		<h3>Brute Force Protection ( Login Protection )<a href='.$two_factor_premium_doc['Custom url'].' target="_blank"><span class="dashicons dashicons-text-page" style="font-size:23px;color:#269eb3;float: right;"></span></a></h3>
+echo ' 		<h3>Brute Force Protection ( Login Protection )<a href='.$two_factor_premium_doc['Brute Force Protection'].' target="_blank"><span class="dashicons dashicons-text-page" style="font-size:23px;color:#269eb3;float: right;"></span></a></h3>
 			<div class="mo_wpns_subheading">This protects your site from attacks which tries to gain access / login to a site with random usernames and passwords.</div>
 			
 				<input id="mo_bf_button" type="checkbox" name="enable_brute_force_protection" '.$brute_force_enabled.'> Enable Brute force protection

@@ -1,5 +1,6 @@
 <?php
 	global $dbcon,$prefix;
+    include_once('mo-waf-db-common.php');
     function log_attack($ipaddress,$value1,$value)
     {
         global $prefix,$dbcon;
@@ -11,7 +12,6 @@
         $rows       = mysqli_fetch_array($results);
         return $rows['count(*)'];
     }
-   
     function setting_file()
     {
         global $prefix,$dbcon;

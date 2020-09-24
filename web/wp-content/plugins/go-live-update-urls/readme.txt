@@ -3,9 +3,9 @@ Contributors: Mat Lipe, onpointplugins
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40onpointplugins%2ecom&lc=US&item_name=Go%20Live%20Update%20Urls&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: urls, launching, site changes, tools, domain, domains, domain changes, url changes
 Requires at least: 4.8.0
-Tested up to: 5.5.0
+Tested up to: 5.5.1
 Requires PHP: 5.6.0
-Stable tag: 6.1.2
+Stable tag: 6.1.4
 
 == Description ==
 
@@ -13,7 +13,7 @@ Goes through entire site and replaces all instances of an old url with a new one
 
 <strong>Check out <a href="https://onpointplugins.com/product/go-live-update-urls-pro/" target="_blank">Go Live Update Urls PRO</a> for more features including support for tables created by plugins, the ability to test a URL before updating, update history, priority support, and so much more!</strong>
 
-<blockquote><a href="https://onpointplugins.com/product/go-live-update-urls-pro/" target="_blank">Pro version 6.1.0</a> is now available with a greatly improved testing and updating experience!</blockquote>
+<blockquote><a href="https://onpointplugins.com/product/go-live-update-urls-pro/" target="_blank">Pro version 6.1.1</a> is now available with a greatly improved testing and updating experience!</blockquote>
 
 
 <h3>Features</h3>
@@ -98,6 +98,13 @@ If you wish to try to update tables mentioned as "not safe" anyway, you may make
 1. Typical settings page. The verbiage will change slightly depending on your database structure.
 
 == Changelog ==
+= 6.1.4 = 
+* Support updating `registration_log` and `signups` tables.
+* Make `get_doubled_up_subdomain` method public.
+
+= 6.1.3 = 
+* Support WordPress version 5.5.1
+
 = 6.1.2 =
 * Improve admin form and selectors.
 * Fix filter name for `go-live-update-urls/database/column-types`.

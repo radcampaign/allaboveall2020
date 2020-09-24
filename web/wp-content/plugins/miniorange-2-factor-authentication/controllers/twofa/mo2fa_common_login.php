@@ -51,12 +51,20 @@ function redirect_user_to( $user, $redirect_to ) {
 	$redirectUrl  = isset( $redirect_to ) && ! empty( $redirect_to ) ? $redirect_to : null;
 	if ( $current_role == 'administrator' ) {
 		$redirectUrl = empty( $redirectUrl ) ? admin_url() : $redirectUrl;
-		wp_redirect( $redirectUrl );
 	} else {
 		$redirectUrl = empty( $redirectUrl ) ? home_url() : $redirectUrl;
-		wp_redirect( $redirectUrl );
 	}
+    if(MO2f_Utility::get_index_value('GLOBALS','mo2f_is_ajax_request')){
+        $redirect = array(
+                    'redirect' => $redirectUrl,
+                ) ;
+
+        wp_send_json_success($redirect);
+    }
+    else
+        wp_redirect( $redirectUrl );
 }
+
 
 // used in shortcode addon
 
@@ -249,7 +257,6 @@ function mo2f_get_forgotphone_form( $login_status, $login_message, $redirect_to,
 
 function mo2f_get_kba_authentication_prompt( $login_message, $redirect_to, $session_id_encrypt , $cookievalue) {
 	$mo_wpns_config = new MoWpnsHandler();
-	
     $mo2f_login_option            = MoWpnsUtility::get_mo2f_db_option('mo2f_login_option', 'get_option');
 	$mo2f_remember_device_enabled = get_option( 'mo2f_remember_device' );
 	?>
@@ -342,6 +349,48 @@ function mo2f_get_kba_authentication_prompt( $login_message, $redirect_to, $sess
         function mologinback() {
             jQuery('#mo2f_backto_mo_loginform').submit();
         }
+        var is_ajax = "<?php echo MO2f_Utility::get_index_value('GLOBALS','mo2f_is_ajax_request');?>";
+        if(is_ajax){
+            jQuery('#mo2f_answer_1').keypress(function (e) {
+                if (e.which == 13) {//Enter key pressed
+                    e.preventDefault();
+                    mo2f_kba_ajax(); 
+                }
+            });
+            jQuery('#mo2f_answer_2').keypress(function (e) {
+                if (e.which == 13) {//Enter key pressed
+                    e.preventDefault(); 
+                    mo2f_kba_ajax();
+                }
+            });
+            jQuery("#miniorange_kba_validate").click(function(e){
+                e.preventDefault();
+                mo2f_kba_ajax();
+            });
+
+        function mo2f_kba_ajax(){
+            jQuery('#mo2f_answer_1').prop('disabled','true');
+            jQuery('#mo2f_answer_2').prop('disabled','true');
+            jQuery('#miniorange_kba_validate').prop('disabled','true');       
+            var data = {
+                "action"            : "mo2f_ajax",
+                "mo2f_ajax_option"  : "mo2f_ajax_kba",
+                "mo2f_answer_1"     : jQuery( "input[name=\'mo2f_answer_1\']" ).val(),
+                "mo2f_answer_2"     : jQuery( "input[name=\'mo2f_answer_2\']" ).val(),
+                "miniorange_kba_nonce" : jQuery( "input[name=\'miniorange_kba_nonce\']" ).val(),
+                "session_id"        : jQuery( "input[name=\'session_id\']" ).val(),
+                "redirect_to"       : jQuery( "input[name=\'redirect_to\']" ).val(),
+                "mo2f_trust_device" : jQuery( "input[name=\'mo2f_trust_device\']" ).val(),
+            };
+            jQuery.post(my_ajax_object.ajax_url, data, function(response) {
+            if ( typeof response.data === "undefined") {
+                jQuery("html").html(response);
+            }
+            else             
+                location.href = response.data.redirect;  
+            }); 
+        }
+    }
     </script>
     </body>
 
@@ -784,7 +833,7 @@ function mo2f_get_otp_authentication_prompt( $login_status, $login_message, $red
                                 <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
                                 <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
                             </form>
-							<?php 
+                            <?php 
                             $Kbaset = get_user_meta( $user_id ,'Security Questions' ); 
                                 if ( ! $mo2f_is_new_customer ) { ?>
 								<?php if ( $mo2f_enable_forgotphone && isset( $login_status ) && $login_status != 'MO_2_FACTOR_CHALLENGE_OTP_OVER_EMAIL' && (sizeof($Kbaset) != 0 ) ) { ?>
@@ -844,6 +893,41 @@ function mo2f_get_otp_authentication_prompt( $login_status, $login_message, $red
 
         function mologinforgotphone() {
             jQuery('#mo2f_show_forgotphone_loginform').submit();
+        }
+        var is_ajax = '<?php echo MO2f_Utility::get_index_value('GLOBALS','mo2f_is_ajax_request');?>';
+        if(is_ajax){
+            jQuery('#mo2fa_softtoken').keypress(function (e) {
+                if (e.which == 13) {//Enter key pressed
+                    e.preventDefault();
+                    mo2f_otp_ajax(); 
+                }
+            });
+            jQuery("#miniorange_otp_token_submit").click(function(e){
+                    e.preventDefault();
+                    mo2f_otp_ajax();
+            });
+
+            function mo2f_otp_ajax(){
+                jQuery('#mo2fa_softtoken').prop('disabled','true');
+                jQuery('#miniorange_otp_token_submit').prop('disabled','true');
+                var data = {
+                    "action"            : "mo2f_ajax",
+                    "mo2f_ajax_option"  : "mo2f_ajax_otp",
+                    "mo2fa_softtoken"   : jQuery( "input[name=\'mo2fa_softtoken\']" ).val(),
+                    "miniorange_soft_token_nonce" : jQuery( "input[name=\'miniorange_soft_token_nonce\']" ).val(),
+                    "session_id"        : jQuery( "input[name=\'session_id\']" ).val(),
+                    "redirect_to"       : jQuery( "input[name=\'redirect_to\']" ).val(),
+                    "request_origin_method" :  jQuery( "input[name=\'request_origin_method\']" ).val(),
+                };
+                jQuery.post(my_ajax_object.ajax_url, data, function(response) {
+                    if(typeof response.data === "undefined")
+                        jQuery("html").html(response);
+                    else if(response.data.reload)
+                        location.reload( true );
+                    else
+                        location.href = response.data.redirect;
+                });
+            }
         }
     </script>
     </body>
@@ -929,14 +1013,14 @@ function mo2f_get_device_form( $redirect_to, $session_id_encrypt ) {
         }
 
         function mo_check_device_confirm() {
-            jQuery('#mo2f_device_content').hide();
-            jQuery('#showLoadingBar').show();
+            jQuery('#mo2f_device_content').css("display", "none");
+            jQuery('#showLoadingBar').css("display", "block");
             jQuery('#mo2f_trust_device_confirm_form').submit();
         }
 
         function mo_check_device_cancel() {
-            jQuery('#mo2f_device_content').hide();
-            jQuery('#showLoadingBar').show();
+            jQuery('#mo2f_device_content').css("display", "none");
+            jQuery('#showLoadingBar').css("display", "block");
             jQuery('#mo2f_trust_device_cancel_form').submit();
         }
     </script>

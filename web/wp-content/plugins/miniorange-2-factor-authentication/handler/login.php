@@ -104,8 +104,8 @@ class LoginHandler
 					switch($_POST['option'])
 					{
 						case "mo_wpns_change_password":
-							$this->handle_change_password($_POST['username']
-								,$_POST['new_password'],$_POST['confirm_password']);		
+							$this->handle_change_password(sanitize_text_field($_POST['username'])
+								,sanitize_text_field($_POST['new_password']),sanitize_text_field($_POST['confirm_password']));		
 							break;
 					}
 			}
@@ -150,7 +150,7 @@ class LoginHandler
 				&& preg_match('/[^a-zA-Z\d]/', $newpassword) && $newpassword==$confirmpassword)
 			{
 				$user = get_user_by("login",$username);
-				wp_set_password($_POST['new_password'],$user->ID);
+				wp_set_password($newpassword,$user->ID);
 				return "success";
 			} 
 			else
@@ -187,7 +187,7 @@ class LoginHandler
 				if($user)
 				{
 					if(get_option('mo_wpns_activate_recaptcha_for_login'))
-						$recaptchaError = $moWpnsUtility->verify_recaptcha($_POST['g-recaptcha-response']);
+						$recaptchaError = $moWpnsUtility->verify_recaptcha(sanitize_text_field($_POST['g-recaptcha-response']));
 
 					if(!empty($recaptchaError->errors))
 						$error = $recaptchaError;
@@ -247,8 +247,8 @@ class LoginHandler
 				$mo_wpns_config->add_transactions($userIp, $username, MoWpnsConstants::LOGIN_TRANSACTION, MoWpnsConstants::SUCCESS);
 				
 				if(isset($_POST['log']) && isset($_POST['pwd'])){
-				$username =  $_POST['log'];
-				$pass = $_POST['pwd'];
+				$username =  sanitize_text_field($_POST['log']);
+				$pass = sanitize_text_field($_POST['pwd']);
 				$user = get_user_by('login',$username);
 						
 				if(!MoWpnsUtility::get_mo2f_db_option('mo2f_enforce_strong_passswords', 'get_option')){
@@ -335,7 +335,7 @@ class LoginHandler
 		function setup_registration_closed($user){
 			global $Mo2fdbQueries;
 			if  ( isset( $_POST['option'] ) and $_POST['option'] == 'mo2f_registration_closed' ) {
-				$nonce = $_POST['mo2f_registration_closed_nonce'];
+				$nonce = sanitize_text_field($_POST['mo2f_registration_closed_nonce']);
 				if ( ! wp_verify_nonce( $nonce, 'mo2f-registration-closed-nonce' ) ) {
 					$error = new WP_Error();
 					$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );

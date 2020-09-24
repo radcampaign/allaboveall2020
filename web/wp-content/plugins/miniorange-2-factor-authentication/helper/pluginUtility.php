@@ -70,6 +70,11 @@ class MoWpnsHandler
 
 		return $ip_count;
 	}
+	function get_blocked_attacks()
+	{
+		global $wpnsDbQueries;
+		return $wpnsDbQueries->get_blocked_attack_list('wpns_attack_logs');	
+	}
 	function get_blocked_ips()
 	{
 		global $wpnsDbQueries;

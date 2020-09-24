@@ -250,6 +250,7 @@ function sirsc_start_raw_cleanup_single(id) {
 function sirsc_maybe_refresh_sirsc_column_summary(id) {
 	if (jQuery('.sirsc-column-summary').length) {
 		sirsc_show_ajax_action('attachment_files_summary', 'sirsc-column-summary-' + id, 'sirsc-column-summary-' + id);
+		sirsc_refresh_extra_info_footer(id)
 	}
 }
 function sirsc_start_delete_file(id,fname,imgs,elid) {

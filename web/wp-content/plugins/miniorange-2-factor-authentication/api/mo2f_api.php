@@ -33,6 +33,7 @@ class Mo2f_Api
             'body' => $fields,
             'timeout' => '5',
             'redirection' => '5',
+            'sslverify'  =>true,
             'httpversion' => '1.0',
             'blocking' => true,
             'headers' => $http_header_array

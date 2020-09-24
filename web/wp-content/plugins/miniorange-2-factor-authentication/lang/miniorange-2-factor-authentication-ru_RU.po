@@ -4073,10 +4073,10 @@ msgstr "Откройте php.ini (обычно в папке /etc/ или в п�
 
 #: miniorange_2_factor_troubleshooting.php:19
 msgid ""
-"Search for extension=php_curl.dll. Uncomment it by removing the semi-"
+"Search for extension=curl.dll. Uncomment it by removing the semi-"
 "colon( ; ) in front of it."
 msgstr ""
-"Найдите расширение = php_curl.dll. Раскомментируйте это, удалив перед ним "
+"Найдите расширение =curl.dll. Раскомментируйте это, удалив перед ним "
 "двоеточие (;)."
 
 #: miniorange_2_factor_troubleshooting.php:21

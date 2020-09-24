@@ -22,7 +22,7 @@ $mo2f_feature_description_set_addon = array(
 echo '
 <a class="mo2f_back_button" style="font-size: 16px; color: #000;" href="'.$two_fa.'"><span class="dashicons dashicons-arrow-left-alt" style="vertical-align: bottom;"></span> Back To Plugin Configuration</a>';
 echo '
-<a class="mo2f_back_button" style="font-size: 16px;background-color:#bfeeee; color: #000;" href="https://developers.miniorange.com/docs/security/wordpress/wp-security" target="_blank">Feature details</a>';
+<a class="mo2f_back_button" style="font-size: 16px;background-color:#bfeeee; color: #000;" href="https://developers.miniorange.com/docs/security/wordpress/wp-security" target="_blank">Feature Documentation</a>';
 echo '
 <a class="mo2f_back_button" style="font-size: 16px;background-color:#bfeeee; color: #000;" href="https://plugins.miniorange.com/2-factor-authentication-for-wordpress" target="_blank">Full Features</a>';
 ?>
@@ -125,6 +125,7 @@ echo '
 			<h1 class="mo_wpns_upgrade_pade_pricing">$49</h1>
 			
 				<?php echo mo2f_yearly_standard_pricing_onpremise(); ?>
+				<?php echo mo2f_sms_cost(); ?>
 
 			</center>
 			
@@ -168,6 +169,7 @@ echo '
 				<h1 class="mo_wpns_upgrade_pade_pricing">$99</h1>
 				
 					<?php echo mo2f_yearly_premium_pricing_onpremise(); ?>
+					<?php echo mo2f_sms_cost(); ?>
 				
 			</center>
 			<div style="text-align: center;">
@@ -205,6 +207,7 @@ echo '
 				<h1 class="mo_wpns_upgrade_pade_pricing">$30</h1>
 				
 					<?php echo mo2f_yearly_premium_pricing_plan(); ?>
+					<?php echo mo2f_sms_cost(); ?>
 					
 			</center>
 			<div style="text-align: center;">
@@ -246,6 +249,7 @@ echo '
 				<h1 class="mo_wpns_upgrade_pade_pricing">$59</h1>
 				
 					<?php echo mo2f_yearly_all_inclusive_pricing_plan(); ?>
+					<?php echo mo2f_sms_cost(); ?>
 					
 			</center>
 			<div style="text-align: center;">
@@ -282,6 +286,7 @@ echo '
 			<h1 class="mo_wpns_upgrade_pade_pricing">$50</h1>
 			
 				<?php echo mo2f_waf_yearly_standard_pricing(); ?>
+				
 				
 			</center>
 	
@@ -327,6 +332,7 @@ echo '
 			
 				<?php echo mo2f_login_yearly_standard_pricing(); ?>
 				
+				
 			</center>
 			
 		<div style="text-align: center;">
@@ -368,6 +374,7 @@ echo '
 			
 				<?php echo mo2f_scanner_yearly_standard_pricing(); ?>
 				
+				
 			</center>
 			<div style="text-align: center;">
 			<?php if( isset($is_customer_registered) && $is_customer_registered) {
@@ -408,6 +415,7 @@ echo '
 			<h1 class="mo_wpns_upgrade_pade_pricing">$30</h1>
 			
 				<?php echo mo2f_backup_yearly_standard_pricing(); ?>
+				
 				
 			</center>
 			<div style="text-align: center;">
@@ -701,7 +709,7 @@ function mo2f_waf_yearly_standard_pricing() {
             
         </select>
     </p>
-    <div><br></div>
+
 	<?php
 }
 function mo2f_login_yearly_standard_pricing() {
@@ -716,7 +724,7 @@ function mo2f_login_yearly_standard_pricing() {
             
         </select>
     </p>
-    <div><br></div>
+
 	<?php
 }
 function mo2f_backup_yearly_standard_pricing() {
@@ -731,7 +739,7 @@ function mo2f_backup_yearly_standard_pricing() {
             
         </select>
     </p>
-    <div><br></div>
+
 	<?php
 }
 function mo2f_scanner_yearly_standard_pricing() {
@@ -746,7 +754,7 @@ function mo2f_scanner_yearly_standard_pricing() {
             
         </select>
     </p>
-    <div><br></div>
+
 	<?php
 }
 
