@@ -253,15 +253,11 @@ include $setup_dirName;
                         jQuery.post(ajaxurl, data, function(response) {
                             if(response.saved === false)
                             {
-                                jQuery('#mo_scan_message').empty();
-                                jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp&nbsp One or more fields are empty.</div></div>");
-                                window.onload =  nav_popup();
+                                error_msg('One or more fields are empty.');
                             }
                             if(response.saved === true)
                             {
-                                jQuery('#mo_scan_message').empty();
-                                jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp&nbsp Selectors Saved Successfully.</div></div>");
-                                window.onload =  nav_popup();
+                                success_msg("Selectors Saved Successfully.");
                             }
                         });
                     }
@@ -281,11 +277,7 @@ include $setup_dirName;
             return is_valid;
         }
 
-        function nav_popup()
-        {
-            document.getElementById("notice_div").style.width = "40%";
-            setTimeout(function(){ jQuery('#notice_div').fadeOut('slow'); }, 3000);
-        }
+
 
     </script>
 

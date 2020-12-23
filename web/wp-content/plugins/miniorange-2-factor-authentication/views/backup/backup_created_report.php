@@ -58,17 +58,13 @@ function backup_delete(elmt, file_path,file_name,id){
 		
 		jQuery.post(ajaxurl, data, function(response){
 			
-			jQuery("#mo_backup_message").empty();
+
 			if(response=="success"){
-				jQuery('#mo_backup_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; Backup delete successfully.</div></div>");
-					window.onload = nav_popup();
-             
+               			success_msg("Backup delete successfully.");
 				var row = elmt.parentNode.parentNode;
 				row.parentNode.removeChild(row);
 			}else if(response ==="notexist"){
-				jQuery('#mo_backup_message').append("<div class= 'notice notice-error is-dismissible' style='height : 25px;padding-top: 10px;  ' >	Someone has deleted the backup by going to directory please refreash the page </div>");
-				jQuery('#mo_backup_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp;  Someone has deleted the backup by going to directory please refreash the page</div></div>");
-					window.onload = nav_popup();
+               	 		error_msg("Someone has deleted the backup by going to directory please refreash the page");
 			}
 		});
    }
@@ -80,8 +76,5 @@ jQuery("#reports_table").DataTable({
 				"order": [[ 1, "desc" ]]
 			});
 
-function nav_popup() {
-  document.getElementById("notice_div").style.width = "40%";
-  setTimeout(function(){ jQuery('#notice_div').fadeOut('slow'); }, 3000);
-}
+
 </script>

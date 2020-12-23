@@ -82,7 +82,7 @@ if ( ! class_exists('PDA_Lite_API') ) {
                     'is_file_deleted' => false
                 ),
                 'role_setting' => array(
-                    "file_access_permission" => "author",
+                    "file_access_permission" => Pda_Helper::get_fap_setting(),
                     "whitelist_roles" => "",
                 ),
             );

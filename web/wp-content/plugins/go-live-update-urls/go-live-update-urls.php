@@ -5,14 +5,14 @@
  * Description: Updates all the URLs in the database to point to a new URL when making your site live or changing domains.
  * Author: OnPoint Plugins
  * Author URI: https://onpointplugins.com/
- * Version: 6.1.4
+ * Version: 6.2.2
  * Text Domain: go-live-update-urls
  *
  * @package go-live-update-urls
  */
 
-define( 'GO_LIVE_UPDATE_URLS_VERSION', '6.1.4' );
-define( 'GO_LIVE_UPDATE_URLS_REQUIRED_PRO_VERSION', '6.0.0' );
+define( 'GO_LIVE_UPDATE_URLS_VERSION', '6.2.2' );
+define( 'GO_LIVE_UPDATE_URLS_REQUIRED_PRO_VERSION', '6.2.4' );
 define( 'GO_LIVE_UPDATE_URLS_URL', plugin_dir_url( __FILE__ ) );
 
 use Go_Live_Update_Urls\Admin;
@@ -31,8 +31,6 @@ use Go_Live_Update_Urls\Updates;
  * @return void
  */
 function go_live_update_urls_load() {
-	require __DIR__ . '/deprecated/Go_Live_Update_Urls_Database.php';
-
 	load_plugin_textdomain( 'go-live-update-urls', false, 'go-live-update-urls/languages' );
 
 	Admin::init();
@@ -40,6 +38,7 @@ function go_live_update_urls_load() {
 
 	if ( defined( 'GO_LIVE_UPDATE_URLS_PRO_VERSION' ) && version_compare( GO_LIVE_UPDATE_URLS_REQUIRED_PRO_VERSION, GO_LIVE_UPDATE_URLS_PRO_VERSION, '>' ) ) {
 		add_action( 'admin_notices', 'go_live_update_urls_pro_plugin_notice' );
+		remove_action( 'plugins_loaded', 'go_live_update_urls_pro_load', 9 );
 	}
 }
 
@@ -84,7 +83,7 @@ function go_live_update_urls_pro_plugin_notice() {
 	<div id="message" class="error">
 		<p>
 			<?php
-			/* translators: {%1$s}[<a>]{%2$s}[</a>] https://wordpress.org/plugins/go-live-update-urls/ */ //phpcs:disable
+			/* translators: Link to plugin {%1$s}[<a href="https://onpointplugins.com/product/go-live-update-urls-pro/">]{%2$s}[</a>] */
 			printf( esc_html_x( 'Go Live Update Urls requires %1$sGo Live Update Urls PRO %3$s+%2$s. Please update or deactivate the PRO version.', '{<a>}{</a>}', 'go-live-update-urls' ), '<a target="_blank" href="https://onpointplugins.com/product/go-live-update-urls-pro/">', '</a>', esc_attr( GO_LIVE_UPDATE_URLS_REQUIRED_PRO_VERSION ) );
 			?>
 		</p>

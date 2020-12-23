@@ -1,4 +1,4 @@
-<div id="wpns_message" style=" padding-top:8px"></div>
+
 <div class="mo_wpns_divided_layout_tab">
 <div class="mo_wpns_tab">
   <button class="tablinks" onclick="block_function(event, 'block_list')" id="defaultOpen">IP Black list</button>
@@ -23,7 +23,7 @@ include $setup_dirName;
 					<input type="button" name="BlockIP" id="BlockIP" value="Manual Block IP" class="mo_wpsn_button mo_wpsn_button1" />
 					</h4>
 
-					<h3 class="mo_wpns_setting_layout_inside"><b>Blocked IP's</b>
+					<h3 class="mo_wpns_setting_layout_inside"><b>Blocked IPs</b>
 					</h3>
 					<h4 class="mo_wpns_setting_layout_inside">&emsp;&emsp;&emsp;
 
@@ -60,7 +60,7 @@ echo 			"</td><td>".date("M j, Y, g:i:s a",$blockedip->created_timestamp)."</td>
 					<input type="button" name="WhiteListIP" id="WhiteListIP" value="Whitelist IP" class="mo_wpsn_button mo_wpsn_button1" />
 	
 					</h4>
-					<h3 class="mo_wpns_setting_layout_inside">Whitelist IP's
+					<h3 class="mo_wpns_setting_layout_inside">Whitelist IPs
 					</h3>
 					<h4 class="mo_wpns_setting_layout_inside">&emsp;&emsp;&emsp;
 
@@ -317,36 +317,26 @@ function block_function(evt, cityName) {
 				var response = response.replace(/\s+/g,' ').trim();
 				if(response == 'empty IP')
 				{
-					jQuery('#wpns_message').empty();
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; IP can not be blank.</div></div>");
-					window.onload = nav_popup();
+                    error_msg("IP can not be blank.");
 				}
 				else if(response == 'already blocked')
 				{
-					jQuery('#wpns_message').empty();
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; IP is already blocked.</div></div>");
-					window.onload = nav_popup();
+                    error_msg("IP is already blocked.");
 				}
 				else if(response == "INVALID_IP_FORMAT")
 				{
-					jQuery('#wpns_message').empty();
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; IP does not match required format.</div></div>");
-						window.onload = nav_popup();
-
+                    error_msg("IP does not match required format.");
 				}
 				else if(response == "IP_IN_WHITELISTED")
 				{
-					jQuery('#wpns_message').empty();
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; IP is whitelisted can not be blocked.</div></div>");
-					window.onload = nav_popup();
+                    error_msg("IP is whitelisted can not be blocked.");
 
 				}
 				else
 				{
-					jQuery('#wpns_message').empty();
+
 					refreshblocktable(response);
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; IP Blocked Sucessfully.</div></div>");
-					window.onload = nav_popup();
+                    success_msg("IP Blocked Sucessfully.");
 				}
 		
 		});
@@ -374,32 +364,20 @@ jQuery('#WhiteListIP').click(function(){
 				var response = response.replace(/\s+/g,' ').trim();
 				if(response == 'EMPTY IP')
 				{
-					jQuery('#wpns_message').empty();
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; IP can not be empty.</div></div>");
-					window.onload = nav_popup();
-
+                    error_msg("IP can not be empty.");
 				}
 				else if(response == 'INVALID_IP')
 				{
-					jQuery('#wpns_message').empty();
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; IP does not match required format.</div></div>");
-					window.onload = nav_popup();
-	
+                    error_msg(" IP does not match required format.");
 				}
 				else if(response == 'IP_ALREADY_WHITELISTED')
 				{
-					jQuery('#wpns_message').empty();
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; IP is already whitelisted.</div></div>");
-					window.onload = nav_popup();
-	
+                    error_msg("IP is already whitelisted.");
 				}
 				else
-				{	
-					jQuery('#wpns_message').empty();
-					refreshWhiteListTable(response);	
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; IP whitelisted Sucessfully.</div></div>");
-					window.onload = nav_popup();
-			
+				{
+                    refreshWhiteListTable(response);
+                    success_msg("IP whitelisted Sucessfully.");
 				}
 		});
 					
@@ -431,23 +409,17 @@ jQuery('#LookupIP').click(function(){
 					if(response == 'INVALID_IP_FORMAT')
 					{
 						jQuery("#resultsIPLookup").empty();
-						jQuery('#wpns_message').empty();
-						jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; IP did not match required format.</div></div>");	
-							window.onload = nav_popup();
+                        error_msg("IP did not match required format.");
 					}
 					else if(response == 'INVALID_IP')
 					{
 						jQuery("#resultsIPLookup").empty();
-						jQuery('#wpns_message').empty();
-						jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; IP entered is invalid.</div></div>");	
-							window.onload = nav_popup();
+                        error_msg("IP entered is invalid.");
 					}
 					else if(response.geoplugin_status == 404)
 					{
 						jQuery("#resultsIPLookup").empty();
-						jQuery('#wpns_message').empty();
-						jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; IP details not found.</div></div>");	
-							window.onload = nav_popup();
+                        success_msg(" IP details not found.");
 					}
 					else if (response.geoplugin_status == 200 ||response.geoplugin_status == 206) {
 						   jQuery('#resultsIPLookup').empty();
@@ -471,17 +443,13 @@ function unblockip(id) {
 		jQuery.post(ajaxurl, data, function(response) {
 			var response = response.replace(/\s+/g,' ').trim();
 			if(response=="UNKNOWN_ERROR")
-			{	
-				jQuery('#wpns_message').empty();
-				jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; Unknow Error occured while unblocking IP.</div></div>");
-				window.onload = nav_popup();
+			{
+                error_msg(" Unknow Error occured while unblocking IP.");
 			}
 			else
 			{
-				jQuery('#wpns_message').empty();
-				refreshblocktable(response);
-				jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; IP UnBlocked Sucessfully.</div></div>");
-				window.onload = nav_popup();
+                refreshblocktable(response);
+                success_msg("IP unblocked Sucessfully.");
 			}
 		});
 					
@@ -503,17 +471,13 @@ function removefromwhitelist(id)
 				var response = response.replace(/\s+/g,' ').trim();
 				if(response == 'UNKNOWN_ERROR')
 				{
-					jQuery('#wpns_message').empty();
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; Unknow Error occured while removing IP from Whitelist.</div></div>");
-					window.onload = nav_popup();
+                    error_msg(" Unknow Error occured while removing IP from Whitelist.");
 				}
 				else
 				{
-					jQuery('#wpns_message').empty();
-					refreshWhiteListTable(response);	
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; IP removed from Whitelist.</div></div>");
-					window.onload = nav_popup();		
-				}
+                    refreshWhiteListTable(response);
+                    success_msg("IP removed from Whitelist.");
+                }
 		});
 					
 	}
@@ -528,8 +492,5 @@ function refreshWhiteListTable(html)
 	 
 	 jQuery('#WhiteListIPtable').html(html);	
 }
-function nav_popup() {
-  document.getElementById("notice_div").style.width = "40%";
-  setTimeout(function(){ $('#notice_div').fadeOut('slow'); }, 3000);
-}
+
 </script>

@@ -1,6 +1,6 @@
 <?php 
 function fetch_methods(){
-    $methods = array("SMS","SOFT TOKEN","MOBILE AUTHENTICATION","PUSH NOTIFICATIONS","GOOGLE AUTHENTICATOR","KBA","OTP_OVER_EMAIL");
+    $methods = array("SMS","SOFT TOKEN","MOBILE AUTHENTICATION","PUSH NOTIFICATIONS","GOOGLE AUTHENTICATOR","KBA","OTP_OVER_EMAIL","OTP OVER TELEGRAM","OTP OVER WHATSAPP");
     return $methods;
 }
 
@@ -9,39 +9,34 @@ function prompt_user_to_select_2factor_mthod_inline($current_user_id, $login_sta
     global $Mo2fdbQueries;
     $current_user = get_userdata($current_user_id);
     $current_selected_method = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method',$current_user_id);
+    
 
-    $redirect_to_save = get_user_meta($current_user_id,'redirect_to',true);
-    if(is_null($redirect_to_save) or $redirect_to_save=='')
-        update_user_meta($current_user_id,'redirect_to',$redirect_to);
-    else
-    {
-       $redirect_to = $redirect_to_save;
-       delete_user_meta($current_user_id,'redirect_to');
-    }
-    $session_id_save = get_user_meta($current_user_id,'session_id',true);
-    if(is_null($session_id_save) or $session_id_save=='')
-        update_user_meta($current_user_id,'session_id',$session_id);
-    else
-    {
-        $session_id = $session_id_save;
-        delete_user_meta($current_user_id,'session_id');
-    }
     if($current_selected_method == 'MOBILE AUTHENTICATION' || $current_selected_method == 'SOFT TOKEN' || $current_selected_method == 'PUSH NOTIFICATIONS'){
         if(get_option( 'mo_2factor_admin_registration_status' ) == 'MO_2_FACTOR_CUSTOMER_REGISTERED_SUCCESS')
-            prompt_user_for_miniorange_app_setup($current_user_id, $login_status, $login_message,$session_id,$qrCode,$current_selected_method);
+            prompt_user_for_miniorange_app_setup($current_user_id, $login_status, $login_message,$qrCode,$current_selected_method,$redirect_to,$session_id);
         else
-            prompt_user_for_miniorange_register($current_user_id, $login_status, $login_message);
+            prompt_user_for_miniorange_register($current_user_id, $login_status, $login_message,$redirect_to,$session_id);
     }else if($current_selected_method == 'SMS' || $current_selected_method == 'PHONE VERIFICATION' || $current_selected_method == 'SMS AND EMAIL'){
         if(get_option( 'mo_2factor_admin_registration_status' ) == 'MO_2_FACTOR_CUSTOMER_REGISTERED_SUCCESS')
-            prompt_user_for_phone_setup($current_user_id, $login_status, $login_message,$current_selected_method);
+            prompt_user_for_phone_setup($current_user_id, $login_status, $login_message,$current_selected_method,$redirect_to,$session_id);
         else
-            prompt_user_for_miniorange_register($current_user_id, $login_status, $login_message);
-    }else if($current_selected_method == 'GOOGLE AUTHENTICATOR' ){
-        prompt_user_for_google_authenticator_setup($current_user_id, $login_status, $login_message);
+            prompt_user_for_miniorange_register($current_user_id, $login_status, $login_message,$redirect_to,$session_id);
+    }else if($current_selected_method == 'OTP Over Telegram' or $current_selected_method == 'OTP OVER TELEGRAM')
+    {
+        $current_selected_method = 'OTP Over Telegram';
+        prompt_user_for_phone_setup($current_user_id, $login_status, $login_message,$current_selected_method,$redirect_to,$session_id);
+    }
+    else if($current_selected_method == 'OTP Over Whatsapp' or $current_selected_method == 'OTP OVER WHATSAPP')
+    {
+        $current_selected_method == 'OTP Over Whatsapp';
+        prompt_user_for_phone_setup($current_user_id, $login_status, $login_message,$current_selected_method,$redirect_to,$session_id);
+    }
+    else if($current_selected_method == 'GOOGLE AUTHENTICATOR' ){
+        prompt_user_for_google_authenticator_setup($current_user_id, $login_status, $login_message,$redirect_to,$session_id);
     }else if($current_selected_method == 'AUTHY 2-FACTOR AUTHENTICATION'){
-        prompt_user_for_authy_authenticator_setup($current_user_id, $login_status, $login_message);
+        prompt_user_for_authy_authenticator_setup($current_user_id, $login_status, $login_message,$redirect_to,$session_id);
     }else if($current_selected_method == 'KBA' ){
-        prompt_user_for_kba_setup($current_user_id, $login_status, $login_message);
+        prompt_user_for_kba_setup($current_user_id, $login_status, $login_message,$redirect_to,$session_id);
     }else if($current_selected_method == 'OUT OF BAND EMAIL' ){
         $status = $Mo2fdbQueries->get_user_detail( 'mo_2factor_user_registration_status',$current_user_id);
         if(( $status == 'MO_2_FACTOR_PLUGIN_SETTINGS' && get_site_option('mo2f_remember_device')!=1)||(get_site_option( 'mo2f_disable_kba' ) &&$login_status == 'MO_2_FACTOR_SETUP_SUCCESS')){
@@ -56,9 +51,9 @@ function prompt_user_to_select_2factor_mthod_inline($current_user_id, $login_sta
             }
             $Mo2fdbQueries->update_user_details( $current_user_id, array('mo_2factor_user_registration_status' =>'MO_2_FACTOR_PLUGIN_SETTINGS') );
             $pass2fa= new Miniorange_Password_2Factor_Login();
-            $pass2fa->mo2fa_pass2login(site_url());
+            $pass2fa->mo2fa_pass2login($redirect_to);
             }
-        prompt_user_for_setup_success($current_user_id, $login_status, $login_message);
+        prompt_user_for_setup_success($current_user_id, $login_status, $login_message,$redirect_to,$session_id);
     }else{
         $current_user = get_userdata($current_user_id);
         if(isset($current_user->roles[0]))
@@ -135,6 +130,21 @@ function prompt_user_to_select_2factor_mthod_inline($current_user_id, $login_sta
                                         </label>
                                     <br>
                                 </span>
+                                <span class="<?php if(  !(in_array("OTP OVER TELEGRAM", $opt))  ){ echo "mo2f_td_hide"; }else { echo "mo2f_td_show"; } ?>" >
+                                        <label title="<?php echo __('You will get an OTP on your TELEGRAM app from miniOrange Bot.', 'miniorange-2-factor-authentication'); ?>" >
+                                            <input type="radio"  name="mo2f_selected_2factor_method"  value="OTP OVER TELEGRAM"  />
+                                            <?php echo __('OTP Over TELEGRAM', 'miniorange-2-factor-authentication'); ?>
+                                        </label>
+                                    <br>
+                                </span>
+                                <span class="<?php if(  !(in_array("OTP OVER WHATSAPP", $opt))  ){ echo "mo2f_td_hide"; }else { echo "mo2f_td_show"; } ?>" >
+                                        <label title="<?php echo __('You will get an OTP on your WHATSAPP app from miniOrange Bot.', 'miniorange-2-factor-authentication'); ?>" >
+                                            <input type="radio"  name="mo2f_selected_2factor_method"  value="OTP OVER WHATSAPP"  />
+                                            <?php echo __('OTP Over WHATSAPP', 'miniorange-2-factor-authentication'); ?>
+                                        </label>
+                                    <br>
+                                </span>
+                                
                                 <span class="<?php if(  !(in_array("MOBILE AUTHENTICATION", $opt))  ){ echo "mo2f_td_hide"; }else { echo "mo2f_td_show"; }?>">
                                         <label title="<?php echo __('You have to scan the QR Code from your phone using miniOrange Authenticator App to login. Supported in Smartphones only.', 'miniorange-2-factor-authentication'); ?>">
                                             <input type="radio"  name="mo2f_selected_2factor_method"  value="MOBILE AUTHENTICATION"  />
@@ -185,6 +195,8 @@ function prompt_user_to_select_2factor_mthod_inline($current_user_id, $login_sta
                 </div>
                 <form name="f" id="mo2f_backto_mo_loginform" method="post" action="<?php echo wp_login_url(); ?>" style="display:none;">
                     <input type="hidden" name="miniorange_mobile_validation_failed_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-mobile-validation-failed-nonce'); ?>" />
+                    <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                    <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                 </form>
                 <form name="f" method="post" action="" id="mo2f_select_2fa_methods_form" style="display:none;">
                     <input type="hidden" name="mo2f_selected_2factor_method" />
@@ -195,11 +207,10 @@ function prompt_user_to_select_2factor_mthod_inline($current_user_id, $login_sta
                 </form>
 
                 <form name="f" id="mo2f_skip_loginform" method="post" action="" style="display:none;">
-                <input type="hidden" name="option" value="mo2f_skip_2fa_setup" />
-                <input type="hidden" name="miniorange_skip_2fa_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-skip-nonce'); ?>" />
-                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
-                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
-             
+                    <input type="hidden" name="option" value="mo2f_skip_2fa_setup" />
+                    <input type="hidden" name="miniorange_skip_2fa_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-skip-nonce'); ?>" />
+                    <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                    <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                 </form>
             
             <script>
@@ -307,7 +318,7 @@ function mo2f_inline_email_form($email,$current_user_id)
                             </div>
                             <div class="mo2f_modal-body">
                                 <form action="" method="post" name="f">
-                                    <p>The Email assoicated with your account is already registered in miniOrnage. Please use a different email address or contact miniOrange.
+                                    <p>The Email assoicated with your account is already registered in miniOrange. Please use a different email address or contact miniOrange.
                                     </p><br>
                                     <i><b>Enter your Email:&nbsp;&nbsp;&nbsp; </b> <input type ='email' id='emailInlineCloud' name='emailInlineCloud' size= '40' required value="<?php echo $email;?>"/></i>
                                     <br>
@@ -316,6 +327,8 @@ function mo2f_inline_email_form($email,$current_user_id)
                                     <input type="hidden" name="miniorange_emailChange_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-email-change-nonce'); ?>" />
                                     <input type="text" name="current_user_id" hidden id="current_user_id" value="<?php echo $current_user_id;?>" />
                                     <button type="submit" class="mo_wpns_button mo_wpns_button1" style ="margin-left: 165px;" id="save_entered_email_inlinecloud">Save</button>
+                                    <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                                    <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                                 </form>
                                     <br>
                                 <?php mo2f_customize_logo() ?>
@@ -335,7 +348,9 @@ function mo2f_inline_email_form($email,$current_user_id)
                 </form>
                 <?php if(get_site_option('mo2f_skip_inline_option')&& !get_site_option('mo2f_enable_emailchange')){ ?>
                 <form name="f" id="mo2f_skip_loginform" method="post" action="" style="display:none;">
-                <input type="hidden" name="miniorange_skip_2fa" value="<?php echo wp_create_nonce('miniorange-2-factor-skip-nonce'); ?>" />
+                    <input type="hidden" name="miniorange_skip_2fa" value="<?php echo wp_create_nonce('miniorange-2-factor-skip-nonce'); ?>" />
+                    <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                    <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                 </form>
                             <?php } ?>
             
@@ -375,7 +390,7 @@ function mo2f_inline_email_form($email,$current_user_id)
 
        <?php
 }
-function prompt_user_for_miniorange_app_setup($current_user_id, $login_status, $login_message,$session_id,$qrCode,$currentMethod){
+function prompt_user_for_miniorange_app_setup($current_user_id, $login_status, $login_message,$qrCode,$currentMethod,$redirect_to,$session_id){
    
     global $Mo2fdbQueries;
     if(isset($qrCode)){
@@ -439,14 +454,18 @@ function prompt_user_for_miniorange_app_setup($current_user_id, $login_status, $
             </div>
             <form name="f" id="mo2f_backto_mo_loginform" method="post" action="<?php echo wp_login_url(); ?>" style="display:none;">
                 <input type="hidden" name="miniorange_mobile_validation_failed_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-mobile-validation-failed-nonce'); ?>" />
+                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
             </form>
             <form name="f" method="post" action="" id="mo2f_inline_configureapp_form" style="display:none;">
                 <input type="hidden" name="option" value="miniorange_inline_show_mobile_config"/>
+                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
                 <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                 <input type="hidden" name="miniorange_inline_show_qrcode_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-show-qrcode-nonce'); ?>" />
             </form>
             <form name="f" method="post" id="mo2f_inline_mobile_register_form" action="" style="display:none;">
                 <input type="hidden" name="option" value="miniorange_inline_complete_mobile"/>
+                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
                 <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                 <input type="hidden" name="mo_auth_inline_mobile_registration_complete_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-mobile-registration-complete-nonce'); ?>" />
             </form>
@@ -454,6 +473,8 @@ function prompt_user_for_miniorange_app_setup($current_user_id, $login_status, $
                 <form name="f" method="post" action="" id="mo2f_goto_two_factor_form">
                     <input type="hidden" name="option" value="miniorange_back_inline"/>
                     <input type="hidden" name="miniorange_inline_two_factor_setup" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-setup-nonce'); ?>" />
+                    <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                    <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                 </form>
             <?php } ?>
         <script>
@@ -476,7 +497,7 @@ function prompt_user_for_miniorange_app_setup($current_user_id, $login_status, $
 <?php 
 }
 
-function prompt_user_for_google_authenticator_setup($current_user_id, $login_status, $login_message){
+function prompt_user_for_google_authenticator_setup($current_user_id, $login_status, $login_message,$redirect_to,$session_id){
 	$mo2f_google_auth=json_decode(get_user_meta($current_user_id,'mo2f_google_auth', true),true);
 	$data = isset($mo2f_google_auth) ? $mo2f_google_auth['ga_qrCode'] : null;
 	$ga_secret = isset($mo2f_google_auth) ? $mo2f_google_auth['ga_secret'] : null;
@@ -601,11 +622,15 @@ function prompt_user_for_google_authenticator_setup($current_user_id, $login_sta
                                                 <div class="center">
                                                 <input type="submit" name="validate" id="validate" class="miniorange_button" value="<?php echo __('Verify and Save', 'miniorange-2-factor-authentication'); ?>" />
                                                 </div>
+                                                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                                                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                                                 <input type="hidden" name="mo2f_inline_validate_ga_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-google-auth-nonce'); ?>" />
                                             </form>
                                              <form name="f" method="post" action="" id="mo2f_goto_two_factor_form" class="center">
                                                 <input type="submit" name="back" id="mo2f_inline_back_btn" class="miniorange_button" value="<?php echo mo2f_lt('Back');?>" />
                                                 <input type="hidden" name="option" value="miniorange_back_inline"/>
+                                                 <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                                                 <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                                                 <input type="hidden" name="miniorange_inline_two_factor_setup" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-setup-nonce'); ?>" />
                                             </form>
                                         </div>
@@ -618,9 +643,13 @@ function prompt_user_for_google_authenticator_setup($current_user_id, $login_sta
             </div>
             <form name="f" id="mo2f_backto_mo_loginform" method="post" action="<?php echo wp_login_url(); ?>" style="display:none;">
                 <input type="hidden" name="miniorange_mobile_validation_failed_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-mobile-validation-failed-nonce'); ?>" />
+                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
             </form>
             <form name="f" method="post" id="mo2f_inline_app_type_ga_form" action="" style="display:none;">
                 <input type="hidden" name="google_phone_type" />
+                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                 <input type="hidden" name="mo2f_inline_ga_phone_type_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-ga-phone-type-nonce'); ?>" />
             </form>
         
@@ -768,7 +797,7 @@ function initialize_inline_mobile_registration($current_user,$session_id,$qrCode
             </script>
     <?php
     }
-function prompt_user_for_kba_setup($current_user_id, $login_status, $login_message){
+function prompt_user_for_kba_setup($current_user_id, $login_status, $login_message,$redirect_to,$session_id){
     $current_user = get_userdata($current_user_id);
     $opt=fetch_methods($current_user);
 
@@ -813,6 +842,8 @@ function prompt_user_for_kba_setup($current_user_id, $login_status, $login_messa
                                 </div>
                                 <input type="hidden" name="option" value="mo2f_inline_kba_option" />
                                 <input type="hidden" name="mo2f_inline_save_kba_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-save-kba-nonce'); ?>" />
+                                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                             </form>
                             <?php if (sizeof($opt) > 1) { ?>
                                     <form name="f" method="post" action="" id="mo2f_goto_two_factor_form" class="mo2f_display_none_forms">
@@ -822,6 +853,8 @@ function prompt_user_for_kba_setup($current_user_id, $login_status, $login_messa
                                             </div>
                                         </div>
                                         <input type="hidden" name="miniorange_inline_two_factor_setup" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-setup-nonce'); ?>" />
+                                        <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                                        <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                                     </form>
                             <?php } ?>
 
@@ -832,6 +865,8 @@ function prompt_user_for_kba_setup($current_user_id, $login_status, $login_messa
             </div>
             <form name="f" id="mo2f_backto_mo_loginform" method="post" action="<?php echo wp_login_url(); ?>" style="display:none;">
                 <input type="hidden" name="miniorange_mobile_validation_failed_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-mobile-validation-failed-nonce'); ?>" />
+                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
             </form>
         
         <script>
@@ -852,7 +887,7 @@ function prompt_user_for_kba_setup($current_user_id, $login_status, $login_messa
         </body>
     </html>
 <?php 
-}function prompt_user_for_miniorange_register($current_user_id, $login_status, $login_message){
+}function prompt_user_for_miniorange_register($current_user_id, $login_status, $login_message,$redirect_to,$session_id){
     $current_user = get_userdata($current_user_id);
     $opt=fetch_methods($current_user);
 ?>
@@ -886,6 +921,8 @@ function prompt_user_for_kba_setup($current_user_id, $login_status, $login_messa
                                 <?php } ?>
                             <form name="mo2f_inline_register_form" id="mo2f_inline_register_form" method="post" action="">
                                 <input type="hidden" name="option" value="miniorange_inline_register" />
+                                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                                 <p>This method requires you to have an account with miniOrange.</p>
                                 <table class="mo_wpns_settings_table">
                                     <tr>
@@ -913,26 +950,28 @@ function prompt_user_for_kba_setup($current_user_id, $login_status, $login_messa
                             </form>
                 <form name="f" id="mo2f_inline_login_form" method="post" action="" hidden>
                     <p><b>It seems you already have an account with miniOrange. Please enter your miniOrange email and password.<br></b><a target="_blank" href="https://login.xecurify.com/moas/idp/resetpassword"> Click here if you forgot your password?</a></p>
-                            <input type="hidden" name="option" value="miniorange_inline_login"/>
-                            <table class="mo_wpns_settings_table">
-                                <tr>
-                                <td><b><font color="#FF0000">*</font>Email:</b></td>
-                                <td><input class="mo_wpns_table_textbox" type="email" name="email"
-                                required placeholder="person@example.com"
-                                /></td>
-                                </tr>
-                                <tr>
-                                <td><b><font color="#FF0000">*</font>Password:</b></td>
-                                <td><input class="mo_wpns_table_textbox" required type="password"
-                                name="password" placeholder="Enter your miniOrange password" /></td>
-                                </tr>
-                                <tr>
-                                <td>&nbsp;</td>
-                                <td><input type="submit" class="miniorange_button" />
-                                    <input type="button" id="cancel_link" class="miniorange_button" value="<?php echo __('Go Back to Registration', 'miniorange-2-factor-authentication'); ?>" />
-                                </tr>
-                          </table>
-                        </form>
+                    <input type="hidden" name="option" value="miniorange_inline_login"/>
+                    <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                    <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
+                    <table class="mo_wpns_settings_table">
+                        <tr>
+                        <td><b><font color="#FF0000">*</font>Email:</b></td>
+                        <td><input class="mo_wpns_table_textbox" type="email" name="email"
+                        required placeholder="person@example.com"
+                        /></td>
+                        </tr>
+                        <tr>
+                        <td><b><font color="#FF0000">*</font>Password:</b></td>
+                        <td><input class="mo_wpns_table_textbox" required type="password"
+                        name="password" placeholder="Enter your miniOrange password" /></td>
+                        </tr>
+                        <tr>
+                        <td>&nbsp;</td>
+                        <td><input type="submit" class="miniorange_button" />
+                            <input type="button" id="cancel_link" class="miniorange_button" value="<?php echo __('Go Back to Registration', 'miniorange-2-factor-authentication'); ?>" />
+                        </tr>
+                    </table>
+                </form>
                             <br>
                             <input type="button" name="back" id="mo2f_inline_back_btn" class="miniorange_button" value="<?php echo __('<< Back to Menu', 'miniorange-2-factor-authentication'); ?>" />
                             <?php mo2f_customize_logo() ?>
@@ -943,9 +982,13 @@ function prompt_user_for_kba_setup($current_user_id, $login_status, $login_messa
             <form name="f" method="post" action="" id="mo2f_goto_two_factor_form" >              
                 <input type="hidden" name="option" value="miniorange_back_inline"/>
                 <input type="hidden" name="miniorange_inline_two_factor_setup" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-setup-nonce'); ?>" />
+                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
             </form>
             <form name="f" id="mo2f_backto_mo_loginform" method="post" action="<?php echo wp_login_url(); ?>" style="display:none;">
                 <input type="hidden" name="miniorange_mobile_validation_failed_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-mobile-validation-failed-nonce'); ?>" />
+                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
             </form>
         
         <script>
@@ -968,7 +1011,7 @@ function prompt_user_for_kba_setup($current_user_id, $login_status, $login_messa
     </html>
 <?php 
 }
-function prompt_user_for_setup_success($id, $login_status, $login_message){
+function prompt_user_for_setup_success($id, $login_status, $login_message,$redirect_to,$session_id){
     global $Mo2fdbQueries;
 ?>
     <html>
@@ -1042,6 +1085,8 @@ function prompt_user_for_setup_success($id, $login_status, $login_message){
                                     <input type="hidden" name="mo2f_inline_kba_option" />
                                     <input type="hidden" name="mo2f_inline_save_kba_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-save-kba-nonce'); ?>" />
                                     <input type="hidden" name="mo2f_inline_kba_status" value="<?php echo $login_status; ?>" />
+                                    <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                                    <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                                 </form>
                                 </div>
                             <?php }
@@ -1070,7 +1115,7 @@ function prompt_user_for_setup_success($id, $login_status, $login_message){
                         }else{
                                 $redirect_to = isset($_POST[ 'redirect_to' ]) ? $_POST[ 'redirect_to' ] : null;
                                 $mo_enable_rem = new Miniorange_Password_2Factor_Login();
-                                mo2f_collect_device_attributes_handler($redirect_to);
+                                mo2f_collect_device_attributes_handler($redirect_to,$session_id);
                         }
                     }
                             mo2f_customize_logo() ?>
@@ -1080,6 +1125,8 @@ function prompt_user_for_setup_success($id, $login_status, $login_message){
             </div>
             <form name="f" id="mo2f_backto_mo_loginform" method="post" action="<?php echo wp_login_url(); ?>" style="display:none;">
                 <input type="hidden" name="miniorange_mobile_validation_failed_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-mobile-validation-failed-nonce'); ?>" />
+                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
             </form>
         
         <script>
@@ -1092,7 +1139,7 @@ function prompt_user_for_setup_success($id, $login_status, $login_message){
     <?php
     }
 
-function prompt_user_for_phone_setup($current_user_id, $login_status, $login_message,$currentMethod){ 
+function prompt_user_for_phone_setup($current_user_id, $login_status, $login_message,$currentMethod,$redirect_to,$session_id){
 $current_user = get_userdata($current_user_id); 
                             $opt=fetch_methods($current_user);  
     global $Mo2fdbQueries;
@@ -1123,6 +1170,14 @@ $current_user = get_userdata($current_user_id);
                             if($current_selected_method == 'SMS AND EMAIL'){?>
                             <?php   echo __('Verify Your Phone and Email', 'miniorange-2-factor-authentication'); ?></h4>
                             <?php }
+                            else if($current_selected_method == 'OTP Over Telegram')
+                            {
+                                echo __('Verify Your Telegram Details', 'miniorange-2-factor-authentication');   
+                            }
+                            else if($current_selected_method == 'OTP Over Whatsapp')
+                            {
+                                echo __('Verify Your Whatsapp Details', 'miniorange-2-factor-authentication');   
+                            }
                             else if($current_selected_method == 'OTP OVER EMAIL'){
                             ?>
                             <?php echo __('Verify Your EMAIL', 'miniorange-2-factor-authentication'); ?></h4>
@@ -1150,11 +1205,69 @@ $current_user = get_userdata($current_user_id);
                                     <?php 
                                     }else if($current_selected_method == 'OTP OVER EMAIL'){
                                         //no message
-                                    }else{
+                                    }else if($current_selected_method == 'OTP Over Telegram')
+                                    {
+                                        echo __('1. Open the telegram app and search for miniorange2fa_bot. Click on start button or send <b>/start</b> message', 'miniorange-2-factor-authentication');
+                                        echo "<br><br><br>";
+                                        echo __('2. Enter the recieved Chat ID here below::', 'miniorange-2-factor-authentication');
+                                        $chat_id = get_user_meta($current_user_id,'mo2f_chat_id',true);
+
+                                        if($chat_id == '')
+                                            $chat_id = get_user_meta($current_user_id,'mo2f_temp_chatID',true);
+
+                                        ?>
+                                         <input  type="text" name="verify_chatID" id="chatID"
+                                        value="<?php echo $chat_id; ?>" pattern="[\+]?[0-9]{1,4}\s?[0-9]{7,12}" required="true" title="<?php echo __('Enter chat ID without any space or dashes', 'miniorange-2-factor-authentication'); ?>" /><br />
+
+                                        <?php
+                                        echo "<br>";
+                                        
+                                    }
+                                    else if($current_selected_method == 'OTP Over Whatsapp')
+                                    {
+                                        echo __('1. Add the given phone number (+34 644 17 94 64) in your phone with any name of your choice.', 'miniorange-2-factor-authentication');
+                                        echo "<br><br>";
+                                        echo __('2. Open the Whatsapp app in your phone and send the below text to the given phone number. <b>Message:</b> I allow callmebot to send me messages', 'miniorange-2-factor-authentication');
+                                       
+                                        echo "<br><br>";
+                                        echo '<table><tr><th>';
+                                        echo __('3a. Enter the recieved API Key :', 'miniorange-2-factor-authentication');
+                                        echo  '</th>';
+                                        $whatsapp_id = get_user_meta($current_user_id,'mo2f_whatsapp_id',true);
+                                        $whatsapp_number = get_user_meta($current_user_id,'mo2f_whatsapp_num',true);
+                                       
+                                        if($whatsapp_id == '' or empty($whatsapp_id))
+                                            $whatsapp_id = get_user_meta($current_user_id,'mo2f_temp_whatsappID',true);
+                                        
+                                        if($whatsapp_number == '')
+                                            $whatsapp_number = get_user_meta($current_user_id,'mo2f_temp_whatsapp_num',true);
+                                        ?>
+                                        <th>
+                                         <input  type="text" name="whatsapp_id" id="whatsapp_id"
+                                        value="<?php echo $whatsapp_id; ?>"  required="true" pattern="[0-9]+" title="<?php echo __('Enter chat ID without any space or dashes', 'miniorange-2-factor-authentication'); ?>" /><br />
+
+                                        </th>
+                                    </tr>
+                                       <tr>
+                                        <td>
+                                        <?php
+                                        echo "<br>";
+                                        echo __('<b>3b. Enter your phone number :</b>', 'miniorange-2-factor-authentication');
+                                        ?>
+                                    </td><td>
+                                         <input  type="text" name="whatsapp_number" id="whatsapp_number"
+                                        value="<?php echo $whatsapp_number; ?>"  required="true" pattern="[\+]?[0-9]{1,4}\s?[0-9]{7,12}" title="<?php echo __('Enter Phone number with country code', 'miniorange-2-factor-authentication'); ?>" /><br />
+                                    </td></tr></table>
+                                        <?php
+                                        
+                                        echo "<br>";
+                                        
+                                    }
+                                    else{
                                     ?>
                                     <?php echo __('Enter your phone number', 'miniorange-2-factor-authentication'); ?></h4>
                                     <?php } 
-                                    if(!($current_selected_method == 'OTP OVER EMAIL')){
+                                    if(!($current_selected_method == 'OTP OVER EMAIL') and $current_selected_method !='OTP Over Telegram'and $current_selected_method !='OTP Over Whatsapp'){
                                     ?>  
                                     <input class="mo2f_table_textbox"  type="text" name="verify_phone" id="phone"
                                         value="<?php echo get_user_meta($current_user_id,'mo2f_user_phone',true); ?>" pattern="[\+]?[0-9]{1,4}\s?[0-9]{7,12}" required="true" title="<?php echo __('Enter phone number without any space or dashes', 'miniorange-2-factor-authentication'); ?>" /><br />
@@ -1168,6 +1281,8 @@ $current_user = get_userdata($current_user_id);
                                     <input type="submit" name="verify" class="miniorange_button" value="<?php echo __('Send OTP', 'miniorange-2-factor-authentication'); ?>" />
                                     <input type="hidden"  name="option" value="miniorange_inline_complete_otp_over_sms"/>
                                     <input type="hidden" name="miniorange_inline_verify_phone_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-verify-phone-nonce'); ?>" />
+                                    <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                                    <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                                 </form>
                             </div>  
                             <form name="f" method="post" action="" id="mo2f_inline_validateotp_form" >
@@ -1181,10 +1296,12 @@ $current_user = get_userdata($current_user_id);
                                     <?php echo mo2f_lt('Please enter the One Time Passcode sent to your phone.');?></p>
                                 <?php } ?>
                                 <input class="mo2f_IR_phone_OTP"  required="true" pattern="[0-9]{4,8}" autofocus="true" type="text" name="otp_token" placeholder="<?php echo __('Enter the code', 'miniorange-2-factor-authentication'); ?>" id="otp_token"/><br>
-                                <span style="color:#1F618D;"><?php echo mo2f_lt('Didn\'t get code?');?></span> &nbsp;
                                 <?php if ($current_selected_method == 'PHONE VERIFICATION'){ ?>
+                                    <span style="color:#1F618D;"><?php echo mo2f_lt('Didn\'t get code?');?></span> &nbsp;
                                     <a href="#resendsmslink" style="color:#F4D03F ;font-weight:bold;"><?php echo __('CALL AGAIN', 'miniorange-2-factor-authentication'); ?></a>
-                                <?php } else {?>
+                                <?php } else if($current_selected_method != 'OTP Over Whatsapp' and $current_selected_method != 'OTP Over Telegram'){
+                                    ?>
+                                    <span style="color:#1F618D;"><?php echo mo2f_lt('Didn\'t get code?');?></span> &nbsp;
                                     <a href="#resendsmslink" style="color:#F4D03F ;font-weight:bold;"><?php echo __('RESEND IT', 'miniorange-2-factor-authentication'); ?></a>
                                 <?php } ?>
                                 <br /><br />
@@ -1194,6 +1311,8 @@ $current_user = get_userdata($current_user_id);
                                     <input type="hidden" name="option" value="miniorange_back_inline"/>
                                     <input type="button" name="back" id="mo2f_inline_back_btn" class="miniorange_button" value="<?php echo __('Back', 'miniorange-2-factor-authentication'); ?>" />
                                 <?php } ?>
+                                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
                                 <input type="hidden" name="option" value="miniorange_inline_complete_otp"/>
                                 <input type="hidden" name="miniorange_inline_validate_otp_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-validate-otp-nonce'); ?>" />
                             </form>
@@ -1204,14 +1323,20 @@ $current_user = get_userdata($current_user_id);
             </div>
             <form name="f" id="mo2f_backto_mo_loginform" method="post" action="<?php echo wp_login_url(); ?>" style="display:none;">
                 <input type="hidden" name="miniorange_mobile_validation_failed_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-mobile-validation-failed-nonce'); ?>" />
+                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
             </form>
             <form name="f" method="post" action="" id="mo2fa_inline_resend_otp_form" style="display:none;">
                 <input type="hidden" name="miniorange_inline_resend_otp_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-resend-otp-nonce'); ?>" />
+                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
             </form>
             <?php if (sizeof($opt) > 1) { ?>
             <form name="f" method="post" action="" id="mo2f_goto_two_factor_form" >              
                 <input type="hidden" name="option" value="miniorange_back_inline"/>
                 <input type="hidden" name="miniorange_inline_two_factor_setup" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-setup-nonce'); ?>" />
+                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
             </form>
             <?php } ?>
         <script>

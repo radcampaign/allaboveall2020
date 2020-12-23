@@ -31,22 +31,22 @@ jQuery(document).ready(function()
     {
         case  'phone':
             jQuery(phoneSelector).wrap( "<div class='buttonInsidePhone'></div>" );
-            jQuery(phoneSelector).after('<button class="mo2f_send_phoneotp_button" id="mo2f_send_ajax_sms">Send OTP</button> ');
+            jQuery(phoneSelector).after('<button class="mo2f_send_phoneotp_button" id="mo2f_send_ajax_sms">Send OTP</button><button class="mo2ftimerSMS" id ="mo2ftimerSMS" style="display:none;">00</button>');
             mo2f_ajax_before_reg();
             break;
 
         case  'email':
             jQuery(emailSelector).wrap( "<div class='buttonInsideEmail'></div>" );
-            jQuery(emailSelector).after('<button class="mo2f_send_emailotp_button" id="mo2f_send_ajax_email">Send OTP</button>');
+            jQuery(emailSelector).after('<button class="mo2f_send_emailotp_button" id="mo2f_send_ajax_email">Send OTP</button><button class="mo2ftimerEmail"  id ="mo2ftimerEmail" style="display:none;">00</button>');
             mo2f_ajax_before_reg();
             break;
 
         case  'both':
             isBoth = true;
             jQuery(phoneSelector).wrap( "<div class='buttonInsidePhone'></div>" );
-            jQuery(phoneSelector).after('<button class="mo2f_send_phoneotp_button" id="mo2f_send_ajax_sms">Send OTP</button> ');
+            jQuery(phoneSelector).after('<button class="mo2f_send_phoneotp_button" id="mo2f_send_ajax_sms">Send OTP</button><button class="mo2ftimerSMS" id ="mo2ftimerSMS" style="display:none;">00</button>');
             jQuery(emailSelector).wrap( "<div class='buttonInsideEmail'></div>" );
-            jQuery(emailSelector).after('<button class="mo2f_send_emailotp_button" id="mo2f_send_ajax_email">Send OTP</button>');
+            jQuery(emailSelector).after('<button class="mo2f_send_emailotp_button" id="mo2f_send_ajax_email">Send OTP</button><button class="mo2ftimerEmail" id ="mo2ftimerEmail" style="display:none;">00</button>');
             mo2f_ajax_before_reg();
             break;
 
@@ -54,12 +54,20 @@ jQuery(document).ready(function()
             break;
     }
 
+    jQuery("#mo2ftimerSMS").click(function(e){
+            e.preventDefault();
+    });
+
+    jQuery("#mo2ftimerEmail").click(function(e){
+            e.preventDefault();
+    });
 
     jQuery("#mo2f_send_ajax_email").click(function(e){
         e.preventDefault();
         var mo2f_email = jQuery(emailSelector).val();
         if (validateEmail(mo2f_email))
         {
+            jQuery("#mo2f_send_ajax_email").html("Sending");
             let data =
                 {
                     'action'        :   'mo_ajax_register',
@@ -70,11 +78,16 @@ jQuery(document).ready(function()
                 }
 
             $mo.post(ajaxurl, data,function (response){
-                jQuery("#mo2f_send_ajax_email").html("Resend OTP");
                 if(response.status=='SUCCESS'){
-                    email_txId = response.txId;
+                    email_txId = response.txId;                                       
+                    timeLeftEmail = 30;
+                    timerIdEmail = setInterval(email_countdown, 1000);                    
+                    jQuery("#mo2f_send_ajax_email").attr('disabled',true);
                     if(typeof jQuery('#mo2f_email_otp').val() == 'undefined')
                         jQuery(".buttonInsideEmail").after(otp_over_email);
+                }
+                else if(response.status=='ERROR'){
+                    jQuery("<p class='rc-error rcp-error'><span>"+response.message+"</span></p>").insertBefore("#miniorange_submit");
                 }
             });
         }else{
@@ -88,6 +101,7 @@ jQuery(document).ready(function()
         var mo2f_phone = jQuery(phoneSelector).val();
         if (validatePhone(mo2f_phone))
         {
+            jQuery("#mo2f_send_ajax_sms").html("Sending");
             let data =
                 {
                     'action'        :   'mo_ajax_register',
@@ -98,11 +112,16 @@ jQuery(document).ready(function()
                 }
 
             $mo.post(ajaxurl, data,function (response){
-                jQuery("#mo2f_send_ajax_sms").html("Resend OTP");
                 if(response.status=='SUCCESS'){
-                    sms_txId = response.txId;
+                    sms_txId      = response.txId;
+                    timeLeftSMS  = 30;
+                    timerIdSMS   = setInterval(sms_countdown, 1000);                                   
+                    jQuery("#mo2f_send_ajax_sms").attr('disabled',true);
                     jQuery(".buttonInsidePhone").after(otp_over_sms);
                 }
+                else if(response.status=='ERROR'){
+                    jQuery("<p class='rc-error rcp-error'><span>"+response.message+"</span></p>").insertBefore("#miniorange_submit");            
+                 }
             });
         }else{
             jQuery("<p class='rc-error rcp-error'><span>Please enter valid phone number</span></p>").insertBefore("#miniorange_submit");            
@@ -265,4 +284,37 @@ jQuery(document).ready(function()
         jQuery("#loaderMsg").empty();
         jQuery("#loaderMsg").append(msg);
     }
+
+    function email_countdown() {
+        if (timeLeftEmail === 0)
+        {
+            clearTimeout(timerIdEmail)
+            $mo("#mo2f_send_ajax_email").css("display", "block");
+            $mo("#mo2ftimerEmail").css("display", "none");
+            $mo("#mo2f_send_ajax_email").text("Resend OTP");            
+            $mo("#mo2f_send_ajax_email").attr('disabled',false);
+
+        } else {
+            $mo("#mo2ftimerEmail").css("display", "block");
+            $mo("#mo2f_send_ajax_email").css("display", "none");
+            $mo("#mo2ftimerEmail").text(timeLeftEmail);
+            timeLeftEmail--;
+        }
+    } 
+
+    function sms_countdown() {
+        if (timeLeftSMS === 0)
+        {
+            clearTimeout(timerIdSMS)
+            $mo("#mo2f_send_ajax_sms").css("display", "block");
+            $mo("#mo2ftimerSMS").css("display", "none");
+            $mo("#mo2f_send_ajax_sms").text("Resend OTP");
+            $mo("#mo2f_send_ajax_sms").attr('disabled',false);
+        } else {
+            $mo("#mo2ftimerSMS").css("display", "block");
+            $mo("#mo2f_send_ajax_sms").css("display", "none");
+            $mo("#mo2ftimerSMS").text(timeLeftSMS);
+            timeLeftSMS--;
+        }
+    } 
 });

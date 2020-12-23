@@ -177,11 +177,10 @@ class Database {
 			$counts[ $_table ] += $updates->update_table_columns( $_table );
 		}
 
-		wp_cache_flush();
+		$counts = apply_filters( 'go-live-update-urls/database/updated/counts', $counts, $old_url, $new_url, $tables, $this );
 
 		do_action( 'go-live-update-urls/database/after-update', $old_url, $new_url, $tables, $this );
-
-		return apply_filters( 'go-live-update-urls/database/updated/counts', $counts, $old_url, $new_url, $tables, $this );
+		return $counts;
 	}
 
 
@@ -198,6 +197,7 @@ class Database {
 	 * @return int[]
 	 */
 	public function count_database_urls( $old_url, $new_url, array $tables ) {
+		do_action( 'go-live-update-urls/database/before-counting', $old_url, $new_url, $tables, $this );
 		$tables = apply_filters( 'go-live-update-urls/database/update-tables', $tables, $this );
 
 		$updates = Updates::factory( $old_url, $new_url, $tables );
@@ -206,7 +206,11 @@ class Database {
 			$counts[ $_table ] = $updates->count_table_urls( $_table );
 		}
 
-		return apply_filters( 'go-live-update-urls/database/counted/counts', $counts, $old_url, $new_url, $tables, $this );
+		$counts = apply_filters( 'go-live-update-urls/database/counted/counts', $counts, $old_url, $new_url, $tables, $this );
+
+		do_action( 'go-live-update-urls/database/after-counting', $old_url, $new_url, $tables, $this );
+
+		return $counts;
 	}
 
 
@@ -252,8 +256,8 @@ class Database {
 	public function count_column_urls( $table, $column, $old_url ) {
 		global $wpdb;
 
-		$update_query = "SELECT SUM( ROUND( ( LENGTH( `${column}` ) - LENGTH( REPLACE( `${column}`, %s, '' ) ) ) / LENGTH( %s ) ) ) from `${table}`";
+		$query = "SELECT SUM( ROUND( ( LENGTH( `${column}` ) - LENGTH( REPLACE( `${column}`, %s, '' ) ) ) / LENGTH( %s ) ) ) from `${table}`";
 
-		return (int) $wpdb->get_var( $wpdb->prepare( $update_query, [ $old_url, $old_url ] ) );
+		return (int) $wpdb->get_var( $wpdb->prepare( $query, [ $old_url, $old_url ] ) );
 	}
 }

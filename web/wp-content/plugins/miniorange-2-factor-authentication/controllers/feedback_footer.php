@@ -24,7 +24,7 @@
 		
 		if( empty($email) || empty($query) )
 		{
-			do_action('wpns_show_message',MoWpnsMessages::showMessage('SUPPORT_FORM_VALUES'),'SUCCESS');
+			do_action('wpns_show_message',MoWpnsMessages::showMessage('SUPPORT_FORM_VALUES'),'ERROR');
 			return;
 		}
 

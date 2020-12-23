@@ -1,7 +1,7 @@
 <?php
-
 	if (get_option('mo_2factor_user_registration_status') == 'MO_2_FACTOR_PLUGIN_SETTINGS') {
 		$is_customer_registered = 'MO_2_FACTOR_PLUGIN_SETTINGS';
+
 	}
 
 	$mo2f_feature_description_set_addon = array(
@@ -182,7 +182,7 @@
 						<?php	if(isset($is_customer_registered) ) 
 						{
 							?>
-	                         <button class="mo_wpns_button mo_wpns_button1 " onclick="mo2f_upgradeform('wp_2fa_addon_rba')" >Purchase</button>
+	                         <button class="mo_wpns_button mo_wpns_button1 " onclick="mo2f_upgradeform('wp_2fa_addon_rba', 'addon_plan')" >Purchase</button>
 			                <?php 
 			            }else
 			            { ?>
@@ -214,11 +214,11 @@
 						<?php	if( isset($is_customer_registered) ) 
 						{
 							?>
-	                         <button class="mo_wpns_button mo_wpns_button1 " onclick="mo2f_upgradeform('wp_2fa_addon_personalization')" >Purchase</button>
+	                         <button class="mo_wpns_button mo_wpns_button1 " onclick="mo2f_upgradeform('wp_2fa_addon_personalization', 'addon_plan')" >Purchase</button>
 			                <?php 
 			            }else
 			            { ?>
-							<button class="mo_wpns_button mo_wpns_button1 " onclick="mo2f_register_and_upgradeform('wp_2fa_addon_personalization')" >Purchase</button>
+							<button class="mo_wpns_button mo_wpns_button1 " onclick="mo2f_register_and_upgradeform('wp_2fa_addon_personalization', 'addon_plan')" >Purchase</button>
 			                <?php } 
 			                ?>
 		    		</div>
@@ -246,11 +246,11 @@
                 <div style="text-align: center;">
 						<?php	if( isset($is_customer_registered) ) {
 							?>
-	                         <button class="mo_wpns_button mo_wpns_button1 " onclick="mo2f_upgradeform('wp_2fa_addon_shortcode')" >Purchase</button>
+	                         <button class="mo_wpns_button mo_wpns_button1 " onclick="mo2f_upgradeform('wp_2fa_addon_shortcode', 'addon_plan')" >Purchase</button>
 			                <?php 
 			            }else
 			            { ?>
-							<button class="mo_wpns_button mo_wpns_button1 " onclick="mo2f_register_and_upgradeform('wp_2fa_addon_shortcode')" >Purchase</button>
+							<button class="mo_wpns_button mo_wpns_button1 " onclick="mo2f_register_and_upgradeform('wp_2fa_addon_shortcode', 'addon_plan')" >Purchase</button>
 			                <?php } 
 			                ?>
 		    		</div>
@@ -278,10 +278,18 @@
                        value="<?php echo wp_create_nonce( 'miniorange-2-factor-user-reg-to-upgrade-nonce' ); ?>"/>
             </form>
 <script type="text/javascript">
-	function mo2f_upgradeform(planType) 
+	function mo2f_upgradeform(planType,planname) 
 		{
             jQuery('#requestOrigin').val(planType);
             jQuery('#mo2fa_loginform').submit();
+            var data =  {
+								'action'				  : 'wpns_login_security',
+								'wpns_loginsecurity_ajax' : 'update_plan', 
+								'planname'				  : planname,
+								'planType'				  : planType,
+					}
+					jQuery.post(ajaxurl, data, function(response) {
+					});
         }
         function mo2f_register_and_upgradeform(planType, planname) 
         {
@@ -293,6 +301,7 @@
 								'action'				  : 'wpns_login_security',
 								'wpns_loginsecurity_ajax' : 'wpns_all_plans', 
 								'planname'				  : planname,
+								'planType'				  : planType,
 					}
 					jQuery.post(ajaxurl, data, function(response) {
 					});

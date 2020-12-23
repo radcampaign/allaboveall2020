@@ -2,8 +2,8 @@
 Contributors: Iulia Cazan
 Tags: optimize images, image crop, image regenerate, image sizes details, image quality, default crop, wp-cli, media, image, image sizes, missing images, image placeholder, image debug, command line
 Requires at least: not tested
-Tested up to: 5.5
-Stable tag: 5.4.4
+Tested up to: 5.5.1
+Stable tag: 5.5
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -43,6 +43,11 @@ https://youtu.be/3hRSXMx3dcU
 None
 
 == Changelog ==
+= 5.5 =
+* Tested up to 5.5.1
+* Added export snippet that allows to transfer registered image sizes from the plugin
+* Added image metadata fallback when the post meta is missing
+
 = 5.4.4 =
 * Tested up to 5.5
 * Fix warnings, placeholder path and font, summary update on subsize change in the info lightbox
@@ -238,6 +243,8 @@ None
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 == Version history ==
+
+5.5 - Tested up to 5.5.1, added export image sizes snippet, added image metadata fallback if missing
 5.4.4 - Tested up to 5.5, fix warnings, placeholder path and font, summary update on subsize change, change the threshold default quality on forced original, assets update
 5.4.3 - Tested up to 5.4.2, regenerate/cleanup only featured images, fix the deprecated array and string offset for PHP >= 7.4
 5.4.2 - Added raw cleanup button and  the option to display the summary in the media listing screen, style updates for small resolutions.

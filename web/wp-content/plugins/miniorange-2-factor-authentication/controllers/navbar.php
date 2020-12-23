@@ -68,6 +68,8 @@
     $dashboard_url	= add_query_arg(array('page' => 'mo_2fa_dashboard'			), $_SERVER['REQUEST_URI']);
     $upgrade_url	= add_query_arg(array('page' => 'mo_2fa_upgrade'				), $_SERVER['REQUEST_URI']);
     $request_demo_url = add_query_arg(array('page' => 'mo_2fa_request_demo'				), $_SERVER['REQUEST_URI']); 
+    $request_christmas_offer_url = add_query_arg(array('page' => 'mo_2fa_request_christmas_offer'				), $_SERVER['REQUEST_URI']); 
+
    //dynamic
     $logo_url = plugin_dir_url(dirname(__FILE__)) . 'includes/images/miniorange_logo.png';
     $login_with_usename_only_url = plugin_dir_url(dirname(__FILE__)) . 'includes/images/login-with-password-and-2fa.png';
@@ -79,5 +81,14 @@
     $safe			= $moPluginHandler->is_whitelisted($moWpnsUtility->get_client_ip());
 
     $active_tab 	= $_GET['page'];
+
+    $user_id = get_current_user_id();
+    $mo2f_two_fa_method = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user_id );
+    $backup_codes_remaining = get_user_meta($user_id, 'mo2f_backup_codes', true);
+	if(is_array($backup_codes_remaining)){
+		$backup_codes_remaining = sizeof($backup_codes_remaining);
+	}else{
+		$backup_codes_remaining = 0;
+	}
 
 	include $mo2f_dirName . 'views'.DIRECTORY_SEPARATOR.'navbar.php';

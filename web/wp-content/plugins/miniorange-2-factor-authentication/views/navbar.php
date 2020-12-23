@@ -12,8 +12,7 @@ $security_features_nonce = wp_create_nonce('mo_2fa_security_features_nonce');
             if(get_option('mo2fa_'.$role)=='1')
             	$flag=1;
         }
-	if($shw_feedback)
-		//echo MoWpnsMessages::showMessage('FEEDBACK');
+	
 	if(!$safe)
 	{
 		if (MoWpnsUtility::get_mo2f_db_option('mo_wpns_2fa_with_network_security', 'get_option')) 
@@ -21,11 +20,53 @@ $security_features_nonce = wp_create_nonce('mo_2fa_security_features_nonce');
 			echo MoWpnsMessages::showMessage('WHITELIST_SELF');		
 		}
 	}
-		
+	?>
+	<?php
+	if((!get_user_meta($userID, 'mo_backup_code_generated', true) || ($backup_codes_remaining == 5 && !get_user_meta($userID, 'mo_backup_code_downloaded', true))) && $mo2f_two_fa_method != '' && !get_user_meta($userID, 'donot_show_backup_code_notice', true)){
+		echo MoWpnsMessages::showMessage('GET_BACKUP_CODES');
+	}
+?>
+<br><br>
+<?php
 if( isset( $_GET[ 'page' ]) && $_GET['page'] != 'mo_2fa_upgrade') 
 	{	
-			echo'<div class="wrap">
-				<div><img  style="float:left;margin-top:5px;" src="'.$logo_url.'"></div>
+			echo'<div class="wrap">';
+
+				$date1 = "2020-12-31";
+				$dateTimestamp1 = strtotime($date1);
+
+				$date2 = date("Y-m-d");
+				$dateTimestamp2 = strtotime($date2);
+
+				if($dateTimestamp2<=$dateTimestamp1)
+				{
+					echo'<div class="mo2f_christmas_main_div">
+
+					
+
+					<div class="mo2f_christmas_first_section">
+						<img style="height: 201px;width: 540px;" src="'.dirname(plugin_dir_url(__FILE__)).'/includes/images/christmas_offer.png">
+
+					</div>
+
+					<div class="mo2f_christmas_middle_section">
+						<p class="mo2f_christmas_get_upto">Get Upto </p>
+						<p class="mo2f_christmas_first_section_text">50% off</p>
+						<center><a class="mo2f_christmas_contact_us" href="'.$request_christmas_offer_url.'">Contact Us</a></center>
+					</div>
+
+					<div class="mo2f_christmas_last_section">
+						<img src="'.dirname(plugin_dir_url(__FILE__)).'/includes/images/santa-gif.gif">
+					</div>
+
+
+
+
+						
+
+					</div><br><br>';
+				}
+				echo' <div><img  style="float:left;margin-top:5px;" src="'.$logo_url.'"></div>
 				<h1>
 					miniOrange 2-Factor 
 					<a class="add-new-h2" style="font-size:17px;border-radius:4px;"  href="'.$profile_url.'">Account</a>
@@ -95,3 +136,6 @@ echo'					<span style="text-align:right;">
 		</div>
 <?php 
 	}
+
+
+

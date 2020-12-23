@@ -9,10 +9,13 @@
 		"Google Authenticator",
 		"Security Questions",
 		"Authy Authenticator",
+		"Microsoft Authenticator",
 		"TOTP Based Authenticator",
 		"Email Verification",
 		"OTP Over Email",
 		"OTP Over SMS",
+		"OTP Over Whatsapp (Add-on)",
+		"OTP Over Telegram",
 		"miniOrange QR Code Authentication",
 		"miniOrange Soft Token",
 		"miniOrange Push Notification",		
@@ -22,7 +25,7 @@
 		"2FA for specific User Roles",
 		"2FA for specific Users",
 		"Choose specific authentications",
-		"Force Two Factor for users",
+		"Force Two Factor for",
 		"Email Verification during 2FA Registration",
 		"Language Translation Support",
 		"Password Less Login",
@@ -62,10 +65,13 @@
 		"Google Authenticator"                                          		=> array( true, true, true, true ),
 		"Security Questions"                                          			=> array( true, true, true, true ),
 		"Authy Authenticator"                                          			=> array( true, true, true, true ),
+		"Microsoft Authenticator"                                          		=> array( true, true, true, true ),
 		"TOTP Based Authenticator"												=> array( true, true, true, true ),
 		"Email Verification"                                          			=> array( true, true, true, true ),
 		"OTP Over Email"                                          				=> array( true, true, true, true ),
 		"OTP Over SMS"                                          				=> array( true, true, true, true ),
+		"OTP Over Whatsapp (Add-on)"                                          	=> array( false, true, false, false ),
+		"OTP Over Telegram"                                          			=> array( false, true, false, false ),
 		"miniOrange QR Code Authentication"                                     => array( false, false, true, true ),
 		"miniOrange Soft Token"                                          		=> array( false, false, true, true ),
 		"miniOrange Push Notification"                                          => array( false, false, true, true ),
@@ -90,7 +96,7 @@
 		"2FA for specific User Roles"                                    		=> array( true, true, true, true ),
 		"2FA for specific Users"                                         		=> array(  false, true, true, true ),
 		"Choose specific authentications"                      			=> array( false, true, true, true ),
-		"Force Two Factor for users"                        					=> array( true, true, true, true ),
+		"Force Two Factor for"                        					=> array( true, true, true, true ),
 		"Email Verification during 2FA Registration"         => array( false, true, true, true ),
 		"Security Questions as backup" 									=> array( false, true, true, true ),
 		"App Specific Password from mobile Apps"                       			=> array( false, true, true, true ),
@@ -114,10 +120,13 @@
 		"Enter the soft token from the account in your Google Authenticator App to login.",
 		"Answer the three security questions you had set, to login.",
 		"Enter the soft token from the account in your Authy Authenticator App to login.",
+		"Enter the soft token from the account in your Microsoft Authenticator App to login.",
 		"Enter the soft token from the account in your TOTP Authenticator App to login.",
 		"Accept the verification link sent to your email to login.",
 		"You will receive a one time passcode via Email.",
 		"You will receive a One Time Passcode via SMS on your Phone",
+		"You will receive a One Time Passcode on your Whatsapp account - Supported with twillio",
+		"You will receive a One Time Passcode on your Telegram account",
 		"Scan the QR code from the account in your miniOrange Authenticator App to login.",
 		"Enter the soft token from the account in your miniOrange Authenticator App to login.",
 		"Accept a push notification in your miniOrange Authenticator App to login.",		
@@ -240,6 +249,9 @@
 								{
 									echo $feature_set;
 								}
+								if ($feature_set == "Force Two Factor for" ) {
+									echo " administrators";									
+								}
 								?>
 								</div>
 								<div>
@@ -247,7 +259,9 @@
 							if ($feature_set == "Backup Methods") {
 								echo mo2f_features_on_hover_2fa_lite("Security Questions is available as a backup method");
 							}
-							
+							elseif ($feature_set == "Force Two Factor for") {
+								echo mo2f_features_on_hover_2fa_lite("Enforce administrators to setup 2nd factor during registration");
+							}
 							elseif ($feature_set != "Other Features" && $feature_set != "Custom SMS Gateway") 
 							{
 								echo mo2f_features_on_hover_2fa_lite($mo2f_feature_description_set[$i]);
@@ -305,6 +319,9 @@
 								elseif ($feature_set != "Support")
 								{
 									echo $feature_set;
+								}
+								if ($feature_set == "Force Two Factor for" ) {
+									echo " all users";									
 								}
 								?>
 								</div>
@@ -369,6 +386,9 @@
 								{
 									echo $feature_set;
 								}
+								if ($feature_set == "Force Two Factor for" ) {
+									echo " all users";									
+								}
 								?>
 								</div>
 							<div>
@@ -431,6 +451,9 @@
 								elseif($feature_set != "Support")
 								{
 									echo $feature_set;
+								}
+								if ($feature_set == "Force Two Factor for" ) {
+									echo " all users";									
 								}
 								?>
 								</div>
@@ -543,7 +566,7 @@
 
                 <hr><br>
 			<?php } ?>
-            <b>* Multisite</b>
+			<b>* Multisite</b>
             <p><?php echo mo2f_lt( 'For your first license 3 subsites will be activated automatically on the same domain. And if you wish to use it for more please contact support ' ); ?></p>
             <hr>
             <br>

@@ -67,8 +67,10 @@ jQuery(document).ready(function () {
      $("#mo_wpns_help_reset_MFA").click(function () {
         $("#mo_wpns_help_reset_MFA_solution").slideToggle(600);
     });
-    $(".feedback").click(function(){
-         ajaxCall("dissmissfeedback",".feedback-notice",true);
+  
+    
+    $(".backup_codes_dismiss").click(function(){
+        ajaxCall("dismisscodeswarning",".backupcodes-notice",true);
     });
 
     $(".smtpsetup").click(function(){
@@ -79,28 +81,25 @@ jQuery(document).ready(function () {
         ajaxCall("whitelistself",".whitelistself-notice",true);
     });
 
-    $(".infected_file_dismiss").click(function(){
-        ajaxCall("dismissinfected",".file_infected-notice",true);
-    });
-
-    $(".infected_file_dismiss_always").click(function(){
-        ajaxCall("dismissinfected_always",".file_infected-notice",true);
-    });
-
     $(".new_plugin_dismiss").click(function(){
         ajaxCall("dismissplugin",".new_plugin_theme-notice",true);
     });
 
-    $(".new_plugin_dismiss_always").click(function(){
-        ajaxCall("dismissplugin_always",".new_plugin_theme-notice",true);
+
+     $(".dismiss_website_backup_notice").click(function(){
+        ajaxCall("dismissbackup",".create_backup-notice",true);
     });
 
-    $(".weekly_dismiss").click(function(){
-        ajaxCall("dismissweekly",".weekly_notice-notice",true);
+   
+    $(".dismiss_brute_force_notice").click(function(){
+        ajaxCall("dismissbruteforce",".brute_force-notice",true);
     });
 
-    $(".weekly_dismiss_always").click(function(){
-        ajaxCall("dismissweekly_always",".weekly_notice-notice",true);
+    $(".dismiss_google_recaptcha_notice").click(function(){
+        ajaxCall("dismissrecaptcha",".google_recaptcha-notice",true);
+    });
+    $(".dismiss_firewall_notice").click(function(){
+        ajaxCall("dismissfirewall",".firewall-notice",true);
     });
 
     $(".wpns_premium_option :input").attr("disabled",true);

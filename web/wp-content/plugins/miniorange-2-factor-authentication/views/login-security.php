@@ -4,9 +4,7 @@ $setup_dirName = $mo2f_dirName.'views'.DIRECTORY_SEPARATOR.'twofa'.DIRECTORY_SEP
  include $setup_dirName;
 
 add_action( 'admin_footer', 'login_security_ajax' );
-echo '
-		<div id="wpns_message" style=" padding-top:8px"></div>
-		<div>
+echo '	<div>
 		<div class="mo_wpns_setting_layout" id ="mo2f_bruteforce">';
 
 
@@ -171,35 +169,22 @@ echo'		<br>
 				};
 				jQuery.post(ajaxurl, data, function(response) {
 				
-				jQuery("#wpns_message").empty();
-				jQuery("#wpns_message").hide();
-				jQuery('#wpns_message').show();
 				if (response == "empty"){
-				jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; Please fill out all the fields</div></div>");
-				window.onload = nav_popup();				
-			}
-				else if(response == "true"){
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp;Brute force is enabled and configuration has been saved</div></div>");
-					window.onload = nav_popup();				
+                    			error_msg(" Please fill out all the fields");
+			    	}else if(response == "true"){
+                    			success_msg("Brute force is enabled and configuration has been saved");
+				}else if(response == "false"){
+                    			error_msg(" Brute force is disabled");
 				}
-				else if(response == "false"){
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; Brute force is disabled</div></div>");
-							    window.onload = nav_popup();				}
-				else if(response == "ERROR" ){ 
-				jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; ERROR</div></div>");
-				window.onload = nav_popup();				
-				}
+				else if(response == "ERROR" ){
+                    error_msg("There was an error in processing your request");
+                }
 				});
 					});
 
 					
 			});
-					
-
-					
-					
-
-					jQuery(document).ready(function(){
+jQuery(document).ready(function(){
 						jQuery("#captcha_button").click(function(){
 							var data = {
 					'action'                 :'wpns_login_security',  
@@ -212,29 +197,23 @@ echo'		<br>
 					'nonce'		           	 :jQuery("#captcha_nonce").val(),
 				}
 				jQuery.post(ajaxurl, data, function(response) {
-				jQuery("#wpns_message").empty();
-				jQuery("#wpns_message").hide();
-				jQuery('#wpns_message').show();
+
 				if (response == "empty"){
-				jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; Please fill out all the fields</div></div>");
-				window.onload = nav_popup();				}
-				else if(response == "true"){
-					jQuery('#loginURL').empty();
-					jQuery('#loginURL').hide();
-					jQuery('#loginURL').show();
-					jQuery('#loginURL').append(data.input_url);
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; CAPTCHA is enabled.</div></div>");
-					window.onload = nav_popup();					}
-				else if(response == "false"){
-					jQuery('#loginURL').empty();
-					jQuery('#loginURL').hide();
-					jQuery('#loginURL').show();
-					jQuery('#loginURL').append('wp-login.php');
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; CAPTCHA is disabled.</div></div>");
-					window.onload = nav_popup();				}
-				else if(response == "ERROR" ){ 
-				jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; ERROR</div></div>");
-				window.onload = nav_popup();				
+                    		    error_msg(" Please fill out all the fields");
+				}else if(response == "true") {
+				    jQuery('#loginURL').empty();
+				    jQuery('#loginURL').hide();
+				    jQuery('#loginURL').show();
+				    jQuery('#loginURL').append(data.input_url);
+				    success_msg(" CAPTCHA is enabled.");
+				}else if(response == "false") {
+				    jQuery('#loginURL').empty();
+				    jQuery('#loginURL').hide();
+				    jQuery('#loginURL').show();
+				    jQuery('#loginURL').append('wp-login.php');
+				    error_msg("CAPTCHA is disabled.");
+				}else if(response == "ERROR" ){
+                    		    error_msg("There was an error in procession your request");
 				}
 				});
 						});
@@ -249,29 +228,19 @@ echo'		<br>
 					'nonce'					 :jQuery("#str_pass").val(), 
 				}
 				jQuery.post(ajaxurl, data, function(response) {
-				jQuery("#wpns_message").empty();
-				jQuery("#wpns_message").hide();
-				jQuery('#wpns_message').show();
+
 				if(response == "true"){
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; Strong password is enabled.</div></div>");
-					window.onload = nav_popup();					}
-				else if(response == "false"){
-					jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; Strong Password is disabled.</div></div>");
-					window.onload = nav_popup();				}
-				else if(response == "ERROR" ){ 
-				jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; ERROR</div></div>");
-				window.onload = nav_popup();				
+                    success_msg("Strong password is enabled.");
+				}else if(response == "false") {
+                    error_msg("Strong Password is disabled.");
+				}else if(response == "ERROR" ){
+                    error_msg("There was an error in procession your request");
 				}
 				});
 						});
 					});
 
-
-function nav_popup() {
-  document.getElementById("notice_div").style.width = "40%";
-  setTimeout(function(){ $('#notice_div').fadeOut('slow'); }, 3000);
-}
-				</script> 
+				</script>
 
 
 			<?php }

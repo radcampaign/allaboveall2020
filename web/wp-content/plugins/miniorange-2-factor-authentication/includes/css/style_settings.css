@@ -838,7 +838,7 @@
 	margin-top: 10px;
 	padding: 5px 2px;
 	height: auto;
-  width: 25%;
+  width: 29%;
 }
 .mo_wpns_small_layout_waf{
   margin: 10px;
@@ -1039,10 +1039,10 @@ h2.mo_wpns_nav-tab-wrapper
 	padding: 5px 20px;
     background-color: #FFFFFF;
     border: 1px solid #CCCCCC;
-    width: 290px;
+    /*width: 290px;*/
     margin-left: 1%;
     float: left; 
-    text-align: center;
+    /*text-align: center;*/
     border: 2px solid lightseagreen;
   box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
 }
@@ -1708,17 +1708,7 @@ h2.mo_wpns_nav-tab-wrapper
   box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
   font-weight: 600;
 }
-  .mo_wpns_support_layout{
-    /*padding: 5px 20px;*/
-      background-color: #FFFFFF;
-      border: 1px solid #CCCCCC;
-      /*float: left;*/
-      width: 90%;
-      margin-left: 1%;
-      float: left;
-      height: 480px;
-      border: 2px solid lightseagreen;
-      box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+  
 
 	 /* background-color: #4CAF50;
 	  border: none;
@@ -3498,4 +3488,142 @@ a.mo2f_thumbnail:hover, a.mo2f_thumbnail:focus, a.mo2f_thumbnail.active {
   font-size: 25px;
   color: #ffffff;
   margin-left: 15px;
+}
+.call-setup-div{
+  background: #F2F5FF;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding-top: 10px;
+  border-style: solid;
+  border-color: #2f6062;
+  padding-left: 10px;
+}
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* Christmas */
+
+.mo2f_christmas_main_div
+{
+  height:200px;background-color:white;border-top: 4px solid red;border-bottom: 4px solid red;
+  width: 100%;
+}
+
+.mo2f_christmas_first_section
+{
+  width:41%;
+  color:red;
+  height: 167.5px;
+  float: left;
+  text-align: left;
+
+}
+.mo2f_christmas_first_section_text
+{
+  font-size: 73px !important;
+  text-align: center;
+  margin: 0px;
+  margin-bottom: 4% !important;
+  color: black;
+
+}
+.mo2f_christmas_get_upto
+{
+  text-align:center;margin:0px;margin-bottom: -2%;margin-top: 2%;color: black;font-size: 120%;
+}
+.mo2f_christmas_middle_section
+{
+  width:39%;color:red;height: 100px;float: left;
+}
+
+.mo2f_christmas_last_section
+{
+  width:20%;color:red;height: 100px;float: left;text-align: left;
+}
+
+.mo2f_christmas_contact_us
+{
+    font-size: 23px;
+    border-radius: 4px;
+    background: red;
+    border: 0px;
+    color: white;
+    padding: 12px 27px;
+    text-decoration: none;
+}
+
+.mo2f_christmas_contact_us:hover
+{
+  color: white !important;
+}
+
+.mo2f_christmas_contact_us_layout
+{
+  border: 3px solid red !important;
+}
+
+.mo2f_christmas_contact_us_button
+{
+  background: red !important;
 }

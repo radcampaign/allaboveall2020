@@ -75,7 +75,8 @@
 		const REQUIRED_FIELDS					= "Please enter all the required fields";
 		const RESET_PASS						= "You password has been reset successfully and sent to your registered email. Please check your mailbox.";
 		const TEMPLATE_SAVED					= "Email template saved.";
-		const FEEDBACK							= "<div class='custom-notice notice notice-warning feedback-notice'><p><p class='notice-message'>Looking for a feature? Help us make the plugin better. Send us your feedback using the Support Form below.</p><button class='feedback notice-button'><i>Dismiss</i></button></p></div>";
+		const GET_BACKUP_CODES					= "<div class='custom-notice notice notice-warning backupcodes-notice'><p><p class='notice-message'><b>Please download backup codes using the 'Get backup codes' button to avoid getting locked out. Backup codes will be emailed as well as downloaded.</b></p><button class='backup_codes_dismiss notice-button'><i>NEVER SHOW AGAIN</i></button></p></div>";
+	
 		const WHITELIST_SELF					= "<div class='custom-notice notice notice-warning whitelistself-notice'><p><p class='notice-message'>It looks like you have not whitelisted your IP. Whitelist your IP as you can get blocked from your site.</p><button class='whitelist_self notice-button'><i>WhiteList</i></button></p></div>";
 
 		const CLOUD2FA_SINGLEUSER					= "<div class='custom-notice notice notice-warning whitelistself-notice'><p><p class='notice-message'>The current solution is cloud which supports 2-factor for only one user. Either upgrade your plan or contact your administrator.</p></p></div>";
@@ -123,15 +124,31 @@
         const REPORT_DISABLE					= 'Login and error reports are disabled.';
         const NOTIF_ENABLE						= 'Notification options are available. Configure it in the Notification tab.';
         const NOTIF_DISABLE						= 'Notifications are disabled.';
-        const NEW_PLUGIN_THEME_CHECK			= "<div class='custom-notice notice notice-warning new_plugin_theme-notice'><p><p class='notice-message'>We detected a change in plugins/themes folder. Kindly scan for better security.</p><a class='notice-button' href='admin.php?page=mo_2fa_malwarescan' style='margin-right: 15px;'>SCAN</a><button class='new_plugin_dismiss notice-button' style='margin-right: 15px;'><i>DISMISS</i></button><button class='new_plugin_dismiss_always notice-button'><i>NEVER SHOW AGAIN</i></button></p></div>";
-        const INFECTED_FILE						= "<div class='custom-notice notice notice-warning file_infected-notice'><p><p class='notice-message'>Your last scan found infections/warnings on your website. Kindly fix them to avoid any threats.</p><a class='notice-button' href='admin.php?page=mo_2fa_malwarescan' style='margin-right: 15px;'>SCAN</a><button class='infected_file_dismiss notice-button' style='margin-right: 15px;'><i>DISMISS</i></button><button class='infected_file_dismiss_always notice-button'><i>NEVER SHOW AGAIN</i></button></p></div>";
-        const WEEKLY_SCAN_CHECK           	 	= "<div class='custom-notice notice notice-warning weekly_notice-notice'><p><p class='notice-message'>You last scanned your website a week ago. Scan now to imrove security.</p><a class='notice-button' href='admin.php?page=mo_2fa_malwarescan' style='margin-right: 15px;'>SCAN</a><button class='weekly_dismiss notice-button' style='margin-right: 15px;'><i>DISMISS</i></button><button class='weekly_dismiss_always notice-button'><i>NEVER SHOW AGAIN</i></button></p></div>";
+       
+       const NEW_PLUGIN_THEME_CHECK			= "<div class='custom-notice notice notice-warning new_plugin_theme-notice'><p><p class='notice-message'>We detected a change in plugins/themes folder. Kindly scan for better security.</p><a class='notice-button' href='admin.php?page=mo_2fa_malwarescan' style='margin-right: 15px;'>SCAN</a><button class='new_plugin_dismiss notice-button' style='margin-right: 15px;'><i>DISMISS</i></button></p></div>";
+
+        const CREATE_BACKUP						= "<div class='custom-notice notice notice-warning create_backup-notice'><p><p class='notice-message'>It looks like you have not created a single backup of your website. Make the backup and secure your site.</p><a class='notice-button' href='admin.php?page=mo_2fa_backup' style='margin-right: 15px;'>Take Backup</a><button class='dismiss_website_backup_notice notice-button' style='margin-right: 15px;'><i>DISMISS</i></button></p></div>";
+
+        const BRUTE_FORCE_NOTICE				= "<div class='custom-notice notice notice-warning brute_force-notice'><p><p class='notice-message'>It looks like your login protection is too weak. Enable brute force feature and safe your website from brute force attacker</p><a class='notice-button' href='admin.php?page=mo_2fa_login_and_spam' style='margin-right: 15px;'>Brute Force</a><button class='dismiss_brute_force_notice notice-button' style='margin-right: 15px;'><i>DISMISS</i></button></p></div>";
+
+        const GOOGLE_RECAPTCHA_NOTICE			= "<div class='custom-notice notice notice-warning google_recaptcha-notice'><p><p class='notice-message'>It looks like your login protection is too weak. Enable Google reCAPTCHA and increase your website login security</p><a class='notice-button' href='admin.php?page=mo_2fa_login_and_spam' style='margin-right: 15px;'>Google_reCAPTCHA</a><button class='dismiss_google_recaptcha_notice notice-button' style='margin-right: 15px;'><i>DISMISS</i></button></p></div>";
+
+        const WAF_NOTICE			            = "<div class='custom-notice notice notice-warning firewall-notice'><p><p class='notice-message'>Your website is on risk. Turn on firewall and make secure your website from crawler</p><a class='notice-button' href='admin.php?page=mo_2fa_waf' style='margin-right: 15px;'>Firewall</a><button class='dismiss_firewall_notice notice-button' style='margin-right: 15px;'><i>DISMISS</i></button></p></div>";
 
         const LOW_SMS_TRANSACTIONS 				= "<div class='custom-notice notice notice-warning new_plugin_theme-notice'><p><p class='notice-message'>You have left very few SMS transaction. Please upgrade to premium plan for non stop usage.</p><button class='new_plugin_dismiss notice-button' style='margin-right: 15px;'><i>DISMISS</i></button><button class='new_plugin_dismiss_always notice-button'><i>NEVER SHOW AGAIN</i></button></p></div>";
 
         const LOW_EMAIL_TRANSACTIONS = "<div class='custom-notice notice notice-warning new_plugin_theme-notice'><p><p class='notice-message'>You have left  very few Email transaction. Please upgrade to premium plan for non stop usage.</p><button class='new_plugin_dismiss notice-button' style='margin-right: 15px;'><i>DISMISS</i></button><button class='new_plugin_dismiss_always notice-button'><i>NEVER SHOW AGAIN</i></button></p></div>";
 
 
+
+        
+       public static $notification_array = array('malware_notification_option' => MoWpnsMessages::NEW_PLUGIN_THEME_CHECK ,
+												'backup_notification_option'  => MoWpnsMessages::CREATE_BACKUP,
+												'bruteforce_notification_option' => MoWpnsMessages::BRUTE_FORCE_NOTICE,
+												'recaptcha_notification_option' => MoWpnsMessages::GOOGLE_RECAPTCHA_NOTICE,
+												'waf_notification_option' => MoWpnsMessages::WAF_NOTICE
+												);
+       
 		public static function showMessage($message , $data=array())
 		{
 			$message = constant( "self::".$message );

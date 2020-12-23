@@ -120,7 +120,7 @@
 			if($wpdb->get_var("show tables like '$tableName'") != $tableName)
 			{
 				$sql = "CREATE TABLE " . $tableName . " (
-				`id` bigint NOT NULL AUTO_INCREMENT, `scan_mode` mediumtext NOT NULL, `scanned_folders` mediumtext NOT NULL, `scanned_files` int NOT NULL, `malware_count` int NOT NULL DEFAULT 0, `repo_issues` int NOT NULL DEFAULT 0, `malicious_links` int NOT NULL DEFAULT 0, `start_timestamp` int, `completed_timestamp` int, UNIQUE KEY id (id) );";
+				`id` bigint NOT NULL AUTO_INCREMENT, `scan_mode` mediumtext NOT NULL, `scanned_folders` mediumtext NOT NULL, `scanned_files` int NOT NULL, `malware_count` int NOT NULL DEFAULT 0, `repo_issues` int NOT NULL DEFAULT 0, `malicious_links` int NOT NULL DEFAULT 0, `repo_key` mediumtext, `net_connection` int, `start_timestamp` int, `completed_timestamp` int, UNIQUE KEY id (id) );";
 				dbDelta($sql);
 			}
 			$result= $wpdb->get_var("SHOW COLUMNS FROM `$tableName` LIKE 'scan_mode'");
@@ -128,6 +128,20 @@
 				$sql = "ALTER TABLE  `$tableName` ADD  `scan_mode` mediumtext AFTER  `id` ;";
 				$results1 = $wpdb->query($sql);
 				$sql1= "UPDATE $this->malwarereportTable SET `scan_mode`='Custom Scan';";
+				$resluts = $wpdb->query($sql1);
+			}
+			$result= $wpdb->get_var("SHOW COLUMNS FROM `$tableName` LIKE 'repo_key'");
+			if(is_null($result)){
+				$sql = "ALTER TABLE  `$tableName` ADD  `repo_key` mediumtext AFTER  `malicious_links` ;";
+				$results1 = $wpdb->query($sql);
+				$sql1= "UPDATE $this->malwarereportTable SET `repo_key`= NULL;";
+				$resluts = $wpdb->query($sql1);
+			}
+			$result= $wpdb->get_var("SHOW COLUMNS FROM `$tableName` LIKE 'net_connection'");
+			if(is_null($result)){
+				$sql = "ALTER TABLE  `$tableName` ADD  `net_connection` mediumtext AFTER  `repo_key` ;";
+				$results1 = $wpdb->query($sql);
+				$sql1= "UPDATE $this->malwarereportTable SET `net_connection`= 0;";
 				$resluts = $wpdb->query($sql1);
 			}
 
@@ -151,8 +165,13 @@
 			if($wpdb->get_var("show tables like '$tableName'") != $tableName)
 			{
 				$sql = "CREATE TABLE " . $tableName . " (
-				`id` bigint NOT NULL AUTO_INCREMENT, `path` mediumtext NOT NULL, `name_hash` varchar(45) NOT NULL, `malware_service` int NOT NULL, `repo_check` int NOT NULL, `link_check` int NOT NULL, PRIMARY KEY id (id), UNIQUE KEY name_hash (name_hash) );";
+				`id` bigint NOT NULL AUTO_INCREMENT, `path` mediumtext NOT NULL, `name_hash` varchar(45) NOT NULL, `malware_service` int NOT NULL, `repo_check` int NOT NULL, `link_check` int NOT NULL, `repo_key` mediumtext NOT NULL, PRIMARY KEY id (id), UNIQUE KEY name_hash (name_hash) );";
 				dbDelta($sql);
+			}
+			$result= $wpdb->get_var("SHOW COLUMNS FROM `$tableName` LIKE 'repo_key'");
+			if(is_null($result)){
+				$sql = "ALTER TABLE  `$tableName` ADD  `repo_key` mediumtext AFTER  `link_check` ;";
+				$results1 = $wpdb->query($sql);
 			}
 
 			$tableName = $this->hashfile;
@@ -495,6 +514,32 @@
 			}
 		}
 
+		function mo2f_update_net_issue($reportid){
+			global $wpdb;
+			$wpdb->update(
+				$this->malwarereportTable,
+				array(
+					'net_connection' => 1
+				),
+				array(
+					'id' => $reportid
+				)
+			);
+		}
+
+		function mo2f_update_repo_issue($reportid, $issue){
+			global $wpdb;
+			$wpdb->update(
+				$this->malwarereportTable,
+				array(
+					'repo_key' => $issue
+				),
+				array(
+					'id' => $reportid
+				)
+			);
+		}
+
 		function add_report_details($reportid, $filename, $report){
 			global $wpdb;
 			$wpdb->insert( 
@@ -578,12 +623,14 @@
 			if(!empty($file_path_array)){
 				$size=sizeof($file_path_array);
 				$default=0;
-				$query="INSERT INTO ".$this->filescan."(`path`, `name_hash`, `malware_service`, `repo_check`, `link_check`) VALUES";
+				$query="INSERT INTO ".$this->filescan."(`path`, `name_hash`, `malware_service`, `repo_check`, `link_check`, `repo_key`) VALUES";
 				for ($i=1; $i <= $size ; $i++) { 
 					$value= $file_path_array[$i];
-					$value = addslashes($value);
-					$hash_value= md5($value);
-					$query.= "('".$value."', '".$hash_value."', '".$default."', '".$default."', '".$default."')";
+					$file_path = $value['file'];
+					$file_path = addslashes($file_path);
+					$hash_value= md5($file_path);
+					$repo_key = $value['key'];
+					$query.= "('".$file_path."', '".$hash_value."', '".$default."', '".$default."', '".$default."',  '".$repo_key."')";
 					if($i < $size){
 						$query.= ",";
 					}
@@ -655,9 +702,9 @@
 			return $result;
 		}
 
-		function get_files_for_repo(){
+		function get_files_for_repo($repo_key){
 			global $wpdb;
-			$sql= 'SELECT * FROM '.$this->filescan.' WHERE `repo_check`= 0 LIMIT 100';
+			$sql= 'SELECT * FROM '.$this->filescan.' WHERE `repo_check`= 0 AND `repo_key`= "'.$repo_key.'" LIMIT 100';
 			$result=$wpdb->get_results($sql);
 			return $result;
 		}

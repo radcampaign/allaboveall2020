@@ -433,6 +433,16 @@ msgstr ""
 msgid "Paste here the settings and import these into the current instance."
 msgstr ""
 
+#: adons/import-export/class-sirsc-import-export.php:212
+#: adons/import-export/class-sirsc-import-export.php:218
+msgid "Registered Image Sizes"
+msgstr ""
+
+#: adons/import-export/class-sirsc-import-export.php:212
+#: adons/import-export/class-sirsc-import-export.php:218
+msgid "If you deactivate the plugin but still want to keep the image sizes you registered with this plugin, you can copy the snippet in your theme functions.php file or in a plugin."
+msgstr ""
+
 #: adons/uploads-folder-info/class-sirsc-uploads-folder-info.php:68
 #: adons/uploads-folder-info/class-sirsc-uploads-folder-info.php:69
 #: adons/uploads-folder-info/class-sirsc-uploads-folder-info.php:467

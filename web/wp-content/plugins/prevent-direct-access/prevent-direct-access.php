@@ -3,7 +3,7 @@
 Plugin Name: Prevent Direct Access
 Plugin URI: https://preventdirectaccess.com/?utm_source=user-website&utm_medium=pluginpage&utm_campaign=plugin-author-link
 Description: Prevent Direct Access provides a simple solution to prevent Google indexing as well as the public from accessing your files without permission. This plugin is required for our Gold version to work properly.
-Version: 2.7.1
+Version: 2.7.2
 Author: BWPS
 Author URI: https://preventdirectaccess.com/?utm_source=user-website&utm_medium=pluginsite_link&utm_campaign=pda-lite
 Tags: files, management
@@ -31,7 +31,7 @@ define( 'PDA', __FILE__ );
 define( 'PDA_HOME_PAGE', 'https://preventdirectaccess.com/?utm_source=user-website&utm_medium=%s&utm_campaign=%s' );
 define( 'PDA_DOWNLOAD_PAGE', 'https://preventdirectaccess.com/pricing/?utm_source=user-website&amp;utm_medium=settings&amp;utm_campaign=sidebar-cta' );
 define( 'PDA_TEXTDOMAIN', 'prevent-direct-access' );
-define( 'PDAF_VERSION', '2.7.1' );
+define( 'PDAF_VERSION', '2.7.2' );
 define( 'PDA_LITE_BASE_URL', plugin_dir_url( __FILE__ ) );
 define( 'PDA_LITE_BASE_DIR', plugin_dir_path( __FILE__ ) );
 
@@ -775,6 +775,7 @@ class Pda_Admin {
 			'enable_image_hot_linking' => array_key_exists( 'enable_image_hot_linking', $settings ) ? $settings['enable_image_hot_linking'] : null,
 			'search_result_page_404'   => array_key_exists( 'search_result_page_404', $settings ) ? $settings['search_result_page_404'] : null,
 			'enable_directory_listing' => array_key_exists( 'enable_directory_listing', $settings ) ? $settings['enable_directory_listing'] : null,
+			'file_access_permission'   => array_key_exists( 'file_access_permission', $settings ) ? $settings['file_access_permission'] : '',
 		) );
 
 		/**

@@ -1,5 +1,5 @@
 <?php
-    $setup_dirName = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'twofa'.DIRECTORY_SEPARATOR.'setup'.DIRECTORY_SEPARATOR;
+  	$setup_dirName = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'twofa'.DIRECTORY_SEPARATOR.'setup'.DIRECTORY_SEPARATOR;
     $test_dirName = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'twofa'.DIRECTORY_SEPARATOR.'test'.DIRECTORY_SEPARATOR;
     include $setup_dirName.'setup_google_authenticator.php';
     include $setup_dirName.'setup_google_authenticator_onpremise.php';
@@ -7,6 +7,8 @@
     include $setup_dirName.'setup_kba_questions.php';
     include $setup_dirName.'setup_miniorange_authenticator.php';
     include $setup_dirName.'setup_otp_over_sms.php';
+    include $setup_dirName.'setup_otp_over_telegram.php';
+    include $setup_dirName.'setup_otp_over_whatsapp.php';
     include $test_dirName.'test_twofa_email_verification.php';
     include $test_dirName.'test_twofa_google_authy_authenticator.php';
     include $test_dirName.'test_twofa_miniorange_qrcode_authentication.php';
@@ -14,6 +16,8 @@
     include $test_dirName.'test_twofa_miniorange_push_notification.php';
     include $test_dirName.'test_twofa_miniorange_soft_token.php';
     include $test_dirName.'test_twofa_otp_over_sms.php';
+    include $test_dirName.'test_twofa_otp_over_Telegram.php';
+    include $test_dirName.'test_twofa_otp_over_Whatsapp.php';
 
 	function mo2f_decode_2_factor( $selected_2_factor_method, $decode_type ) {
 
@@ -85,10 +89,12 @@
 		"Security Questions",
 		"OTP Over SMS",
 		"OTP Over Email",
+		"OTP Over Telegram",
+		"OTP Over Whatsapp",
 		"Authy Authenticator",
 		"Email Verification",
 		"OTP Over SMS and Email",
-		"Hardware Token"
+		"Hardware Token"		
 	);
 	$two_factor_methods_descriptions = array(
 	        ""=>"<b>All methods in the FREE Plan in addition to the following methods.</b>",
@@ -102,7 +108,9 @@
 		"Authy Authenticator"               => "Enter the soft token from the account in your Authy Authenticator App to login.",
 		"Email Verification"                => "Accept the verification link sent to your email to login.",
 		"OTP Over SMS and Email"            => "Enter the One Time Passcode sent to your phone and email to login.",
-		"Hardware Token"                    => "Enter the One Time Passcode on your Hardware Token to login."
+		"Hardware Token"                    => "Enter the One Time Passcode on your Hardware Token to login.",
+		"OTP Over Whatsapp"                 => "Enter the One Time Passcode sent to your Whatsapp account to login. This method is supported with twillio",
+		"OTP Over Telegram"                  => "Enter the One Time Passcode sent to your Telegram account to login."
 	);
 	$two_factor_methods_doc = array(
 			"Security Questions"            	=> "https://developers.miniorange.com/docs/security/wordpress/wp-security/step-by-setup-guide-to-set-up-security-question",
@@ -133,8 +141,8 @@
 			"" 									=> ""
 		);
 
-	$two_factor_methods_EC = array_slice( $all_two_factor_methods, 0, 9 );
-	$two_factor_methods_NC = array_slice( $all_two_factor_methods, 0, 7 );
+	$two_factor_methods_EC = array_slice( $all_two_factor_methods, 0, 11 );
+	$two_factor_methods_NC = array_slice( $all_two_factor_methods, 0, 9 );
 	if(MO2F_IS_ONPREM or $category != 'free_plan')
 	{
 		$all_two_factor_methods = array(
@@ -148,7 +156,9 @@
 		"OTP Over SMS",
 		"OTP Over Email",
 		"OTP Over SMS and Email",
-		"Hardware Token"
+		"Hardware Token",
+		"OTP Over Whatsapp",
+		"OTP Over Telegram"
 		);
 		$two_factor_methods_descriptions = array(
 	        ""=>"<b>All methods in the FREE Plan in addition to the following methods.</b>",
@@ -162,7 +172,9 @@
 		"OTP Over SMS"                      => "Enter the One Time Passcode sent to your phone to login.",
 		"OTP Over Email"                    => "Enter the One Time Passcode sent to your email to login.",
 		"OTP Over SMS and Email"            => "Enter the One Time Passcode sent to your phone and email to login.",
-		"Hardware Token"                    => "Enter the One Time Passcode on your Hardware Token to login."
+		"Hardware Token"                    => "Enter the One Time Passcode on your Hardware Token to login.",
+		"OTP Over Whatsapp"               => "Enter the One Time Passcode sent to your Whatsapp account to login. This method is supported with twillio",
+		"OTP Over Telegram"                      => "Enter the One Time Passcode sent to your Telegram account to login."
 		);
 	}
 
@@ -199,7 +211,7 @@
 			     ( $is_NC && in_array( $auth_method, $two_factor_methods_NC ) ) ) {
 				$is_auth_method_av = true;
 			}
-			
+
 			$thumbnail_height = $is_auth_method_av && $category == 'free_plan' ? 190 : 160;
             $is_image = $auth_method == "" ? 0 :1;
 
@@ -329,7 +341,7 @@
 				         	
 				         </span>';
 		     			break; 
-case 'Authy Authenticator':
+					case 'Authy Authenticator':
 		     			$form .='   <span style="float:right">
 				         	<a href='.$two_factor_methods_doc[$auth_method].' target="_blank">
 				         	<span class="dashicons dashicons-text-page" style="font-size:19px;color:#269eb3;float: right;"></span>
@@ -356,10 +368,14 @@ case 'Authy Authenticator':
                         </div>';
 
 			if ( $is_auth_method_av && $category == 'free_plan' ) {
-				
+				$is_auth_method_configured = 0;
 				$is_auth_method_configured = $Mo2fdbQueries->get_user_detail( 'mo2f_' . $auth_method_abr . '_config_status', $user->ID );
 				if(($auth_method == 'OUT OF BAND EMAIL' or $auth_method == 'OTP Over Email') and !MO2F_IS_ONPREM )
 					$is_auth_method_configured = 1;
+				$chat_id = get_user_meta($user->ID,'mo2f_chat_id',true);
+				$WhatsappID = get_user_meta($user->ID,'mo2f_whatsapp_id',true);
+ 				
+				
 				$form .= '<div style="height:40px;width:100%;position: absolute;bottom: 0;background-color:';
 				$iscurrentMethod = 0;
 				if(MO2F_IS_ONPREM)
@@ -380,7 +396,7 @@ case 'Authy Authenticator':
 							$can_user_configure_2fa_method = false;
 						}
 						else{
-						$can_user_configure_2fa_method = true;	
+							$can_user_configure_2fa_method = true;	
 						}
 					}
 					else{
@@ -393,11 +409,10 @@ case 'Authy Authenticator':
 					$check = $is_customer_registered? true : false;
 					$show = 0;
 					
+
 					
-
 					$cloud_methods = array('miniOrange QR Code Authentication' , 'miniOrange Soft Token','miniOrange Push Notification');
-
-					if($auth_method == 'Email Verification' || $auth_method == 'Security Questions' || $auth_method == 'Google Authenticator' || $auth_method == 'miniOrange QR Code Authentication' || $auth_method =='miniOrange Soft Token' || $auth_method == 'miniOrange Push Notification' || $auth_method == 'OTP Over SMS' || $auth_method == 'OTP Over Email')
+					if($auth_method == 'Email Verification' || $auth_method == 'Security Questions' || $auth_method == 'Google Authenticator' || $auth_method == 'miniOrange QR Code Authentication' || $auth_method =='miniOrange Soft Token' || $auth_method == 'miniOrange Push Notification' || $auth_method == 'OTP Over SMS' || $auth_method == 'OTP Over Email' || $auth_method == 'OTP Over Telegram' || $auth_method == 'OTP Over Whatsapp')
 				 	{
 						$show = 1;
 					}
@@ -687,6 +702,12 @@ function mo2f_show_2FA_configuration_screen( $user, $selected2FAmethod ) {
 		case "OTP Over Email":
 			mo2f_test_otp_over_email($user,$selected2FAmethod);
 			break;
+		case "OTP Over Telegram":
+			mo2f_configure_otp_over_Telegram($user);
+			break;
+		case "OTP Over Whatsapp":
+			mo2f_configure_otp_over_Whatsapp($user);
+			break;				
 	}
 
 }
@@ -710,6 +731,13 @@ function mo2f_show_2FA_test_screen( $user, $selected2FAmethod ) {
 		case "OTP Over SMS":
 			mo2f_test_otp_over_sms( $user );
 			break;
+		case "OTP Over Telegram":
+			mo2f_test_otp_over_Telegram( $user );
+			break;
+		case "OTP Over Whatsapp":
+			mo2f_test_otp_over_Whatsapp( $user );
+			break;
+		
 		case "Security Questions":
 			mo2f_test_kba_security_questions( $user );
 			break;

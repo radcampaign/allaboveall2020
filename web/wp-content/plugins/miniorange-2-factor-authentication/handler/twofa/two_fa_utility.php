@@ -561,6 +561,130 @@ class MO2f_Utility {
     	}
 	}
 
+	public static function get_codes_email_content($codes){
+        $message =  '<table cellpadding="25" style="margin:0px auto">
+        <tbody>
+        <tr>
+        <td>
+        <table cellpadding="24" width="584px" style="margin:0 auto;max-width:584px;background-color:#f6f4f4;border:1px solid #a8adad">
+        <tbody>
+        <tr>
+        <td><img src="https://ci5.googleusercontent.com/proxy/10EQeM1udyBOkfD2dwxGhIaMXV4lOwCRtUecpsDkZISL0JIkOL2JhaYhVp54q6Sk656rW2rpAFJFEgGQiAOVcYIIKxXYMHHMNSNB=s0-d-e1-ft#https://login.xecurify.com/moas/images/xecurify-logo.png" style="color:#5fb336;text-decoration:none;display:block;width:auto;height:auto;max-height:35px" class="CToWUd"></td>
+        </tr>
+        </tbody>
+        </table>
+        <table cellpadding="24" style="background:#fff;border:1px solid #a8adad;width:584px;border-top:none;color:#4d4b48;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px">
+        <tbody>
+        <tr>
+        <td>
+        <p style="margin-top:0;margin-bottom:20px">Dear Customer,</p>
+        <p style="margin-top:0;margin-bottom:10px">You initiated a transaction from <b>WordPress 2 Factor Authentication Plugin</b>:</p>
+        <p style="margin-top:0;margin-bottom:10px">Your backup codes are:-
+        <table cellspacing="10">
+            <tr><td>'.$codes[0].'</td><td>'.$codes[1].'</td><td>'.$codes[2].'</td><td>'.$codes[3].'</td><td>'.$codes[4].'</td>
+        </table></p>
+        <p style="margin-top:0;margin-bottom:10px">Please use this carefully as each code can only be used once. Please do not share these codes with anyone.</p>
+        <p style="margin-top:0;margin-bottom:10px">Also, we would highly recommend you to reconfigure your two-factor after logging in.</p>
+        <p style="margin-top:0;margin-bottom:15px">Thank you,<br>miniOrange Team</p>
+        <p style="margin-top:0;margin-bottom:0px;font-size:11px">Disclaimer: This email and any files transmitted with it are confidential and intended solely for the use of the individual or entity to whom they are addressed.</p>
+        </div></div></td>
+        </tr>
+        </tbody>
+        </table>
+        </td>
+        </tr>
+        </tbody>
+        </table>';
+        return $message;
+    }
+
+    public static function get_codes_warning_email_content($codes_remaining){
+        $message =  '<table cellpadding="25" style="margin:0px auto">
+        <tbody>
+        <tr>
+        <td>
+        <table cellpadding="24" width="584px" style="margin:0 auto;max-width:584px;background-color:#f6f4f4;border:1px solid #a8adad">
+        <tbody>
+        <tr>
+        <td><img src="https://ci5.googleusercontent.com/proxy/10EQeM1udyBOkfD2dwxGhIaMXV4lOwCRtUecpsDkZISL0JIkOL2JhaYhVp54q6Sk656rW2rpAFJFEgGQiAOVcYIIKxXYMHHMNSNB=s0-d-e1-ft#https://login.xecurify.com/moas/images/xecurify-logo.png" style="color:#5fb336;text-decoration:none;display:block;width:auto;height:auto;max-height:35px" class="CToWUd"></td>
+        </tr>
+        </tbody>
+        </table>
+        <table cellpadding="24" style="background:#fff;border:1px solid #a8adad;width:584px;border-top:none;color:#4d4b48;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px">
+        <tbody>
+        <tr>
+        <td>
+        <p style="margin-top:0;margin-bottom:20px">Dear Customer,</p>
+        <p style="margin-top:0;margin-bottom:10px">You have '.$codes_remaining.' backup codes remaining. Kindly reconfigure your two-factor to avoid being locked out.</b></p>
+        <p style="margin-top:0;margin-bottom:15px">Thank you,<br>miniOrange Team</p>
+        <p style="margin-top:0;margin-bottom:0px;font-size:11px">Disclaimer: This email and any files transmitted with it are confidential and intended solely for the use of the individual or entity to whom they are addressed.</p>
+        </div></div></td>
+        </tr>
+        </tbody>
+        </table>
+        </td>
+        </tr>
+        </tbody>
+        </table>';
+        return $message;
+    }
+
+    public static function mo_2f_generate_backup_codes(){
+        $codes=array();
+        for ($x = 0; $x < 5; $x++) {
+            $str = MO2f_Utility::random_str(10);
+            array_push($codes,$str);
+        }
+        return $codes;
+    }
+
+    public static function mo2f_get_codes_hash($codes){
+        $codes_hash=array();
+        for ($x = 0; $x < 5; $x++) {
+            $str = $codes[$x];
+            array_push($codes_hash,md5($str));
+        }
+        return $codes_hash;
+    }
+
+    public static function mo2f_email_backup_codes($codes, $mo2f_user_email){
+        $subject    = '2-Factor Authentication(Backup Codes)';
+        $headers    = array('Content-Type: text/html; charset=UTF-8');
+        $message    = MO2f_Utility::get_codes_email_content($codes);
+        $result     = wp_mail($mo2f_user_email,$subject,$message,$headers);
+        return $result;
+    }
+
+    public static function mo2f_download_backup_codes($id, $codes){
+        update_user_meta($id, 'mo_backup_code_downloaded', 1);
+        header('Content-Disposition: attachment; filename=miniOrange2-factor-BackupCodes.txt');
+        echo "Two Factor Backup Codes:".PHP_EOL.PHP_EOL;
+        echo "These are the codes which can be used incase you lose your phone or cannot access your email. Please reconfigure you authentication method after login.".PHP_EOL."Please use this carefully as each code can only be used once. Please do not share these codes with anyone.".PHP_EOL.PHP_EOL;
+        for ($x = 0; $x < 5; $x++){
+            $str1= $codes[$x];
+            echo(($x+1).". ".$str1." ");
+        }
+                                
+        exit;
+    }
+
+    public static function mo2f_mail_and_download_codes(){
+        global $Mo2fdbQueries;
+        $codes=MO2f_Utility::mo_2f_generate_backup_codes();
+        $codes_hash=MO2f_Utility::mo2f_get_codes_hash($codes);
+        $id = get_current_user_id();
+        $mo2f_user_email = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $id );
+        if(empty($mo2f_user_email)){
+            $currentuser = get_user_by( 'id', $id );
+            $mo2f_user_email = $currentuser->user_email;
+        }
+        $result = MO2f_Utility::mo2f_email_backup_codes($codes, $mo2f_user_email);
+        update_user_meta($id, 'mo_backup_code_generated', 1);
+        update_user_meta($id, 'mo_backup_code_downloaded', 1);
+        update_user_meta($id,'mo2f_backup_codes', $codes_hash);
+        MO2f_Utility::mo2f_download_backup_codes($id, $codes);
+    }
+
 
 }
 

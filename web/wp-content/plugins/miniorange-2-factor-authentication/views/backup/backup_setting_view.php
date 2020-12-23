@@ -43,6 +43,8 @@ function mo_backup_config_page_submit(){
 	$filemessage			= '<div id=\'filebackupmessage\'><h2>DO NOT :</h2><ol><li>Close this browser</li><li>Reload this page</li><li>Click the Stop or Back button.</li></ol><h2>Untill your file backup is completed</h2></div><br/><div class=\'filebackupmessage\'><h2><div id=\'backupinprogress\'> BACKUP IN PROGRESS</div></h2></div><div id=\'fileloader\' ><img  src=\"'.$img_loader_url.'\"></div>';
    $filemessage2a			= 'Backup is Completed. Check ';
    $filemessage2b			= ' file in <b>uploads/miniorangebackup</b> folder.';
+   $backup_store_path = wp_upload_dir();
+	$str=str_replace("\\","\\\\",$backup_store_path["basedir"]);
 ?>
 <script>
 
@@ -75,52 +77,41 @@ jQuery(document).ready(function(){
 			
 			
 			jQuery.post(ajaxurl, data, function(response){
-             
-			jQuery("#mo_backup_message").empty();
-			jQuery("#mo_backup_message").hide();
-			jQuery('#mo_backup_message').show(); 
+
 
 			if (response == "ERROR"){
-			jQuery('#mo_backup_message').empty();
-            jQuery('#mo_backup_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; ERROR</div></div>");
-            window.onload = nav_popup();
-            window.onload = barfw_response_handler('NONCE_ERROR','Nonce did not match');
+				error_msg("There is an error in processing request");
+				window.onload = barfw_response_handler('NONCE_ERROR','Nonce did not match');
 
 			}else if(response == "not_writable"){
-			jQuery('#mo_backup_message').empty();
-                jQuery('#mo_backup_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; We don't have write permission. Please give the permission to create folder in uploads</div></div>");
-            window.onload = nav_popup();
-            window.onload = barfw_response_handler('We do not have write permission. Please give the permission to create folder in uploads','Permission Denied');
+				jQuery('#mo_backup_message').empty();
+				error_msg("We don't have write permission. Please give the permission to create folder in uploads");
+				window.onload = barfw_response_handler('We do not have write permission. Please give the permission to create folder in uploads','Permission Denied');
 
 			}
             else if(response == "folder_error")
             {
-            	jQuery('#mo_backup_message').empty();
-                jQuery('#mo_backup_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp;Please select atleast one file folder from manual backup. </div></div>");
-           		 window.onload = nav_popup();
+                error_msg("Please select atleast one file folder from manual backup.");
                window.onload = barfw_response_handler('NO FILES TO BACKUP.PLEASE CHANGE MANUAL SETTINGS','Please select at least one folder to backup');
             
             }
             else
             {
-             var str = 'Your backup is created and store at this location  /uploads/miniorangebackup'
+             var base_dir = '<?php echo $str;?>';
+             var str = 'Your backup is created and stored at this location: '+base_dir+'/miniorangebackup';
         	 window.onload = barfw_response_handler('BACKUP COMPLETED', str);
 
             }
 
-           
-         window.onload = nav_popup();
-		});
+
+	});
 			
 	
 
 	});
 
 	});
-function nav_popup() {
-  jQuery("#notice_div").style.width = "40%";
-  setTimeout(function(){ jQuery('#notice_div').fadeOut('slow'); }, 3000);
-}
+
 
 function barfw_response_handler(para1, para2){
 	        jQuery(".filebackupmessage h2").empty();
@@ -138,24 +129,29 @@ function barfw_response_handler(para1, para2){
 
 function check() {
  if(jQuery('input[name= "mo_file_backup_wp_files"]:checked').val()){
- 	jQuery('input[name="mo_file_backup_plugins"]').attr('disabled', true);
- 	jQuery('input[name="mo_file_backup_themes"]').attr('disabled', true);
- 	jQuery('#mo_file_manual_backup_plugins').prop('checked', false); // Unchecks it
-    jQuery('#mo_file_manual_backup_themes').prop('checked', false); // Unchecks it
+     mo2f_disable_box();
  }else{
- 	jQuery('input[name="mo_file_backup_plugins"]').removeAttr('disabled');
- 	jQuery('input[name="mo_file_backup_themes"]').removeAttr('disabled');
+     mo2f_enable_box();
  }
 }
 if(jQuery('input[name= "mo_file_backup_wp_files"]:checked').val()){
- 	jQuery('input[name="mo_file_backup_plugins"]').attr('disabled', true);
- 	jQuery('input[name="mo_file_backup_themes"]').attr('disabled', true);
- 	jQuery('#mo_file_manual_backup_plugins').prop('checked', false); // Unchecks it
+    mo2f_disable_box();
+}else{
+    mo2f_enable_box();
+}
+
+function mo2f_enable_box(){
+    jQuery('input[name="mo_file_backup_plugins"]').removeAttr('disabled');
+    jQuery('input[name="mo_file_backup_themes"]').removeAttr('disabled');
+}
+
+function mo2f_disable_box(){
+    jQuery('input[name="mo_file_backup_plugins"]').attr('disabled', true);
+    jQuery('input[name="mo_file_backup_themes"]').attr('disabled', true);
+    jQuery('#mo_file_manual_backup_plugins').prop('checked', false); // Unchecks it
     jQuery('#mo_file_manual_backup_themes').prop('checked', false); // Unchecks it
- }else{
- 	jQuery('input[name="mo_file_backup_plugins"]').removeAttr('disabled');
- 	jQuery('input[name="mo_file_backup_themes"]').removeAttr('disabled');
- } 
+}
+
 
 </script>
 <?php }?>

@@ -195,11 +195,11 @@ function mo2f_shift_to_onprem(){
 
 			$enable = sanitize_text_field($_POST['mo2f_enable_2fa']);
 			if($enable == 'true'){
-				update_site_option('mo2f_activate_plugin' , true);
+				update_option('mo2f_activate_plugin' , true);
 				wp_send_json('true');
 			}
 			else{
-				update_site_option('mo2f_activate_plugin' , false);
+				update_option('mo2f_activate_plugin' , false);
 				wp_send_json('false');
 			}
 		}

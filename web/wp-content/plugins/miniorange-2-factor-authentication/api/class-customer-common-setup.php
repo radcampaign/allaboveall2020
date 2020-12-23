@@ -259,7 +259,7 @@ class Customer_Cloud_Setup  {
 	}
 
 
-	function get_customer_transactions( $cKey, $apiKey ) {
+	function get_customer_transactions( $cKey, $apiKey ,$license_type) {
 
 		$url = MO_HOST_NAME . '/moas/rest/customer/license';
 
@@ -273,8 +273,8 @@ class Customer_Cloud_Setup  {
 		$fields = '';
 		$fields = array(
 			'customerId'      => $customerKey,
-			'applicationName' => 'wp_2fa',
-			'licenseType'     => 'DEMO'
+			'applicationName' => 'WP_OTP_VERIFICATION_PLUGIN',
+			'licenseType'   => $license_type
 		);
 
 		$field_string = json_encode( $fields );

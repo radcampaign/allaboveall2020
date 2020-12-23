@@ -34,7 +34,7 @@ class MocURL
 		return $response;
 	}
 	
-	function submit_contact_us( $q_email, $q_phone, $query )
+	function submit_contact_us( $q_email, $q_phone, $query,  $call_setup=false)
 	{
 		$current_user = wp_get_current_user();
 		$url    = MoWpnsConstants::HOST_NAME . "/moas/rest/customer/contact-us";
@@ -51,6 +51,9 @@ class MocURL
 			$customer_feature = "V3";
 		}
 		global $moWpnsUtility;
+		if($call_setup)
+			$query = '[Call Request - WordPress 2 Factor Authentication Plugin: ' .$onprem.$customer_feature . ' - V '.MO2F_VERSION.'- Ticket Id:'.$moWpnsUtility->getFeatureStatus().']: ' . $query;
+		else
 		$query = '[WordPress 2 Factor Authentication Plugin: ' .$onprem.$customer_feature . ' - V '.MO2F_VERSION.'- Ticket Id:'.$moWpnsUtility->getFeatureStatus().']: ' . $query;
 		
 		$fields = array(

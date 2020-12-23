@@ -3,20 +3,21 @@ Contributors: Mat Lipe, onpointplugins
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=paypal%40onpointplugins%2ecom&lc=US&item_name=Go%20Live%20Update%20Urls&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest
 Tags: urls, launching, site changes, tools, domain, domains, domain changes, url changes
 Requires at least: 4.8.0
-Tested up to: 5.5.1
+Tested up to: 5.6.0
 Requires PHP: 5.6.0
-Stable tag: 6.1.4
+Stable tag: 6.2.2
 
 == Description ==
 
-Goes through entire site and replaces all instances of an old url with a new one. Used to change the domain of a site. Works on both multi-site and single site installs.
+Goes through entire site and replaces all instances of an old URL with a new one. Used most often when changing the domain of your site. 
 
-<strong>Check out <a href="https://onpointplugins.com/product/go-live-update-urls-pro/" target="_blank">Go Live Update Urls PRO</a> for more features including support for tables created by plugins, the ability to test a URL before updating, update history, priority support, and so much more!</strong>
+<strong>Check out <a href="https://onpointplugins.com/product/go-live-update-urls-pro/" target="_blank">Go Live Update Urls PRO</a> for more features including support for tables created by plugins, the ability to test a URL before updating, update history, real time reporting, priority support, and so much more!</strong>
 
-<blockquote><a href="https://onpointplugins.com/product/go-live-update-urls-pro/" target="_blank">Pro version 6.1.1</a> is now available with a greatly improved testing and updating experience!</blockquote>
+<blockquote><a href=" https://onpointplugins.com/go-live-update-urls/go-live-update-urls-pro-usage/#url-counting" target="_blank">Pro version 6.2.0</a> is now available with real time reporting of urls which will be and were updated!</blockquote>
 
 
 <h3>Features</h3>
+* Works on both multi-site and single site installs.
 * Database table by table selection.
 * Updates serialized data in core tables.
 * Very easy to use admin page - which may be found under Tools.
@@ -36,15 +37,16 @@ Goes through entire site and replaces all instances of an old url with a new one
 <h3>Pro Features</h3>
 * Updates database tables created by plugins without fear of breaking.
 * Database tables are organized into simple intuitive sections.
+* Ability to choose between a full table or sections.
 * Updates serialized data across any table.
 * Updates JSON data across any table.
-* Improved admin page.
 * Ability to test URL changes before running them.
 * URL testing report is provided for peace of mind.
 * Option to fix common mistakes automatically when entering a URL.
-* iew and use history of your site's address.
+* View and use history of your site's address.
 * Predictive URLs automatically fill in the "Old URL" and "New URL.".
-* Ability to choose between a full table or sections.
+* Real time reporting of count and location of urls which will be updated. **NEW**
+* Report of count and location of urls which were updated. **NEW**
 * WP-CLI support for updating URLs from the command line.
 * Priority Support with access to members only support area.
 
@@ -95,9 +97,34 @@ If you wish to try to update tables mentioned as "not safe" anyway, you may make
 
 == Screenshots ==
 
-1. Typical settings page. The verbiage will change slightly depending on your database structure.
+1. Tools page. The list of tables will changed depending on your database structure.
+2. Successfully updated urls.
+3. Update prevented due to incomplete data entered.
 
 == Changelog ==
+= 6.2.2 =
+* Pass option value when flushing Elementor cache to prevent edge case conflicts.
+* Improve counting of urls across subdomains.
+* Improve counting of urls across serialized data. 
+* Support replacing non subdomain values which duplicate because the old URL exists within the new URL.
+* Introduce `go-live-update-urls/database/after-counting` action.
+* Introduce `go-live-update-urls/database/before-counting` action
+
+= 6.2.1 =
+* Automatically flush Elementor's CSS cache during updates.
+* Update screenshots and captions.
+* Introduce new `go-live-update-urls-pro/admin/use-default-inputs` filter.
+* Add CSS classes to form elements on tools page.
+* Fix spacing of banners on tools page.
+* Improve PHPCS implementation.
+
+= 6.2.0 = 
+* Redesign tools page for a modern block look.
+* Improve various verbiage.
+* Update all translations.
+* More gracefully handle version conflicts with PRO.
+* Support for PRO version 6.2.0.
+
 = 6.1.4 = 
 * Support updating `registration_log` and `signups` tables.
 * Make `get_doubled_up_subdomain` method public.
@@ -119,7 +146,7 @@ If you wish to try to update tables mentioned as "not safe" anyway, you may make
 * Support URL counting for upcoming <a href="https://onpointplugins.com/product/go-live-update-urls-pro/" target="_blank">PRO</a> enhancements.
 * Tested to WordPress version 5.5.0
 
-= 6.0.1 -
+= 6.0.1 =
 * Improve compatibility with very old versions of PRO.
 * Improve the readme.
 * Add links for the documentation and troubleshooting.
@@ -161,29 +188,6 @@ If you wish to try to update tables mentioned as "not safe" anyway, you may make
 * UI improvements
 * Use strict WP coding standards
 
-= 4.1.0 =
-* Drop PHP 5.2 support in favor of PHP 5.3
-* Support updating JSON urls
-* Support Revolution Sliders
-* Add custom updaters support
-
-= 4.0.0 =
-* Restructure admin page to separate WP Core from custom tables
-* Remove custom styles in admin
-* Improved js structure
-* Improved actions and filters
-* Improved verbiage with admin
-
-= 3.1 =
-* Add support for serialized term meta
-
-= 3.0 =
-* Greatly improve security
-* Improve code organization
-* Remove misleading UI messages
-* Clears cache when finished
-
-
 == Upgrade Notice ==
 = 6.1.2 =
 Update to support PRO version 6.1.0.
@@ -199,7 +203,4 @@ Fixes bug with the database not updating properly
 
 = 5.0.1 =
 For full functionality of PRO version 2.2.0
-
-= 3.1 =
-Upgrade to support WP 4.4's term meta.
 

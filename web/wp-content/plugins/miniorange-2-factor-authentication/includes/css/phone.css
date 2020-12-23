@@ -21,6 +21,18 @@
   padding:2px;
   } 
 
+ .mo2ftimerEmail { 
+  position:absolute;
+  right: 0px;
+  top: 0%;
+  border:none;
+  height:100%;
+  width:max-content;
+  outline:none;
+  text-align:center;
+  padding:14px;
+  } 
+
   .mo2f_send_phoneotp_button { 
   position:absolute;
   right: 0px;
@@ -31,7 +43,19 @@
   outline:none;
   text-align:center;
   padding:2px;
-  } 
+  }
+
+  .mo2ftimerSMS { 
+  position:absolute;
+  right: 0px;
+  top: 0%;
+  border:none;
+  height:100%;
+  width:max-content;
+  outline:none;
+  text-align:center;
+  padding:14px;
+  }  
 
 .intl-number-input { position: inherit; }
 .intl-number-input .hide { display: none; }

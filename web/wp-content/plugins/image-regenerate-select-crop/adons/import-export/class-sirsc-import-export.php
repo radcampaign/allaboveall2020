@@ -149,6 +149,47 @@ class SIRSC_Adons_Import_Export {
 	}
 
 	/**
+	 * Maybe register the image sizes.
+	 */
+	public static function maybe_register_custom_image_sizes_snippet() {
+		$all = maybe_unserialize( get_option( 'sirsc_use_custom_image_sizes' ) );
+		if ( empty( $all['sizes'] ) ) {
+			// Fail-fast, no custom image sizes registered.
+			return;
+		} else {
+			$snippet = '';
+			foreach ( $all['sizes'] as $i => $value ) {
+				if ( ! empty( $value['name'] ) && is_scalar( $value['name'] )
+					&& ( ! empty( $value['width'] ) || ! empty( $value['height'] ) ) ) {
+					$crop = ( ! empty( $value['crop'] ) ) ? true : false;
+
+					$snippet .= PHP_EOL . '			add_image_size( \'' . $value['name'] . '\', ' . (int) $value['width'] . ', ' . (int) $value['height'] . ', ' . $crop . ' );';
+				}
+			}
+
+			if ( ! empty( $snippet ) ) {
+				$text  = '<?php';
+				$text .= PHP_EOL . 'add_action( \'after_setup_theme\', \'sirsc_legacy_image_sizes\' );';
+				$text .= PHP_EOL . 'if ( ! function_exists( \'sirsc_legacy_image_sizes\' ) ) {';
+				$text .= PHP_EOL . '	/**';
+				$text .= PHP_EOL . '	 * Register the image sizes that were defined with the';
+				$text .= PHP_EOL . '	 * Image Regenerate & Select Crop plugin.';
+				$text .= PHP_EOL . '	 */';
+				$text .= PHP_EOL . '	function sirsc_legacy_image_sizes() {';
+				$text .= PHP_EOL . '		if ( ! class_exists( \'SIRSC_Image_Regenerate_Select_Crop\' ) ) {';
+				$text .= $snippet;
+				$text .= PHP_EOL . '		}';
+				$text .= PHP_EOL . '	}';
+				$text .= PHP_EOL . '}';
+
+				$snippet = $text;
+			}
+
+			return $snippet;
+		}
+	}
+
+	/**
 	 * Add the plugin menu.
 	 *
 	 * @return void
@@ -170,10 +211,12 @@ class SIRSC_Adons_Import_Export {
 	 * @return void
 	 */
 	public static function adon_page() {
-		$export = self::prepare_export_string();
-		$import = maybe_unserialize( $export );
+		$export  = self::prepare_export_string();
+		$import  = maybe_unserialize( $export );
+		$snippet = self::maybe_register_custom_image_sizes_snippet();
+
 		SIRSC_Adons::check_adon_valid( self::ADON_SLUG );
-		$desc   = SIRSC_Adons::get_adon_details( self::ADON_SLUG, 'description' );
+		$desc = SIRSC_Adons::get_adon_details( self::ADON_SLUG, 'description' );
 		?>
 
 		<div class="wrap sirsc-settings-wrap">
@@ -222,6 +265,19 @@ class SIRSC_Adons_Import_Export {
 								?>
 							</td>
 						</tr>
+						<?php
+						if ( ! empty( $snippet ) ) :
+							?>
+							<tr>
+								<td width="25%">
+									<h1><?php esc_html_e( 'Registered Image Sizes', 'sirsc' ); ?></h1>
+									<?php esc_html_e( 'If you deactivate the plugin but still want to keep the image sizes you registered with this plugin, you can copy the snippet in your theme functions.php file or in a plugin.', 'sirsc' ); ?>
+								</td>
+								<td><textarea rows="5"><?php echo esc_html( $snippet ); ?></textarea><br><br></td>
+							</tr>
+							<?php
+						endif;
+						?>
 					</table>
 				</form>
 			</div>

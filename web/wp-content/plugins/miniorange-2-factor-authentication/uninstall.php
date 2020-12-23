@@ -21,7 +21,7 @@
 	delete_option('mo_wpns_message');
 	delete_option('mo_wpns_transactionId');
 	delete_option('mo_wpns_registration_status');
-	
+	delete_site_option('EmailTransactionCurrent');
 	delete_option('mo_wpns_enable_brute_force');
 	delete_option('mo_wpns_show_remaining_attempts');
 	delete_option('mo_wpns_enable_ip_blocked_email_to_admin');
@@ -133,9 +133,9 @@
 	delete_option('mo_database_backup');
 	delete_option('mo_wpns_backup_time');
 	delete_site_option('enable_backup_schedule');
-	delete_option('mo_wpns_dbversion');
 	delete_option('backup_created_time');
 	
+	delete_site_option('mo2fa_superadmin');
 	delete_site_option('mo2f_visit_waf');
  	delete_site_option('mo2f_visit_login_and_spam');
  	delete_site_option('mo2f_visit_malware');
@@ -207,6 +207,8 @@
 	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}mo2f_network_email_sent_audit" );
 	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}mo2f_network_transactions" );
 	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}mo2f_network_whitelisted_ips" );
+	delete_option( 'mo2f_dbversion' );
+	delete_site_option("mo_2fa_pnp");
 
 	if ( ! is_multisite() )
 	{
@@ -248,7 +250,6 @@
 		delete_option( 'mo2f_phone' );
 		delete_option( 'mo2f_existing_user_values_updated' );
 		delete_option( 'mo2f_login_option_updated' );
-		delete_option( 'mo2f_dbversion' );
 		delete_option( 'mo2f_bug_fix_done' );
 		delete_option( 'mo2f_feedback_form' );
 		delete_option( 'mo2f_enable_2fa_prompt_on_login_page' );

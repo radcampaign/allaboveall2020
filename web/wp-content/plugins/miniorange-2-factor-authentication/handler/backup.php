@@ -47,7 +47,7 @@ function file_cron_backup(){
 	if(get_site_option('mo_file_backup_wp_files') == '1'){
 		$this->wpfiles_backup($backup_store_path, $time);
 	}
-  		
+  	update_site_option('backup_notification_option',1);	
 }
 
 function file_manual_backup(){
@@ -68,7 +68,7 @@ function file_manual_backup(){
 	if(get_site_option('mo_file_manual_backup_wp_files') == '1'){
 		$this->wpfiles_backup($backup_store_path, $time);
 	}
-  		
+  	update_site_option('backup_notification_option',1);	
 }
 
 function file_eb_backup_interval($schedules){

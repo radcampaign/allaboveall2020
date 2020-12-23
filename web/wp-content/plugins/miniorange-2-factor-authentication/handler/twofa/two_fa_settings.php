@@ -127,6 +127,9 @@ class Miniorange_Authentication {
 
 		$userid = wp_get_current_user()->ID;
 		add_option('mo2f_onprem_admin' ,  $userid );
+		if(is_multisite()){
+				add_site_option('mo2fa_superadmin',1);
+			}
 		// Deciding on On-Premise solution
 		$is_NC=MoWpnsUtility::get_mo2f_db_option('mo2f_is_NC', 'get_option');
 		$is_NNC=MoWpnsUtility::get_mo2f_db_option('mo2f_is_NNC', 'get_option');
@@ -280,7 +283,7 @@ class Miniorange_Authentication {
 			if ( ! MoWpnsUtility::get_mo2f_db_option('mo2f_set_transactions', 'get_option') ) {
 				$customer = new Customer_Setup();
 
-				$content = json_decode( $customer->get_customer_transactions( get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ) ), true );
+				$content = json_decode( $customer->get_customer_transactions( get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ),get_site_option('mo2f_license_type') ), true );
 
 				update_option( 'mo2f_set_transactions', 1 );
 				if ( ! array_key_exists( 'smsRemaining', $content ) ) {
@@ -1059,7 +1062,7 @@ class Miniorange_Authentication {
 				}
 			}else if  ( isset( $_POST['option'] ) and $_POST['option'] == "mo_auth_sync_sms_transactions" ) {
 				$customer = new Customer_Setup();
-				$content  = json_decode( $customer->get_customer_transactions( get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ) ), true );
+				$content  = json_decode( $customer->get_customer_transactions( get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ),get_site_option('mo2f_license_type') ), true );
 				if ( ! array_key_exists( 'smsRemaining', $content ) ) {
 					$smsRemaining = 0;
 				} else {
@@ -1462,7 +1465,96 @@ class Miniorange_Authentication {
 					}
 				}
 			}
-		}else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_validate_otp_over_sms' ) { //validate otp over sms and phone call during test for all users
+		}
+		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_validate_otp_over_Whatsapp' ) { //validate otp over Telegram
+			
+			$nonce = $_POST['mo2f_validate_otp_over_Whatsapp_nonce'];
+		
+			if ( ! wp_verify_nonce( $nonce, 'mo2f-validate-otp-over-Whatsapp-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+
+				return $error;
+			} else {
+				
+				$otp 			= sanitize_text_field($_POST['otp_token']);
+				$otpToken 		= get_user_meta($user->ID,'mo2f_otp_token_wa',true);
+	
+				$time  			= get_user_meta($user->ID,'mo2f_whatsapp_time',true);
+				$accepted_time	= time()-600;
+				$time 			= (int)$time;
+				global $Mo2fdbQueries;
+				if($otp == $otpToken)
+				{
+					if($accepted_time<$time){
+						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "COMPLETED_TEST" ) );
+						delete_user_meta( $user->ID, 'test_2FA' );
+						delete_user_meta($user->ID,'mo2f_whatsapp_time');
+
+						$this->mo_auth_show_success_message();
+
+					}
+					else
+					{
+						update_option( 'mo2f_message', 'OTP has been expired please initiate another transaction for verification' );
+						delete_user_meta( $user->ID, 'test_2FA' );
+						$this->mo_auth_show_error_message();
+
+					}
+				}
+				else
+				{
+					update_option( 'mo2f_message', 'Wrong OTP Please try again.' );
+					$this->mo_auth_show_error_message();
+			
+				}
+			}
+		}
+		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_validate_otp_over_Telegram' ) { //validate otp over Telegram
+			
+			$nonce = $_POST['mo2f_validate_otp_over_Telegram_nonce'];
+		
+			if ( ! wp_verify_nonce( $nonce, 'mo2f-validate-otp-over-Telegram-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+
+				return $error;
+			} else {
+				
+				$otp 			= sanitize_text_field($_POST['otp_token']);
+				$otpToken 		= get_user_meta($user->ID,'mo2f_otp_token',true);
+	
+				$time  			= get_user_meta($user->ID,'mo2f_telegram_time',true);
+				$accepted_time	= time()-300;
+				$time 			= (int)$time;
+				global $Mo2fdbQueries;
+				if($otp == $otpToken)
+				{
+					if($accepted_time<$time){
+						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "COMPLETED_TEST" ) );
+						delete_user_meta( $user->ID, 'test_2FA' );
+						delete_user_meta($user->ID,'mo2f_telegram_time');
+
+						$this->mo_auth_show_success_message();
+
+					}
+					else
+					{
+						update_option( 'mo2f_message', 'OTP has been expired please initiate another transaction for verification' );
+						delete_user_meta( $user->ID, 'test_2FA' );
+						$this->mo_auth_show_error_message();
+
+					}
+				}
+				else
+				{
+					update_option( 'mo2f_message', 'Wrong OTP Please try again.' );
+					$this->mo_auth_show_error_message();
+			
+				}
+			}
+		}
+		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_validate_otp_over_sms' ) { //validate otp over sms and phone call during test for all users
 			
 			$nonce = $_POST['mo2f_validate_otp_over_sms_nonce'];
 		
@@ -1863,18 +1955,19 @@ class Miniorange_Authentication {
 				$this->mo_auth_show_error_message();
 				return;
 			}
-			if ( MO2f_Utility::mo2f_check_empty_or_null( $_POST['mo2f_kbaquestion_1'] ) || MO2f_Utility::mo2f_check_empty_or_null( $_POST['mo2f_kba_ans1'] ) || MO2f_Utility::mo2f_check_empty_or_null( $_POST['mo2f_kbaquestion_2'] ) || MO2f_Utility::mo2f_check_empty_or_null( $_POST['mo2f_kba_ans2'] ) || MO2f_Utility::mo2f_check_empty_or_null( $_POST['mo2f_kbaquestion_3'] ) || MO2f_Utility::mo2f_check_empty_or_null( $_POST['mo2f_kba_ans3'] ) ) {
+
+				$kba_q1 = sanitize_text_field($_POST['mo2f_kbaquestion_1']);
+				$kba_a1 = sanitize_text_field( $_POST['mo2f_kba_ans1'] );
+				$kba_q2 = sanitize_text_field($_POST['mo2f_kbaquestion_2']);
+				$kba_a2 = sanitize_text_field( $_POST['mo2f_kba_ans2'] );
+				$kba_q3 = sanitize_text_field( $_POST['mo2f_kbaquestion_3'] );
+				$kba_a3 = sanitize_text_field( $_POST['mo2f_kba_ans3'] );
+
+			if ( MO2f_Utility::mo2f_check_empty_or_null( $kba_q1 ) || MO2f_Utility::mo2f_check_empty_or_null( $kba_a1 ) || MO2f_Utility::mo2f_check_empty_or_null( $kba_q2 ) || MO2f_Utility::mo2f_check_empty_or_null( $kba_a2) || MO2f_Utility::mo2f_check_empty_or_null( $kba_q3) || MO2f_Utility::mo2f_check_empty_or_null( $kba_a3) ) {
 					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "INVALID_ENTRY" ) );
 					$this->mo_auth_show_error_message();
 					return;
 				}
-
-				$kba_q1 = $_POST['mo2f_kbaquestion_1'];
-				$kba_a1 = sanitize_text_field( $_POST['mo2f_kba_ans1'] );
-				$kba_q2 = $_POST['mo2f_kbaquestion_2'];
-				$kba_a2 = sanitize_text_field( $_POST['mo2f_kba_ans2'] );
-				$kba_q3 = sanitize_text_field( $_POST['mo2f_kbaquestion_3'] );
-				$kba_a3 = sanitize_text_field( $_POST['mo2f_kba_ans3'] );
 
 				if ( strcasecmp( $kba_q1, $kba_q2 ) == 0 || strcasecmp( $kba_q2, $kba_q3 ) == 0 || strcasecmp( $kba_q3, $kba_q1 ) == 0 ) {
 					update_option( 'mo2f_message', 'The questions you select must be unique.' );
@@ -2000,7 +2093,143 @@ class Miniorange_Authentication {
 					}
 				}
 			}
-		}else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_otp_over_sms_send_otp' ) { // sendin otp for configuring OTP over SMS
+		}
+		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_otp_over_Whatsapp_send_otp' ) { // sendin otp for configuring OTP over Whatsapp
+			
+			$nonce = $_POST['mo2f_configure_otp_over_Whatsapp_send_otp_nonce'];
+		
+			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-otp-over-Whatsapp-send-otp-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+
+				return $error;
+			} else {	
+				$verify_whatsappID  = sanitize_text_field( $_POST['verify_whatsappID'] );
+				$verify_whatsappNum = sanitize_text_field( $_POST['verify_whatsappNum'] );
+				if ( MO2f_Utility::mo2f_check_empty_or_null( $verify_whatsappID ) or MO2f_Utility::mo2f_check_empty_or_null( $verify_whatsappNum ) ) {
+					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "INVALID_ENTRY" ) );
+					$this->mo_auth_show_error_message();
+
+					return;
+				}
+
+				$verify_whatsappID       = str_replace( ' ', '', $verify_whatsappID );
+				$verify_whatsappNum       = str_replace( ' ', '', $verify_whatsappNum );
+				
+				$user = wp_get_current_user();
+
+				update_user_meta($user->ID, 'mo2f_temp_whatsappID', $verify_whatsappID );
+				update_user_meta($user->ID, 'mo2f_temp_whatsapp_num', $verify_whatsappNum );
+				
+				$dnvjn = get_site_option('cmVtYWluaW5nV2hhdHNhcHB0cmFuc2FjdGlvbnM=');
+				$dnvjn = (int)$dnvjn;
+				if($dnvjn<=0)
+				{
+					update_option( 'mo2f_message','Your Free transacions limit has been exceeded. Please contact miniOrange for more transacions.');
+					$this->mo_auth_show_error_message();
+				}
+				else
+				{
+
+					$customer      = new Customer_Setup();
+					$currentMethod = "OTP Over Whatsapp";
+
+					$otpToken 	= '';
+					for($i=1;$i<7;$i++)
+					{
+						$otpToken 	.= rand(0,9);
+					}
+					update_user_meta($user->ID,'mo2f_otp_token_wa',$otpToken);
+					update_user_meta($user->ID,'mo2f_whatsapp_time',time());
+					$url = 'https://api.callmebot.com/whatsapp.php?phone='.$verify_whatsappNum.'&text=Please+find+your+one+time+passcode:+'.$otpToken.'&apikey='.$verify_whatsappID;
+		
+					$data = file_get_contents($url);
+					if(strpos($data, 'Message queued') !== false)
+					{
+						update_site_option('cmVtYWluaW5nV2hhdHNhcHB0cmFuc2FjdGlvbnM=',$dnvjn-1);
+						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "OTP_SENT" ) . 'your Whatsapp number. It can take a couple of minutes. ' . Mo2fConstants:: langTranslate( "ENTER_OTP" ) );
+						$this->mo_auth_show_success_message();
+					}
+					else
+					{
+						update_option( 'mo2f_message', 'An Error has occured while sending the OTP. Please verify your phone number and API key.');
+						$this->mo_auth_show_error_message();
+					
+					}
+				}
+			}
+		}
+		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_otp_over_Telegram_send_otp' ) { // sendin otp for configuring OTP over Telegram
+			
+			$nonce = $_POST['mo2f_configure_otp_over_Telegram_send_otp_nonce'];
+		
+			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-otp-over-Telegram-send-otp-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+
+				return $error;
+			} else {	
+				$chatID = sanitize_text_field( $_POST['verify_chatID'] );
+
+				if ( MO2f_Utility::mo2f_check_empty_or_null( $chatID ) ) {
+					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "INVALID_ENTRY" ) );
+					$this->mo_auth_show_error_message();
+
+					return;
+				}
+
+				$chatID       = str_replace( ' ', '', $chatID );
+				$user = wp_get_current_user();
+
+				update_user_meta($user->ID, 'mo2f_temp_chatID', $chatID );
+				$customer      = new Customer_Setup();
+				$currentMethod = "OTP Over Telegram";
+
+				$otpToken 	= '';
+				for($i=1;$i<7;$i++)
+				{
+					$otpToken 	.= rand(0,9);
+				}
+				update_user_meta($user->ID,'mo2f_otp_token',$otpToken);
+				update_user_meta($user->ID,'mo2f_telegram_time',time());
+		
+				$url = 'https://sitestats.xecurify.com/teleTest/send_otp.php';
+				$postdata = array( 'mo2f_otp_token' => $otpToken,
+					'mo2f_chatid' => $chatID
+				);
+
+				$handle = curl_init();
+
+				curl_setopt_array($handle,
+				  array(
+				    CURLOPT_URL => $url,
+				    CURLOPT_POST       => true,
+				    CURLOPT_POSTFIELDS => $postdata,
+				    CURLOPT_RETURNTRANSFER     => true,
+				  	CURLOPT_SSL_VERIFYHOST => FALSE,
+				  	CURLOPT_SSL_VERIFYPEER => FALSE,
+				  )
+				);
+
+				$data = curl_exec($handle);
+				
+				
+				curl_close($handle);
+				if($data == 'SUCCESS')
+				{
+					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "OTP_SENT" ) . 'your telegram number.' . Mo2fConstants:: langTranslate( "ENTER_OTP" ) );
+					$this->mo_auth_show_success_message();
+				}
+				else
+				{
+					update_option( 'mo2f_message', 'An Error has occured while sending the OTP. Please verify your chat ID.');
+					$this->mo_auth_show_error_message();
+				
+				}
+				
+			}
+		}
+		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_otp_over_sms_send_otp' ) { // sendin otp for configuring OTP over SMS
 			
 			$nonce = $_POST['mo2f_configure_otp_over_sms_send_otp_nonce'];
 		
@@ -2036,7 +2265,9 @@ class Miniorange_Authentication {
 						update_option( 'mo2f_transactionId', $content['txId'] );
 						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "OTP_SENT" ) . ' ' . $phone . ' .' . Mo2fConstants:: langTranslate( "ENTER_OTP" ) );
 						update_option( 'mo2f_number_of_transactions', MoWpnsUtility::get_mo2f_db_option('mo2f_number_of_transactions', 'get_option') - 1 );
-						update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z')-1);
+						$mo2f_sms = get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z');
+						if($mo2f_sms>0)
+						update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',$mo2f_sms-1);
 						$this->mo_auth_show_success_message();
 					} else {
 						update_option( 'mo2f_message', Mo2fConstants::langTranslate( $content['message'] ) );
@@ -2048,7 +2279,160 @@ class Miniorange_Authentication {
 					$this->mo_auth_show_error_message();
 				}
 			}
-		}else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_otp_over_sms_validate' ) {
+		}
+		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_otp_over_Whatsapp_validate' ) {
+			$nonce = $_POST['mo2f_configure_otp_over_Whatsapp_validate_nonce'];
+		
+			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-otp-over-Whatsapp-validate-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+
+				return $error;
+			} else {
+
+				$twofactor_transactions = new Mo2fDB;
+				$exceeded = $twofactor_transactions->check_alluser_limit_exceeded($user_id);
+
+				if($exceeded){
+					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "USER_LIMIT_EXCEEDED" ) );
+					$this->mo_auth_show_error_message();
+					return;
+				}
+				$otp_token = '';
+				if ( MO2f_Utility::mo2f_check_empty_or_null( $_POST['otp_token'] ) ) {
+					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "INVALID_ENTRY" ) );
+					$this->mo_auth_show_error_message();
+
+					return;
+				} else {
+					$otp_token = sanitize_text_field( $_POST['otp_token'] );
+				}
+
+				$otp 			= get_user_meta($user->ID,'mo2f_otp_token_wa',true);
+				$time  			= get_user_meta($user->ID,'mo2f_whatsapp_time',true);
+				$accepted_time	= time()-600;
+				$time 			= (int)$time;
+				global $Mo2fdbQueries;
+				if($otp == $otp_token)
+				{
+					if($accepted_time<$time){
+						if(MO2F_IS_ONPREM)
+							$Mo2fdbQueries->update_user_details( $user->ID, array( 'mo2f_configured_2FA_method' => 'OTP Over Whatsapp',
+													'mo2f_OTPOverWhatsapp_config_status'       => true,											
+													'mo_2factor_user_registration_status' => 'MO_2_FACTOR_PLUGIN_SETTINGS'
+							 ) );
+						else
+						{	$Mo2fdbQueries->update_user_details( $user->ID, array(
+									'mo2f_configured_2FA_method'          => 'OTP Over Whatsapp',
+									'user_registration_with_miniorange'   => 'SUCCESS',
+									'mo2f_OTPOverWhatsapp_config_status'       => true,											
+									'mo_2factor_user_registration_status' => 'MO_2_FACTOR_PLUGIN_SETTINGS',
+								) );
+						}
+						delete_user_meta( $user->ID, 'configure_2FA' );
+						update_user_meta( $user->ID, 'mo2f_whatsapp_id',get_user_meta($user->ID,'mo2f_temp_whatsappID',true));
+						update_user_meta( $user->ID, 'mo2f_whatsapp_num',get_user_meta($user->ID,'mo2f_temp_whatsapp_num',true));
+						
+						delete_user_meta( $user->ID, 'mo2f_temp_whatsappID' );
+						delete_user_meta( $user->ID, 'mo2f_temp_whatsapp_num' );
+					
+						delete_user_meta( $user->ID, 'mo2f_otp_token_wa');
+						delete_user_meta( $user->ID, 'mo2f_2FA_method_to_configure' );
+						mo2f_display_test_2fa_notification($user);
+						update_option( 'mo2f_message','OTP Over Whatsapp is set as the second-factor. Enjoy the unlimited service.');
+						$this->mo_auth_show_success_message();
+						delete_user_meta($user->ID,'mo2f_whatsapp_time');
+					}
+					else
+					{	
+						update_option( 'mo2f_message','OTP has been expired please reinitiate another transaction.');
+						$this->mo_auth_show_error_message();
+						delete_user_meta($user->ID,'mo2f_whatsapp_time');
+					}
+				}
+				else
+				{
+					update_option( 'mo2f_message','Invalid OTP. Please try again.');
+					$this->mo_auth_show_error_message();
+				}
+			
+		}}
+		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_otp_over_Telegram_validate' ) {
+			$nonce = $_POST['mo2f_configure_otp_over_Telegram_validate_nonce'];
+		
+			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-otp-over-Telegram-validate-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+
+				return $error;
+			} else {
+
+				$twofactor_transactions = new Mo2fDB;
+				$exceeded = $twofactor_transactions->check_alluser_limit_exceeded($user_id);
+
+				if($exceeded){
+					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "USER_LIMIT_EXCEEDED" ) );
+					$this->mo_auth_show_error_message();
+					return;
+				}
+				$otp_token = '';
+				if ( MO2f_Utility::mo2f_check_empty_or_null( $_POST['otp_token'] ) ) {
+					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "INVALID_ENTRY" ) );
+					$this->mo_auth_show_error_message();
+
+					return;
+				} else {
+					$otp_token = sanitize_text_field( $_POST['otp_token'] );
+				}
+
+				$otp 			= get_user_meta($user->ID,'mo2f_otp_token',true);
+				$time  			= get_user_meta($user->ID,'mo2f_telegram_time',true);
+				$accepted_time	= time()-300;
+				$time 			= (int)$time;
+				global $Mo2fdbQueries;
+				if($otp == $otp_token)
+				{
+					if($accepted_time<$time){
+						if(MO2F_IS_ONPREM)
+							$Mo2fdbQueries->update_user_details( $user->ID, array( 'mo2f_configured_2FA_method' => 'OTP Over Telegram',
+																				   'mo2f_OTPOverTelegram_config_status'       => true,
+																				   'mo_2factor_user_registration_status' => 'MO_2_FACTOR_PLUGIN_SETTINGS'
+							 ) );
+						else
+						{	$Mo2fdbQueries->update_user_details( $user->ID, array(
+									'mo2f_configured_2FA_method'          => 'OTP Over Telegram',
+									'mo2f_OTPOverTelegram_config_status'       => true,
+									'user_registration_with_miniorange'   => 'SUCCESS',
+									'mo_2factor_user_registration_status' => 'MO_2_FACTOR_PLUGIN_SETTINGS',
+								) );
+						}
+						delete_user_meta( $user->ID, 'configure_2FA' );
+						update_user_meta( $user->ID, 'mo2f_chat_id',get_user_meta($user->ID,'mo2f_temp_chatID',true));
+						
+						delete_user_meta( $user->ID, 'mo2f_temp_chatID' );
+						
+						delete_user_meta( $user->ID, 'mo2f_otp_token');
+						delete_user_meta( $user->ID, 'mo2f_2FA_method_to_configure' );
+						mo2f_display_test_2fa_notification($user);
+						update_option( 'mo2f_message','OTP Over Telegram is set as the second-factor. Enjoy the unlimited service.');
+						$this->mo_auth_show_success_message();
+						delete_user_meta($user->ID,'mo2f_telegram_time');
+					}
+					else
+					{	
+						update_option( 'mo2f_message','OTP has been expired please reinitiate another transaction.');
+						$this->mo_auth_show_error_message();
+						delete_user_meta($user->ID,'mo2f_telegram_time');
+					}
+				}
+				else
+				{
+					update_option( 'mo2f_message','Invalid OTP. Please try again.');
+					$this->mo_auth_show_error_message();
+				}
+			
+		}}
+		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_otp_over_sms_validate' ) {
 			$nonce = $_POST['mo2f_configure_otp_over_sms_validate_nonce'];
 		
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-otp-over-sms-validate-nonce' ) ) {
@@ -2161,7 +2545,7 @@ class Miniorange_Authentication {
 			}
 
 		}else if ( ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_save_free_plan_auth_methods' ) ) {// user clicks on Set 2-Factor method
-				 $nonce = sanitize_text_field($_POST['miniorange_save_form_auth_methods_nonce']);
+			$nonce = sanitize_text_field($_POST['miniorange_save_form_auth_methods_nonce']);
 			if ( ! wp_verify_nonce( $nonce, 'miniorange-save-form-auth-methods-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -2185,7 +2569,7 @@ class Miniorange_Authentication {
             }           
 			$selected_2FA_method = MO2f_Utility::mo2f_decode_2_factor( isset( $_POST['mo2f_configured_2FA_method_free_plan'] ) ? $_POST['mo2f_configured_2FA_method_free_plan'] : $_POST['mo2f_selected_action_standard_plan'], "wpdb" );
 			$selected_2FA_method = sanitize_text_field($selected_2FA_method);
-			$onprem_methods = array('Google Authenticator','Security Questions');
+			$onprem_methods = array('Google Authenticator','Security Questions','OTP Over Telegram','OTP Over Whatsapp');
             $Mo2fdbQueries->insert_user( $user->ID );
             if(MO2F_IS_ONPREM && ! in_array($selected_2FA_method, $onprem_methods) ){
 	            foreach ($cloud_methods as $cloud_method) {
@@ -2245,7 +2629,7 @@ class Miniorange_Authentication {
 
 			            }
 			            else if(strcasecmp($check_user['status'], 'USER_FOUND_UNDER_DIFFERENT_CUSTOMER') == 0){
-			                   $mo2fa_login_message = __('The email associated with your account is already registered in miniOrnage. Please Choose another email or contact miniOrange.','miniorange-2-factor-authentication');
+			                   $mo2fa_login_message = __('The email associated with your account is already registered in miniOrange. Please Choose another email or contact miniOrange.','miniorange-2-factor-authentication');
 			                   update_option('mo2f_message',$mo2fa_login_message);
 			                   $this->mo_auth_show_error_message();
 			            }
@@ -2263,9 +2647,14 @@ class Miniorange_Authentication {
 					$selected_2FA_method = 'OTP Over Email';
 				if($selected_2FA_method == 'OTPOverSMS')
 					$selected_2FA_method = 'OTP Over SMS';
+				if($selected_2FA_method == 'OTPOverTelegram')
+					$selected_2FA_method = 'OTP Over Telegram';
+				if($selected_2FA_method == 'OTPOverWhatsapp')
+					$selected_2FA_method = 'OTP Over Whatsapp';
+					
 			}
 
-			if(MO2F_IS_ONPREM and ($selected_2FA_method =='Google Authenticator' or $selected_2FA_method == 'Security Questions' or $selected_2FA_method =='OTP Over Email' or $selected_2FA_method == 'Email Verification'))
+			if(MO2F_IS_ONPREM and ($selected_2FA_method =='Google Authenticator' or $selected_2FA_method == 'Security Questions' or $selected_2FA_method =='OTP Over Email' or $selected_2FA_method == 'Email Verification' or $selected_2FA_method == 'OTP Over Whatsapp' or $selected_2FA_method == 'OTP Over Telegram'))
 				$is_customer_registered = 1;
 			
 			if ( $is_customer_registered ) {
@@ -2280,6 +2669,11 @@ class Miniorange_Authentication {
 
 				// set it as his 2-factor in the WP database and server
 				$enduser = new Customer_Setup();
+				if($selected_2FA_method == 'OTPOverTelegram')
+					$selected_2FA_method = 'OTP Over Telegram';
+				if($selected_2FA_method == 'OTPOverWhatsapp')
+					$selected_2FA_method = 'OTP Over Whatsapp';
+				
 				if ( $selected_action == "select2factor" ) {
 
 					if ( $selected_2FA_method == 'OTP Over SMS' && $user_phone == 'false' ) {
@@ -2309,6 +2703,7 @@ class Miniorange_Authentication {
 								$response['status'] = 'FAILED';
 							if ( strcasecmp( $response['status'], 'SUCCESS' ) == 0) {
 								$cmVtYWluaW5nT1RQ = MoWpnsUtility::get_mo2f_db_option('cmVtYWluaW5nT1RQ', 'site_option');
+								if($cmVtYWluaW5nT1RQ>0)
 								update_site_option("cmVtYWluaW5nT1RQ",$cmVtYWluaW5nT1RQ-1);
 								update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "OTP_SENT" ) . ' <b>' . ( $email ) . '</b>. ' . Mo2fConstants:: langTranslate( "ENTER_OTP" ) );
 								update_option( 'mo2f_number_of_transactions', MoWpnsUtility::get_mo2f_db_option('mo2f_number_of_transactions', 'get_option') - 1 );
@@ -2502,7 +2897,96 @@ class Miniorange_Authentication {
 						$this->mo_auth_show_error_message();
 
 					}
-				} else if ( $selected_2FA_method == 'OTP Over SMS' || $selected_2FA_method == 'OTP Over Email') {
+				}else if($selected_2FA_method =='OTP Over Whatsapp')
+				{
+					
+					$user 		= wp_get_current_user();
+					$whatsappID     = get_user_meta($user->ID,'mo2f_whatsapp_id',true);
+					$whatsappNum     = get_user_meta($user->ID,'mo2f_whatsapp_num',true);
+
+					$dnvjn = get_site_option('cmVtYWluaW5nV2hhdHNhcHB0cmFuc2FjdGlvbnM=');
+					$dnvjn = (int)$dnvjn;
+					if($dnvjn<=0)
+					{
+						update_option( 'mo2f_message','Your Free transacions limit has been exceeded. Please contact miniOrange for more transacions.');
+						$this->mo_auth_show_error_message();
+					}
+					else
+					{
+						$otpToken 	= '';
+						for($i=1;$i<7;$i++)
+						{
+							$otpToken 	.= rand(0,9);
+						}
+
+						update_user_meta($user->ID,'mo2f_otp_token_wa',$otpToken);
+						update_user_meta($user->ID,'mo2f_whatsapp_time',time());
+						
+						$url = 'https://api.callmebot.com/whatsapp.php?phone='.$whatsappNum.'&text=Please+find+your+one+time+passcode:+'.$otpToken.'&apikey='.$whatsappID;
+		
+						$data = file_get_contents($url);
+						if(strpos($data, 'Message queued') !== false)
+						{
+							update_site_option('cmVtYWluaW5nV2hhdHNhcHB0cmFuc2FjdGlvbnM=',$dnvjn-1);
+							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "OTP_SENT" ) . 'your Whatsapp number. This can take a couple of minutes. ' . Mo2fConstants:: langTranslate( "ENTER_OTP" ) );
+							$this->mo_auth_show_success_message();
+						}
+						else
+						{
+							update_option( 'mo2f_message', 'An Error has occured while sending the OTP. Please verify your configuration.');
+							$this->mo_auth_show_error_message();
+						
+						}
+					}
+				}
+				else if($selected_2FA_method =='OTP Over Telegram')
+				{
+					
+					$user 		= wp_get_current_user();
+					$chatID     = get_user_meta($user->ID,'mo2f_chat_id',true);
+					$otpToken 	= '';
+					for($i=1;$i<7;$i++)
+					{
+						$otpToken 	.= rand(0,9);
+					}
+
+					update_user_meta($user->ID,'mo2f_otp_token',$otpToken);
+					update_user_meta($user->ID,'mo2f_telegram_time',time());
+				
+					$url = 'https://sitestats.xecurify.com/teleTest/send_otp.php';
+					$postdata = array( 'mo2f_otp_token' => $otpToken,
+						'mo2f_chatid' => $chatID
+					);
+
+					$handle = curl_init();
+					
+					curl_setopt_array($handle,
+					  array(
+					    CURLOPT_URL => $url,
+					    CURLOPT_POST       => true,
+					    CURLOPT_POSTFIELDS => $postdata,
+					    CURLOPT_RETURNTRANSFER     => true,
+					    CURLOPT_SSL_VERIFYHOST => FALSE,
+				  		CURLOPT_SSL_VERIFYPEER => FALSE,
+				  
+					  )
+					);
+
+					$data = curl_exec($handle);
+					curl_close($handle);
+					if($data == 'SUCCESS')
+					{
+						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "OTP_SENT" ) . 'your telegram number.' . Mo2fConstants:: langTranslate( "ENTER_OTP" ) );
+						$this->mo_auth_show_success_message();
+					}
+					else
+					{
+						update_option( 'mo2f_message', 'An Error has occured while sending the OTP. Please verify your chat ID.');
+						$this->mo_auth_show_error_message();
+					
+					}
+				}	
+				 else if ( $selected_2FA_method == 'OTP Over SMS' || $selected_2FA_method == 'OTP Over Email') {
 					
 					$phone    = $Mo2fdbQueries->get_user_detail( 'mo2f_user_phone', $user->ID );
 					$check = 1;
@@ -2526,11 +3010,14 @@ class Miniorange_Authentication {
 						if($selected_2FA_method == 'OTP Over Email')
 						{
 							$cmVtYWluaW5nT1RQ = MoWpnsUtility::get_mo2f_db_option('cmVtYWluaW5nT1RQ', 'site_option');
+							if($cmVtYWluaW5nT1RQ>0)
 							update_site_option("cmVtYWluaW5nT1RQ",$cmVtYWluaW5nT1RQ-1);
 						}
 						else if($selected_2FA_method == 'OTP Over SMS')
 						{
-							update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z')-1);
+							$mo2f_sms = get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z');
+							if($mo2f_sms>0)
+							update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',$mo2f_sms-1);
 						}
 						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "OTP_SENT" ) . ' <b>' . ( $phone ) . '</b>. ' . Mo2fConstants:: langTranslate( "ENTER_OTP" ) );
 						update_option( 'mo2f_number_of_transactions', MoWpnsUtility::get_mo2f_db_option('mo2f_number_of_transactions', 'get_option') - 1 );
@@ -2615,6 +3102,17 @@ class Miniorange_Authentication {
 				if(isset($_SESSION['secret_ga'])){
 					unset($_SESSION['secret_ga']);
 				}
+			}
+		}
+
+		else if ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_2factor_generate_backup_codes' ) {
+			$nonce = sanitize_text_field($_POST['mo_2factor_generate_backup_codes_nonce']);
+			if ( ! wp_verify_nonce( $nonce, 'mo-2factor-generate-backup-codes-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add('empty_username', '<strong>'. __('ERROR','miniorange-2-factor-authentication') .'</strong>: '. __('Invalid Request.', 'miniorange-2-factor-authentication'));
+				return $error;
+			}else {
+				MO2f_Utility::mo2f_mail_and_download_codes();
 			}
 		}
 

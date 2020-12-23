@@ -1,8 +1,12 @@
 <?php
 	$user   = wp_get_current_user();
-	$mo2f_second_factor = mo2f_get_activated_second_factor( $user );
-    
     global $Mo2fdbQueries;
+    $mo2f_second_factor = $Mo2fdbQueries->get_user_detail('mo2f_configured_2FA_method',$user->ID);
+    
+    if($mo2f_second_factor != 'OTP Over Telegram' and $mo2f_second_factor != 'OTP Over Whatsapp')
+    $mo2f_second_factor = mo2f_get_activated_second_factor( $user );
+    
+    
 
 	$is_customer_admin_registered = get_option( 'mo_2factor_admin_registration_status' );
 	$configured_2FA_method        = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user->ID );
@@ -24,16 +28,16 @@
 	}
 				
 	if($testMethod=='NONE'){
-				$testMethod = "Not Configured"; 
-		}
-	
-    if ( $selectedMethod != 'NONE' and !MO2F_IS_ONPREM) {
+		$testMethod = "Not Configured"; 
+	}
+	if ( $selectedMethod != 'NONE' and !MO2F_IS_ONPREM and $selectedMethod != 'OTP Over Telegram' and $selectedMethod != 'OTP Over Whatsapp') {
 		$Mo2fdbQueries->update_user_details( $user->ID, array(
 			'mo2f_configured_2FA_method'                                         => $selectedMethod,
 			'mo2f_' . str_replace( ' ', '', $selectedMethod ) . '_config_status' => true
 		) );
 		update_option('mo2f_configured_2_factor_method', $selectedMethod);
-	}
+	    
+    }
 
 	if ( $configured_2FA_method == "OTP Over SMS" ) {
 		update_option( 'mo2f_show_sms_transaction_message', 1 );
@@ -68,7 +72,10 @@
 			"miniOrange Soft Token",
 			"miniOrange Push Notification",
 			"Google Authenticator",
-			"Authy Authenticator"
+			"Authy Authenticator",
+            "OTP Over Telegram",
+            "OTP Over Whatsapp"       
+
 
 		);
 
@@ -79,7 +86,10 @@
             "OTP Over Email",
     		"miniOrange Soft Token",
 			"miniOrange QR Code Authentication",
-			"miniOrange Push Notification"
+			"miniOrange Push Notification",
+            "OTP Over Telegram",
+            "OTP Over Whatsapp"        
+
 		);
 
 		$standard_plan_existing_user = array(
@@ -111,8 +121,10 @@
             "Google Authenticator",
             "miniOrange QR Code Authentication",
             "miniOrange Soft Token",
-            "miniOrange Push Notification"
-               
+            "miniOrange Push Notification",
+            "OTP Over Telegram",
+            "OTP Over Whatsapp"        
+   
             );
 
             $free_plan_new_user = array(
@@ -123,12 +135,14 @@
             "miniOrange QR Code Authentication",
             "miniOrange Soft Token",
             "miniOrange Push Notification",
-            
+            "OTP Over Telegram",
+            "OTP Over Whatsapp"        
+
             );
             $premium_plan = array(
             "Hardware Token",
-             "Authy Authenticator"            
-
+             "Authy Authenticator"
+             
             );  
             $standard_plan_existing_user = array(
                 "",
@@ -172,7 +186,7 @@
 
         } 
         ?>
-        <div id="wpns_message"></div>
+
         <div class="mo_wpns_setting_layout">
             <div>
                 <div>
@@ -190,6 +204,16 @@
                             <button class="btn btn-primary btn-large" id="test" style="float:right; margin-right: 20px; height: 36px" onclick="testAuthenticationMethod('<?php echo $selectedMethod; ?>');"
 		                        <?php echo $is_customer_registered && ( $selectedMethod != 'NONE' ) ? "" : " disabled "; ?>>Test : <?php echo $testMethod;?>
                             </button>
+
+
+                        
+                            <?php
+                            if((!get_user_meta($userID, 'mo_backup_code_generated', true) || ($backup_codes_remaining == 5 && !get_user_meta($userID, 'mo_backup_code_downloaded', true))) && $mo2f_two_fa_method != ''){
+                            ?>
+                                <button class="btn btn-primary btn-large" id="mo_2f_generate_codes" style="float:right; margin-right: 3%; height: 36px">Get backup codes
+                                </button>
+                            <?php }
+                            ?>
                             
                             
                         </p>
@@ -275,6 +299,15 @@
 					<input type="hidden" name="mo_2factor_resume_flow_driven_setup_nonce"
 							value="<?php echo wp_create_nonce( "mo-2factor-resume-flow-driven-setup-nonce" ) ?>"/>
                 </form>
+
+                
+                <form name="f" method="post" action="" id="mo2f_2factor_generate_backup_codes">
+                    <input type="hidden" name="option" value="mo2f_2factor_generate_backup_codes"/>
+                    <input type="hidden" name="mo_2factor_generate_backup_codes_nonce"
+                            value="<?php echo wp_create_nonce( "mo-2factor-generate-backup-codes-nonce" ) ?>"/>
+                </form>              
+
+
         </div>
          <div id="EnterEmailCloudVerification" class="modal">
             <!-- Modal content -->
@@ -284,7 +317,7 @@
                     <h3 class="modal-title" style="text-align: center; font-size: 20px; color: #20b2aa">Email Address for miniOrange</h3><span id="closeEnterEmailCloud" class="modal-span-close">X</span>
                 </div>
                 <div class="modal-body" style="height: auto">
-                    <h2 style="color: red;">The email associated with your account is already registered in miniOrnage. Please Choose another email.</h2>
+                    <h2 style="color: red;">The email associated with your account is already registered in miniOrange. Please Choose another email.</h2>
                     <h2><i>Enter your Email:&nbsp;&nbsp;&nbsp;  <input type ='email' id='emailEnteredCloud' name='emailEnteredCloud' size= '40' required value="<?php echo $email;?>"/></i></h2> 
                 </div>
                 <div class="modal-footer">
@@ -316,10 +349,7 @@
                <h3 class="modal-title" style="text-align: center; font-size: 20px; color: #2980b9">
                     Are you sure you want to do that?
                 </h3>
-            <!-- <span class="modal-span-close" id="closeConfirmCloud">&times;</span> -->
-               
-<!--                 <span id="closeConfirmCloud" class="modal-span-close">X</span>
- -->       </div>
+            </div>
                
             <div class="modal-body" style="height: auto;background-color: beige;">
                 
@@ -330,26 +360,13 @@
                 global $Mo2fdbQueries;
                 $currentMethod = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user_id );
                 if($currentMethod)
-                {
-                 ?>
-               
-
-                <!-- <h4 style="color: red;">NOTE: This will switch the solution to cloud solution which supports two-factor authentication for one admin user in the free plan. you can <a href="<?php echo $upgrade_url; ?>" style="color: #2980b9">Upgrade Plan</a> to add more users.</h4>
-                 --><?php }
+                {}
                 ?>
                
                 <br>
                 <h4 style="color: red;">You need to reconfigure second-factor by registering in miniOrange.</h4>
                 <h4 style="color: red;">It will be available for one user in free plan.</h4>
-                
-                   <!--  <h4>OTP OVER SMS</h4>
-                    <h4>OTP OVER Email</h4>
-                    <h4>miniOrange Soft-token</h4>
-                    <h4>miniOrange Push Notification</h4>
-                    <h4>miniOrange QR code</h4>
-                    <h4>Google Authenticator</h4>
-                    <h4>Security Question</h4>
-                    --> 
+
                 </div></div>
             <div class="modal-footer">
                 <button type="button" class="mo_wpns_button mo_wpns_button1 modal-button" style="width: 30%;background-color:#61ace5;" id="ConfirmCloudButton1">Confirm</button>
@@ -359,8 +376,7 @@
             </div>
         </div>
   
- <!--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  -->       <script>
+	<script>
         jQuery('#closeConfirmCloud1').click(function(){
              jQuery('#mo2f_cloud').css('display', 'none');
                
@@ -378,17 +394,13 @@
                 jQuery.post(ajaxurl, data, function(response) {
                         if(response == 'true')
                         {
-                            location.reload(true);
-                            //jQuery('#mo2f_save_free_plan_auth_methods_form').submit();
-                        
+                            location.reload(true);                     
 
                         }
                         else
                         {
                             jQuery('#mo2f_cloud').css('display', 'none');  
-                            jQuery('#mo_scan_message').empty();
-                            jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp&nbsp <b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.</div></div>");
-                            window.onload =  nav_popup();
+                             error_msg("<b>You are not authorized to perform this action</b>. Only <b>\"+response+\"</b> is allowed. For more details contact miniOrange.");
                         }
                 });
             
@@ -431,7 +443,6 @@
                             var response = response.replace(/\s+/g,' ').trim();
                             if(response=="settingsSaved")
                             {
-                                // var method = "<?php //echo get_user_meta(get_current_user_id(),'currentMethod',true); ?>";
                                 var method = jQuery('#current_method').val();
                                 
                                 jQuery('#mo2f_configured_2FA_method_free_plan').val(method);
@@ -440,20 +451,15 @@
                             }
                             else if(response == "NonceDidNotMatch")
                             {
-                                jQuery('#wpns_message').empty();
-				jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; An unknown error has occured.</div></div>");
-                                window.onload = nav_popup();
+                                error_msg("An unknown error has occured.");
                             }else if(response=="USER_LIMIT_EXCEEDED"){
                                 jQuery('#EnterEmail').css('display', 'none');
-                                jQuery('#wpns_message').empty();
-                                jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; Your limit of 3 users has exceeded. Please upgrade to premium plans for more users.</div></div>");
-                                window.onload = nav_popup();
+                                error_msg(" Your limit of 3 users has exceeded. Please upgrade to premium plans for more users.");
                             }
                             else
                             {
-                                jQuery('#wpns_message').empty()
-                                jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; Invalid Email.</div></div>");
-                                window.onload = nav_popup();
+                                error_msg(" Invalid Email.");
+
                             }    
                             close_modal();
                         });
@@ -461,13 +467,10 @@
 
             });
 
-						 
-                    
-					
-
-
-
-
+            jQuery('#mo_2f_generate_codes').click(function(){
+                jQuery("#mo2f_2factor_generate_backup_codes").submit();
+                jQuery("#mo2f_free_plan_auth_methods").slideToggle(1000); 
+            });
 
             function configureOrSet2ndFactor_free_plan(authMethod, action, cloudswitch=null,allowed=null) {
                 var is_onprem       = '<?php echo MO2F_IS_ONPREM;?>';
@@ -612,9 +615,6 @@
                 jQuery("#how_to_configure_2fa").slideToggle(700);
             }
 
-function nav_popup() {
-  document.getElementById("notice_div").style.width = "50%";
-  setTimeout(function(){ $('#notice_div').fadeOut('slow'); }, 5000);
-}
+
         </script>
 <?php } ?>

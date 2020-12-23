@@ -86,7 +86,10 @@ class FeedbackHandler
 		else
 			$rate_value = "--";
         $message .= ', [Rating :' . $rate_value . ']';
-
+        if (empty($reply_required))
+        $message .= MoWpnsUtility::mo_2fa_send_configuration();
+        else
+        $message .= MoWpnsUtility::mo_2fa_send_configuration(true);
         $email = isset($_POST['query_mail'])? $_POST['query_mail']: '';
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $email = get_option('mo2f_email');

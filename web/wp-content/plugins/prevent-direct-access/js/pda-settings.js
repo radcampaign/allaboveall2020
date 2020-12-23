@@ -40,6 +40,7 @@
             enable_image_hot_linking: $("#enable_image_hot_linking").prop('checked') ? 'on' : 'off',
             enable_directory_listing: $("#enable_directory_listing").prop('checked') ? 'on' : 'off',
             search_result_page_404: $("#search_page_404_input").val(),
+			file_access_permission: $("#file_access_permission").val(),
         }, function(error) {
             if(error) {
                 console.error(error);

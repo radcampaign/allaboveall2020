@@ -8,9 +8,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-06-29 09:53+0300\n"
+"PO-Revision-Date: 2020-10-11 10:49+0300\n"
 "Language-Team: \n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.1\n"
 "Last-Translator: \n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && n%100<=19) ? 1 : 2);\n"
 "Language: ro\n"
@@ -362,6 +362,14 @@ msgstr "Import setări"
 #: adons/import-export/class-sirsc-import-export.php:213
 msgid "Paste here the settings and import these into the current instance."
 msgstr "Lipiți aici setările și importați-le în instanța curentă."
+
+#: adons/import-export/class-sirsc-import-export.php:212 adons/import-export/class-sirsc-import-export.php:218
+msgid "Registered Image Sizes"
+msgstr "Mărimi de imagine înregistrate"
+
+#: adons/import-export/class-sirsc-import-export.php:212 adons/import-export/class-sirsc-import-export.php:218
+msgid "If you deactivate the plugin but still want to keep the image sizes you registered with this plugin, you can copy the snippet in your theme functions.php file or in a plugin."
+msgstr "Dacă dezactivați modului dar vreți să păstrați în continuare mărimile de imagine înregistrate cu acest modul, puteți copia snipetul în fișierul functions.php al temei voastre sau într-un modul."
 
 #: adons/uploads-folder-info/class-sirsc-uploads-folder-info.php:68 adons/uploads-folder-info/class-sirsc-uploads-folder-info.php:69 adons/uploads-folder-info/class-sirsc-uploads-folder-info.php:467 sirsc-adons.php:140
 msgid "Uploads Folder Info"

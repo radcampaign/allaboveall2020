@@ -27,13 +27,16 @@ class TwoFAMOGateway
             if($authType == 'EMAIL')
             {
                 $cmVtYWluaW5nT1RQ = MoWpnsUtility::get_mo2f_db_option('cmVtYWluaW5nT1RQ', 'site_option');
+                if($cmVtYWluaW5nT1RQ>0)
                 update_site_option("cmVtYWluaW5nT1RQ",$cmVtYWluaW5nT1RQ-1);
                 $content = (new Customer_Cloud_Setup)->send_otp_token($email,$authType,$customerKey,$apiKey);
             }
 
             else
             {
-                update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z')-1);
+                $mo2f_sms = get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z');
+                if($mo2f_sms>0)
+                update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',$mo2f_sms-1);
                 $content = (new Customer_Cloud_Setup)->send_otp_token($phone,$authType,$customerKey,$apiKey);
             }
             return json_decode($content,TRUE);

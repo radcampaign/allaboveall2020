@@ -2,8 +2,7 @@
 	global $Mo2fdbQueries;
 	$user = wp_get_current_user();
 	$is_NC = MoWpnsUtility::get_mo2f_db_option('mo2f_is_NC', 'get_option');
-	$is_customer_registered = $Mo2fdbQueries->get_user_detail( 'user_registration_with_miniorange', $user->ID ) == 'SUCCESS' ? true : false;
-
+	$is_customer_registered = get_option('mo2f_customerKey');
 if ($_GET['page'] == 'mo_2fa_upgrade') {
 	?><br><br><?php
 }
@@ -134,7 +133,7 @@ echo '
 		 if( isset($is_customer_registered) && $is_customer_registered) 
 		 {
 				?>
-                <button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button" onclick="mo2f_upgradeform('wp_security_two_factor_standard_lite_plan')" >Upgrade</button>
+                <button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button" onclick="mo2f_upgradeform('wp_security_two_factor_standard_lite_plan','2fa_plan')" >Upgrade</button>
         <?php }else{ 
         		?>
 				<button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button" id="std_upgrade_onprem" onclick="mo2f_register_and_upgradeform('wp_security_two_factor_standard_lite_plan' ,'2fa_plan')">Upgrade</button>
@@ -175,7 +174,7 @@ echo '
 			<div style="text-align: center;">
 			<?php if( isset($is_customer_registered) && $is_customer_registered) {
 						?>
-                        <button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"onclick="mo2f_upgradeform('wp_security_two_factor_premium_lite_plan')" >Upgrade</button>
+                        <button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"onclick="mo2f_upgradeform('wp_security_two_factor_premium_lite_plan','2fa_plan')" >Upgrade</button>
 		                <?php 
 		            }else{ ?>
 						<button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"onclick="mo2f_register_and_upgradeform('wp_security_two_factor_premium_lite_plan','2fa_plan')" >Upgrade</button>
@@ -215,7 +214,7 @@ echo '
 			<?php
 			 if( isset($is_customer_registered) && $is_customer_registered) {
 						?>
-                        <button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"onclick="mo2f_upgradeform('wp_2fa_premium_plan')" >Upgrade</button>
+                        <button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"onclick="mo2f_upgradeform('wp_2fa_premium_plan','2fa_plan')" >Upgrade</button>
 		                <?php 
 		            }else{ ?>
 						<button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"onclick="mo2f_register_and_upgradeform('wp_2fa_premium_plan','2fa_plan')" >Upgrade</button>
@@ -257,11 +256,11 @@ echo '
 			<?php
 			 if( isset($is_customer_registered) && $is_customer_registered) {
 						?>
-                           <button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button" onclick="mo2f_upgradeform('wp_2fa_enterprise_plan')" >Upgrade</button>
+                           <button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button" onclick="mo2f_upgradeform('wp_2fa_enterprise_plan','2fa_plan')" >Upgrade</button>
 		                <?php 
 		            }else
 		            { ?>
-						<button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button" onclick="mo2f_register_and_upgradeform('wp_2fa_enterprise_plan')" >Upgrade</button>
+						<button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button" onclick="mo2f_register_and_upgradeform('wp_2fa_enterprise_plan','2fa_plan')" >Upgrade</button>
 		                <?php } 
 		                ?>
 		    </div> 
@@ -296,7 +295,7 @@ echo '
 			?>
                             <button
                                         class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
-                                        onclick="mo2f_upgradeform('wp_security_waf_plan')" >Upgrade</button>
+                                        onclick="mo2f_upgradeform('wp_security_waf_plan','2fa_plan')" >Upgrade</button>
 		                <?php }
 		
 						
@@ -339,7 +338,7 @@ echo '
 		<?php if( isset($is_customer_registered)&& $is_customer_registered ) {
 						?>
                             <button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button" 
-                                        onclick="mo2f_upgradeform('wp_security_login_and_spam_plan')" >Upgrade</button>
+                                        onclick="mo2f_upgradeform('wp_security_login_and_spam_plan','2fa_plan')" >Upgrade</button>
                         <?php }else{ ?>
 
                            <button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
@@ -381,7 +380,7 @@ echo '
 						?>
                             <button
                                         class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
-                                        onclick="mo2f_upgradeform('wp_security_malware_plan')" >Upgrade</button>
+                                        onclick="mo2f_upgradeform('wp_security_malware_plan','2fa_plan')" >Upgrade</button>
 		                <?php }else{ ?>
 
                            <button
@@ -423,7 +422,7 @@ echo '
 						?>
                             <button
                                         class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
-                                        onclick="mo2f_upgradeform('wp_security_backup_plan')" >Upgrade</button>
+                                        onclick="mo2f_upgradeform('wp_security_backup_plan','2fa_plan')" >Upgrade</button>
 		                <?php }else{ ?>
 							<button
                                         class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
@@ -818,24 +817,34 @@ function wpns_pricing()
 		{
 			document.getElementById("mo2f_visible").style.display = "none";
 		}
-		function mo2f_upgradeform(planType) 
+		function mo2f_upgradeform(planType,planname) 
 		{
             jQuery('#requestOrigin').val(planType);
             jQuery('#mo2fa_loginform').submit();
-        }
-        function mo2f_register_and_upgradeform(planType, planname) 
-        {
-                    jQuery('#requestOrigin').val(planType);
-                    jQuery('input[name="requestOrigin"]').val(planType);
-                    jQuery('#mo2fa_register_to_upgrade_form').submit();
-
-                    var data =  {
+            var data =  {
 								'action'				  : 'wpns_login_security',
-								'wpns_loginsecurity_ajax' : 'wpns_all_plans', 
+								'wpns_loginsecurity_ajax' : 'update_plan', 
 								'planname'				  : planname,
+								'planType'				  : planType,
 					}
 					jQuery.post(ajaxurl, data, function(response) {
 					});
+        }
+        function mo2f_register_and_upgradeform(planType, planname) 
+        {
+
+            jQuery('#requestOrigin').val(planType);
+            jQuery('input[name="requestOrigin"]').val(planType);
+            jQuery('#mo2fa_register_to_upgrade_form').submit();
+
+            var data =  {
+						'action'				  : 'wpns_login_security',
+						'wpns_loginsecurity_ajax' : 'wpns_all_plans', 
+						'planname'				  : planname,
+						'planType'				  : planType,
+			}
+			jQuery.post(ajaxurl, data, function(response) {
+			});
         }
 
 		function mo_2fa_lite_show_plans()

@@ -3,7 +3,7 @@ global $mo2f_dirName;
 $setup_dirName = $mo2f_dirName.'views'.DIRECTORY_SEPARATOR.'twofa'.DIRECTORY_SEPARATOR.'link_tracer.php';
  include $setup_dirName;
  include_once $mo2f_dirName.'handler'.DIRECTORY_SEPARATOR.'WAF'.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'mo-waf-db-common.php';
- ?><div id="wpns_message" style=" padding-top:8px"></div>
+ ?>
 <div class="mo_wpns_divided_layout_tab">
 <div class="mo_wpns_tab">
   <button class="tablinks" onclick="waf_function(event, 'waf_dash')" id="defaultOpen">Firewall Dashboard</button>
@@ -111,8 +111,8 @@ echo 			"<td>".date("M j, Y, g:i:s a",$blockedattack->time)."</td><td>".$blocked
   		<label class='mo_wpns_switch'>
 		 <input type=checkbox id='RealTimeIP' name='RealTimeIP' disabled/>
 		 <span class='mo_wpns_slider mo_wpns_round'></span>
-		</label>
-		</tr></th>
+		</label></th>
+		</tr>
 		 </h3>
 		 </table>
 		</div>
@@ -629,39 +629,27 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 					var response = response.replace(/\s+/g,' ').trim();
 					if(response == 'RateEnabled')
 					{
-						jQuery('#wpns_message').empty();
 						document.getElementById('rateLFD').style.display="block";
-						jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; Rate Limiting is Enabled.</div></div>");
-						window.onload = nav_popup();
+						success_msg(" Rate Limiting is Enabled.");
 					}
 					else if(response == 'Ratedisabled')
 					{
-						jQuery('#wpns_message').empty();
-						jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; Rate Limiting is disabled.</div></div>");
-						window.onload = nav_popup();
+                        			error_msg(" Rate Limiting is disabled.");
 					}
 					else if(response == 'WAFNotEnabled')
 					{
-						jQuery('#wpns_message').empty();
-						jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; Enable WAF to use Rate Limiting</div></div>");
-						window.onload = nav_popup();
-						
-					
+                        			error_msg(" Enable WAF to use Rate Limiting");
 						jQuery('#rateL').prop('checked',false);
 						document.getElementById('rateLFD').style.display="none";
 					}
 					else if(response == 'NonceDidNotMatch')
 					{
-						jQuery('#wpns_message').empty();
-						jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; Nonce verification failed.</div></div>");
-						window.onload = nav_popup();
+						error_msg("There was an error in processing the request.");
 						document.getElementById('rateLFD').style.display="none";
 					}
 					else
 					{
-						jQuery('#wpns_message').empty();
-						jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; <b>ERROR</b> : An unknown error has occured</div></div>");
-						window.onload = nav_popup();
+                        			error_msg("Error: An unknown error has occured");
 					}
 		
 				});
@@ -781,15 +769,11 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 						var response = response.replace(/\s+/g,' ').trim();
 						if(response == 'SQLenable')
 						{
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; SQL Injection protection is enabled</div></div>");
-							window.onload = nav_popup();
+                            				success_msg(" SQL Injection protection is enabled");
 						}
 						else
 						{
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; SQL Injection protection is disabled.</div></div>");
-							window.onload = nav_popup();
+                            				error_msg(" SQL Injection protection is disabled.");
 						}
 			
 				});
@@ -816,15 +800,12 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 						var response = response.replace(/\s+/g,' ').trim();
 						if(response == 'limitSaved')
 						{
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; Limit of attacks has been saved.</div></div>");
-							window.onload = nav_popup();
+                            				success_msg(" Limit of attacks has been saved");
 						}
 						else
 						{
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; Limit of attacks should be more that 1</div></div>");
-							window.onload = nav_popup();						}
+                            				error_msg(" Limit of attacks should be more that 1");
+						}
 			
 				});
 						
@@ -853,15 +834,11 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 						var response = response.replace(/\s+/g,' ').trim();
 						if(response == 'XSSenable')
 						{
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; XSS detection is enabled</div></div>");
-							window.onload = nav_popup();
+                            				success_msg("XSS detection is enabled");
 						}
 						else
 						{
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; XSS detection is disabled.</div></div>");
-							window.onload = nav_popup();
+                            				error_msg(" XSS detection is disabled.");
 						}
 			
 				});
@@ -886,15 +863,11 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 						var response = response.replace(/\s+/g,' ').trim();
 						if(response == 'LFIenable')
 						{
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; LFI detection is enabled</div></div>");
-							window.onload = nav_popup();
+                            				success_msg("LFI detection is enabled");
 						}
 						else
 						{
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; LFI detection is disabled.</div></div>");
-							window.onload = nav_popup();
+                            				error_msg("LFI detection is disabled.");
 						}
 			
 				});
@@ -959,21 +932,17 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 							{	
 								jQuery('#limitAttack').val(limitAttack);
 							}
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div class= 'notice notice-success is-dismissible' style='height : 25px;padding-top: 10px;  ' >WAF  is enabled on Plugin level</div>");
-							window.scrollTo({ top: 0, behavior: 'smooth' });
-							
-
+							success_msg("WAF is enabled on Plugin level.");
 						}
 						else
 						{
-							jQuery('#wpns_message').empty();
+
 							jQuery('#SQL').prop("checked",false);	
 							jQuery('#LFI').prop("checked",false);	
 							jQuery('#XSS').prop("checked",false);	
 						
-							jQuery('#wpns_message').append("<div class= 'notice notice-error is-dismissible' style='height : 25px;padding-top: 10px;  ' >WAF is disabled on plugin level.</div>");
-							window.scrollTo({ top: 0, behavior: 'smooth' });
+							error_msg("WAF is disabled on plugin level.");
+							
 						}
 			
 				});
@@ -1041,17 +1010,13 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 						{
 							jQuery('#SQL').prop("checked",false);	
 							jQuery('#LFI').prop("checked",false);	
-							jQuery('#XSS').prop("checked",false);	
-						
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div class= 'notice notice-success is-dismissible' style='height : 25px;padding-top: 10px;  ' >WAF is disabled</div>");
-							window.scrollTo({ top: 0, behavior: 'smooth' });
+							jQuery('#XSS').prop("checked",false);
+
+                           				 error_msg(" WAF is disabled");
 						}
 						else
 						{
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div class= 'notice notice-error is-dismissible' style='height : 25px;padding-top: 10px;  ' >An error has occured while deactivating WAF.</div>");
-							window.scrollTo({ top: 0, behavior: 'smooth' });
+                            				error_msg("An error has occured while deactivating WAF.");
 						}
 					
 				});
@@ -1071,15 +1036,11 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 						var response = response.replace(/\s+/g,' ').trim();
 						if(response == 'HWAFEnabled')
 						{
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div class= 'notice notice-success is-dismissible' style='height : 25px;padding-top: 10px;  ' >WAF is enabled on htaccess level</div>");
-							window.scrollTo({ top: 0, behavior: 'smooth' });
+                            				success_msg("WAF is enabled on htaccess level");
 						}
 						else if(response =='HWAFEnabledFailed')
 						{
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div class= 'notice notice-error is-dismissible' style='height : 25px;padding-top: 10px;  ' >An error has occured while activating WAF.</div>");
-							window.scrollTo({ top: 0, behavior: 'smooth' });
+                            				error_msg("An error has occured while activating WAF.");
 						}
 						else
 						{
@@ -1101,10 +1062,7 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 			}
 			jQuery('#htaccessWAF').prop("checked",false);
 			document.getElementById("htaccessWAF").disabled = false;
-			
-			jQuery('#wpns_message').empty();
-			jQuery('#wpns_message').append("<div class= 'notice notice-success is-dismissible' style='height : 25px;padding-top: 10px;  ' >WAF activation canceled</div>");
-			window.scrollTo({ top: 0, behavior: 'smooth' });
+    			success_msg(" WAF activation canceled ");
 
 		});
 		jQuery('#CDhtaccess').click(function(){
@@ -1157,40 +1115,30 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 								{	
 									jQuery('#limitAttack').val(limitAttack);
 								}
-								jQuery('#wpns_message').empty();
-								jQuery('#wpns_message').append("<div class= 'notice notice-success is-dismissible' style='height : 25px;padding-top: 10px;  ' >WAF is enabled on htaccess Level</div>");
-								window.scrollTo({ top: 0, behavior: 'smooth' });
+                                					success_msg("WAF is enabled on htaccess Level");
 							}
 						}
 						else if(response == 'HWAFEnabledFailed')
 						{
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div class= 'notice notice-error is-dismissible' style='height : 25px;padding-top: 10px;  ' >An error occured while activating WAF</div>");
-							window.scrollTo({ top: 0, behavior: 'smooth' });
+                            						error_msg("An error occured while activating WAF");
 								
 						}
 						else if(response == 'HWAFdisabledFailed')
 						{
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div class= 'notice notice-error is-dismissible' style='height : 25px;padding-top: 10px;  ' >&nbsp; &nbsp; An error occured while deactivating WAF</div>");
-							window.scrollTo({ top: 0, behavior: 'smooth'});
+                            				error_msg(" An error occured while deactivating WAF");
 							
 						}
 						else if(response == 'HWAFdisabled')
 						{
-							jQuery('#wpns_message').empty();
-							jQuery('#SQL').prop("checked",false);	
-							jQuery('#LFI').prop("checked",false);	
-							jQuery('#XSS').prop("checked",false);	
-						
-							jQuery('#wpns_message').append("<div class= 'notice notice-error is-dismissible' style='height : 25px;padding-top: 10px;  ' >WAF is disabled on htaccess Level.</div>");
-							window.scrollTo({ top: 0, behavior: 'smooth' });
+							jQuery('#SQL').prop("checked",false);
+						    jQuery('#LFI').prop("checked",false);
+						    jQuery('#XSS').prop("checked",false);
+
+						    error_msg("WAF is disabled on htaccess Level.");
 						}
 						else
-						{	
-							jQuery('#wpns_message').empty();
-							jQuery('#wpns_message').append("<div class= 'notice notice-error is-dismissible' style='height : 25px;padding-top: 10px;  ' >An error has occured.There might be another WAF exists.</div>");
-							window.scrollTo({ top: 0, behavior: 'smooth' });
+						{
+                            				error_msg("An error has occured.There might be another WAF exists.");
 						}
 						
 				});
@@ -1280,10 +1228,6 @@ function waf_function(evt, cityName) {
 	{
 		document.getElementById("settingsTab").click();	
 	}
-	
 
-function nav_popup() {
-  document.getElementById("notice_div").style.width = "40%";
-  setTimeout(function(){ $('#notice_div').fadeOut('slow'); }, 3000);
-}
+
 </script>

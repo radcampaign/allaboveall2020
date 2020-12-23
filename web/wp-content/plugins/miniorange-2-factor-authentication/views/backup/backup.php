@@ -6,7 +6,6 @@
   
 </div>
 
-<div id="mo_backup_message" style=" padding-top:8px"></div>
 <div class="tabcontent" id="setting_backup">
 	<div class="mo_wpns_divided_layout">
 		<table style="width: 100%;">

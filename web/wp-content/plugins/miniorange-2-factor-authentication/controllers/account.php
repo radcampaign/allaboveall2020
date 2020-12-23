@@ -181,11 +181,33 @@
 			do_action('wpns_show_message',MoWpnsMessages::showMessage('REG_SUCCESS'),'SUCCESS');
 			update_site_option(base64_encode("totalUsersCloud"),get_site_option(base64_encode("totalUsersCloud"))+1);
 			$customerT = new Customer_Cloud_Setup();
-			$content = json_decode( $customerT->get_customer_transactions( get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ) ), true );
+			$content = json_decode( $customerT->get_customer_transactions( get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ),'PREMIUM' ), true );
+			if($content['status'] == 'SUCCESS')
+			{
+				update_site_option('mo2f_license_type','PREMIUM');
+			}
+			else
+			{
+				update_site_option('mo2f_license_type','DEMO');
+				$content = json_decode( $customerT->get_customer_transactions( get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ),'DEMO' ), true );
+			}
 			if(isset($content['smsRemaining']))
 				update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',$content['smsRemaining']);
-			else
+			else if($content['status'] =='SUCCESS')
 				update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',0);
+			if(isset($content['emailRemaining']))
+			{
+				if($content['emailRemaining']>30)
+				{
+					$currentTransaction = $content['emailRemaining'];
+					update_site_option('cmVtYWluaW5nT1RQ',$currentTransaction);
+					update_site_option('EmailTransactionCurrent',$content['emailRemaining']);				
+				}
+				else if($content['emailRemaining'] == 10 and get_site_option('cmVtYWluaW5nT1RQ')>30)
+				{
+					update_site_option('cmVtYWluaW5nT1RQ',30);
+				}
+			}
 						
 		} 
 		else 

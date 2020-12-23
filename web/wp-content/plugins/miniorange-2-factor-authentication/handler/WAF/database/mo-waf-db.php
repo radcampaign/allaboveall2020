@@ -196,7 +196,7 @@
         if($results)
         {
             $rows           = mysqli_fetch_array($results);
-            if(!is_null($rows['option_value']))
+            if(isset($rows)&&(!is_null($rows['option_value'])))
             {
                 $option_value   = intval($rows['option_value']);  
                 return $option_value;

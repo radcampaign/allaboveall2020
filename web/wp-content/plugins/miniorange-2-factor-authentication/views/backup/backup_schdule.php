@@ -145,64 +145,50 @@ add_action('admin_footer','mo_wpns_schedule_backup');
 		jQuery.post(ajaxurl, data, function(response){
 		
 			if (response == "folder_error"){
-			jQuery('#mo_backup_message').empty();
-            jQuery('#mo_backup_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; Please select at least one folder to backup</div></div>");
-            window.onload = nav_popup();
-			}
-			
-			else if(response=="success"){
-				jQuery('#mo_backup_message').empty();
-                jQuery('#mo_backup_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp; Backup Configuration Saved Successfully</div></div>"); 
-                window.onload = nav_popup();          
+                error_msg(" Please select at least one folder to backup");
+			}else if(response=="success"){
+                success_msg(" Backup Configuration Saved Successfully");
 			}
 			else if(response=="disable"){
-				jQuery('#mo_backup_message').empty();
-                jQuery('#mo_backup_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; Automatic Backup Disabled</div></div>");
-                jQuery(".add_remove_disable").attr("disabled","disabled");
-                window.onload = nav_popup();
-             
+				 jQuery(".add_remove_disable").attr("disabled","disabled");
+                		error_msg(" Automatic Backup Disabled");
 			}else if(response==="invalid_hours"){
-				jQuery('#mo_backup_message').empty();
-                jQuery('#mo_backup_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; Please select valid hours</div></div>");
-                window.onload = nav_popup();
-			
+                		error_msg(" Please select valid hours");
 			}else if(response==="ERROR"){
-				jQuery('#mo_backup_message').empty();
-                jQuery('#mo_backup_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; ERROR</div></div>");
-                window.onload = nav_popup();	
-			}
-						
+                		error_msg("There was an error in procession your request");
+			}			
 
 		});
   
        });
 	});
 
-	function nav_popup() {
-			  document.getElementById("notice_div").style.width = "40%";
-			  setTimeout(function(){ jQuery('#notice_div').fadeOut('slow'); }, 3000);
-	}
+
 
 	function check1() {
 		 if(jQuery('input[name= "mo_schedule_file_backup_wp_files"]:checked').val()){
-		 	jQuery('input[name="mo_schedule_file_backup_plugins"]').attr('disabled', true);
-		 	jQuery('input[name="mo_schedule_file_backup_themes"]').attr('disabled', true);
-		 	jQuery('#mo_schedule_plugins').prop('checked', false); // Unchecks it
-		    jQuery('#mo_schedule_themes').prop('checked', false); // Unchecks it
+     			disable_checkbox();
 		 }else{
-		 	jQuery('input[name="mo_schedule_file_backup_plugins"]').removeAttr('disabled');
-		 	jQuery('input[name="mo_schedule_file_backup_themes"]').removeAttr('disabled');
+             		enable_checkbox();
 		 }
 	}
-		if(jQuery('input[name= "mo_schedule_file_backup_wp_files"]:checked').val()){
-		 	jQuery('input[name="mo_schedule_file_backup_themes"]').attr('disabled', true);
-		 	jQuery('input[name="mo_schedule_file_backup_plugins"]').attr('disabled', true);
-		 	jQuery('#mo_schedule_plugins').prop('checked', false); // Unchecks it
-		    jQuery('#mo_schedule_themes').prop('checked', false); // Unchecks it
-		 }else{
-		 	jQuery('input[name="mo_schedule_file_backup_plugins"]').removeAttr('disabled');
-		 	jQuery('input[name="mo_schedule_file_backup_themes"]').removeAttr('disabled');
-		 } 
+     if(jQuery('input[name= "mo_schedule_file_backup_wp_files"]:checked').val()){
+         disable_checkbox();
+     }else{
+         enable_checkbox();
+     }
+
+     function disable_checkbox(){
+         jQuery('input[name="mo_schedule_file_backup_plugins"]').attr('disabled', true);
+         jQuery('input[name="mo_schedule_file_backup_themes"]').attr('disabled', true);
+         jQuery('#mo_schedule_plugins').prop('checked', false); // Unchecks it
+         jQuery('#mo_schedule_themes').prop('checked', false); // Unchecks it
+     }
+
+     function enable_checkbox(){
+         jQuery('input[name="mo_schedule_file_backup_plugins"]').removeAttr('disabled');
+         jQuery('input[name="mo_schedule_file_backup_themes"]').removeAttr('disabled');
+     }
 
    </script>
 <?php } 

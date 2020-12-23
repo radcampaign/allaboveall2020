@@ -43,13 +43,11 @@
 		var current_pointer = 0;
 		var site_type = '';
 		var site_elmt = '';
-		//var waf_pointer = <?php echo json_encode($main_pointer); ?>;
+
 		var display = '<?php echo $display; ?>';
 		var getting_started_modal = document.getElementById("getting-started");
 
 		jQuery('#getting-started').css('display', display);
-		// jQuery('.modal-title').html('<u>'+waf_pointer['Main'][0]+'</u>');
-		// jQuery('.modal-body').html(waf_pointer['Main'][1]);
 		jQuery('#start-plugin-tour').html('Start a tour');
 		jQuery('.modal-footer a').css('display', 'inline-block');
 		

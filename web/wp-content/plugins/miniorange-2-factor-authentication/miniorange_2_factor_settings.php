@@ -3,7 +3,7 @@
  * Plugin Name: miniOrange 2 Factor Authentication
  * Plugin URI: https://miniorange.com
  * Description: This plugin provides various two-factor authentication methods as an additional layer of security after the default wordpress login. We Support Google/Authy/LastPass Authenticator, QR Code, Push Notification, Soft Token and Security Questions(KBA) for 3 User in the free version of the plugin.
- * Version: 5.4.21
+ * Version: 5.4.26
  * Author: miniOrange
  * Author URI: https://miniorange.com
  * Text Domain: miniorange-2-factor-authentication
@@ -11,7 +11,7 @@
  */
 	include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'mo2f_db_options.php';
     define( 'MO_HOST_NAME', 'https://login.xecurify.com' );
-	define( 'MO2F_VERSION', '5.4.21' );
+	define( 'MO2F_VERSION', '5.4.26' );
 	define( 'MO2F_TEST_MODE', false );
 	define( 'MO2F_IS_ONPREM', get_option('is_onprem'));
 	class Miniorange_twoFactor{
@@ -97,6 +97,7 @@
 
         // As on plugins.php page not in the plugin
         function feedback_request() {
+            wp_enqueue_style( 'mo_wpns_admin_plugins_page_style', plugins_url( '/includes/css/style_settings.css?ver=4.8.60', __FILE__ ) );
             if ( 'plugins.php' != basename( $_SERVER['PHP_SELF'] ) ) {
                 return;
             }
@@ -112,7 +113,6 @@
             wp_enqueue_style( 'wp-pointer' );
             wp_enqueue_script( 'wp-pointer' );
             wp_enqueue_script( 'utils' );
-            wp_enqueue_style( 'mo_wpns_admin_plugins_page_style', plugins_url( '/includes/css/style_settings.css?ver=4.8.60', __FILE__ ) );
 
             include $mo2f_dirName . 'views'.DIRECTORY_SEPARATOR.'feedback_form.php';;
 
@@ -124,74 +124,52 @@
 		{
 			load_plugin_textdomain( 'miniorange-2-factor-authentication', FALSE, dirname( plugin_basename(__FILE__) ) . '/lang/' );
 		}
+		
 		function mo_wpns_malware_notices(){
-			$args=array();
-			$theme_current= wp_get_themes($args);
-			$theme_last = get_option('mo_wpns_last_themes');
-			$flag_theme = 0;
-			if(is_array($theme_last)){
-				if(sizeof($theme_current) == sizeof($theme_last)){
-					foreach ($theme_current as $key => $value) {
-						if(isset($theme_last[$key])){
-							if($theme_current[$key] != $theme_last[$key]){
-								$flag_theme=1;
-								break;
-							}
-						}else{
-							$flag_theme = 1;
-							break;
-						}
-					}
-				}else{
-					$flag_theme=1;
-				}
-			}else{
-				$flag_theme=1;
-			}
-
-			$plugins_found = get_plugins();
-			$plugin_last = get_option('mo_wpns_last_plugins');
-			$flag_plugin = 0;
-			if(is_array($plugin_last)){
-				if(sizeof($plugins_found) == sizeof($plugin_last)){
-					foreach ($plugins_found as $key => $value) {
-						if(isset($plugin_last[$key])){
-							if($plugins_found[$key] != $plugin_last[$key]){
-								$flag_plugin=1;
-								break;
-							}
-						}else{
-							$flag_plugin=1;
-							break;
-						}
-					}
-				}else{
-					$flag_plugin=1;
-				}
-			}else{
-				$flag_plugin=1;
-			}
+			
 			$one_day = 60*60*24;
-		    $days =(time()-get_option('mo_wpns_last_scan_time'))/ $one_day;
-		    $days = (int)$days;
+		    $dismiss_time   = get_site_option('notice_dismiss_time');
+		    
+		    $dismiss_time   = (time()-$dismiss_time)/$one_day;
+            $dismiss_time   = (int)$dismiss_time;
+           
+           //setting variables for low SMS/email notification
+			global $Mo2fdbQueries;
+        	$user_object = wp_get_current_user();
+			$mo2f_configured_2FA_method = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user_object->ID );
+        	$one_day = 60*60*24;
+		    $day_sms= (time()-get_site_option('sms_dismiss'))/$one_day;
+		    $day_sms = floor($day_sms);
+		    $day_email= (time()-get_site_option('email_dismiss'))/$one_day;
+		    $day_email = floor($day_email);
 
-		    $day_infected= (time()-get_option('infected_dismiss'))/$one_day;
-		    $day_infected = floor($day_infected);
-		    $day_weekly= (time()-get_option('weekly_dismiss'))/$one_day;
-		    $day_weekly = floor($day_weekly);
-
-		if(MoWpnsUtility::get_mo2f_db_option('mo_wpns_2fa_with_network_security', 'get_option'))
+		 if(get_option('mo_wpns_2fa_with_network_security'))
 		    {
-	    	if(!get_option('donot_show_infected_file_notice') && (get_option('mo_wpns_infected_files') != 0) && ($day_infected >= 1)){
-	    		echo MoWpnsMessages::showMessage('INFECTED_FILE');
-	    	}else if(!get_option('donot_show_new_plugin_theme_notice') && ($flag_plugin || $flag_theme)){
-	    		echo MoWpnsMessages::showMessage('NEW_PLUGIN_THEME_CHECK');
-	    	}else if(!get_option('donot_show_weekly_scan_notice') && ($days >= 7) && ($day_weekly >= 1)){
-	    		echo MoWpnsMessages::showMessage('WEEKLY_SCAN_CHECK');
+	    	
+           $notify = MoWpnsMessages::$notification_array;
+		   $dismissedExpired = 0;	
+		   foreach ($notify as $key => $value){
+
+                   if((!get_site_option($key) && !get_site_option('notice_dismiss_time') ) || ($dismissedExpired and !get_site_option($key))){ 
+                      echo $value;
+                      break;
+                   }
+                   else{ 
+                  	if($dismiss_time >=1){
+					   $dismissedExpired = 1;
+					  
+                       }
+                      else
+                   		$dismissedExpired = 0;
+                   	  }
+		   }
+	    	
+	    }
+	    if(!get_site_option('donot_show_low_email_notice') && (get_site_option('cmVtYWluaW5nT1RQ')<=5) && ($day_email >= 1) && $mo2f_configured_2FA_method == "OTP Over Email"){
+	    		echo MoWpnsMessages::showMessage('LOW_EMAIL_TRANSACTIONS');
 	    	}
 	    }
 	    
-	}
 		function mo_wpns_widget_menu()
 		{
 		$user  = wp_get_current_user();
@@ -242,6 +220,7 @@
             add_submenu_page( $menu_slug	,'miniOrange 2-Factor'	,'Addons'		,'administrator','mo_2fa_addons'			, array( $this, 'mo_wpns'),10);
             add_submenu_page( $menu_slug	,'miniOrange 2-Factor'	,'Upgrade'				,'administrator','mo_2fa_upgrade'			, array( $this, 'mo_wpns'),12);
             add_submenu_page( $menu_slug	,'miniOrange 2-Factor'	,'Request for Demo'				,'administrator','mo_2fa_request_demo'			, array( $this, 'mo_wpns'),13);
+            add_submenu_page( $menu_slug	,'miniOrange 2-Factor'	,'Christmas Offers'				,'administrator','mo_2fa_request_christmas_offer'			, array( $this, 'mo_wpns'),14);
             $mo2fa_hook_page = add_users_page ('Reset 2nd Factor',  null , 'manage_options', 'reset', array( $this, 'mo_reset_2fa_for_users_by_admin' ),66);
             
         
@@ -264,8 +243,10 @@
 			add_option('Rate_limiting',0);
 			add_option('Rate_request',240);
 			add_option('limitAttack',10);
+			add_site_option('EmailTransactionCurrent',30);
 			add_site_option(base64_encode("totalUsersCloud"),0);
-			
+			add_site_option(base64_encode('remainingWhatsapptransactions'),30);
+
 			include 'controllers/main_controller.php';
 		}
 
@@ -307,6 +288,7 @@
 				wp_enqueue_style( 'mo_wpns_admin_settings_datatable_style'	, plugins_url('includes/css/jquery.dataTables.min.css', __FILE__));
 				wp_enqueue_style( 'mo_wpns_button_settings_style'			, plugins_url('includes/css/button_styles.css',__FILE__));
 				wp_enqueue_style( 'mo_wpns_popup_settings_style'			, plugins_url('includes/css/popup.css',__FILE__));
+				wp_enqueue_style( 'mo_2fa_time_settings_style'				, plugins_url('includes/css/datetime-style-settings.min.css', __FILE__));
 				$file     = plugin_dir_path( __FILE__ ) .'controllers'.DIRECTORY_SEPARATOR. 'pointers.php';
 				
 				$tour_started=get_option('mo2f_tour_started',0);
@@ -338,10 +320,17 @@
 		{
 			wp_enqueue_script( 'mo_wpns_admin_settings_script'			, plugins_url('includes/js/settings_page.js', __FILE__ ), array('jquery'));
 			if(strpos($hook, 'page_mo_2fa')){
+				
+			
 				wp_enqueue_script( 'mo_wpns_admin_settings_phone_script'	, plugins_url('includes/js/phone.js', __FILE__ ));
 				wp_enqueue_script( 'mo_wpns_admin_datatable_script'			, plugins_url('includes/js/jquery.dataTables.min.js', __FILE__ ), array('jquery'));
 				wp_enqueue_script( 'mo_wpns_qrcode_script', plugins_url( "/includes/jquery-qrcode/jquery-qrcode.js", __FILE__ ) );
 				wp_enqueue_script( 'mo_wpns_min_qrcode_script', plugins_url( "/includes/jquery-qrcode/jquery-qrcode.min.js", __FILE__ ) );
+				wp_enqueue_script('jquery-ui-core');
+		        wp_enqueue_script('jquery-ui-autocomplete');
+		        wp_enqueue_script('jquery-ui-datepicker');
+		        wp_enqueue_script('mo_2fa_select2_script', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js');
+		        wp_enqueue_script('mo_2fa_timepicker_script', 'https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js');
 			}
 		}
 
@@ -557,6 +546,9 @@
                         delete_user_meta($user_id,'mo2f_kba_challenge');
                         delete_user_meta($user_id,'mo2f_2FA_method_to_configure');
                         delete_user_meta($user_id,'Security Questions');
+						delete_user_meta($user_id,'mo2f_chat_id');
+						delete_user_meta($user_id,'mo2f_whatsapp_num');
+						delete_user_meta($user_id,'mo2f_whatsapp_id');
 						$Mo2fdbQueries->delete_user_details( $user_id);
                         delete_user_meta($user_id,'mo2f_2FA_method_to_test');
 					}

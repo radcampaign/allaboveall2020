@@ -10,6 +10,9 @@ echo'
                     echo '</div>
                 </h4>
                 <h3>Your Profile</h3>
+                <h2 >
+                 <a id="mo2f_transaction_check" class="mo_wpns_button mo_wpns_button1" style ="background-color: #000000">Check Available Email and SMS</a>
+               </h2>
                 <table border="1" style="background-color:#FFFFFF; border:1px solid #CCCCCC; border-collapse: collapse; padding:0px 0px 0px 10px; margin:2px; width:85%">
                     <tr>
                         <td style="width:45%; padding: 10px;">Username/Email</td>
@@ -74,6 +77,17 @@ echo'
                 {
                     'action'                  : 'wpns_login_security',
                     'wpns_loginsecurity_ajax' : 'wpns_logout_form',  
+                };
+                jQuery.post(ajaxurl, data, function(response) {
+                    window.location.reload(true);
+                });
+            });
+            jQuery("#mo2f_transaction_check").click(function()
+            {
+                var data =  
+                {
+                    'action'                  : 'wpns_login_security',
+                    'wpns_loginsecurity_ajax' : 'wpns_check_transaction',  
                 };
                 jQuery.post(ajaxurl, data, function(response) {
                     window.location.reload(true);

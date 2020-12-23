@@ -48,11 +48,28 @@ class wpns_ajax
 					$this->wpns_all_plans(); 	break;	
 				case 'wpns_logout_form':
 					$this->wpns_logout_form();	break;
-					
+				case 'wpns_check_transaction':
+					$this->wpns_check_transaction(); break;	
+				case 'update_plan':
+					$this->update_plan();		break;
 			}
 		}
 
-
+		function update_plan(){
+			$mo2f_all_plannames = $_POST['planname'];
+			$mo_2fa_plan_type	= $_POST['planType'];
+				update_option('mo2f_planname', $mo2f_all_plannames);
+			if ($mo2f_all_plannames == 'addon_plan') 
+			{
+				update_option('mo2f_planname', 'addon_plan');
+				update_site_option('mo_2fa_addon_plan_type',$mo_2fa_plan_type);
+			}
+			elseif ($mo2f_all_plannames == '2fa_plan') 
+			{
+				update_option('mo2f_planname', '2fa_plan');
+				update_site_option('mo_2fa_plan_type',$mo_2fa_plan_type);
+			}	
+		}
 		function mo2f_ajax_otp(){
 			$obj = new Miniorange_Password_2Factor_Login();
 			$obj->check_miniorange_soft_token($_POST);	
@@ -60,6 +77,36 @@ class wpns_ajax
 		function mo2f_ajax_kba(){
 			$obj = new Miniorange_Password_2Factor_Login();
 			$obj->check_kba_validation($_POST);			
+		}
+		function wpns_check_transaction()
+		{
+			$customerT = new Customer_Cloud_Setup();
+			$content = json_decode( $customerT->get_customer_transactions( get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ),'PREMIUM' ), true );
+			if($content['status'] == 'SUCCESS')
+			{
+				update_site_option('mo2f_license_type','PREMIUM');
+			}
+			else
+			{
+				update_site_option('mo2f_license_type','DEMO');
+				$content = json_decode( $customerT->get_customer_transactions( get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ),'DEMO' ), true );
+			}
+			if(isset($content['smsRemaining']))
+				update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',$content['smsRemaining']);
+			else if($content['status'] =='SUCCESS')
+				update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',0);
+			if(isset($content['emailRemaining']))
+			{
+				$available_transaction = get_site_option('EmailTransactionCurrent', 30);
+				if($content['emailRemaining']>$available_transaction and $content['emailRemaining']>10)
+				{
+					$currentTransaction = $content['emailRemaining']+get_site_option('cmVtYWluaW5nT1RQ');
+					if($available_transaction>30)
+						$currentTransaction = $currentTransaction-$available_transaction;
+					update_site_option('cmVtYWluaW5nT1RQ',$currentTransaction);
+					update_site_option('EmailTransactionCurrent',$content['emailRemaining']);
+				}
+			}
 		}
 		function mo2f_ajax_login()
 		{	
@@ -85,6 +132,7 @@ class wpns_ajax
 			delete_option('mo2f_api_key');
 			delete_option('mo2f_customer_token');
 			delete_option('mo_wpns_transactionId');
+			delete_site_option('EmailTransactionCurrent');
 			delete_option('mo_wpns_registration_status');
 			delete_option( 'mo_2factor_admin_registration_status' );
 
@@ -95,16 +143,20 @@ class wpns_ajax
 		function wpns_all_plans()
 		{
 			$mo2f_all_plannames = $_POST['planname'];
+			$mo_2fa_plan_type	= $_POST['planType'];
 				update_option('mo2f_planname', $mo2f_all_plannames);
 			if ($mo2f_all_plannames == 'addon_plan') 
 			{
 				update_option('mo2f_planname', 'addon_plan');
+				update_site_option('mo_2fa_addon_plan_type',$mo_2fa_plan_type);
 			}
 			elseif ($mo2f_all_plannames == '2fa_plan') 
 			{
 				update_option('mo2f_planname', '2fa_plan');
+				update_site_option('mo_2fa_plan_type',$mo_2fa_plan_type);
 			}	
 		}
+		
 	    function wpns_handle_bf_configuration_form(){
 
 	   		$nonce = $_POST['nonce'];
@@ -129,6 +181,7 @@ class wpns_ajax
 			update_option( 'mo_wpns_time_of_blocking_val' 	, $blocking_value   	  );
 			update_option('mo2f_show_remaining_attempts' 	, $show_login_attempts    );
 			if($brute_force == "on"){
+				update_site_option('bruteforce_notification_option',1);
 				wp_send_json('true');
 			}
 			else if($brute_force == ""){
@@ -490,6 +543,7 @@ class wpns_ajax
 			{
 				update_option('WAF','PluginLevel');
 				update_option('WAFEnabled','1');
+				update_site_option('waf_notification_option','1');
 				echo("PWAFenabled");exit;
 			}
 		}
@@ -513,6 +567,7 @@ class wpns_ajax
 			{
 				update_option('WAF','HtaccessLevel');
 				update_option('WAFEnabled','1');
+				update_site_option('waf_notification_option','1');
 				$dir_name =  dirname(__FILE__);
 				$dirN = $dir_name;
 				$dirN = str_replace('\\', '/', $dirN);
@@ -1171,6 +1226,7 @@ class wpns_ajax
 				update_option( 'mo_wpns_activate_recaptcha_for_woocommerce_login', $login_form_captcha );
 				update_option('mo_wpns_activate_recaptcha_for_registration', $reg_form_captcha   );
 				update_option( 'mo_wpns_activate_recaptcha_for_woocommerce_registration',$reg_form_captcha   );
+				update_site_option('recaptcha_notification_option',1);
 				wp_send_json('true');
 			}
 			else if($enable_captcha == ""){

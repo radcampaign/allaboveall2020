@@ -46,6 +46,8 @@ class Mo2fDB {
 				`mo2f_SecurityQuestions_config_status` tinyint, 
 				`mo2f_GoogleAuthenticator_config_status` tinyint, 
 				`mo2f_OTPOverEmail_config_status` tinyint, 
+				`mo2f_OTPOverTelegram_config_status` tinyint, 
+				`mo2f_OTPOverWhatsapp_config_status` tinyint, 
 				`mobile_registration_status` tinyint, 
 				`mo2f_2factor_enable_2fa_byusers` tinyint DEFAULT 1,
 				`mo2f_configured_2FA_method` mediumtext NOT NULL , 
@@ -60,16 +62,25 @@ class Mo2fDB {
 		add_site_option( 'cmVtYWluaW5nT1RQ' ,30);
 		add_site_option( 'bGltaXRSZWFjaGVk' ,0);
 		add_site_option( base64_encode('totalUsersCloud'),0);
+		add_site_option(base64_encode('remainingWhatsapptransactions'),30);
 
 
 
 
 		$check_if_column_exists = $this->check_if_column_exists( 'mo2f_user_details', "mo2f_OTPOverEmail_config_status" );
+		$check_if_column_exists_tel = $this->check_if_column_exists( 'mo2f_user_details', "mo2f_OTPOverTelegram_config_status" );
 
 		if (  ! $check_if_column_exists  ) {
 			$query = "ALTER TABLE `$tableName` ADD COLUMN `mo2f_OTPOverEmail_config_status` tinyint";
 			$this->execute_add_column( $query );
 			
+		}
+		if(!$check_if_column_exists_tel)
+		{
+			$query = "ALTER TABLE " . $tableName . " ADD COLUMN (
+			`mo2f_OTPOverTelegram_config_status` tinyint, 
+			`mo2f_OTPOverWhatsapp_config_status` tinyint);";
+			$this->execute_add_column( $query );	
 		}
 
 
@@ -169,7 +180,25 @@ class Mo2fDB {
 
 		return;
 	}
+	function get_no_of_2fa_users() {
+		global $wpdb;
+		$count=$wpdb->query(
+		"SELECT * FROM `". $this->userDetailsTable."`WHERE `mo2f_2factor_enable_2fa_byusers`=1 "
+		);
+		return $count;
+	}
 
+	function get_all_user_2fa_methods() {
+		global $wpdb;
+		$all_methods = [];
+		$methods=$wpdb->get_results(
+		"SELECT `mo2f_configured_2FA_method` FROM ". $this->userDetailsTable." WHERE `mo2f_2factor_enable_2fa_byusers`=1",ARRAY_A
+		);
+		foreach($methods as $method){
+			array_push($all_methods,$method['mo2f_configured_2FA_method']);
+		}
+		return implode(',',$all_methods);
+	}
 
 	function check_if_table_exists( ) {
 		global $wpdb;

@@ -15,18 +15,21 @@ function miniorange_2_factor_user_roles($current_user) {
 
     </div></span><br /><br />
     <?php 
+    if(is_multisite()){
+        $first_role=array('superadmin'=>'Superadmin');
+        $wp_roles->role_names = array_merge($first_role,$wp_roles->role_names);
+    }
 	 foreach($wp_roles->role_names as $id => $name) {
 		$setting = get_site_option('mo2fa_'.$id);
 		?>
         <div>
             <input type="checkbox" name="role" value="<?php echo 'mo2fa_'.$id; ?>"
 				<?php
-				if($id=='administrator'){
-					if(get_site_option('mo2fa_administrator'))
+				if($id=='administrator' || $id=='superadmin'){
+                    if(get_site_option('mo2fa_'.$id))
 						echo 'checked' ;
-					else{
+                    else
 						echo 'unchecked';
-					}
 				}
 				else{
 					echo 'disabled' ;
@@ -68,7 +71,7 @@ $method_exisits = in_array($configured_2FA_method, $configured_meth);
 if(current_user_can('administrator')){
 	?>
     <div class="mo_wpns_setting_layout" id="disable_two_factor_tour">
-        <h2>Enable/disable 2-factor Authentication</h2>
+        <h2>Two-factor Authentication</h2>
         <hr>
         <div style="padding-top: 1%;">
             <form name="f" method="post" action="" >
@@ -91,7 +94,7 @@ if(current_user_can('administrator')){
         </div>
     </div>
     <div class="mo_wpns_setting_layout" id="mo2f_inline_registration_tour">
-        <h2>Enable/disable User Enrollment / Provisioning for 2FA</h2>
+        <h2>User Enrollment / Provisioning for 2FA</h2>
         <hr>
         <div style="padding-top: 1%;">
             <form name="f" method="post" action="" >
@@ -124,14 +127,9 @@ if(current_user_can('administrator')){
             jQuery.post(ajaxurl, data, function(response) {
                 var response = response.replace(/\s+/g,' ').trim();
                 if (response == "true"){
-                    jQuery('#mo_scan_message').empty();
-                    jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp&nbsp Two factor is now enabled.</div></div>");
-                    window.onload =  nav_popup();
-                }
-                else{
-                    jQuery('#mo_scan_message').empty();
-                    jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp&nbsp Two factor is now disabled.</div></div>");
-                    window.onload =  nav_popup();
+                    success_msg("Two factor is now enabled.");
+                }else{
+                    error_msg("Two factor is now disabled.");
                 }
             });
 
@@ -153,7 +151,7 @@ if(current_user_can('administrator')){
                     error_msg('Unknown error occured. Please try again!');
                 }
                 else{
-                    success_msg('User Enrollment is now disabled.');
+                    error_msg('User Enrollment is now disabled.');
                 }
             });
 
@@ -191,30 +189,9 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
 
 
 
-            
 
 
-                
-
-
-
-               
-                
-
-
-    
-    
-    
-                        
-     
-        
-
-    <script>
-        
-        
-                   
-            
-       
+    <script>    
 
 
 
@@ -236,19 +213,14 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
             jQuery.post(ajaxurl, data, function(response) {
                 var response = response.replace(/\s+/g,' ').trim();
                 if (response == "true"){
-                    jQuery('#mo_scan_message').empty();
-                    jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp&nbsp Settings are saved.</div></div>");
-                    window.onload =  nav_popup();
+                    success_msg("Settings are saved.");
                 }
                 else 
                 {
                     jQuery('#mo2f_confirmcloud').css('display', 'none');
                     jQuery( "#singleUser" ).prop( "checked", false );
                     jQuery('#single_user').css('display', 'none');
-                     
-                    jQuery('#mo_scan_message').empty();
-                    jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp&nbsp <b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.</div></div>");
-                    window.onload =  nav_popup();
+		    error_msg("<b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.");
                 }
             });
         });
@@ -278,8 +250,7 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
 <?php
     if(!MO2F_IS_ONPREM && current_user_can('administrator')){
 	?>
-    <div id="wpns_message" >
-    </div>
+    
 
     <script type="text/javascript">
 
@@ -303,11 +274,9 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
                     jQuery( "#unlimittedUser" ).prop( "checked", false );
                     jQuery('#ConfirmOnPrem').css('display', 'none');
                     jQuery('#onpremisediv').css('display','inline');
-                     
-                    jQuery('#mo_scan_message').empty();
-                    jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp&nbsp <b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.</div></div>");
-                    window.onload =  nav_popup();
-                }
+                    error_msg("<b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.");
+
+                   }
             });
         }
         function reconfigGA(){
@@ -331,10 +300,8 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
                     jQuery( "#unlimittedUser" ).prop( "checked", false );
                     jQuery('#ConfirmOnPrem').css('display', 'none');
                     jQuery('#onpremisediv').css('display','inline');
-                     
-                    jQuery('#mo_scan_message').empty();
-                    jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp&nbsp <b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.</div></div>");
-                    window.onload =  nav_popup();
+                    error_msg("<b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.");
+
                 }
             });
         }
@@ -367,23 +334,17 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
                 var response = response.replace(/\s+/g,' ').trim();
                 if(response =='OnPremiseActive')
                 {
-                    jQuery('#wpns_message').empty();
-                    jQuery('#wpns_message').append("<div class= 'notice notice-success is-dismissible' style='height : 25px;padding-top: 10px;  '> Congratulations! Now you can use 2-factor Authentication for your administrators for  free.  ");
-                    
+                    success_msg("Congratulations! Now you can use 2-factor Authentication for your administrators for  free. ");
                     jQuery('#onpremisediv').hide();
                     jQuery('#afterMigrate').show();
                 }
                 else if(response =='OnPremiseDeactive')
                 {
-                    jQuery('#wpns_message').empty();
-                    jQuery('#wpns_message').append("<div class= 'notice notice-success is-dismissible' style='height : 25px;padding-top: 10px;  '> Cloud Solution deactivated");
-                    close_modal();
+                    error_msg("Cloud Solution deactivated");
                 }
                 else
                 {
-                    jQuery('#wpns_message').empty();
-                    jQuery('#wpns_message').append("<div class= 'notice notice-error is-dismissible' style='height : 25px;padding-top: 10px;  '> An Unknown Error has occured. ");
-                    close_modal();
+                    error_msg("An Unknown Error has occured.");
                 }
             });
 
@@ -420,20 +381,11 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
                     }
                     else if(response == "NonceDidNotMatch")
                     {
-                    jQuery('#mo_scan_message').empty();
-                    jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'> There were some issues. Please try again.</div></div>");
-                    window.onload =  nav_popup();
-                      
-                     close_modal();
-
+                    error_msg(" There were some issues. Please try again.");
                     }
                     else
                     {
-					jQuery('#mo_scan_message').empty();
-                    jQuery('#mo_scan_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>Please enter a valid Email.</div></div>");
-                    window.onload =  nav_popup();
-					
-
+					error_msg("Please enter a valid Email.");
                     }
                 });
             }

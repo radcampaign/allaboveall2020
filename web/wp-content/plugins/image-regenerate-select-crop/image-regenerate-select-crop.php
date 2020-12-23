@@ -5,7 +5,7 @@
  * Description: Regenerate and crop images, details and actions for image sizes registered and image sizes generated, clean up, placeholders, custom rules, register new image sizes, crop medium settings, WP-CLI commands, optimize images.
  * Text Domain: sirsc
  * Domain Path: /langs
- * Version: 5.4.4
+ * Version: 5.5
  * Author: Iulia Cazan
  * Author URI: https://profiles.wordpress.org/iulia-cazan
  * Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JJA37EHZXWUTJ
@@ -38,8 +38,8 @@ if ( ! file_exists( $dest_path ) ) {
 define( 'SIRSC_PLUGIN_FOLDER', dirname( __FILE__ ) );
 define( 'SIRSC_PLACEHOLDER_FOLDER', realpath( $dest_path ) );
 define( 'SIRSC_PLACEHOLDER_URL', esc_url( $dest_url ) );
-define( 'SIRSC_ASSETS_VER', '20200830.1145' );
-define( 'SIRSC_PLUGIN_VER', 5.44 );
+define( 'SIRSC_ASSETS_VER', '20201010.1010' );
+define( 'SIRSC_PLUGIN_VER', 5.5 );
 define( 'SIRSC_ADONS_FOLDER', dirname( __FILE__ ) . '/adons/' );
 
 /**
@@ -256,7 +256,7 @@ class SIRSC_Image_Regenerate_Select_Crop {
 		add_action( 'woocommerce_admin_after_product_gallery_item', array( $called, 'append_image_generate_button_small' ), 60, 2 );
 		if ( ! empty( self::$settings['disable_woo_thregen'] ) ) {
 			// Disable WooCommerce background thumbnail regeneration.
-			add_filter( 'woocommerce_background_image_regeneration', '__return_false' );
+			add_filter( 'woocommerce_background_image_regeneration', '__return_false', 30 );
 		}
 
 		if ( ! empty( self::$settings['sync_settings_ewww'] ) ) {
@@ -4136,6 +4136,7 @@ class SIRSC_Image_Regenerate_Select_Crop {
 				if ( ! empty( $execute ) || $allow_upscale ) {
 					self::debug( 'ALLOW EXECUTION, CONTINUE', true, true );
 					$saved = self::image_editor( $id, $from_file, $size_name, $size_info, $small_crop, $force_quality );
+
 					if ( ! empty( $saved ) ) {
 						if ( is_wp_error( $metadata ) ) {
 							self::debug( 'DO NOT UPDATE METADATA', true, true );
@@ -4143,11 +4144,19 @@ class SIRSC_Image_Regenerate_Select_Crop {
 						}
 						$is_reused = ( ! empty( $saved['reused'] ) ) ? true : false;
 						self::debug( 'EDITOR PROCESSED IMAGE', true, true );
+
+						if ( empty( $metadata ) ) {
+							$metadata = self::attempt_to_create_metadata( $id, $filename );
+						}
 						if ( empty( $metadata['sizes'] ) ) {
 							$metadata['sizes'] = array();
 						}
-						unset( $saved['path'] );
-						unset( $saved['reused'] );
+						if ( isset( $saved['path'] ) ) {
+							unset( $saved['path'] );
+						}
+						if ( isset( $saved['reused'] ) ) {
+							unset( $saved['reused'] );
+						}
 						$metadata['sizes'][ $size_name ] = $saved;
 						wp_update_attachment_metadata( $id, $metadata );
 						$initial_m = $metadata;

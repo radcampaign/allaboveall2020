@@ -151,7 +151,8 @@ function mo2f_collect_attributes( $email, $attributes ) {
 function mo2f_get_user_2ndfactor( $user ) {
 	global $Mo2fdbQueries;
 	$mo2f_user_email = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
-	$enduser         = new Two_Factor_Setup();
+	
+    $enduser         = new Two_Factor_Setup();
 	$userinfo        = json_decode( $enduser->mo2f_get_userinfo( $mo2f_user_email ), true );
 	if ( json_last_error() == JSON_ERROR_NONE ) {
 		if ( $userinfo['status'] == 'ERROR' ) {
@@ -229,6 +230,7 @@ function mo2f_get_forgotphone_form( $login_status, $login_message, $redirect_to,
           class="mo2f_display_none_forms">
         <input type="hidden" name="miniorange_mobile_validation_failed_nonce"
                value="<?php echo wp_create_nonce( 'miniorange-2-factor-mobile-validation-failed-nonce' ); ?>"/>
+        <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
         <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
     </form>
     <form name="f" id="mo2f_challenge_forgotphone_form" method="post" class="mo2f_display_none_forms">
@@ -255,10 +257,11 @@ function mo2f_get_forgotphone_form( $login_status, $login_message, $redirect_to,
     </html>
 <?php }
 
-function mo2f_get_kba_authentication_prompt( $login_message, $redirect_to, $session_id_encrypt , $cookievalue) {
+function mo2f_get_kba_authentication_prompt($login_status, $login_message, $redirect_to, $session_id_encrypt , $cookievalue) {
 	$mo_wpns_config = new MoWpnsHandler();
     $mo2f_login_option            = MoWpnsUtility::get_mo2f_db_option('mo2f_login_option', 'get_option');
 	$mo2f_remember_device_enabled = get_option( 'mo2f_remember_device' );
+    $user_id                      = MO2f_Utility::mo2f_retrieve_user_temp_values( 'mo2f_current_user_id',$session_id_encrypt );
 	?>
     <html>
     <head>
@@ -290,7 +293,7 @@ function mo2f_get_kba_authentication_prompt( $login_message, $redirect_to, $sess
                         <form name="f" id="mo2f_submitkba_loginform" method="post">
                             <div id="mo2f_kba_content">
                                 <p style="font-size:15px;">
-									<?php $kba_questions = $cookievalue;//MO2f_Utility::mo2f_retrieve_user_temp_values( 'mo_2_factor_kba_questions',$session_id_encrypt );
+									<?php $kba_questions = $cookievalue;
 									echo $kba_questions[0]['question']; ?><br>
                                     <input class="mo2f-textbox" type="password" name="mo2f_answer_1" id="mo2f_answer_1"
                                            required="true" autofocus="true"
@@ -327,12 +330,30 @@ function mo2f_get_kba_authentication_prompt( $login_message, $redirect_to, $sess
                             <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
                         </form>
                         <br>
-                    </div>
+                    </div><br>
+                    <?php 
+                    if(empty(get_user_meta($user_id, 'mo_backup_code_generated', true))){ ?>
+                        <div>
+                            <a href="#mo2f_backup_generate">
+                                <p style="font-size:14px; font-weight:bold;"><?php echo __('Send backup codes on email', 'miniorange-2-factor-authentication');?></p>
+                            </a>
+                        </div>
+                    <?php }else{ ?>
+                        <div>
+                            <a href="#mo2f_backup_option">
+                                <p style="font-size:14px; font-weight:bold;"><?php echo __('Use Backup Codes', 'miniorange-2-factor-authentication');?></p>
+                            </a>
+                        </div>
+                    <?php }
+                    ?>
                     <div style="padding:10px;">
                         <p><a href="<?php echo $mo_wpns_config->lockedOutlink();?>" target="_blank" style="color:#ca2963;font-weight:bold;">I'm locked out & unable to login.</a></p>
                     </div>
 
-                    <?php mo2f_customize_logo() ?>
+                    <?php 
+                        mo2f_customize_logo(); 
+                        mo2f_create_backup_form($redirect_to, $session_id_encrypt, $login_status, $login_message);
+                    ?>
 
                 </div>
             </div>
@@ -391,12 +412,76 @@ function mo2f_get_kba_authentication_prompt( $login_message, $redirect_to, $sess
             }); 
         }
     }
+        jQuery('a[href="#mo2f_backup_option"]').click(function() {
+            jQuery('#mo2f_backup').submit();
+          });
+        jQuery('a[href="#mo2f_backup_generate"]').click(function() {
+            jQuery('#mo2f_create_backup_codes').submit();
+        });
     </script>
     </body>
 
     </html>
 	<?php
 }
+
+function mo2f_backup_form($login_status, $login_message, $redirect_to, $session_id_encrypt){
+   ?>
+<html>
+   <head>  <meta charset="utf-8"/>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+       <?php
+       echo_js_css_files(); ?>
+   </head>
+   <body>
+      <div class="mo2f_modal" tabindex="-1" role="dialog" id="myModal5">
+         <div class="mo2f-modal-backdrop"></div>
+         <div class="mo_customer_validation-modal-dialog mo_customer_validation-modal-md">
+            <div class="login mo_customer_validation-modal-content">
+               <div class="mo2f_modal-header">
+                  <h4 class="mo2f_modal-title"><button type="button" class="mo2f_close" data-dismiss="modal" aria-label="Close" title="<?php echo __('Back to login','miniorange-2-factor-authentication');?>" onclick="mologinback();"><span aria-hidden="true">&times;</span></button>
+                     <?php echo __('Validate Backup Code', 'miniorange-2-factor-authentication'); ?>
+                  </h4>
+               </div>
+               <div class="mo2f_modal-body">
+                  <div id="kbaSection" style="padding-left:10px;padding-right:10px;">
+                     <div  id="otpMessage" >
+                        
+                        <p style="font-size:15px;"><?php echo (isset($login_message) && !empty($login_message)) ? $login_message :  __('Please answer the following questions:', 'miniorange-2-factor-authentication'); ?></p>
+                     </div>
+                     <form name="f" id="mo2f_submitbackup_loginform" method="post" action="">
+                        <div id="mo2f_kba_content">
+                           <p style="font-size:15px;">
+                              <input class="mo2f-textbox" type="text" name="mo2f_backup_code" id="mo2f_backup_code" required="true" autofocus="true"  title="<?php echo __('Only alphanumeric letters with special characters(_@.$#&amp;+-) are allowed.','miniorange-2-factor-authentication'); ?>" autocomplete="off" ><br />
+                           </p>
+                        </div>
+                        <input type="submit" name="miniorange_backup_validate" id="miniorange_backup_validate" class="miniorange_otp_token_submit"  style="float:left;" value="<?php echo mo2f_lt('Validate' ); ?>" />
+                        <input type="hidden" name="miniorange_validate_backup_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-validate-backup-nonce'); ?>" />
+                        <input type="hidden" name="option" value="miniorange_validate_backup_nonce">
+                        <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>" />
+                        <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>" />
+                     </form>
+                     </br>
+                  </div>
+                  <br /><br /><br />
+                  <?php mo2f_customize_logo() ?>
+               </div>
+            </div>
+         </div>
+      </div>
+      <form name="f" id="mo2f_backto_mo_loginform" method="post" action="<?php echo wp_login_url(); ?>" style="display:none;">
+         <input type="hidden" name="miniorange_mobile_validation_failed_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-mobile-validation-failed-nonce'); ?>" />
+      </form>
+   </body>
+   <script>
+      function mologinback(){
+        jQuery('#mo2f_backto_mo_loginform').submit();
+      }
+   </script>
+</html>
+<?php
+   }
 
 function mo2f_get_push_notification_oobemail_prompt( $id, $login_status, $login_message, $redirect_to, $session_id_encrypt, $cookievalue ) {
 	$mo_wpns_config = new MoWpnsHandler();
@@ -406,6 +491,7 @@ function mo2f_get_push_notification_oobemail_prompt( $id, $login_status, $login_
 	$mo2f_KBA_config_status  = $Mo2fdbQueries->get_user_detail( 'mo2f_SecurityQuestions_config_status', $id );
 	$mo2f_is_new_customer    = MoWpnsUtility::get_mo2f_db_option('mo2f_is_NC', 'get_option');
     $mo2f_EV_txid            = get_user_meta($id,'mo2f_EV_txid',true);    
+    $user_id                      = MO2f_Utility::mo2f_retrieve_user_temp_values( 'mo2f_current_user_id',$session_id_encrypt );  
     if(!MO2F_IS_ONPREM)
         $mo2f_EV_txid        = $_SESSION['mo2f_transactionId'];
     	?>
@@ -471,13 +557,31 @@ function mo2f_get_push_notification_oobemail_prompt( $id, $login_status, $login_
                            <?php } ?>
                         </span>
                         <center>
+                            <?php 
+                                if(empty(get_user_meta($user_id, 'mo_backup_code_generated', true))){ ?>
+                                    <div>
+                                        <a href="#mo2f_backup_generate">
+                                            <p style="font-size:14px; font-weight:bold;"><?php echo __('Send backup codes on email', 'miniorange-2-factor-authentication');?></p>
+                                        </a>
+                                    </div>
+                            <?php }else{ ?>
+                                    <div>
+                                        <a href="#mo2f_backup_option">
+                                            <p style="font-size:14px; font-weight:bold;"><?php echo __('Use Backup Codes', 'miniorange-2-factor-authentication');?></p>
+                                        </a>
+                                    </div>
+                            <?php }
+                            ?>
                             <div style="padding:10px;">
                                 <p><a href="<?php echo $mo_wpns_config->lockedOutlink();?>" target="_blank" style="color:#ca2963;font-weight:bold;">I'm locked out & unable to login.</a></p>
                             </div>
                         </center>
                     </div>
 
-					<?php mo2f_customize_logo() ?>
+					<?php 
+                        mo2f_customize_logo(); 
+                        mo2f_create_backup_form($redirect_to, $session_id_encrypt, $login_status, $login_message);
+                    ?>
                 </div>
             </div>
         </div>
@@ -487,6 +591,7 @@ function mo2f_get_push_notification_oobemail_prompt( $id, $login_status, $login_
         <input type="hidden" name="miniorange_mobile_validation_failed_nonce"
                value="<?php echo wp_create_nonce( 'miniorange-2-factor-mobile-validation-failed-nonce' ); ?>"/>
         <input type="hidden" name="option" value="miniorange_mobile_validation_failed">
+        <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
         <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
         <input type="hidden" name="currentMethod" value="emailVer"/>
         
@@ -523,6 +628,7 @@ function mo2f_get_push_notification_oobemail_prompt( $id, $login_status, $login_
         <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
         <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
     </form>
+    
     <script>
         var timeout;
         var login_status = '<?php echo $login_status;?>';
@@ -607,6 +713,12 @@ function mo2f_get_push_notification_oobemail_prompt( $id, $login_status, $login_
         jQuery('a[href="#mo2f_alternate_login_kba"]').click(function () {
             jQuery('#mo2f_alternate_login_kbaform').submit();
         });
+        jQuery('a[href="#mo2f_backup_option"]').click(function() {
+            jQuery('#mo2f_backup').submit();
+        });
+        jQuery('a[href="#mo2f_backup_generate"]').click(function() {
+            jQuery('#mo2f_create_backup_codes').submit();
+        });
 
     </script>
     </body>
@@ -618,6 +730,7 @@ function mo2f_get_qrcode_authentication_prompt( $login_status, $login_message, $
 	$mo2f_enable_forgotphone = MoWpnsUtility::get_mo2f_db_option('mo2f_enable_forgotphone', 'get_option');
 	$mo_wpns_config = new MoWpnsHandler();
 	$mo2f_is_new_customer    = MoWpnsUtility::get_mo2f_db_option('mo2f_is_NC', 'get_option');
+    $user_id                      = MO2f_Utility::mo2f_retrieve_user_temp_values( 'mo2f_current_user_id',$session_id_encrypt );
 	?>
     <html>
     <head>
@@ -670,11 +783,29 @@ function mo2f_get_qrcode_authentication_prompt( $login_status, $login_message, $
                                       value="<?php echo mo2f_lt( 'Phone is Offline?' ); ?>"/>
                         </center>
                      </span>
+                        <?php 
+                            if(empty(get_user_meta($user_id, 'mo_backup_code_generated', true))){ ?>
+                                <div>
+                                    <a href="#mo2f_backup_generate">
+                                        <p style="font-size:14px; font-weight:bold;"><?php echo __('Send backup codes on email', 'miniorange-2-factor-authentication');?></p>
+                                    </a>
+                                </div>
+                            <?php }else{ ?>
+                                <div>
+                                    <a href="#mo2f_backup_option">
+                                        <p style="font-size:14px; font-weight:bold;"><?php echo __('Use Backup Codes', 'miniorange-2-factor-authentication');?></p>
+                                    </a>
+                                </div>
+                            <?php }
+                            ?>
                         <div style="padding:10px;">
                             <p><a href="<?php echo $mo_wpns_config->lockedOutlink();?>" target="_blank" style="color:#ca2963;font-weight:bold;">I'm locked out & unable to login.</a></p>
                         </div>
                     </div>
-					<?php mo2f_customize_logo() ?>
+					<?php 
+                        mo2f_customize_logo();
+                        mo2f_create_backup_form($redirect_to, $session_id_encrypt, $login_status, $login_message); 
+                    ?>
                 </div>
             </div>
         </div>
@@ -683,6 +814,7 @@ function mo2f_get_qrcode_authentication_prompt( $login_status, $login_message, $
           class="mo2f_display_none_forms">
         <input type="hidden" name="miniorange_mobile_validation_failed_nonce"
                value="<?php echo wp_create_nonce( 'miniorange-2-factor-mobile-validation-failed-nonce' ); ?>"/>
+        <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
         <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
     </form>
     <form name="f" id="mo2f_mobile_validation_form" method="post" class="mo2f_display_none_forms">
@@ -707,6 +839,7 @@ function mo2f_get_qrcode_authentication_prompt( $login_status, $login_message, $
         <input type="hidden" name="option" value="miniorange_forgotphone">
         <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
     </form>
+
     <script>
         var timeout;
         pollMobileValidation();
@@ -755,6 +888,12 @@ function mo2f_get_qrcode_authentication_prompt( $login_status, $login_message, $
         function mologinback() {
             jQuery('#mo2f_backto_mo_loginform').submit();
         }
+        jQuery('a[href="#mo2f_backup_option"]').click(function() {
+            jQuery('#mo2f_backup').submit();
+        });
+        jQuery('a[href="#mo2f_backup_generate"]').click(function() {
+            jQuery('#mo2f_create_backup_codes').submit();
+        });
 
     </script>
     </body>
@@ -763,10 +902,13 @@ function mo2f_get_qrcode_authentication_prompt( $login_status, $login_message, $
 }
 
 function mo2f_get_otp_authentication_prompt( $login_status, $login_message, $redirect_to,$session_id_encrypt,$user_id,$show_back_button =null ) {
+    global $Mo2fdbQueries;
 	$mo2f_enable_forgotphone = MoWpnsUtility::get_mo2f_db_option('mo2f_enable_forgotphone', 'get_option');
 	$mo_wpns_config = new MoWpnsHandler();
 	$mo2f_is_new_customer    = MoWpnsUtility::get_mo2f_db_option('mo2f_is_NC', 'get_option');
     $attempts = get_option('mo2f_attempts_before_redirect', 3);
+    $user_id                      = MO2f_Utility::mo2f_retrieve_user_temp_values( 'mo2f_current_user_id',$session_id_encrypt );
+    $mo2f_otp_over_email_config_status        = $Mo2fdbQueries->get_user_detail( 'mo2f_OTPOverEmail_config_status', $user_id );
     ?>
     <html>
     <head>
@@ -841,14 +983,36 @@ function mo2f_get_otp_authentication_prompt( $login_status, $login_message, $red
                                        id="miniorange_login_forgotphone"
                                        class="mo2f-link"><?php echo mo2f_lt( 'Forgot Phone ?' ); ?></a>
 								<?php } ?>
-							<?php } ?>
-                            <div style="padding:10px;">
-                                <p><a href="<?php echo $mo_wpns_config->lockedOutlink();?>" target="_blank" style="color:#ca2963;font-weight:bold;">I'm locked out & unable to login.</a></p>
-                            </div>
+							<?php } 
+                            if($login_status != 'MO_2_FACTOR_CHALLENGE_OTP_OVER_EMAIL' || ($login_status == 'MO_2_FACTOR_CHALLENGE_OTP_OVER_EMAIL' && $mo2f_otp_over_email_config_status)){
+                                if(empty(get_user_meta($user_id, 'mo_backup_code_generated', true))){ ?>
+                                    <div>
+                                        <a href="#mo2f_backup_generate">
+                                            <p style="font-size:14px; font-weight:bold;"><?php echo __('Send backup codes on email', 'miniorange-2-factor-authentication');?></p>
+                                        </a>
+                                    </div>
+                                <?php }else{ ?>
+                                    <div>
+                                        <a href="#mo2f_backup_option">
+                                            <p style="font-size:14px; font-weight:bold;"><?php echo __('Use Backup Codes', 'miniorange-2-factor-authentication');?></p>
+                                        </a>
+                                    </div>
+                                <?php }
+                                ?>
+                                
+                                <div style="padding:10px;">
+                                    <p><a href="<?php echo $mo_wpns_config->lockedOutlink();?>" target="_blank" style="color:#ca2963;font-weight:bold;">I'm locked out & unable to login.</a></p>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
                     </center>
-					<?php mo2f_customize_logo() ?>
+					<?php 
+                        mo2f_customize_logo();
+                        if($login_status != 'MO_2_FACTOR_CHALLENGE_OTP_OVER_EMAIL' || ($login_status == 'MO_2_FACTOR_CHALLENGE_OTP_OVER_EMAIL' && $mo2f_otp_over_email_config_status)){
+                            mo2f_create_backup_form($redirect_to, $session_id_encrypt, $login_status, $login_message); 
+                        }
+                    ?>
                 </div>
             </div>
         </div>
@@ -870,6 +1034,7 @@ function mo2f_get_otp_authentication_prompt( $login_status, $login_message, $red
                value="<?php echo wp_create_nonce( 'miniorange-2-factor-mobile-validation-failed-nonce' ); ?>"/>
         <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
     </form>
+   
 	<?php if ( MoWpnsUtility::get_mo2f_db_option('mo2f_enable_forgotphone', 'get_option') && isset( $login_status ) && $login_status != 'MO_2_FACTOR_CHALLENGE_OTP_OVER_EMAIL' ) { ?>
         <form name="f" id="mo2f_show_forgotphone_loginform" method="post" action="" class="mo2f_display_none_forms">
             <input type="hidden" name="request_origin_method" value="<?php echo $login_status; ?>"/>
@@ -885,6 +1050,12 @@ function mo2f_get_otp_authentication_prompt( $login_status, $login_message, $red
     <script>
         jQuery('#miniorange_otp_token_back').click(function(){
             jQuery('#mo2f_backto_inline_registration').submit();
+        });
+        jQuery('a[href="#mo2f_backup_option"]').click(function() {
+            jQuery('#mo2f_backup').submit();
+          });
+        jQuery('a[href="#mo2f_backup_generate"]').click(function() {
+            jQuery('#mo2f_create_backup_codes').submit();
         });
 
         function mologinback() {
@@ -991,6 +1162,7 @@ function mo2f_get_device_form( $redirect_to, $session_id_encrypt ) {
           class="mo2f_display_none_forms">
         <input type="hidden" name="miniorange_mobile_validation_failed_nonce"
                value="<?php echo wp_create_nonce( 'miniorange-2-factor-mobile-validation-failed-nonce' ); ?>"/>
+        <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
         <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
     </form>
     <form name="f" id="mo2f_trust_device_confirm_form" method="post" action="" class="mo2f_display_none_forms">
@@ -1041,5 +1213,145 @@ function echo_js_css_files() {
 	echo '<link rel="stylesheet" type="text/css" href="' . plugins_url( 'includes/css/twofa_style_settings.css?version=5.1.21', dirname(dirname(__FILE__))) . '" />';
 }
 
+function mo2f_backup_codes_generate($id, $redirect_to, $session_id_encrypt){
+        global $Mo2fdbQueries;
+        if(get_user_meta($id, 'mo_backup_code_generated', true) && !get_user_meta($id, 'mo_backup_code_downloaded', true)){
+            $encrypted_codes =get_user_meta($id, 'chqwetcsdvnvd', true);
+            $key        = get_option( 'mo2f_encryption_key' );
+            $codes_string = MO2f_Utility::decrypt_data( $encrypted_codes, $key );
+            $codes = explode(",", $codes_string);
+            delete_user_meta($id, 'chqwetcsdvnvd');
+            $result = true;
+        }else{
+            $codes = MO2f_Utility::mo_2f_generate_backup_codes();
+            $codes_hash = MO2f_Utility::mo2f_get_codes_hash($codes);
+            update_user_meta($id,'mo2f_backup_codes', $codes_hash);
+            $mo2f_user_email = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $id );
+            if(empty($mo2f_user_email)){
+                $currentuser = get_user_by( 'id', $id );
+                $mo2f_user_email = $currentuser->user_email;
+            }
+            $result = MO2f_Utility::mo2f_email_backup_codes($codes, $mo2f_user_email);
+            update_user_meta($id, 'mo_backup_code_generated', 1);
+        }
+        update_user_meta($id, 'mo_backup_code_screen_shown', 1);
+        ?>
+    <html>
+        <head>  <meta charset="utf-8"/>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <?php
+                echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>';
+                echo '<script src="' . plugins_url('includes/js/bootstrap.min.js', dirname(dirname(__FILE__))) . '" ></script>';
+                echo '<link rel="stylesheet" type="text/css" href="' . plugins_url('includes/css/bootstrap.min.css', dirname(dirname(__FILE__))) . '" />';
+                echo '<link rel="stylesheet" type="text/css" href="' . plugins_url('includes/css/front_end_login.css', dirname(dirname(__FILE__))) . '" />';
+                echo '<link rel="stylesheet" type="text/css" href="' . plugins_url('includes/css/style_settings.css', dirname(dirname(__FILE__))) . '" />';
+                echo '<link rel="stylesheet" type="text/css" href="' . plugins_url('includes/css/hide-login.css', dirname(dirname(__FILE__))) . '" />';
+            ?>
+            <style>
+                .mo2f_kba_ques, .mo2f_table_textbox{
+                    background: whitesmoke none repeat scroll 0% 0%;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="mo2f_modal" tabindex="-1" role="dialog" id="myModal5">
+                <div class="mo2f-modal-backdrop"></div>
+                <div class="mo2f_modal-dialog mo2f_modal-lg">
+                    <div class="login mo_customer_validation-modal-content">
+                        <div class="mo2f_modal-header">
+                            <h4 class="mo2f_modal-title"><button type="button" class="mo2f_close" data-dismiss="modal" aria-label="Close" title="<?php echo __('Back to login', 'miniorange-2-factor-authentication'); ?>" onclick="mologinback();"><span aria-hidden="true">&times;</span></button>
+                            <?php echo __('Two Factor Setup Complete', 'miniorange-2-factor-authentication'); ?></h4>
+                        </div>
+                        <div class="mo2f_modal-body center">
+
+                                
+                            <h3> <?php echo __('Please download the backup codes for account recovery.'); ?></h3>
+
+                            <h4> <?php echo __('You will receive the backup codes via email if you have your SMTP configured.
+                                <br>If you have received the codes on your email and do not wish to download the codes, click on Finish. '); ?></h4>
+                                    
+                            <h4> <?php echo __('Backup Codes can be used to login into user account in case you forget your phone or get locked out.
+                                    <br>Please use this carefully as each code can only be used once. Please do not share these codes with anyone.'); ?></h4>
+                            <?php ?>
+                            <div>   
+                                <div style="display: inline-flex;width: 350px; ">
+                                    <div id="clipboard" style="border: solid;width: 55%;float: left;">
+                                        <?php 
+                                        for ($x = 0; $x < 5; $x++) {
+                                            $str = $codes[$x];
+                                            echo("<br>".$str." <br>");
+                                        }
+                                        
+                                        $str1="";   
+                                        for ($x = 0; $x < 5; $x++) {
+                                            $str = $codes[$x];
+                                            $str1.=$str;
+                                            if($x != 4){
+                                                $str1.=',';
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                    <div  style="width: 50%;float: right;">
+                                        <form name="f" method="post" id="mo2f_users_backup1" action="">
+                                            <input type="hidden" name="option" value="mo2f_users_backup1" />
+                                            <input type="hidden" name="mo2f_inline_backup_codes" value="<?php echo $str1; ?>" />
+                                            <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
+                                            <input type="hidden" name="mo2f_inline_backup_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-backup-nonce'); ?>" />
+                                            
+                                            <input type="submit" name="Generate Codes1" id="codes" style="display:inline;width:100%;margin-left: 20%;margin-bottom: 37%;margin-top: 29%" class="button button-primary button-large" value="<?php echo __('Download Codes','miniorange-2-factor-authentication');?>" />
+                                        </form>
+                                    </div>
+
+                                    <form name="f" id="mo2f_backto_mo_loginform" method="post" action="<?php echo wp_login_url();?>" >
+                                        <input type="hidden" name="option" value="mo2f_goto_wp_dashboard" />
+                                        <input type="hidden" name="mo2f_inline_wp_dashboard_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-wp-dashboard-nonce'); ?>" />
+                                        <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                                        <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
+                                        <input type="submit" name="login_page" id="login_page" style="display:inline;margin-left:-198%;margin-top: 289% !important;margin-right: 24% !important;width: 209%" class="button button-primary button-large" value="<?php echo __('Finish','miniorange-2-factor-authentication');?>"  /><br>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <?php
+                            mo2f_customize_logo() ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form name="f" id="mo2f_backto_mo_loginform" method="post" action="<?php echo wp_login_url(); ?>" style="display:none;">
+                <input type="hidden" name="miniorange_mobile_validation_failed_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-mobile-validation-failed-nonce'); ?>" />
+            </form>
+        </body>
+        <script>
+            function mologinback(){
+                jQuery('#mo2f_backto_mo_loginform').submit();
+            }
+        </script>
+    </html>
+        <?php
+        
+        
+    }
+
+    function mo2f_create_backup_form($redirect_to, $session_id_encrypt, $login_status, $login_message){
+    ?>
+        <form name="f" id="mo2f_backup" method="post" action="" style="display:none;">
+            <input type="hidden" name="miniorange_backup_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-backup-nonce'); ?>" />
+            <input type="hidden" name="option" value="miniorange_backup_nonce">
+            <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>" />
+            <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>" />
+        </form>
+        <form name="f" id="mo2f_create_backup_codes" method="post" action="" style="display:none;">
+            <input type="hidden" name="miniorange_generate_backup_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-generate-backup-nonce'); ?>" />
+            <input type="hidden" name="option" value="miniorange_create_backup_codes">
+            <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>" />
+            <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>" />
+            <input type="hidden" name="login_status" value="<?php echo $login_status; ?>" />
+            <input type="hidden" name="login_message" value="<?php echo $login_message; ?>" />
+        </form>
+    <?php
+    }
 
 ?>

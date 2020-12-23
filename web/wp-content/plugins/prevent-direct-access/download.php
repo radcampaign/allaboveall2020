@@ -429,16 +429,37 @@ function get_full_file_path( $original_file ) {
 
 
 function _check_advance_file( $id, $original_file ) {
-	$repository   = new Repository;
-	$advance_file = $repository->get_status_advance_file_by_post_id( $id, true );
-	//error_log("$advance_file = " . $advance_file->ID);
-	//check whether the file is prevented
-	if ( ! is_post_author( $id ) && isset( $advance_file ) && $advance_file->is_prevented === "1" ) {
-		error_log( "Is prevented " . $original_file );
-		file_not_found();
-	} else {
-		$file_path = get_full_file_path( $original_file );
-		send_file_to_client( $file_path );
+	$repository        = new Repository;
+	$advance_file      = $repository->get_status_advance_file_by_post_id( $id, true );
+	$is_file_protected = isset( $advance_file ) && $advance_file->is_prevented === "1";
+
+	if ( $is_file_protected ) {
+		$fap = Pda_Helper::get_fap_setting();
+		if ( ! pda_free_check_fap_for_file( $id, $fap ) ) {
+			error_log( "Is prevented " . $original_file );
+			file_not_found();
+			exit();
+		}
+	}
+
+	$file_path = get_full_file_path( $original_file );
+	send_file_to_client( $file_path );
+}
+
+/**
+ * Check FAP.
+ *
+ * @param integer $id Attachment ID.
+ * @param string $fap File access permission.
+ *
+ * @return bool
+ */
+function pda_free_check_fap_for_file( $id, $fap ) {
+	switch ( $fap ) {
+		case 'admin_users':
+			return Pda_Helper::is_admin_user_role();
+		default:
+			return is_post_author( $id );
 	}
 }
 

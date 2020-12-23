@@ -283,21 +283,20 @@ class MoWpnsUtility
 		$status='';
 		$status.="#";
 		
+		if(mo2f_is_customer_registered())
+			$status.="CT1";
 		if(get_site_option('mo2f_visit_waf'))
 			$status.="WF1";
-		if(get_site_option('WAF'))
-			$status.="F1";
 		if(get_site_option('mo2f_visit_login_and_spam'))
 			$status.="LS1";
-		if(MoWpnsUtility::get_mo2f_db_option('mo2f_enable_brute_force', 'get_option'))
-			$status.="BF1";
 		if(get_site_option('mo2f_visit_malware'))
 			$status.="M1";
 		if(get_site_option('mo2f_visit_backup'))
 			$status.="B1";
 		if(get_site_option('mo2f_two_factor'))
 			$status.="TF1";
-			
+		if(time()-get_site_option("mo_2fa_pnp")<2592000)
+			$status.='U1';			
 		$status.="R".rand(0,1000);
 		return $status;
 	}
@@ -334,5 +333,80 @@ class MoWpnsUtility
 
 		$guestcustomer->guest_audit();
 	}
+	public static function mo_2fa_send_configuration($send_all_configuration=false){
+        global $Mo2fdbQueries,$moWpnsUtility;
+		   	$user_object = wp_get_current_user();
+		   	$mo2f_configured_2FA_method 	= $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user_object->ID );
+		   	$other_methods					= $Mo2fdbQueries->get_all_user_2fa_methods();
+           	$key                			= get_option('mo2f_customerKey');
+		    $is_plugin_active_for_network	= is_plugin_active_for_network( MoWpnsConstants::TWO_FACTOR_SETTINGS); 
+		    $is_onprem          			= get_option('is_onprem');
+		    $WAFEnabled          			= get_site_option('WAFEnabled');
+		    $WAFLevel 						= get_site_option('WAF');
+		    $NoOf2faUsers					= $Mo2fdbQueries->get_no_of_2fa_users();
+		    $EmailTransactions  			= MoWpnsUtility::get_mo2f_db_option('cmVtYWluaW5nT1RQ', 'site_option');
+		    $SMSTransactions    			= get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z')?get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z'):0; 
+		    $SQLInjection       	   		= get_option('SQLInjection');
+		    $XSSAttack          			= get_option('XSSAttack');
+		    $RFIAttack          			= get_option('RFIAttack');
+		    $LFIAttack          			= get_option('LFIAttack');
+		    $Rate_request          			= get_option('Rate_request');
+		    $limitAttack          			= get_option('limitAttack');
+		    $RCEAttack          			= get_option('RCEAttack');
+		    $mo_wpns_countrycodes			= get_option('mo_wpns_countrycodes');
+		    $mo2f_enable_brute_force		= get_option('mo2f_enable_brute_force');
+		    $space							= "<span>&nbsp;&nbsp;&nbsp;</span>";
+		    $browser 						= $moWpnsUtility->getCurrentBrowser();
+		    $specific_plugins				= array('UM_Functions'=>'Ultimate Member', 'wc_get_product'=>'WooCommerce','pmpro_gateways'=>'Paid MemberShip Pro');
+            $backup_codes_remaining 		= get_user_meta($user_object->ID, 'mo2f_backup_codes', true);
+            if(is_array($backup_codes_remaining)){
+				$backup_codes_remaining = sizeof($backup_codes_remaining);
+			}else{
+				$backup_codes_remaining = 0;
+			}
+        $plugin_configuration ="<br><br><I>Plugin Configuration :-</I>".$space."On-premise:".($is_onprem?"Yes":"No"). $space."2FA method:" . ($mo2f_configured_2FA_method==''?"Not selected":$mo2f_configured_2FA_method).$space."No. of 2FA users :".$NoOf2faUsers.($other_methods==''?"NONE":$space."Methods of users:".$other_methods).$space."Email transactions:".$EmailTransactions.$space."SMS Transactions:".$SMSTransactions.$space.(is_multisite()?"Multisite:Yes":"Single-site:Yes").((mo2f_is_customer_registered())?($space."Customer Key:".$key):($space."Customer Registered:'No")).$space."Browser:".$browser;
+        if(get_user_meta($user_object->ID, 'mo_backup_code_generated', true) || get_user_meta($user_object->ID, 'mo_backup_code_downloaded', true))
+        	$plugin_configuration=$plugin_configuration.$space."Backup Codes:".$backup_codes_remaining."/5";
+        $plugins='';
+        foreach($specific_plugins as $class_name => $plugin_name){
+        	if(class_exists($class_name) || function_exists($class_name)){
+        		$plugins = $plugins."<span>&nbsp;</span>'".$plugin_name."'";
+        	}
+        }
+        $plugin_configuration=$plugin_configuration.($plugins!=''?$space."Installed Plugins:".$plugins:'');
+        if(MoWpnsUtility::get_mo2f_db_option('mo_wpns_2fa_with_network_security', 'get_option'))
+        	$plugin_configuration=$plugin_configuration.$space."WAF enabled:".$WAFEnabled.($WAFEnabled?$space."WAF level : ".$WAFLevel:"").$space."Brute force enabled : ".($mo2f_enable_brute_force?"Yes":"No");
+        if(is_multisite()){
+        	$plugin_configuration = $plugin_configuration.$space.($is_plugin_active_for_network?"Network activated:'Yes":"Site activated:'Yes");
+        }
+        if(time()-get_site_option("mo_2fa_pnp")<2592000 && (get_site_option('mo_2fa_plan_type')|| get_site_option('mo_2fa_addon_plan_type'))){
+        	$plugin_configuration=$plugin_configuration.$space."Checked plans:'";
+        	if(get_site_option('mo_2fa_plan_type'))
+        	$plugin_configuration=$plugin_configuration.get_site_option('mo_2fa_plan_type')."'";
+        	if(get_site_option('mo_2fa_addon_plan_type'))
+        		$plugin_configuration=$plugin_configuration."<span>&nbsp;</span>'".get_site_option('mo_2fa_addon_plan_type')."'";
+        }
+        $plugin_configuration=$plugin_configuration.$space."PHP_version:" . phpversion().$space."Wordpress_version:" . get_bloginfo('version');
+        if(!$send_all_configuration)
+        	return $plugin_configuration;
+    	if(get_site_option('enable_form_shortcode')){
+            $forms = array('mo2f_custom_reg_bbpress','mo2f_custom_reg_wocommerce','mo2f_custom_reg_custom');
+            foreach($forms as $form){
+                if(get_site_option($form))
+                    $plugin_configuration = $plugin_configuration.$space.$form.":".get_option($form);
+            }
+        }
+        if(!MoWpnsUtility::get_mo2f_db_option('mo_wpns_2fa_with_network_security', 'get_option'))
+        	return $plugin_configuration;
+        $plugin_configuration = $plugin_configuration.$space."SQL Injection:".$SQLInjection .$space."XSS Attack:".$XSSAttack.$space."RFI Attack:".$RFIAttack.$space."Limit Attack:".$limitAttack.$space."RCE Attack:".$RCEAttack;
+        $plugin_configuration=$plugin_configuration.(get_option('Rate_limiting')?$space."Rate request:".$Rate_request:'');
+        $plugin_configuration = get_option('mo_wpns_countrycodes')?$plugin_configuration.$space."mo_wpns_countrycodes:".$mo_wpns_countrycodes:$plugin_configuration.$space."Country Blocking:'Disabled";
+        $browser_block = array('mo_wpns_block_chrome','mo_wpns_block_firefox','mo_wpns_block_ie','mo_wpns_block_safari','mo_wpns_block_opera','mo_wpns_block_edge');
+        foreach($browser_block as $browser){
+            if(get_option($browser))
+                $plugin_configuration = $plugin_configuration.$space.$browser.":".get_option($browser);
+        }
+        return $plugin_configuration;
+    }
 	
 }
