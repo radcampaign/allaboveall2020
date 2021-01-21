@@ -1069,9 +1069,9 @@ class Tags {
 	 * @return mixed          The new title.
 	 */
 	public function parseCustomFields( $string ) {
-		$pattern = '/' . $this->denotationChar . 'custom_field-([a-zA-Z0-9_]+)/im';
+		$pattern = '/' . $this->denotationChar . 'custom_field-([a-zA-Z0-9_-]+)/im';
 		$string  = preg_replace_callback( $pattern, [ $this, 'replaceCustomField' ], $string );
-		$pattern = '/' . $this->denotationChar . 'custom_field(?![a-zA-Z0-9_])/im';
+		$pattern = '/' . $this->denotationChar . 'custom_field(?![a-zA-Z0-9_-])/im';
 		return preg_replace( $pattern, '', $string );
 	}
 

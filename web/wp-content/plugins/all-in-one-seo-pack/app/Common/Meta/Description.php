@@ -156,8 +156,8 @@ class Description {
 	 */
 	public function getPostTypeDescription( $postType ) {
 		$options = aioseo()->options->noConflict();
-		if ( $options->searchAppearance->dynamic->postTypes->has( $postType ) ) {
-			return aioseo()->options->searchAppearance->dynamic->postTypes->{$postType}->metaDescription;
+		if ( $options->searchAppearance->dynamic->postTypes->has( $postType, false ) ) {
+			return $options->{$postType}->metaDescription;
 		}
 
 		return '';

@@ -147,6 +147,10 @@ trait Options {
 	 * @return mixed        The value from the options or default/null.
 	 */
 	public function __get( $name ) {
+		if ( 'type' === $name ) {
+			$name = '_aioseo_type';
+		}
+
 		if ( $this->setGroupKey( $name ) ) {
 			return $this;
 		}
@@ -388,7 +392,7 @@ trait Options {
 	 */
 	public function all( $include = [], $exclude = [] ) {
 		// Make sure our dynamic options have loaded.
-		$this->init();
+		$this->init( true );
 
 		$originalGroupKey = $this->groupKey;
 
@@ -426,7 +430,7 @@ trait Options {
 	 */
 	public function reset( $include = [], $exclude = [] ) {
 		// Make sure our dynamic options have loaded.
-		$this->init();
+		$this->init( true );
 
 		// If we need to set a sub-group, do that now.
 		$keys     = array_merge( [ $this->groupKey ], $this->subGroups );
@@ -493,8 +497,12 @@ trait Options {
 	 * @return bool                  True if it does, false if not.
 	 */
 	public function has( $optionOrGroup = '', $resetGroups = true ) {
+		if ( 'type' === $optionOrGroup ) {
+			$optionOrGroup = '_aioseo_type';
+		}
+
 		// Make sure our dynamic options have loaded.
-		$this->init();
+		$this->init( true );
 
 		// If we need to set a sub-group, do that now.
 		$defaults = $this->groupKey ? $this->options[ $this->groupKey ] : $this->options;
@@ -597,11 +605,12 @@ trait Options {
 	 *
 	 * @since 4.0.0
 	 *
+	 * @param  array|null $options An optional options array.
 	 * @return void
 	 */
-	public function update() {
+	public function update( $options = null ) {
 		// First, we need to filter our options.
-		$options = $this->filterOptions( $this->defaults );
+		$options = $this->filterOptions( $this->defaults, $options );
 
 		// Refactor options.
 		$refactored = $this->convertOptionsToValues( $options );
@@ -616,11 +625,13 @@ trait Options {
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param  array $defaults The defaults to use in filtering.
-	 * @return array           An array of filtered options.
+	 * @param  array      $defaults The defaults to use in filtering.
+	 * @param  array|null $options  An optional options array.
+	 * @return array                An array of filtered options.
 	 */
-	public function filterOptions( $defaults ) {
-		return $this->filterRecursively( $this->options, $defaults );
+	public function filterOptions( $defaults, $options = null ) {
+		$options = ! empty( $options ) ? $options : $this->options;
+		return $this->filterRecursively( $options, $defaults );
 	}
 
 	/**

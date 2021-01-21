@@ -61,7 +61,9 @@ class Filters extends CommonMain\Filters {
 			]
 		];
 
-		unset( $actions['edit'] );
+		if ( isset( $actions['edit'] ) ) {
+			unset( $actions['edit'] );
+		}
 
 		return $this->parseActionLinks( $actions, $pluginFile, $actionLinks, 'before' );
 	}

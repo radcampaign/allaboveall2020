@@ -126,7 +126,7 @@ class Notifications {
 	 * @return \WP_REST_Response The response.
 	 */
 	public static function deprecatedFiltersReminder() {
-		return self::reminder( 'deprecated-filters' );
+		return self::reminder( 'deprecated-filters-v2' );
 	}
 
 	/**

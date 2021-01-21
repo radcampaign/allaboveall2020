@@ -183,6 +183,9 @@ class Robots {
 		if ( count( $optionOrder ) ) {
 			$options = aioseo()->options->noConflict()->searchAppearance;
 			foreach ( $optionOrder as $option ) {
+				if ( ! $options->has( $option, false ) ) {
+					return;
+				};
 				$options = $options->$option;
 			}
 

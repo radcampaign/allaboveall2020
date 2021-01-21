@@ -66,7 +66,7 @@ class Ping {
 			if ( ! as_next_scheduled_action( 'aioseo_sitemap_ping_recurring' ) ) {
 
 				$interval = apply_filters( 'aioseo_sitemap_ping_recurring', DAY_IN_SECONDS );
-				as_schedule_recurring_action( strtotime( 'tomorrow' ), $interval, 'aioseo_sitemap_ping_recurring' );
+				as_schedule_recurring_action( strtotime( 'tomorrow' ), $interval, 'aioseo_sitemap_ping_recurring', [], 'aioseo' );
 			}
 		} catch ( \Exception $e ) {
 			// Do nothing.

@@ -47,6 +47,10 @@ $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_transient\
 $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_aioseo\_%'" );
 $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'aioseo\_%'" );
 
+// Delete all entries from the action scheduler table.
+$wpdb->query( "DELETE FROM {$wpdb->prefix}actionscheduler_actions WHERE hook LIKE 'aioseo\_%'" );
+$wpdb->query( "DELETE FROM {$wpdb->prefix}actionscheduler_groups WHERE slug = 'aioseo'" );
+
 global $wp_filesystem;
 
 // Remove translation files.

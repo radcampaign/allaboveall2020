@@ -257,7 +257,7 @@ namespace AIOSEO\Plugin {
 			$this->usage              = $this->pro ? new Pro\Admin\Usage() : new Lite\Admin\Usage();
 			$this->siteHealth         = $this->pro ? new Pro\Admin\SiteHealth() : new Common\Admin\SiteHealth();
 			$this->license            = $this->pro ? new Pro\Admin\License() : null;
-			$this->autoUpdates        = new Common\Admin\AutoUpdates();
+			$this->autoUpdates        = $this->pro ? new Pro\Admin\AutoUpdates() : null;
 			$this->updates            = $this->pro ? new Pro\Main\Updates() : new Common\Main\Updates();
 			$this->meta               = $this->pro ? new Pro\Meta\Meta() : new Common\Meta\Meta();
 			$this->social             = $this->pro ? new Pro\Social\Social() : new Common\Social\Social();

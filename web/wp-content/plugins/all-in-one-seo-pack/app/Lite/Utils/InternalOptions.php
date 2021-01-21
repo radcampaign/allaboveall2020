@@ -74,11 +74,12 @@ class InternalOptions extends CommonUtils\InternalOptions {
 	 *
 	 * @since 4.0.0
 	 *
+	 * @param  array|null $options An optional options array.
 	 * @return void
 	 */
-	public function update() {
+	public function update( $options = null ) {
 		$optionsBefore = $this->options;
-		parent::update();
+		parent::update( $options );
 		$this->options = $optionsBefore;
 
 		// First, we need to filter our options.

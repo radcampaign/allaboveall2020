@@ -12,6 +12,10 @@ class RobotsTxt {
 	public function __construct() {
 		add_filter( 'robots_txt', [ $this, 'buildRules' ], 10000, 2 );
 
+		// If our tables do not exist, create them now.
+		if ( ! aioseo()->db->tableExists( 'aioseo_notifications' ) ) {
+			aioseo()->updates->addInitialCustomTablesForV4();
+		}
 		$this->checkForPhysicalFiles();
 	}
 
@@ -29,8 +33,9 @@ class RobotsTxt {
 			return $original;
 		}
 
-		$sitemapUrls   = implode( "\r\n", aioseo()->sitemap->helpers->getSitemapUrls() );
-		$originalRules = $this->extractRules( explode( "\n", $original ) );
+		$original      = explode( "\n", $original );
+		$sitemapUrls   = implode( "\r\n", array_merge( aioseo()->sitemap->helpers->getSitemapUrls(), $this->extractSitemapUrls( $original ) ) );
+		$originalRules = $this->extractRules( $original );
 		$networkRules  = [];
 		if ( is_multisite() ) {
 			switch_to_blog( aioseo()->helpers->getNetworkId() );
@@ -276,6 +281,29 @@ class RobotsTxt {
 	}
 
 	/**
+	 * Extract sitemap URLs from a string.
+	 *
+	 * @since 4.0.10
+	 *
+	 * @param  array $lines The lines to extract from.
+	 * @return array        An array of sitemap URLs.
+	 */
+	public function extractSitemapUrls( $lines ) {
+		$sitemapUrls = [];
+		foreach ( $lines as $line ) {
+			if ( empty( $line ) ) {
+				continue;
+			}
+
+			$array = array_map( 'trim', explode( 'sitemap:', strtolower( $line ) ) );
+			if ( ! empty( $array[1] ) ) {
+				$sitemapUrls[] = trim( $line );
+			}
+		}
+		return $sitemapUrls;
+	}
+
+	/**
 	 * Sanitize the path on import.
 	 *
 	 * @since 4.0.0
@@ -347,11 +375,11 @@ class RobotsTxt {
 	public function importPhysicalRobotsTxt( $network = false ) {
 		$wpfs = aioseo()->helpers->wpfs();
 		$file = trailingslashit( $wpfs->abspath() ) . 'robots.txt';
-		if ( ! $wpfs->is_readable( $file ) ) {
+		if ( ! @$wpfs->is_readable( $file ) ) {
 			return false;
 		}
 
-		$lines = $wpfs->get_contents_array( $file );
+		$lines = @$wpfs->get_contents_array( $file );
 		if ( ! $lines ) {
 			return true;
 		}
@@ -412,7 +440,7 @@ class RobotsTxt {
 		if ( 'direct' === $accessType ) {
 			$file = trailingslashit( $wpfs->abspath() ) . 'robots.txt';
 
-			return $wpfs->exists( $file );
+			return @$wpfs->exists( $file );
 		}
 
 		return false;
@@ -428,7 +456,7 @@ class RobotsTxt {
 	public function deletePhysicalRobotsTxt() {
 		$wpfs = aioseo()->helpers->wpfs();
 		$file = trailingslashit( $wpfs->abspath() ) . 'robots.txt';
-		return $wpfs->delete( $file );
+		return @$wpfs->delete( $file );
 	}
 
 	/**
@@ -439,7 +467,7 @@ class RobotsTxt {
 	 * @return array An array of robots.txt rules (excluding our own).
 	 */
 	public function getDefaultRules() {
-		// First, we need to remove our filter, so that id doesn't run unintentionally.
+		// First, we need to remove our filter, so that it doesn't run unintentionally.
 		remove_filter( 'robots_txt', [ $this, 'buildRules' ], 10000 );
 
 		ob_start();

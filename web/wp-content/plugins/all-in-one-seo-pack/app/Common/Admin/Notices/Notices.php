@@ -149,7 +149,6 @@ class Notices {
 	 * @return array An array of notifications.
 	 */
 	private function fetch() {
-		error_log( $this->getUrl() . '?' . time() );
 		$response = wp_remote_get( $this->getUrl() . '?' . time() );
 
 		if ( is_wp_error( $response ) ) {
@@ -543,10 +542,18 @@ class Notices {
 			return;
 		}
 
+		// We've updated our notification so let's remove the old one if it exists.
+		$notification = Models\Notification::getNotificationByName( 'deprecated-filters' );
+		if ( $notification->exists() ) {
+			Models\Notification::deleteNotificationByName( 'deprecated-filters' );
+		}
+
 		$content = sprintf(
-			// Translators: 1 - The plugin short name ("AIOSEO").
-			__( 'Warning: %1$s has detected the use of filters that have been deprecated on your site. These filters may be in use by another plugin or your theme. If that is the case, these filters most likely will not work with this plugin. Please check for an update immediately or contact our support for more information.', 'all-in-one-seo-pack' ), // phpcs:ignore Generic.Files.LineLength.MaxExceeded
-			AIOSEO_PLUGIN_SHORT_NAME
+			// Translators: 1 - The plugin short name ("AIOSEO"), 2 - Opening link tag, 3 - Closing link tag.
+			__( 'Warning: %1$s has detected the use of filters that have been deprecated on your site. These filters may be in use by another plugin or your theme. If that is the case, these filters most likely will not work with this plugin. Please make sure you have updated all your plugins. If you have manually added these filters, please %2$scheck out our documentation%3$s for the updated filters to use.', 'all-in-one-seo-pack' ), // phpcs:ignore Generic.Files.LineLength.MaxExceeded
+			AIOSEO_PLUGIN_SHORT_NAME,
+			'<a target="_blank" href="' . aioseo()->helpers->utmUrl( AIOSEO_MARKETING_URL . 'docs/aioseo-filter-hooks/', 'deprecated-filters-notice' ) . '">',
+			'</a>'
 		) . '<ul>';
 
 		foreach ( $filters as $filter ) {
@@ -556,7 +563,7 @@ class Notices {
 		$content .= '</ul>';
 
 		// Update an existing notice.
-		$notification = Models\Notification::getNotificationByName( 'deprecated-filters' );
+		$notification = Models\Notification::getNotificationByName( 'deprecated-filters-v2' );
 		if ( $notification->exists() ) {
 			$notification->content = $content;
 			$notification->save();
@@ -566,10 +573,10 @@ class Notices {
 		// Create a new one if it doesn't exist.
 		Models\Notification::addNotification( [
 			'slug'              => uniqid(),
-			'notification_name' => 'deprecated-filters',
+			'notification_name' => 'deprecated-filters-v2',
 			'title'             => __( 'Deprecated Filters Detected', 'all-in-one-seo-pack' ),
 			'content'           => $content,
-			'type'              => 'error',
+			'type'              => 'warning',
 			'level'             => [ 'all' ],
 			'button1_label'     => __( 'Remind Me Later', 'all-in-one-seo-pack' ),
 			'button1_action'    => 'http://action#notification/deprecated-filters-reminder',

@@ -201,7 +201,7 @@ class Settings {
 	public static function importSettings( $request ) {
 		$file     = $request->get_file_params()['file'];
 		$wpfs     = aioseo()->helpers->wpfs();
-		$contents = $wpfs->get_contents( $file['tmp_name'] );
+		$contents = @$wpfs->get_contents( $file['tmp_name'] );
 		if ( ! empty( $file['type'] ) && 'application/json' === $file['type'] ) {
 			// Since this could be any file, we need to pretend like every variable here is missing.
 			$contents = json_decode( $contents, true );

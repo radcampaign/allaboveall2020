@@ -42,8 +42,20 @@ class PostSettings {
 	 * @return void
 	 */
 	public function enqueuePostSettingsAssets() {
-		$screen = get_current_screen();
-		if ( 'post' === $screen->base || 'term' === $screen->base || 'edit-tags' === $screen->base ) {
+		if (
+			aioseo()->helpers->isScreenBase( 'event-espresso' ) ||
+			aioseo()->helpers->isScreenBase( 'post' ) ||
+			aioseo()->helpers->isScreenBase( 'term' ) ||
+			aioseo()->helpers->isScreenBase( 'edit-tags' )
+		) {
+			$page = null;
+			if (
+				aioseo()->helpers->isScreenBase( 'event-espresso' ) ||
+				aioseo()->helpers->isScreenBase( 'post' )
+			) {
+				$page = 'post';
+			}
+
 			aioseo()->helpers->enqueueScript(
 				'aioseo-post-settings-metabox',
 				'js/post-settings.js'
@@ -51,7 +63,7 @@ class PostSettings {
 			wp_localize_script(
 				'aioseo-post-settings-metabox',
 				'aioseo',
-				aioseo()->helpers->getVueData()
+				aioseo()->helpers->getVueData( $page )
 			);
 
 			$rtl = is_rtl() ? '.rtl' : '';
@@ -61,6 +73,7 @@ class PostSettings {
 			);
 		}
 
+		$screen = get_current_screen();
 		if ( 'attachment' === $screen->id ) {
 			wp_enqueue_media();
 		}

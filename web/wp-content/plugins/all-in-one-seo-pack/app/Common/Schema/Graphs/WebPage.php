@@ -32,7 +32,7 @@ class WebPage extends Graph {
 			'@type'       => $this->type,
 			'@id'         => aioseo()->schema->context['url'] . '#' . strtolower( $this->type ),
 			'url'         => aioseo()->schema->context['url'],
-			'name'        => aioseo()->schema->context['name'],
+			'name'        => aioseo()->meta->title->getTitle(),
 			'description' => aioseo()->schema->context['description'],
 			'inLanguage'  => get_bloginfo( 'language' ),
 			'isPartOf'    => [ '@id' => $homeUrl . '#website' ],

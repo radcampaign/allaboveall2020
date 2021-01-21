@@ -33,7 +33,7 @@ class Meta {
 				return;
 			}
 
-			as_schedule_single_action( time(), 'aioseo_migrate_post_meta', [], 'aioseo', [], 'aioseo' );
+			as_schedule_single_action( time(), 'aioseo_migrate_post_meta', [], 'aioseo' );
 		} catch ( \Exception $e ) {
 			// Do nothing.
 		}

@@ -62,7 +62,7 @@ class Head {
 	 * @return void
 	 */
 	public function registerTitleHooks() {
-		if ( apply_filters( 'aioseo_disable_title_rewrites', false ) ) {
+		if ( apply_filters( 'aioseo_disable', false ) || apply_filters( 'aioseo_disable_title_rewrites', false ) ) {
 			return;
 		}
 

@@ -1,125 +1,42 @@
 <?php
 /* THIS IS A GENERATED FILE. DO NOT EDIT DIRECTLY. */
 $generated_i18n_strings = array(
-	// Reference: src/vue/pages/search-appearance/views/partials/pro/CustomFields.vue:43
-	__( 'Custom Fields', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/partials/pro/CustomFields.vue:44
-	__( 'List of custom field names to include in the SEO Page Analysis. Add one per line.', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:129
-	__( 'The Image SEO module is a premium feature that enables you to globally control the Title Attribute and Alt Text for attachment pages and images that are embedded in your content. These can be set based on a specified format, similar to the Title Format settings in the Global Settings menu.', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:123
-	__( 'Title Attribute Format', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:124
-	__( 'Strip Punctuation for Title Attributes', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:125
-	__( 'Click on the tags below to insert variables into your title attribute.', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:126
-	__( 'Alt Tag Attribute Format', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:127
-	__( 'Click on the tags below to insert variables into your alt tag attribute.', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:128
-	__( 'Strip Punctuation for Alt Attributes', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:129
-	__( 'FAQ Page', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:130
-	__( 'QA Page', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:131
-	__( 'Real Estate Listing', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/partials/pro/Schema.vue:106
-	__( 'Schema Type', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/partials/pro/Schema.vue:108
-	__( 'Article Type', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:103
-	__( 'Article', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/partials/pro/Schema.vue:110
-	__( 'Blog Post', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/partials/pro/Schema.vue:111
-	__( 'News Article', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:101
-	__( 'None', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:127
-	__( 'Web Page', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/partials/pro/Schema.vue:97
-	__( 'Collection Page', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/partials/pro/Schema.vue:98
-	__( 'Profile Page', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:128
-	__( 'Item Page', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:122
-	__( 'Enable Advanced SEO for Images on your Site', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:130
-	__( 'Activate Image SEO', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:131
-	__( 'Learn more about Image SEO', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemapActivate.vue:129
+	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemap.vue:139
 	__( 'News Sitemap Settings', 'aioseo-pro' ),
 
-	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemapActivate.vue:130
+	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemap.vue:140
 	__( 'Publication Name', 'aioseo-pro' ),
 
-	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemapActivate.vue:131
+	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemap.vue:141
 	__( 'Post Types', 'aioseo-pro' ),
 
-	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemapActivate.vue:132
+	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemap.vue:142
 	__( 'Include All Post Types', 'aioseo-pro' ),
 
-	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemapActivate.vue:133
+	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemap.vue:143
 	__( 'Select which Post Types appear in your sitemap.', 'aioseo-pro' ),
 
-	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemapActivate.vue:134
+	// Reference: src/vue/components/pro/core/AccessControlOptions.vue:96
+	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemap.vue:144
 	__( 'Advanced Settings', 'aioseo-pro' ),
 
-	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemapActivate.vue:135
+	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemap.vue:145
 	__( 'Exclude Posts / Pages', 'aioseo-pro' ),
 
-	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemapActivate.vue:136
+	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemap.vue:146
 	__( 'Priority Score', 'aioseo-pro' ),
 
-	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemapActivate.vue:137
+	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemap.vue:147
 	__( 'Type to search...', 'aioseo-pro' ),
 
-	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemapActivate.vue:138
+	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemap.vue:148
 	__( 'Begin typing a title or ID to search for a page or post.', 'aioseo-pro' ),
 
-	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemapActivate.vue:139
+	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemap.vue:149
 	__( 'No pages or posts found with that title or ID. Try again!', 'aioseo-pro' ),
 
-	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemapActivate.vue:140
+	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemap.vue:150
 	__( 'Clear', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/sitemaps/views/pro/VideoSitemapActivate.vue:119
-	__( 'Enable Video Sitemap on your Site', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/sitemaps/views/pro/VideoSitemapActivate.vue:120
-	__( 'Activate Video Sitemap', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/sitemaps/views/pro/VideoSitemapActivate.vue:121
-	__( 'Learn more about Video Sitemaps', 'aioseo-pro' ),
 
 	// Reference: src/vue/pages/sitemaps/views/pro/NewsSitemapActivate.vue:126
 	__( 'Enable Google News Sitemap on your Site', 'aioseo-pro' ),
@@ -189,6 +106,46 @@ $generated_i18n_strings = array(
 	// Reference: src/vue/pages/sitemaps/views/pro/VideoSitemap.vue:447
 	__( 'default', 'aioseo-pro' ),
 
+	// Reference: src/vue/pages/sitemaps/views/pro/VideoSitemapActivate.vue:119
+	__( 'Enable Video Sitemap on your Site', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/sitemaps/views/pro/VideoSitemapActivate.vue:120
+	__( 'Activate Video Sitemap', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/sitemaps/views/pro/VideoSitemapActivate.vue:121
+	__( 'Learn more about Video Sitemaps', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:123
+	__( 'Title Attribute Format', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:124
+	__( 'Strip Punctuation for Title Attributes', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:125
+	__( 'Click on the tags below to insert variables into your title attribute.', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:126
+	__( 'Alt Tag Attribute Format', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:127
+	__( 'Click on the tags below to insert variables into your alt tag attribute.', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:128
+	__( 'Strip Punctuation for Alt Attributes', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:122
+	__( 'Enable Advanced SEO for Images on your Site', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/lite/ImageSeo.vue:121
+	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:129
+	__( 'The Image SEO module is a premium feature that enables you to globally control the Title Attribute and Alt Text for attachment pages and images that are embedded in your content. These can be set based on a specified format, similar to the Title Format settings in the Global Settings menu.', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:130
+	__( 'Activate Image SEO', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/pro/ImageSeoActivate.vue:131
+	__( 'Learn more about Image SEO', 'aioseo-pro' ),
+
 	// Reference: src/vue/pages/local-seo/views/pro/LocalSeoCta.vue:46
 	__( 'Enable Local SEO on your Site', 'aioseo-pro' ),
 
@@ -201,11 +158,71 @@ $generated_i18n_strings = array(
 	// Reference: src/vue/pages/local-seo/views/pro/LocalSeoCta.vue:49
 	__( 'Learn more about Local SEO', 'aioseo-pro' ),
 
-	// Reference: src/vue/pages/search-appearance/views/Taxonomies.vue:104
-	__( 'Advanced', 'aioseo-pro' ),
+	// Reference: src/vue/components/pro/settings/LicenseKey.vue:156
+	__( 'An unknown error occurred, please try again later.', 'aioseo-pro' ),
 
-	// Reference: src/vue/pages/search-appearance/views/Taxonomies.vue:98
+	// Reference: src/vue/components/pro/settings/LicenseKey.vue:162
+	__( 'The license key provided is invalid. Please use a different key to continue receiving automatic updates.', 'aioseo-pro' ),
+
+	// Reference: src/vue/components/pro/settings/LicenseKey.vue:164
+	__( 'The license key provided is disabled. Please use a different key to continue receiving automatic updates.', 'aioseo-pro' ),
+
+	// Reference: src/vue/components/pro/settings/LicenseKey.vue:168
+	__( 'This license key has reached the maximum number of activations. Please deactivate it from another site or purchase a new license to continue receiving automatic updates.', 'aioseo-pro' ),
+
+	// Reference: src/vue/components/pro/settings/LicenseKey.vue:170
+	__( 'There was an error connecting to the licensing API. Please try again later.', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:129
+	__( 'FAQ Page', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:130
+	__( 'QA Page', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:131
+	__( 'Real Estate Listing', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/partials/pro/Schema.vue:106
+	__( 'Schema Type', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/partials/pro/Schema.vue:108
+	__( 'Article Type', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:103
+	__( 'Article', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/partials/pro/Schema.vue:110
+	__( 'Blog Post', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/partials/pro/Schema.vue:111
+	__( 'News Article', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:101
+	__( 'None', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:127
+	__( 'Web Page', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/partials/pro/Schema.vue:97
+	__( 'Collection Page', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/partials/pro/Schema.vue:98
+	__( 'Profile Page', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:128
+	__( 'Item Page', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/partials/pro/CustomFields.vue:43
+	__( 'Custom Fields', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/partials/pro/CustomFields.vue:44
+	__( 'List of custom field names to include in the SEO Page Analysis. Add one per line.', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/Taxonomies.vue:67
 	__( 'Title & Description', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/search-appearance/views/Taxonomies.vue:73
+	__( 'Advanced', 'aioseo-pro' ),
 
 	// Reference: src/vue/components/pro/core/AccessControlOptions.vue:83
 	__( 'General SEO Settings:', 'aioseo-pro' ),
@@ -289,27 +306,6 @@ $generated_i18n_strings = array(
 	/* Translators: 1 - The type of license (Individual, Business, Agency), 2 - The expiration date of the license. */
 	__( 'Your license level is %1$s %2$s', 'aioseo-pro' ),
 
-	// Reference: src/vue/pages/setup-wizard/views/LicenseKey.vue:165
-	__( 'An unknown error occurred, please try again later.', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/setup-wizard/views/LicenseKey.vue:171
-	__( 'The license key provided is invalid. Please use a different key to continue receiving automatic updates.', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/setup-wizard/views/LicenseKey.vue:173
-	__( 'The license key provided is disabled. Please use a different key to continue receiving automatic updates.', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/setup-wizard/views/LicenseKey.vue:177
-	__( 'This license key has reached the maximum number of activations. Please deactivate it from another site or purchase a new license to continue receiving automatic updates.', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/setup-wizard/views/LicenseKey.vue:179
-	__( 'There was an error connecting to the licensing API. Please try again later.', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:121
-	__( 'About Us Page', 'aioseo-pro' ),
-
-	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:122
-	__( 'Contact Page', 'aioseo-pro' ),
-
 	// Reference: src/vue/pages/settings/views/WebmasterTools.vue:543
 	/* Translators: 1 - A link to our documentation, 2 - HTML line break tag. */
 	__( 'This enables tracking outbound forms with Google Analytics.%1$s%2$s', 'aioseo-pro' ),
@@ -348,6 +344,12 @@ $generated_i18n_strings = array(
 
 	// Reference: src/vue/pages/settings/views/WebmasterTools.vue:664
 	/* Translators: 1 - "Google Tag Manager account". */
-	__( 'Google Tag Manager account', 'aioseo-pro' )
+	__( 'Google Tag Manager account', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:121
+	__( 'About Us Page', 'aioseo-pro' ),
+
+	// Reference: src/vue/pages/post-settings/views/pro/Schema.vue:122
+	__( 'Contact Page', 'aioseo-pro' )
 );
 /* THIS IS THE END OF THE GENERATED FILE */

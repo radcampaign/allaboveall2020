@@ -395,7 +395,7 @@ class Sitemap {
 			$wpfs = aioseo()->helpers->wpfs();
 			if ( count( $detectedFiles ) && is_object( $wpfs ) ) {
 				foreach ( $detectedFiles as $file ) {
-					$wpfs->delete( $file, false, 'f' );
+					@$wpfs->delete( $file, false, 'f' );
 				}
 			}
 

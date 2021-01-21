@@ -49,7 +49,7 @@ class Breadcrumb {
 			array_unshift(
 				$breadcrumbs,
 				[
-					'name'        => aioseo()->meta->title->getTitle( $post ),
+					'name'        => $post->post_title,
 					'description' => aioseo()->meta->description->getDescription( $post ),
 					'url'         => get_permalink( $post ),
 					'type'        => aioseo()->helpers->isWooCommerceShopPage() || is_home() ? 'CollectionPage' : $this->getPostGraph()
@@ -85,7 +85,7 @@ class Breadcrumb {
 
 		if ( count( $tags ) !== count( $objects ) ) {
 			return [
-				'name'        => aioseo()->meta->title->getTitle( $post ),
+				'name'        => $post->post_title,
 				'description' => aioseo()->meta->description->getDescription( $post ),
 				'url'         => $permalink,
 				'type'        => $this->getPostGraph()
@@ -115,7 +115,7 @@ class Breadcrumb {
 					$wp_query->is_category    = true;
 
 					$breadcrumb = [
-						'name'        => aioseo()->meta->title->getTitle(),
+						'name'        => $term->name,
 						'description' => aioseo()->meta->description->getDescription(),
 						'url'         => $url[0],
 						'type'        => 'CollectionPage'
@@ -135,7 +135,7 @@ class Breadcrumb {
 				case '%postid%':
 				case '%postname%':
 					$breadcrumb = [
-						'name'        => aioseo()->meta->title->getTitle( $post ),
+						'name'        => $post->post_title,
 						'description' => aioseo()->meta->description->getDescription( $post ),
 						'url'         => $url[0],
 						'type'        => $this->getPostGraph()
@@ -176,7 +176,7 @@ class Breadcrumb {
 			array_unshift(
 				$breadcrumbs,
 				[
-					'name'        => aioseo()->meta->title->getTitle(),
+					'name'        => $term->name,
 					'description' => aioseo()->meta->description->getDescription(),
 					'url'         => get_term_link( $term, $term->taxonomy ),
 					'type'        => 'CollectionPage'
@@ -280,7 +280,8 @@ class Breadcrumb {
 
 		// The homepage needs to be root item of all trails.
 		$homepage = [
-			'name'        => aioseo()->meta->title->getHomePageTitle(),
+			// Translators: This refers to the homepage of the site.
+			'name'        => apply_filters( 'aioseo_schema_breadcrumbs_home', __( 'Home', 'all-in-one-seo-pack' ) ),
 			'description' => aioseo()->meta->description->getHomePageDescription(),
 			'url'         => trailingslashit( home_url() ),
 			'type'        => 'posts' === get_option( 'show_on_front' ) ? 'CollectionPage' : 'WebPage'

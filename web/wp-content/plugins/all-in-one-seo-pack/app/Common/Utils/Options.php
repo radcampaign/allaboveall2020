@@ -67,7 +67,6 @@ TEMPLATE
 			'seoAnalysis'     => [ 'type' => 'boolean', 'default' => true ],
 			'dashboardWidget' => [ 'type' => 'boolean', 'default' => true ],
 			'announcements'   => [ 'type' => 'boolean', 'default' => true ],
-			'autoUpdates'     => [ 'type' => 'string', 'default' => 'none' ],
 			'postTypes'       => [
 				'all'      => [ 'type' => 'boolean', 'default' => true ],
 				'included' => [ 'type' => 'array', 'default' => [ 'post', 'page', 'product' ] ],
@@ -432,25 +431,19 @@ TEMPLATE
 	 *
 	 * @since 4.0.0
 	 *
+	 * @param  boolean $resetKeys Whether or not to reset keys after init.
 	 * @return void
 	 */
-	protected function init() {
+	protected function init( $resetKeys = false ) {
+		if ( $resetKeys ) {
+			$originalGroupKey  = $this->groupKey;
+			$originalSubGroups = $this->subGroups;
+		}
+
 		$this->addDynamicDefaults();
 		$this->translateDefaults();
 
-		// Options from the DB.
-		$dbOptions = json_decode( get_option( $this->optionsName ), true );
-		if ( empty( $dbOptions ) ) {
-			$dbOptions = [];
-		}
-
-		// Refactor options.
-		$this->defaultsMerged = array_replace_recursive( $this->defaults, $this->defaultsMerged );
-
-		$options = array_replace_recursive(
-			$this->defaultsMerged,
-			$this->addValueToValuesArray( $this->defaultsMerged, $dbOptions )
-		);
+		$options = $this->getDbOptions();
 
 		$this->options = apply_filters( 'aioseo_get_options', $options );
 
@@ -460,6 +453,34 @@ TEMPLATE
 			$dbOptionsLocalized = [];
 		}
 		$this->localized = $dbOptionsLocalized;
+
+		if ( $resetKeys ) {
+			$this->groupKey  = $originalGroupKey;
+			$this->subGroups = $originalSubGroups;
+		}
+	}
+
+	/**
+	 * Get the DB options.
+	 *
+	 * @since 4.0.12
+	 *
+	 * @return array An array of options.
+	 */
+	public function getDbOptions() {
+		// Options from the DB.
+		$dbOptions = json_decode( get_option( $this->optionsName ), true );
+		if ( empty( $dbOptions ) ) {
+			$dbOptions = [];
+		}
+
+		// Refactor options.
+		$this->defaultsMerged = array_replace_recursive( $this->defaults, $this->defaultsMerged );
+
+		return array_replace_recursive(
+			$this->defaultsMerged,
+			$this->addValueToValuesArray( $this->defaultsMerged, $dbOptions )
+		);
 	}
 
 	/**
@@ -479,6 +500,10 @@ TEMPLATE
 		// Post Types.
 		$postTypes = aioseo()->helpers->getPublicPostTypes();
 		foreach ( $postTypes as $postType ) {
+			if ( 'type' === $postType['name'] ) {
+				$postType['name'] = '_aioseo_type';
+			}
+
 			// Search appearance
 			$defaultTitle       = '#post_title #separator_sa #site_title';
 			$defaultDescription = '#post_content';
@@ -584,6 +609,10 @@ TEMPLATE
 		// Taxonomies.
 		$taxonomies = aioseo()->helpers->getPublicTaxonomies();
 		foreach ( $taxonomies as $taxonomy ) {
+			if ( 'type' === $taxonomy['name'] ) {
+				$taxonomy['name'] = '_aioseo_type';
+			}
+
 			// phpcs:disable WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound
 			$options = [
 				'show'            => [ 'type' => 'boolean', 'default' => true ],
@@ -654,6 +683,10 @@ TEMPLATE
 		// CPT Archives.
 		$postTypes = aioseo()->helpers->getPublicPostTypes( false, true );
 		foreach ( $postTypes as $postType ) {
+			if ( 'type' === $postType['name'] ) {
+				$postType['name'] = '_aioseo_type';
+			}
+
 			// phpcs:disable WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound
 			$options = [
 				'show'            => [ 'type' => 'boolean', 'default' => true ],
@@ -718,7 +751,7 @@ TEMPLATE
 		$this->defaults['searchAppearance']['global']['schema']['organizationName']['default'] = aioseo()->helpers->decodeHtmlEntities( get_bloginfo( 'name' ) );
 
 		if ( $needsUpdate ) {
-			$this->update();
+			$this->update( $this->getDbOptions() );
 		}
 	}
 
@@ -756,14 +789,15 @@ TEMPLATE
 	 */
 	public function sanitizeAndSave( $options ) {
 		$sitemapOptions           = ! empty( $options['sitemap'] ) && ! empty( $options['sitemap']['general'] ) ? $options['sitemap']['general'] : null;
-		$deprecatedOldOptions     = aioseo()->options->sitemap->general->all();
+		$oldSitemapOptions        = aioseo()->options->sitemap->general->all();
 		$deprecatedSitemapOptions = ! empty( $options['deprecated'] ) &&
 			! empty( $options['deprecated']['sitemap'] ) &&
 			! empty( $options['deprecated']['sitemap']['general'] )
 				? $options['deprecated']['sitemap']['general']
 				: null;
-		$oldPhoneOption     = aioseo()->options->searchAppearance->global->schema->phone;
-		$phoneNumberOptions = ! empty( $options['searchAppearance'] ) &&
+		$oldDeprecatedSitemapOptions = aioseo()->options->deprecated->sitemap->general->all();
+		$oldPhoneOption              = aioseo()->options->searchAppearance->global->schema->phone;
+		$phoneNumberOptions          = ! empty( $options['searchAppearance'] ) &&
 			! empty( $options['searchAppearance']['global'] ) &&
 			! empty( $options['searchAppearance']['global']['schema'] ) &&
 			isset( $options['searchAppearance']['global']['schema']['phone'] )
@@ -795,6 +829,10 @@ TEMPLATE
 		$postTypes = aioseo()->helpers->getPublicPostTypes();
 		foreach ( $dynamicPostTypeSettings as $postTypeName => $postTypeData ) {
 			foreach ( $postTypes as $postType ) {
+				if ( 'type' === $postType['name'] ) {
+					$postType['name'] = '_aioseo_type';
+				}
+
 				// If the option has disappeared, we want to save the settings manually.
 				if ( $postTypeName === $postType['name'] ) {
 					continue 2;
@@ -805,6 +843,10 @@ TEMPLATE
 		}
 		foreach ( $dynamicPostTypeSettingsOG as $postTypeName => $postTypeData ) {
 			foreach ( $postTypes as $postType ) {
+				if ( 'type' === $postType['name'] ) {
+					$postType['name'] = '_aioseo_type';
+				}
+
 				// If the option has disappeared, we want to save the settings manually.
 				if ( $postTypeName === $postType['name'] ) {
 					continue 2;
@@ -818,6 +860,10 @@ TEMPLATE
 		$taxonomies = aioseo()->helpers->getPublicTaxonomies();
 		foreach ( $dynamicTaxonomiesSettings as $taxonomyName => $taxonomyData ) {
 			foreach ( $taxonomies as $taxonomy ) {
+				if ( 'type' === $taxonomy['name'] ) {
+					$taxonomy['name'] = '_aioseo_type';
+				}
+
 				// If the option has disappeared, we want to save the settings manually.
 				if ( $taxonomyName === $taxonomy['name'] ) {
 					continue 2;
@@ -841,6 +887,10 @@ TEMPLATE
 		$postTypes = aioseo()->helpers->getPublicPostTypes( false, true );
 		foreach ( $dynamicArchiveSettings as $archiveName => $archiveData ) {
 			foreach ( $postTypes as $postType ) {
+				if ( 'type' === $postType['name'] ) {
+					$postType['name'] = '_aioseo_type';
+				}
+
 				// If the option has disappeared, we want to save the settings manually.
 				if ( $archiveName === $postType['name'] ) {
 					continue 2;
@@ -930,12 +980,18 @@ TEMPLATE
 		// If sitemap settings were changed, static files need to be regenerated.
 		if (
 			! empty( $deprecatedSitemapOptions ) &&
-			! empty( $sitemapOptions ) &&
-			aioseo()->helpers->arraysDifferent( $deprecatedOldOptions, $deprecatedSitemapOptions ) &&
-			$sitemapOptions['advancedSettings']['enable'] &&
-			! $deprecatedSitemapOptions['advancedSettings']['dynamic']
+			! empty( $sitemapOptions )
 		) {
-			aioseo()->sitemap->scheduleRegeneration();
+			if (
+				(
+					aioseo()->helpers->arraysDifferent( $oldSitemapOptions, $sitemapOptions ) ||
+					aioseo()->helpers->arraysDifferent( $oldDeprecatedSitemapOptions, $deprecatedSitemapOptions )
+				) &&
+				$sitemapOptions['advancedSettings']['enable'] &&
+				! $deprecatedSitemapOptions['advancedSettings']['dynamic']
+			) {
+				aioseo()->sitemap->scheduleRegeneration();
+			}
 		}
 	}
 

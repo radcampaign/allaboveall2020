@@ -57,7 +57,7 @@ class Sitemap {
 
 		// Add rewrite rules.
 		$class = new \ReflectionClass( new Rewrite );
-		add_action( 'wp_loaded', [ $class->getName(), 'add' ] );
+		add_action( 'wp_loaded', [ $class->getName(), 'updateRewriteRules' ] );
 
 		// Remove trailing slash if the sitemap is requested.
 		add_filter( 'redirect_canonical', [ $this, 'untrailUrl' ], 10, 2 );

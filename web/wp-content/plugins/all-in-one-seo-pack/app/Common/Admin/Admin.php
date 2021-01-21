@@ -462,6 +462,11 @@ class Admin {
 
 		$parent = is_admin() ? 'aioseo-main' : 'aioseo-settings-main';
 		foreach ( $this->pages as $id => $page ) {
+			// Remove the analytics menu.
+			if ( 'aioseo-monsterinsights' === $id ) {
+				continue;
+			}
+
 			$this->adminBarMenuItems[] = [
 				'id'     => $id,
 				'parent' => $parent,
@@ -769,6 +774,9 @@ class Admin {
 	 * @return bool
 	 */
 	public function isAllowedScreen( $screen, $postType ) {
+		if ( 'type' === $postType ) {
+			$postType = '_aioseo_type';
+		}
 		if ( 'edit' === $screen || 'upload' === $screen ) {
 			if ( aioseo()->options->advanced->postTypes->all ) {
 				return true;

@@ -204,11 +204,11 @@ class BadBotBlocker {
 		if ( wp_mkdir_p( $logDirectory ) ) {
 			$wpfs     = aioseo()->helpers->wpfs();
 			$filePath = $logDirectory . 'aioseo-bad-bot-blocker.log';
-			if ( ! $wpfs->exists( $filePath ) ) {
-				$wpfs->touch( $filePath );
+			if ( ! @$wpfs->exists( $filePath ) ) {
+				@$wpfs->touch( $filePath );
 			}
 
-			if ( $wpfs->exists( $filePath ) ) {
+			if ( @$wpfs->exists( $filePath ) ) {
 				$this->log = new Logger( 'aioseo-bad-bot-blocker' );
 				$this->log->pushHandler( new StreamHandler( $filePath ) );
 			}
@@ -252,8 +252,8 @@ class BadBotBlocker {
 		$logDirectory    = $uploadDirectory['basedir'] . '/aioseo-logs/';
 		$filePath        = $logDirectory . 'aioseo-bad-bot-blocker.log';
 		$wpfs            = aioseo()->helpers->wpfs();
-		if ( $wpfs->exists( $filePath ) ) {
-			return $wpfs->size( $filePath );
+		if ( @$wpfs->exists( $filePath ) ) {
+			return @$wpfs->size( $filePath );
 		}
 
 		return 0;
@@ -271,8 +271,8 @@ class BadBotBlocker {
 		$logDirectory    = $uploadDirectory['basedir'] . '/aioseo-logs/';
 		$filePath        = $logDirectory . 'aioseo-bad-bot-blocker.log';
 		$wpfs            = aioseo()->helpers->wpfs();
-		if ( $wpfs->exists( $filePath ) ) {
-			$wpfs->put_contents( $filePath, '' );
+		if ( @$wpfs->exists( $filePath ) ) {
+			@$wpfs->put_contents( $filePath, '' );
 		}
 
 		return $this->getLogSize( $filePath );

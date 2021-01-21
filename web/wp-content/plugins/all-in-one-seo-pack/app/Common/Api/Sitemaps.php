@@ -56,7 +56,7 @@ class Sitemaps {
 		}
 
 		foreach ( $detectedFiles as $file ) {
-			$wpfs->delete( $file, false, 'f' );
+			@$wpfs->delete( $file, false, 'f' );
 		}
 
 		Models\Notification::deleteNotificationByName( 'sitemap-static-files' );

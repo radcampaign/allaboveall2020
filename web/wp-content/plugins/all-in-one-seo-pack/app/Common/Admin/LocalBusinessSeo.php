@@ -39,11 +39,11 @@ class LocalBusinessSeo {
 	 * @return void
 	 */
 	public function enqueueLocalBusinessSeoScripts() {
-		$screen = get_current_screen();
 		if (
-			'edit-tags' === $screen->base ||
-			'term' === $screen->base ||
-			'post' === $screen->base
+			aioseo()->helpers->isScreenBase( 'event-espresso' ) ||
+			aioseo()->helpers->isScreenBase( 'post' ) ||
+			aioseo()->helpers->isScreenBase( 'term' ) ||
+			aioseo()->helpers->isScreenBase( 'edit-tags' )
 		) {
 			aioseo()->helpers->enqueueScript(
 				'aioseo-localbusinessseo-settings-metabox',

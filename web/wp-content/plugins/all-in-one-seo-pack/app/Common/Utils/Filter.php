@@ -151,13 +151,19 @@ class Filter {
 			}
 		}
 
-		$notification = Models\Notification::getNotificationByName( 'deprecated-filters' );
 		if ( empty( $inUse ) ) {
+			// We've updated our notification so let's remove the old one if it exists.
+			$notification = Models\Notification::getNotificationByName( 'deprecated-filters' );
+			if ( $notification->exists() ) {
+				Models\Notification::deleteNotificationByName( 'deprecated-filters' );
+			}
+
+			$notification = Models\Notification::getNotificationByName( 'deprecated-filters-v2' );
 			if ( ! $notification->exists() ) {
 				return;
 			}
 
-			Models\Notification::deleteNotificationByName( 'deprecated-filters' );
+			Models\Notification::deleteNotificationByName( 'deprecated-filters-v2' );
 			return;
 		}
 

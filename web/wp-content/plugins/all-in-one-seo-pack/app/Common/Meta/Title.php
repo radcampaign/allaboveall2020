@@ -138,8 +138,8 @@ class Title {
 	 */
 	public function getPostTypeTitle( $postType ) {
 		$options = aioseo()->options->noConflict();
-		if ( $options->searchAppearance->dynamic->postTypes->has( $postType ) ) {
-			return aioseo()->options->searchAppearance->dynamic->postTypes->{$postType}->title;
+		if ( $options->searchAppearance->dynamic->postTypes->has( $postType, false ) ) {
+			return $options->{$postType}->title;
 		}
 
 		return '';
