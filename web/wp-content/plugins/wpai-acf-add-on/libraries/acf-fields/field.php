@@ -291,7 +291,11 @@ abstract class Field implements FieldInterface {
             case 'v4':
             case 'v5':
                 $fieldDir = PMAI_FIELDS_ROOT_DIR . '/views/'. $this->type;
+	            $fieldDir = apply_filters( 'wp_all_import_acf_field_view_dir', $fieldDir, $this );
+	            $fieldDir = apply_filters( 'wp_all_import_acf_field_view_dir_' . $this->type, $fieldDir, $this );
                 $filePath = $fieldDir . DIRECTORY_SEPARATOR . $this->type . '-' . $this->supportedVersion . '.php';
+	            $filePath = apply_filters( 'wp_all_import_acf_field_view_path', $filePath, $this );
+	            $filePath = apply_filters( 'wp_all_import_acf_field_view_path_' . $this->type, $filePath, $this );
                 if (is_file($filePath)) {
                     // Render field header.
                     $header = $fieldDir . DIRECTORY_SEPARATOR . 'header.php';
@@ -309,6 +313,8 @@ abstract class Field implements FieldInterface {
                 break;
             default:
                 $filePath = __DIR__ . '/views/'. $this->type .'.php';
+	            $filePath = apply_filters( 'wp_all_import_acf_field_view_path', $filePath, $this );
+	            $filePath = apply_filters( 'wp_all_import_acf_field_view_path_' . $this->type, $filePath, $this );
                 if (is_file($filePath)) {
                     include $filePath;
                 }
@@ -322,6 +328,8 @@ abstract class Field implements FieldInterface {
          */
         protected function renderHeader(){
             $filePath = __DIR__ . '/templates/header.php';
+	        $filePath = apply_filters( 'wp_all_import_acf_field_template_header_path', $filePath, $this );
+	        $filePath = apply_filters( 'wp_all_import_acf_field_template_header_path' . $this->type, $filePath, $this );
             if (is_file($filePath)) {
                 extract($this->data);
                 include $filePath;
@@ -333,6 +341,8 @@ abstract class Field implements FieldInterface {
          */
         protected function renderFooter(){
             $filePath = __DIR__ . '/templates/footer.php';
+	        $filePath = apply_filters( 'wp_all_import_acf_field_template_footer_path', $filePath, $this );
+	        $filePath = apply_filters( 'wp_all_import_acf_field_template_footer_path' . $this->type, $filePath, $this );
             if (is_file($filePath)) {
                 include $filePath;
             }
