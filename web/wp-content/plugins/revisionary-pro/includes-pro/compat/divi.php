@@ -129,8 +129,8 @@ class RevisionaryDivi
 		<script type="text/javascript">
 		/* <![CDATA[ */
 		jQuery(document).ready( function($) {
-			//$('#et_pb_toggle_builder').click(function() {
-			$('#et_pb_toggle_builder').click(function() {
+			//$('#et_pb_toggle_builder').on('click', function() {
+			$('#et_pb_toggle_builder').on('click', function() {
 				var data = {'rvy_ajax_field': 'skip_revision_save', 'rvy_ajax_value': 1, 'post_id': <?php echo $post_id;?>};
 				$.ajax({
 					url: '<?php echo admin_url('');?>', 
@@ -143,7 +143,7 @@ class RevisionaryDivi
 				);
 			});
 
-			$('#et_pb_fb_cta').click(function() {
+			$('#et_pb_fb_cta').on('click', function() {
 				var data = {'rvy_ajax_field': 'skip_revision_save_front', 'rvy_ajax_value': 1, 'post_id': <?php echo $post_id;?>};
 				$.ajax({
 					url: '<?php echo admin_url('');?>', 

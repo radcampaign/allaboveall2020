@@ -240,10 +240,12 @@ class Rvy_Revision_Workflow_UI {
                 
                 $msg .= '<ul>';
 
-                if (rvy_get_option('revision_preview_links') || current_user_can('administrator') || is_super_admin()) {
+                $type_obj = get_post_type_object($revision->post_type);
+
+                if (($type_obj && !empty($type_obj->public)) && (rvy_get_option('revision_preview_links') || current_user_can('administrator') || is_super_admin())) {
                     $preview_link = rvy_preview_url($revision);
                     $preview_link = remove_query_arg('preview_id', $preview_link);
-
+                    
                     $msg .= '<li>';
                     $msg .= sprintf( '<a href="%s">' . __( 'Preview it', 'revisionary' ) . '</a>', $preview_link );
                     $msg .= '<br /><br /></li>';

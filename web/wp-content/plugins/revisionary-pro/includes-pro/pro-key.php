@@ -12,8 +12,11 @@ function _revisionary_key_status($refresh = false) {
             $container      = \PublishPress\Revisions\Factory::get_container();
             $licenseManager = $container['edd_container']['license_manager'];
 
-            $key = $licenseManager->sanitize_license_key($key_string);
-            $status = $licenseManager->validate_license_key($key, REVISIONARY_EDD_ITEM_ID);
+            if ($key = $licenseManager->sanitize_license_key($key_string)) {
+                $status = $licenseManager->validate_license_key($key, REVISIONARY_EDD_ITEM_ID);
+            } else {
+                $status = false;
+            }
 
             if (!is_scalar($status)) {
                 return false;

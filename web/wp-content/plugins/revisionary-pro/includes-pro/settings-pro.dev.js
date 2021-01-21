@@ -65,7 +65,7 @@ jQuery(document).ready(function ($) {
     }
 
     // click handlers for activate / deactivate button
-    $('#rvy-features #activation-button').bind('click', function (e) {
+    $('#rvy-features #activation-button').on('click', function (e) {
         $(this).closest('td').find('.waiting').show();
         $(this).prop('disabled', true);
 
