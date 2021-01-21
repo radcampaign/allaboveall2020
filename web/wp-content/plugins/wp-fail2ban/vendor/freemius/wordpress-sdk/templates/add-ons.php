@@ -25,6 +25,9 @@
     $is_data_debug_mode = $fs->is_data_debug_mode();
     $is_whitelabeled    = $fs->is_whitelabeled();
 
+    $default_currency = $fs->apply_filters( 'default_currency', 'usd' );
+    $currency_symbol  = FS_Pricing::currency_symbol( $default_currency );
+
 	/**
 	 * @var FS_Plugin[]
 	 */
@@ -149,12 +152,12 @@
 									foreach ( $plan->pricing as $pricing ) {
                                         $pricing = new FS_Pricing( $pricing );
 
-                                        /**
-                                         * Force GBP pricing
-                                         *
-                                         * @author @invisnet
-                                         */
-                                        if ('gbp' != $pricing->currency) {
+                                        if ( $default_currency !== $pricing->currency ) {
+                                            /**
+                                             * Skip pricings not in the default currency.
+                                             *
+                                             * @author @invisnet
+                                             */
                                             continue;
                                         }
 
@@ -244,7 +247,7 @@
 											if ($has_free_plan)
 												$descriptors[] = fs_text_inline( 'Free', 'free', $slug );
 											if ($has_paid_plan && $price > 0)
-												$descriptors[] = '&pound;' . number_format( $price, 2 );
+												$descriptors[] = $currency_symbol . number_format( $price, 2 );
 											if ($has_trial)
 												$descriptors[] = fs_text_x_inline( 'Trial', 'trial period',  'trial', $slug );
 
@@ -331,11 +334,11 @@
                                                 }
                                             ?>
                                             <?php else : ?>
-                                            <a target="_blank" class="button button-primary" href="<?php echo $latest_download_local_url ?>"><?php echo esc_html( $download_latest_text ) ?></a>
+                                            <a target="_blank" rel="noopener" class="button button-primary" href="<?php echo $latest_download_local_url ?>"><?php echo esc_html( $download_latest_text ) ?></a>
                                             <?php endif ?>
                                             <div class="button button-primary fs-dropdown-arrow-button"><span class="fs-dropdown-arrow"></span><ul class="fs-dropdown-list" style="display: none">
 		                                            <?php if ( $is_allowed_to_install && ! empty( $latest_download_local_url ) ) : ?>
-			                                            <li><a target="_blank" href="<?php echo $latest_download_local_url ?>"><?php echo esc_html( $download_latest_text ) ?></a></li>
+			                                            <li><a target="_blank" rel="noopener" href="<?php echo $latest_download_local_url ?>"><?php echo esc_html( $download_latest_text ) ?></a></li>
 		                                            <?php endif ?>
 		                                            <li><?php
 				                                            echo sprintf(

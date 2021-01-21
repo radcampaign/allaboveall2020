@@ -54,6 +54,24 @@
          */
         private $status;
 
+        /**
+         * The default currency of the plugin or addon.
+         *
+         * @author @invisnet
+         *
+         * @var string
+         */
+        private $default_currency;
+
+        /**
+         * The currency symbol for the default currency.
+         *
+         * @author @invisnet
+         *
+         * @var string
+         */
+        private $currency_symbol;
+
         function __construct( Freemius $fs ) {
             $this->_fs = $fs;
 
@@ -119,6 +137,10 @@
             $has_free_plan = false;
             $has_paid_plan = false;
 
+            // Get the default currency in case it's not usd.
+            $this->default_currency = $this->_fs->apply_filters( 'default_currency', 'usd' );
+            $this->currency_symbol  = FS_Pricing::currency_symbol( $this->default_currency );
+
             // Load add-on pricing.
             $has_pricing  = false;
             $has_features = false;
@@ -127,7 +149,7 @@
             $result = $this->_fs->get_api_plugin_scope()->get( $this->_fs->add_show_pending( "/addons/{$selected_addon->id}/pricing.json?type=visible" ) );
 
             if ( ! isset( $result->error ) ) {
-                $plans = $result->plans;
+                $plans = array_reverse( $result->plans );
 
                 if ( is_array( $plans ) ) {
                     for ( $i = 0, $len = count( $plans ); $i < $len; $i ++ ) {
@@ -150,12 +172,12 @@
                             foreach ( $pricing as $prices ) {
                                 $prices = new FS_Pricing( $prices );
 
-                                /**
-                                 * Force GBP prices
-                                 *
-                                 * @author @invisnet
-                                 */
-                                if ('gbp' != $prices->currency) {
+                                if ( $this->default_currency !== $prices->currency ) {
+                                    /**
+                                     * Skip pricings not in the default currency.
+                                     *
+                                     * @author invisnet
+                                     */
                                     continue;
                                 }
 
@@ -259,14 +281,20 @@
                     if ( $has_valid_blog_id ) {
                         restore_current_blog();
                     }
+                }
 
-                    if ( is_object( $fs_addon ) ) {
-                        $data->has_purchased_license = $fs_addon->has_active_valid_license();
-                    } else {
-                        $account_addons = $this->_fs->get_account_addons();
-                        if ( ! empty( $account_addons ) && in_array( $selected_addon->id, $account_addons ) ) {
-                            $data->has_purchased_license = true;
-                        }
+                /**
+                 * Check if there's a purchased license in case the add-on can only be installed/downloaded as part of a purchased bundle.
+                 *
+                 * @author Leo Fajardo (@leorw)
+                 * @since 2.4.1
+                 */
+                if ( is_object( $fs_addon ) ) {
+                    $data->has_purchased_license = $fs_addon->has_active_valid_license();
+                } else {
+                    $account_addons = $this->_fs->get_account_addons();
+                    if ( ! empty( $account_addons ) && in_array( $selected_addon->id, $account_addons ) ) {
+                        $data->has_purchased_license = true;
                     }
                 }
 
@@ -335,8 +363,9 @@
 
                 if ( $has_features ) {
                     $view_vars                  = array(
-                        'plans'  => $plans,
-                        'plugin' => $selected_addon,
+                        'plans'           => $plans,
+                        'plugin'          => $selected_addon,
+                        'currency_symbol' => $this->currency_symbol
                     );
                     $data->sections['features'] = fs_get_template( '/plugin-info/features.php', $view_vars );
                 }
@@ -414,7 +443,7 @@
                 $price_tag = $pricing->lifetime_price;
             }
 
-            return '&pound;' . $price_tag;
+            return $this->currency_symbol . $price_tag;
         }
 
         /**
@@ -576,7 +605,7 @@
 
             $has_installed_version = ( 'install' !== $this->status['status'] );
 
-            if ( ! $api->has_paid_plan ) {
+            if ( ! $api->has_paid_plan && ! $api->has_purchased_license ) {
                 /**
                  * Free-only add-on.
                  *
@@ -879,9 +908,11 @@
                 $classes[] = 'disabled';
             }
 
+            $rel = ( '_blank' === $target ) ? ' rel="noopener noreferrer"' : '';
+
             return sprintf(
                 '<a %s class="button %s">%s</a>',
-                empty( $href ) ? '' : 'href="' . $href . '" target="' . $target . '"',
+                empty( $href ) ? '' : 'href="' . $href . '" target="' . $target . '"' . $rel,
                 implode( ' ', $classes ),
                 $label
             );
@@ -1181,7 +1212,7 @@
                                                     }
 
                                                     if (!multipleLicenses && 1 == pricing.licenses) {
-                                                        return '&pound;' + pricing.price + priceCycle;
+                                                        return '<?php echo $this->currency_symbol ?>' + pricing.price + priceCycle;
                                                     }
 
                                                     return _formatLicensesTitle(pricing) + ' - <var class="fs-price">$' + pricing.price + priceCycle + '</var>';
@@ -1200,7 +1231,7 @@
 
                                             $(document).ready(function () {
                                                 var $plan = $('.plugin-information-pricing .fs-plan[data-plan-id=<?php echo $plan->id ?>]');
-                                                $plan.find('input[type=radio]').live('click', function () {
+                                                $plan.find('input[type=radio]').on('click', function () {
                                                     _updateCtaUrl(
                                                         $plan.attr('data-plan-id'),
                                                         $(this).val(),
@@ -1297,8 +1328,8 @@
                                     <?php endif ?>
                                 </div>
                             </div>
-                            </div>
                         <?php endforeach ?>
+                        </div>
                     <?php endif ?>
                 <?php endif ?>
                 <div>
@@ -1366,6 +1397,7 @@
                             if ( ! empty( $api->slug ) && true == $api->is_wp_org_compliant ) {
                                 ?>
                                 <li><a target="_blank"
+                                       rel="noopener noreferrer"
                                        href="https://wordpress.org/plugins/<?php echo $api->slug; ?>/"><?php fs_esc_html_echo_inline( 'WordPress.org Plugin Page', 'wp-org-plugin-page', $api->slug ) ?>
                                         &#187;</a>
                                 </li>
@@ -1374,6 +1406,7 @@
                             if ( ! empty( $api->homepage ) ) {
                                 ?>
                                 <li><a target="_blank"
+                                       rel="noopener noreferrer"
                                        href="<?php echo esc_url( $api->homepage ); ?>"><?php fs_esc_html_echo_inline( 'Plugin Homepage', 'plugin-homepage', $api->slug ) ?>
                                         &#187;</a>
                                 </li>
@@ -1382,6 +1415,7 @@
                             if ( ! empty( $api->donate_link ) && empty( $api->contributors ) ) {
                                 ?>
                                 <li><a target="_blank"
+                                       rel="noopener noreferrer"
                                        href="<?php echo esc_url( $api->donate_link ); ?>"><?php fs_esc_html_echo_inline( 'Donate to this plugin', 'donate-to-plugin', $api->slug ) ?>
                                         &#187;</a>
                                 </li>
@@ -1425,18 +1459,19 @@
                             );
                             ?>
                             <div class="counter-container">
-					<span class="counter-label"><a
-                            href="https://wordpress.org/support/view/plugin-reviews/<?php echo $api->slug; ?>?filter=<?php echo $key; ?>"
-                            target="_blank"
-                            title="<?php echo esc_attr( sprintf(
-                            /* translators: %s: # of stars (e.g. 5 stars) */
-                                fs_text_inline( 'Click to see reviews that provided a rating of %s', 'click-to-reviews', $api->slug ),
-                                $stars_label
-                            ) ) ?>"><?php echo $stars_label ?></a></span>
+                              <span class="counter-label"><a
+                                href="https://wordpress.org/support/view/plugin-reviews/<?php echo $api->slug; ?>?filter=<?php echo $key; ?>"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="<?php echo esc_attr( sprintf(
+                                  /* translators: %s: # of stars (e.g. 5 stars) */
+                                  fs_text_inline( 'Click to see reviews that provided a rating of %s', 'click-to-reviews', $api->slug ),
+                                  $stars_label
+                                ) ) ?>"><?php echo $stars_label ?></a></span>
                                 <span class="counter-back">
-						<span class="counter-bar" style="width: <?php echo absint(92 * $_rating); ?>px;"></span>
-					</span>
-                                <span class="counter-count"><?php echo number_format_i18n( $ratecount ); ?></span>
+                                <span class="counter-bar" style="width: <?php echo absint(92 * $_rating); ?>px;"></span>
+                              </span>
+                              <span class="counter-count"><?php echo number_format_i18n( $ratecount ); ?></span>
                             </div>
                             <?php
                         }
@@ -1457,19 +1492,20 @@
                                     if ( empty( $contrib_profile ) ) {
                                         echo "<li><img src='https://wordpress.org/grav-redirect.php?user={$contrib_username}&amp;s=36' width='18' height='18' />{$contrib_username}</li>";
                                     } else {
-                                        echo "<li><a href='{$contrib_profile}' target='_blank'><img src='https://wordpress.org/grav-redirect.php?user={$contrib_username}&amp;s=36' width='18' height='18' />{$contrib_username}</a></li>";
+                                        echo "<li><a href='{$contrib_profile}' target='_blank' rel='noopener noreferrer'><img src='https://wordpress.org/grav-redirect.php?user={$contrib_username}&amp;s=36' width='18' height='18' />{$contrib_username}</a></li>";
                                     }
                                 }
                             ?>
                         </ul>
                         <?php if ( ! empty( $api->donate_link ) ) { ?>
                             <a target="_blank"
+                               rel="noopener noreferrer"
                                href="<?php echo esc_url( $api->donate_link ); ?>"><?php fs_echo_inline( 'Donate to this plugin', 'donate-to-plugin', $api->slug ) ?>
                                 &#187;</a>
                         <?php } ?>
                     <?php } ?>
             </div>
-            <div id="section-holder">
+            <div id="section-holder" class="wrap">
             <?php
             if ( ! empty( $api->tested ) && version_compare( substr( $GLOBALS['wp_version'], 0, strlen( $api->tested ) ), $api->tested, '>' ) ) {
                 echo '<div class="notice notice-warning"><p>' . '<strong>' . fs_text_inline( 'Warning', 'warning', $api->slug ) . ':</strong> ' . fs_text_inline( 'This plugin has not been tested with your current version of WordPress.', 'not-tested-warning', $api->slug ) . '</p></div>';
