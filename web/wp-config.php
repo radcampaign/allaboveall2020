@@ -20,22 +20,26 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'allaboveall_new' );
+define( 'DB_NAME', 'alljan' );
 
 /** MySQL database username */
-define( 'DB_USER', '1022608_4' );
+define( 'DB_USER', 'alljan' );
 
 /** MySQL database password */
-define( 'DB_PASSWORD', 'heZTQAqR' );
+define( 'DB_PASSWORD', 'alljan' );
 
 /** MySQL hostname */
-define( 'DB_HOST', 'db57c.pair.com' );
+define( 'DB_HOST', 'localhost' );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
 
 /** The Database Collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
+
+
+define( 'WP_HOME', 'http://allaboveall.localhost:81/' );
+define( 'WP_SITEURL', 'http://allaboveall.localhost:81/' );
 
 /**#@+
  * Authentication Unique Keys and Salts.
