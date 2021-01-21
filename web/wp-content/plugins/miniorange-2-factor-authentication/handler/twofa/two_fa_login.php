@@ -333,10 +333,10 @@ class Miniorange_Mobile_Login {
                 	?>
                     <input type="button" name="miniorange_login_submit" style="width:100% !important;"
                            onclick="mouserloginsubmit();" id="miniorange_login_submit"
-                           class="miniorange-button button-add"
+                           class="button button-primary button-large"
                            value="<?php echo mo2f_lt( 'Login with 2nd factor' ); ?>"/>
                 </p>
-                <br>
+                <br><br><br>
 				<?php if ( ! $mo2f_enable_login_with_2nd_factor ) { ?><br><br><?php } ?>
             </div>
         </div>

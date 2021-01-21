@@ -151,8 +151,7 @@ function mo2f_collect_attributes( $email, $attributes ) {
 function mo2f_get_user_2ndfactor( $user ) {
 	global $Mo2fdbQueries;
 	$mo2f_user_email = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
-	
-    $enduser         = new Two_Factor_Setup();
+	$enduser         = new Two_Factor_Setup();
 	$userinfo        = json_decode( $enduser->mo2f_get_userinfo( $mo2f_user_email ), true );
 	if ( json_last_error() == JSON_ERROR_NONE ) {
 		if ( $userinfo['status'] == 'ERROR' ) {

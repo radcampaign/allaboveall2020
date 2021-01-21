@@ -12,7 +12,9 @@
 		const DEFAULT_CUSTOMER_KEY		= "16555";
 		const DEFAULT_API_KEY 			= "fFd2XcvTGDemZvbw1bcUesNJWEqKbbUq";
 		const DB_VERSION				= 153;
+		const DB_FEATURE_MAIL			= 1;
 		const SUPPORT_EMAIL				= 'info@xecurify.com';
+		const REAL_TIME_IP_HOST			= 'https://firewall.xecurify.com/';
 		const IP_LOOKUP_TEMPLATE		= '<span style="font-size:14px;font-weight:bold">GENERAL INFORMATION</span><table style="margin-left:2%;"><tr><td style="width:100px;">Response</td><td >:</td><td>{{status}}</td></tr><tr><td style="width:100px;">IP Address</td><td>:</td><td>{{ip}}</td></tr><tr><td>HostName</td><td>:</td><td>{{hostname}}</td></tr><tr><td>TimeZone</td><td>:</td><td>{{timezone}}</td></tr><tr><td>Time Difference</td><td>:</td><td>{{offset}}</td></tr></table><hr><span style="font-size:14px;font-weight:bold">LOCATION INFORMATION</span><table style="margin-left:2%;"><tr><td>Latitude</td><td>:</td><td>{{latitude}}</td></tr><tr><td>Longitude</td><td>:</td><td>{{longitude}}</td></tr><tr><td>Region</td><td>:</td><td>{{region}}</td></tr><tr><td>Country</td><td>:</td><td>{{country}}</td></tr><tr><td>City</td><td>:</td><td>{{city}}</td></tr><tr><td>Continent</td><td>:</td><td>{{continent}}</td></tr><tr><td>Curreny Code</td><td>:</td><td>{{curreny_code}}</td></tr><tr><td>Curreny Symbol</td><td>:</td><td>{{curreny_symbol}}</td></tr><tr><td>Per Dollar Value</td><td>:</td><td>{{per_dollar_value}}</td></tr></table>';
 		const CURRENT_BROWSER			= '<span style="font-size:10px;color:red;">( Current Browser )</span>';
 		
@@ -43,8 +45,10 @@
         const THEMES							= 'themes';
         const WPFILES							= 'wpfiles';
         const DATABASE 							= 'db';
-        const CloudLockedOut 			='https://faq.miniorange.com/knowledgebase/how-to-gain-access-to-my-website-if-i-get-locked-out/';
-        const OnPremiseLockedOut 			='https://faq.miniorange.com/knowledgebase/i-am-locked-cant-access-my-account-what-do-i-do/';
+        const CloudLockedOut 					='https://faq.miniorange.com/knowledgebase/how-to-gain-access-to-my-website-if-i-get-locked-out/';
+        const OnPremiseLockedOut 				='https://faq.miniorange.com/knowledgebase/i-am-locked-cant-access-my-account-what-do-i-do/';
+        const rechargeLink						= MoWpnsConstants::HOST_NAME.'/moas/login?redirectUrl='.MoWpnsConstants::HOST_NAME.'/moas/initializepayment&requestOrigin=otp_recharge_plan';
+
 
         public static $repo_status_code = array(-96 => 'Maximum execution time exceeded while downloading files from repository. Please contact miniOrange.', -97 => '<i>Uploads Folder</i> permission denied', -98 => '2 Factor authentication plugin unable to reach wordpress repository files. Please contact miniOrange.', -99 => 'Unable to download Wordpress, plugins and themes from Repository', -100 => 'Unable to unzip the Wordpress, plugins and themes');
 

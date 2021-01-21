@@ -42,6 +42,8 @@ class wpns_ajax
 					$this->wpns_waf_settings_form(); break;
 				case 'wpns_waf_rate_limiting_form':
 					$this->wpns_waf_rate_limiting_form(); break;	
+				case 'wpns_waf_realtime_ip_block_free':
+					$this->wpns_waf_realtime_ip_block_free();break;
 				case 'wpns_ip_lookup':
 					$this->wpns_ip_lookup(); 	break;	
 				case 'wpns_all_plans':
@@ -49,7 +51,11 @@ class wpns_ajax
 				case 'wpns_logout_form':
 					$this->wpns_logout_form();	break;
 				case 'wpns_check_transaction':
-					$this->wpns_check_transaction(); break;	
+					$this->wpns_check_transaction(); break;
+				case 'waf_settings_mail_form_notify':
+					$this->waf_settings_mail_form_notify();	break;
+				case 'waf_settings_IP_mail_form':
+						$this->waf_settings_IP_mail_form();break;
 				case 'update_plan':
 					$this->update_plan();		break;
 			}
@@ -70,6 +76,8 @@ class wpns_ajax
 				update_site_option('mo_2fa_plan_type',$mo_2fa_plan_type);
 			}	
 		}
+
+
 		function mo2f_ajax_otp(){
 			$obj = new Miniorange_Password_2Factor_Login();
 			$obj->check_miniorange_soft_token($_POST);	
@@ -78,9 +86,11 @@ class wpns_ajax
 			$obj = new Miniorange_Password_2Factor_Login();
 			$obj->check_kba_validation($_POST);			
 		}
+
 		function wpns_check_transaction()
 		{
 			$customerT = new Customer_Cloud_Setup();
+			
 			$content = json_decode( $customerT->get_customer_transactions( get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ),'PREMIUM' ), true );
 			if($content['status'] == 'SUCCESS')
 			{
@@ -95,6 +105,8 @@ class wpns_ajax
 				update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',$content['smsRemaining']);
 			else if($content['status'] =='SUCCESS')
 				update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',0);
+
+
 			if(isset($content['emailRemaining']))
 			{
 				$available_transaction = get_site_option('EmailTransactionCurrent', 30);
@@ -103,11 +115,15 @@ class wpns_ajax
 					$currentTransaction = $content['emailRemaining']+get_site_option('cmVtYWluaW5nT1RQ');
 					if($available_transaction>30)
 						$currentTransaction = $currentTransaction-$available_transaction;
+					
 					update_site_option('cmVtYWluaW5nT1RQ',$currentTransaction);
 					update_site_option('EmailTransactionCurrent',$content['emailRemaining']);
 				}
+				
 			}
+			
 		}
+
 		function mo2f_ajax_login()
 		{	
 			if(!wp_verify_nonce(sanitize_text_field($_POST['nonce']),'miniorange-2-factor-login-nonce'))
@@ -140,6 +156,41 @@ class wpns_ajax
             $two_fa_settings->mo_auth_deactivate();
 
 		}
+		// It is the new line added for the database updation
+		function waf_settings_mail_form_notify()
+		{
+			$nonce = sanitize_text_field($_POST['nonce']);
+	   		if ( ! wp_verify_nonce( $nonce, 'WAFsettingNonce' ) ){
+	   			wp_send_json('ERROR');
+	   			return;
+	   		}
+	   		if(isset($_POST['S_mail']))
+	   		{
+	   		$mo2f_all_mail_noyifying = sanitize_text_field(($_POST['S_mail']));
+			update_site_option('mo2f_mail_notify_new_release', $mo2f_all_mail_noyifying);
+				wp_send_json('true');
+	   		}
+			else{
+				wp_send_json('false');
+
+			} 
+		}
+		function waf_settings_IP_mail_form()
+		{
+			$nonce = sanitize_text_field($_POST['nonce']);
+	   		if ( ! wp_verify_nonce( $nonce, 'WAFsettingNonce' ) ){
+	   			wp_send_json('ERROR');
+	   			return;
+	   		}
+			$mo2f_mail_noyifying_IP = sanitize_text_field($_POST['Smail']);
+			update_site_option('mo2f_mail_notify', $mo2f_mail_noyifying_IP);
+			if($mo2f_mail_noyifying_IP == "on"){
+				wp_send_json('true');
+			}
+			else if($mo2f_mail_noyifying_IP == ""){
+				wp_send_json('false');
+			} 
+		}
 		function wpns_all_plans()
 		{
 			$mo2f_all_plannames = $_POST['planname'];
@@ -156,7 +207,6 @@ class wpns_ajax
 				update_site_option('mo_2fa_plan_type',$mo_2fa_plan_type);
 			}	
 		}
-		
 	    function wpns_handle_bf_configuration_form(){
 
 	   		$nonce = $_POST['nonce'];
@@ -337,6 +387,38 @@ class wpns_ajax
 			}
 				
 		}	
+
+	}
+	function wpns_waf_realtime_ip_block_free()
+	{
+		$nonce = sanitize_text_field($_POST['nonce']);
+		if(!wp_verify_nonce($nonce,'mo2f_realtime_ip_block_free'))
+		{
+			echo "NonceDidNotMatch";
+			exit;
+		}
+		else
+		{	
+			$mo2f_realtime_ip_block_free = sanitize_text_field($_POST['mo2f_realtime_ip_block_free']);
+			
+			if($mo2f_realtime_ip_block_free == 'on')
+			{
+				update_site_option('mo2f_realtime_ip_block_free',1);
+				if (!wp_next_scheduled( 'mo2f_realtime_ip_block_free_hook')) {
+             		wp_schedule_event( time(), 'mo2f_realtime_ipblock_free', 'mo2f_realtime_ip_block_free_hook' );
+            	}
+				wp_send_json('realtime_block_free_enable');
+			}
+			else
+			{
+				update_site_option('mo2f_realtime_ip_block_free',0);
+				$timestamp = wp_next_scheduled( 'mo2f_realtime_ip_block_free_hook' );
+				wp_unschedule_event( $timestamp, 'mo2f_realtime_ip_block_free_hook' );
+				wp_send_json('realtime_block_free_disable');
+			}
+		
+
+		}
 
 	}
     function wpns_waf_rate_limiting_form()
@@ -543,7 +625,6 @@ class wpns_ajax
 			{
 				update_option('WAF','PluginLevel');
 				update_option('WAFEnabled','1');
-				update_site_option('waf_notification_option','1');
 				echo("PWAFenabled");exit;
 			}
 		}
@@ -567,7 +648,6 @@ class wpns_ajax
 			{
 				update_option('WAF','HtaccessLevel');
 				update_option('WAFEnabled','1');
-				update_site_option('waf_notification_option','1');
 				$dir_name =  dirname(__FILE__);
 				$dirN = $dir_name;
 				$dirN = str_replace('\\', '/', $dirN);

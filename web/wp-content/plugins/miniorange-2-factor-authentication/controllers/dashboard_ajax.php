@@ -90,8 +90,8 @@ class Mo2f_ajax_dashboard
 		else{
 			update_site_option('mo_2f_switch_waf', 0);
 			update_site_option('mo2f_tab_count', get_site_option('mo2f_tab_count')-1);
-			update_site_option('WAFEnabled', 0);
-			update_site_option('WAF','wafDisable');
+			update_option('WAFEnabled', 0);
+			update_option('WAF','wafDisable');
 			update_site_option('Rate_limiting', 0);
 			$dir_name 	=  dirname(dirname(dirname(dirname(dirname(__FILE__)))));
 			$dir_name1  =  $dir_name.DIRECTORY_SEPARATOR.'.htaccess';

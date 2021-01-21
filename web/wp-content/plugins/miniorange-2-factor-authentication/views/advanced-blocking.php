@@ -1,4 +1,3 @@
-
 <div class="mo_wpns_divided_layout_tab">
 <div class="mo_wpns_tab">
   <button class="tablinks" onclick="block_function(event, 'block_list')" id="defaultOpen">IP Black list</button>
@@ -334,7 +333,6 @@ function block_function(evt, cityName) {
 				}
 				else
 				{
-
 					refreshblocktable(response);
                     success_msg("IP Blocked Sucessfully.");
 				}

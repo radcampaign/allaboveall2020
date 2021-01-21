@@ -39,7 +39,9 @@ class LoginHandler
 			global $moWpnsUtility,$mo2f_dirName;
 			$WAFEnabled = get_option('WAFEnabled');
 			$WAFLevel = get_option('WAF');
-
+			$pass2fa_login       = new Miniorange_Password_2Factor_Login();
+			if(class_exists('UM_Functions') && get_site_option('mo2f_enable_2fa_prompt_on_login_page'))
+				add_action('um_after_login_fields',array($pass2fa_login,'mo2f_ultimate_member_custom_login'));
 			$mo2f_scanner_parts = new mo2f_scanner_parts();
 			$mo2f_scanner_parts->file_cron_scan();
 
@@ -111,6 +113,40 @@ class LoginHandler
 			}
 
 		}
+
+		function mo2f_IP_email_send()
+    		  	{
+    		  		global $moWpnsUtility;
+    		  		$userIp = $moWpnsUtility->get_client_ip();	
+					
+ 					if(!get_site_option('mo2f_user_IP'))
+			 	 	{
+			 	 		update_site_option('mo2f_user_IP',$userIp );
+			 	 	}
+			 		$check_Ip = get_site_option('mo2f_user_IP');
+
+			 		if ($check_Ip != $userIp) 
+			 		{
+
+			 			$email = get_option('admin_email');
+			 			$subject ="Alert: New IP Detected";
+			 			$message = mo_IP_template();
+			 			$headers=array('Content-Type: text/html; charset=UTF-8');
+			 			if(empty($email))
+          					{
+               				 	$user  =  wp_get_current_user();
+                				$email = $user->user_email;
+            				}
+            				if(is_email($email))
+            				{
+
+								wp_mail( $email,$subject,$message,$headers);	
+								
+							}	
+			 		 
+			 		}
+            			
+    		}
 
 		function wooc_validate_user_captcha_register($username, $email, $validation_errors) {
 			
@@ -234,6 +270,10 @@ class LoginHandler
 		function mo_wpns_login_success($username)
 		{
 			global $moWpnsUtility;
+				if(get_site_option('mo2f_mail_notify') == 'on')
+			 	{
+			 		$this->mo2f_IP_email_send();
+			 	}
 
 				$mo_wpns_config = new MoWpnsHandler();
 				$userIp 		= $moWpnsUtility->get_client_ip();
@@ -326,7 +366,7 @@ class LoginHandler
 		{
 			global $moWpnsUtility, $mo2f_dirName;
 			$mo_wpns_config = new MoWpnsHandler();
-			$mo_wpns_config->block_ip($userIp, MoWpnsConstants::LOGIN_ATTEMPTS_EXCEEDED, false);
+			$mo_wpns_config->mo_wpns_block_ip($userIp, MoWpnsConstants::LOGIN_ATTEMPTS_EXCEEDED, false);
 			include_once("mo-block.html");
 			exit;
 

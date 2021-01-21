@@ -12,7 +12,7 @@
 	$countryBlocked 	= $mo_wpns_handler->get_blocked_countries();
 	$IPblockedByWAF 	= $mo_wpns_handler->get_blocked_ip_waf();
 	$totalIPBlocked 	= $manualBlocks+$realTime+$IPblockedByWAF;
-	$mo_waf 		= get_site_option('WAFEnabled');
+	$mo_waf 		= get_option('WAFEnabled');
 	if(!get_option('mo2f_tour_firewall'))
 		update_option('mo2f_tour_firewall',1);
 	if($mo_waf)

@@ -330,9 +330,9 @@ class Mo2fConstants {
 			case 'ERROR_IN_SENDING_OTP_ONPREM':
 				Return mo2f_lt( 'There was an error in sending one-time passcode. Please check your SMTP Setup and remaining transactions.' );
 				break;
-		    	case 'SMTP_CHECK_FOR_EMAIL_VERIFICATON':
-				 Return mo2f_lt('Please set your SMTP to get the email to verify the email at the time of login otherwise you will get logged out');
-				 break;
+		    case 'SMTP_CHECK_FOR_EMAIL_VERIFICATON':
+		         Return mo2f_lt('Please set your SMTP to get the email to verify the email at the time of login otherwise you will get logged out');
+		         break;
 			case 'PUSH_NOTIFICATION_SENT':
 				Return mo2f_lt( 'A Push notification has been sent to your miniOrange Authenticator App.' );
 				break;

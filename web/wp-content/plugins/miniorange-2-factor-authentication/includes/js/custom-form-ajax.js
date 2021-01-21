@@ -95,7 +95,7 @@ jQuery(document).ready(function()
                             if (timeLeft === 0)
                             {
                                 clearTimeout(timerId)
-                                $mo("#otp_send_button").css("display", "initial");
+                                $mo("#otp_send_button").css("display", "block");
                                 $mo("#timer").css("visibility", "hidden");
                                 $mo("#otp_send_button").text("Resend");
 

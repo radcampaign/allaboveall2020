@@ -67,7 +67,6 @@ class Customer_Cloud_Setup  {
 		$MoWpnsUtility = new MoWpnsUtility();
 		$company     = get_option( 'mo2f_admin_company' ) != '' ? get_option( 'mo2f_admin_company' ) : $_SERVER['SERVER_NAME'];
 		$applicationName='Wordpress Two Factor; Multisite: '.is_multisite().' '.$MoWpnsUtility->checkPlugins();
-
 		$fields = array (
 			'emailAddress' => $email,
 			'companyName'=>$company,
@@ -77,6 +76,8 @@ class Customer_Cloud_Setup  {
 			'pluginVersion'=>MO2F_VERSION,
 			'inUse'=>$MoWpnsUtility->getFeatureStatus()
 		);
+
+
 
 		$headers = array("Content-Type"=>"application/json","charset"=>"UTF-8","Authorization"=>"Basic");
 
@@ -202,7 +203,7 @@ class Customer_Cloud_Setup  {
 	}
 
 
-	function send_otp_token( $uKey, $authType, $cKey, $apiKey,$currentuser=null ) {
+	function send_otp_token( $uKey, $authType, $cKey, $apiKey, $currentuser=null ) {
 
 			if ( ! MO2f_Utility::is_curl_installed()) {
 				$message = 'Please enable curl extension. <a href="admin.php?page=mo_2fa_troubleshooting">Click here</a> for the steps to enable curl.';
@@ -255,8 +256,21 @@ class Customer_Cloud_Setup  {
 
 			$content = $mo2fApi->make_curl_call( $url, $field_string, $headers );
 		
+		$content1 = json_decode($content,true);
+
+		if ( $content1['status'] == "SUCCESS" ) {
+			if(get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z') == 4 && $authType == 'SMS'){
+               	Miniorange_Authentication::low_otp_alert("sms");
+               }
+            if(get_site_option('cmVtYWluaW5nT1RQ') == 5 && $authType == 'OTP Over Email'){
+              	Miniorange_Authentication::low_otp_alert("email");
+            }
+		}
+
 		return $content;
 	}
+
+
 
 
 	function get_customer_transactions( $cKey, $apiKey ,$license_type) {

@@ -61,8 +61,10 @@ class Mo2f_OnPremRedirect {
 	function OnpremSendRedirect($useremail,$authType,$currentuser){
 		switch($authType){
 
-			case "Email Verification":$content = $this->mo2f_pass2login_push_email_onpremise($useremail);
-				break;
+			case "Email Verification":
+			case "OUT OF BAND EMAIL":
+			 $content = $this->mo2f_pass2login_push_email_onpremise($currentuser);
+				return $content;
 			case "EMAIL":
 				
 			case "OTP Over Email": $content = $this->OnpremOTPOverEMail($currentuser);
@@ -107,6 +109,7 @@ class Mo2f_OnPremRedirect {
 	}
 	function OnpremSendOTPEMail($current_user,$tokenName,$timeName,$email=null)
 	{
+		$count_threshold = 5;
 		global $Mo2fdbQueries;
 		if(!isset($current_user) or is_null($current_user))
 		{
@@ -172,6 +175,8 @@ class Mo2f_OnPremRedirect {
 		
 		$result = wp_mail($email,$subject,$message,$headers);
 		if($result){
+			if(get_site_option('cmVtYWluaW5nT1RQ') == $count_threshold)
+				Miniorange_Authentication::low_otp_alert("email");
 			update_site_option( 'mo2f_message', 'A OTP has been sent to you on' .'<b> ' . $email . '</b>. ' .  Mo2fConstants::langTranslate("ACCEPT_LINK_TO_VERIFY_EMAIL"));
 			$arr = array('status' => 'SUCCESS','message'=>'Successfully validated.' ,'txId' => '' );
 		
@@ -250,14 +255,12 @@ class Mo2f_OnPremRedirect {
 	}
 
 
-	function mo2f_pass2login_push_email_onpremise($current_user, $redirect_to=null, $session_id=null)
+	function mo2f_pass2login_push_email_onpremise($current_user, $redirect_to=null)
 	{
-
 		global $Mo2fdbQueries;
-		if(is_null($session_id)){
-			$session_id=$this->create_session();
-		}
+		
 		$email           = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $current_user->ID );
+
 		$subject 	= "2-Factor Authentication(Email verification)";
 		$headers 	= array('Content-Type: text/html; charset=UTF-8');
 		$txid 		= '';
@@ -293,8 +296,6 @@ class Mo2f_OnPremRedirect {
 		else
 		{
 			$response['status']='FAILED';
-			$key = get_option( 'mo2f_encryption_key' );
-			$session_id_encrypt = MO2f_Utility::encrypt_data($session_id, $key);
 		}
 
 		return json_encode($response);

@@ -115,6 +115,8 @@ echo 			"<td>".date("M j, Y, g:i:s a",$blockedattack->time)."</td><td>".$blocked
 		</tr>
 		 </h3>
 		 </table>
+		<input type="checkbox" id='mo2f_realtime_ip_block_free' name = 'mo2f_realtime_ip_block_free'<?php if(get_site_option('mo2f_realtime_ip_block_free')) echo 'checked';?>/>
+		Enable blocked IPs data saving on miniOrange server.
 		</div>
 	</div>
 </div>
@@ -374,7 +376,7 @@ echo 			"<td>".date("M j, Y, g:i:s a",$blockedattack->time)."</td><td>".$blocked
 
 <?php
 	
-	$admin_url = admin_url();
+	$admin_url = network_admin_url();
 	$url = explode('/wp-admin/', $admin_url);
 	$url = $url[0].'/htaccess';
 
@@ -629,27 +631,27 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 					var response = response.replace(/\s+/g,' ').trim();
 					if(response == 'RateEnabled')
 					{
-						document.getElementById('rateLFD').style.display="block";
-						success_msg(" Rate Limiting is Enabled.");
+                        document.getElementById('rateLFD').style.display="block";
+                        success_msg(" Rate Limiting is Enabled.");
 					}
 					else if(response == 'Ratedisabled')
 					{
-                        			error_msg(" Rate Limiting is disabled.");
+                        error_msg(" Rate Limiting is disabled.");
 					}
 					else if(response == 'WAFNotEnabled')
 					{
-                        			error_msg(" Enable WAF to use Rate Limiting");
+                        error_msg(" Enable WAF (Firewall -> Settings -> Website Firewall on Plugin/.htaccess level) to use Rate Limiting");
 						jQuery('#rateL').prop('checked',false);
 						document.getElementById('rateLFD').style.display="none";
 					}
 					else if(response == 'NonceDidNotMatch')
 					{
-						error_msg("There was an error in processing the request.");
-						document.getElementById('rateLFD').style.display="none";
+                        error_msg("There was an error in processing the request.");
+                        document.getElementById('rateLFD').style.display="none";
 					}
 					else
 					{
-                        			error_msg("Error: An unknown error has occured");
+                        error_msg("Error: An unknown error has occured");
 					}
 		
 				});
@@ -679,24 +681,14 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 					var response = response.replace(/\s+/g,' ').trim();
 					if(response == 'RateEnabled')
 					{
-						jQuery('#wpns_message').empty();
-						jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp;Rate Limiting is Saved</div></div>");
-						window.onload = nav_popup();
-
+                        success_msg("Rate Limiting is Saved");
 					}
 					else if(response == 'Ratedisabled')
 					{
-						jQuery('#wpns_message').empty();
-						jQuery('#wpns_message').append("<div id='notice_div' class='overlay_success'><div class='popup_text'>&nbsp; &nbsp;Rate Limiting is disabled.</div></div>");
-						window.onload = nav_popup();
-
-					}
+                        error_msg("Rate Limiting is disabled.");}
 					else
 					{
-						jQuery('#wpns_message').empty();
-						jQuery('#wpns_message').append("<div id='notice_div' class='overlay_error'><div class='popup_text'>&nbsp; &nbsp; Limit of attacks should be more than 1.</div></div>");
-						window.onload = nav_popup();
-
+                        error_msg(" Limit of attacks should be more than 1.");
 					}
 		
 				});
@@ -769,11 +761,11 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 						var response = response.replace(/\s+/g,' ').trim();
 						if(response == 'SQLenable')
 						{
-                            				success_msg(" SQL Injection protection is enabled");
+                            success_msg(" SQL Injection protection is enabled");
 						}
 						else
 						{
-                            				error_msg(" SQL Injection protection is disabled.");
+                            error_msg(" SQL Injection protection is disabled.");
 						}
 			
 				});
@@ -800,11 +792,11 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 						var response = response.replace(/\s+/g,' ').trim();
 						if(response == 'limitSaved')
 						{
-                            				success_msg(" Limit of attacks has been saved");
+                            success_msg(" Limit of attacks has been saved");
 						}
 						else
 						{
-                            				error_msg(" Limit of attacks should be more that 1");
+                            error_msg(" Limit of attacks should be more that 1");
 						}
 			
 				});
@@ -834,11 +826,11 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 						var response = response.replace(/\s+/g,' ').trim();
 						if(response == 'XSSenable')
 						{
-                            				success_msg("XSS detection is enabled");
+                            success_msg("XSS detection is enabled");
 						}
 						else
 						{
-                            				error_msg(" XSS detection is disabled.");
+                            error_msg(" XSS detection is disabled.");
 						}
 			
 				});
@@ -863,11 +855,11 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 						var response = response.replace(/\s+/g,' ').trim();
 						if(response == 'LFIenable')
 						{
-                            				success_msg("LFI detection is enabled");
+                            success_msg("LFI detection is enabled");
 						}
 						else
 						{
-                            				error_msg("LFI detection is disabled.");
+                            error_msg("LFI detection is disabled.");
 						}
 			
 				});
@@ -936,7 +928,6 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 						}
 						else
 						{
-
 							jQuery('#SQL').prop("checked",false);	
 							jQuery('#LFI').prop("checked",false);	
 							jQuery('#XSS').prop("checked",false);	
@@ -1012,11 +1003,11 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 							jQuery('#LFI').prop("checked",false);	
 							jQuery('#XSS').prop("checked",false);
 
-                           				 error_msg(" WAF is disabled");
+                            error_msg(" WAF is disabled");
 						}
 						else
 						{
-                            				error_msg("An error has occured while deactivating WAF.");
+                            error_msg("An error has occured while deactivating WAF.");
 						}
 					
 				});
@@ -1036,11 +1027,11 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 						var response = response.replace(/\s+/g,' ').trim();
 						if(response == 'HWAFEnabled')
 						{
-                            				success_msg("WAF is enabled on htaccess level");
+                            success_msg("WAF is enabled on htaccess level");
 						}
 						else if(response =='HWAFEnabledFailed')
 						{
-                            				error_msg("An error has occured while activating WAF.");
+                            error_msg("An error has occured while activating WAF.");
 						}
 						else
 						{
@@ -1062,7 +1053,7 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 			}
 			jQuery('#htaccessWAF').prop("checked",false);
 			document.getElementById("htaccessWAF").disabled = false;
-    			success_msg(" WAF activation canceled ");
+            success_msg(" WAF activation canceled ");
 
 		});
 		jQuery('#CDhtaccess').click(function(){
@@ -1115,30 +1106,30 @@ echo	 "<a href='". $url."' download='".$nameDownload."'>";?>
 								{	
 									jQuery('#limitAttack').val(limitAttack);
 								}
-                                					success_msg("WAF is enabled on htaccess Level");
+                                success_msg("WAF is enabled on htaccess Level");
 							}
 						}
 						else if(response == 'HWAFEnabledFailed')
 						{
-                            						error_msg("An error occured while activating WAF");
+                            error_msg("An error occured while activating WAF");
 								
 						}
 						else if(response == 'HWAFdisabledFailed')
 						{
-                            				error_msg(" An error occured while deactivating WAF");
+                            error_msg(" An error occured while deactivating WAF");
 							
 						}
 						else if(response == 'HWAFdisabled')
 						{
 							jQuery('#SQL').prop("checked",false);
-						    jQuery('#LFI').prop("checked",false);
-						    jQuery('#XSS').prop("checked",false);
+                            jQuery('#LFI').prop("checked",false);
+                            jQuery('#XSS').prop("checked",false);
 
-						    error_msg("WAF is disabled on htaccess Level.");
+                            error_msg("WAF is disabled on htaccess Level.");
 						}
 						else
 						{
-                            				error_msg("An error has occured.There might be another WAF exists.");
+                            error_msg("An error has occured.There might be another WAF exists.");
 						}
 						
 				});
@@ -1159,6 +1150,31 @@ jQuery('#RLPage').click(function(){
 	document.getElementById("RateLimitTab").click();
 });
 
+jQuery('#mo2f_realtime_ip_block_free').click(function(){
+	var mo2f_realtime_ip_block_free 	= 	jQuery("input[name='mo2f_realtime_ip_block_free']:checked").val();
+	var nonce = '<?php echo wp_create_nonce("mo2f_realtime_ip_block_free");?>';
+	var data = {
+		'action'					: 'wpns_login_security',
+		'wpns_loginsecurity_ajax' 	: 'wpns_waf_realtime_ip_block_free',
+		'mo2f_realtime_ip_block_free': mo2f_realtime_ip_block_free,
+		'nonce'						:  nonce,
+		};
+	jQuery.post(ajaxurl, data, function(response) {
+		var response = response.replace(/\s+/g,' ').trim();
+		if(response == 'realtime_block_free_enable')
+		{
+			success_msg("Data saving on miniOrange is enabled.");
+		}
+		else if(response =='realtime_block_free_disable')
+		{
+		    error_msg("Data saving on miniOrange is disabled.");
+		}
+		else
+		{
+		    error_msg("Unknown error has occured.");
+		}
+	});
+});
 jQuery('#SettingPage').click(function(){
 	document.getElementById("settingsTab").click();
 });
@@ -1228,6 +1244,4 @@ function waf_function(evt, cityName) {
 	{
 		document.getElementById("settingsTab").click();	
 	}
-
-
 </script>

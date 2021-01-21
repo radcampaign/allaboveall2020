@@ -58,13 +58,12 @@ function backup_delete(elmt, file_path,file_name,id){
 		
 		jQuery.post(ajaxurl, data, function(response){
 			
-
 			if(response=="success"){
-               			success_msg("Backup delete successfully.");
+                success_msg("Backup delete successfully.");
 				var row = elmt.parentNode.parentNode;
 				row.parentNode.removeChild(row);
 			}else if(response ==="notexist"){
-               	 		error_msg("Someone has deleted the backup by going to directory please refreash the page");
+                error_msg("Someone has deleted the backup by going to directory please refreash the page");
 			}
 		});
    }
@@ -75,6 +74,5 @@ function backup_delete(elmt, file_path,file_name,id){
 jQuery("#reports_table").DataTable({
 				"order": [[ 1, "desc" ]]
 			});
-
 
 </script>

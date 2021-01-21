@@ -29,7 +29,7 @@ class Customer_Setup extends Customer_Cloud_Setup {
 
 
 
-	function send_otp_token( $uKey, $authType, $cKey, $apiKey,$currentuser=null ) {
+	function send_otp_token( $uKey, $authType, $cKey, $apiKey,  $currentuser=null ) {
 
 		$cloud_methods = array('MOBILE AUTHENTICATION','PUSH NOTIFICATIONS','SMS');
 		if(MO2F_IS_ONPREM and !in_array($authType, $cloud_methods)){
@@ -41,7 +41,7 @@ class Customer_Setup extends Customer_Cloud_Setup {
 
 		}else {
 
-			$content= parent::send_otp_token($uKey, $authType, $cKey, $apiKey,$currentuser=null);
+			$content= parent::send_otp_token($uKey, $authType, $cKey, $apiKey, $currentuser=null);
 
 		}
 

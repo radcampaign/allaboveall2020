@@ -148,14 +148,14 @@
 
     </div>
     <?php $is_plugin_network_active=is_plugin_active_for_network( MoWpnsConstants::TWO_FACTOR_SETTINGS);?>
-    <script>
-    	var network_active = '<?php echo $is_plugin_network_active;?>';
-    	if(network_active)
-    		var plugin_active_label = 'a[aria-label="Network Deactivate miniOrange 2 Factor Authentication"]';
-    	else
-    		var plugin_active_label = 'a[aria-label="Deactivate miniOrange 2 Factor Authentication"]';
+    
+    	    	<script>
+    	        var label = document.getElementById('deactivate-miniorange-2-factor-authentication').getAttribute("aria-label");
+
+        plugin_active_label = 'a[aria-label="'+label+'"]';
+
         jQuery(plugin_active_label).click(function () {
-            var mo_modal = document.getElementById('wpns_feedback_modal');
+		var mo_modal = document.getElementById('wpns_feedback_modal');
 
             var span = document.getElementsByClassName("mo_wpns_close")[0];
 

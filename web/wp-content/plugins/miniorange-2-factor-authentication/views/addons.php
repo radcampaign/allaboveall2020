@@ -1,4 +1,5 @@
 <?php
+
 	if (get_option('mo_2factor_user_registration_status') == 'MO_2_FACTOR_PLUGIN_SETTINGS') {
 		$is_customer_registered = 'MO_2_FACTOR_PLUGIN_SETTINGS';
 

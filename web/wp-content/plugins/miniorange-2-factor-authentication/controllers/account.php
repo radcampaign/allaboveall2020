@@ -195,6 +195,7 @@
 				update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',$content['smsRemaining']);
 			else if($content['status'] =='SUCCESS')
 				update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',0);
+
 			if(isset($content['emailRemaining']))
 			{
 				if($content['emailRemaining']>30)

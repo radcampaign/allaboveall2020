@@ -39,6 +39,7 @@ jQuery(document).ready(function()
     else
     if(($mo(formName).length || $mo(submitSelector).length) && isRegistered!==false && isShortEnabled !== 'false')
     {
+
         function setMessage(message,color) {
             $mo('#otpmessage').text("")
             $mo('#otpmessage').text(message).css('color',color)
@@ -63,14 +64,14 @@ jQuery(document).ready(function()
             {
                 if(response === null)
                 {
-                    setMessage('ontact Site Administrator','red')
+                    setMessage('Contact Site Administrator','red')
                 }
                 else
                 {
                     switch (response.status)
                     {
                         case "SUCCESS":
-                            $mo("#edit_otp").css("display", "inherit")
+                            $mo("#edit_otp").css("display", "block")
                             setMessage(response.message, 'green')
 
                             if(isSecond)
@@ -91,7 +92,7 @@ jQuery(document).ready(function()
                             if (timeLeft === 0)
                             {
                                 clearTimeout(timerId)
-                                $mo("#otp_send_button").css("display", "initial");
+                                $mo("#otp_send_button").css("display", "block");
                                 $mo("#timer").css("visibility", "hidden");
                                 $mo("#otp_send_button").text("Resend");
 
@@ -146,7 +147,7 @@ jQuery(document).ready(function()
                                 if(submitSelector === ".ur-submit-button")
                                 {
                                     setTimeout(function () {
-                                       location.reload()
+                                        location.reload()
                                     }, 15000)
                                 }
                                 $mo(submitSelector).unbind("click").click()
@@ -284,6 +285,19 @@ jQuery(document).ready(function()
                 break;
 
             case  'email':
+
+                if($mo("#reg_passmail").length)
+                {
+                    $mo("#reg_passmail").css("visibility","hidden")
+                    $mo(".clear").remove()
+                }
+
+                let a = $mo(emailSelector).attr('class')
+                $mo("#edit_otp").addClass(a)
+
+                let b= $mo(submitSelector).attr('class')
+                $mo('#otp_send_button').attr('class',b)
+
                 if (!$mo(emailSelector).length)
                 {
                     const messageNotRegistered = '<p id="emailFieldLabel" style="color: red;font-size: 18px;border: red 1px solid;padding: 5px" > miniOrange : Email Field '+emailSelector+' not Found. Please check Selector</p>';
@@ -293,9 +307,10 @@ jQuery(document).ready(function()
                         $mo(submitSelector).after('<br>'+messageNotRegistered)
                     return
                 }
+
                 $mo(emailSelector).after(messageTextEmail + otpEdit + sendButton)
-                $mo( "#otp_send_button" ).click(function()
-                {   email = $mo(emailSelector).val()
+
+                $mo( "#otp_send_button" ).click(function() {   email = $mo(emailSelector).val()
                     if(!validateEmail(email)) {
                         $mo('#otpmessage').text('Invalid Email Address').css('color','red')
                         return

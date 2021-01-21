@@ -44,11 +44,11 @@
     }
     function is_crawler()
     {
-        $USER_AGENT = $_SERVER['HTTP_USER_AGENT'];
+        $USER_AGENT = isset($_SERVER['HTTP_USER_AGENT'])?$_SERVER['HTTP_USER_AGENT']:'';
         $Botsign = array('bot','apache','crawler','elinks','http', 'java', 'spider','link','fetcher','scanner','grabber','collector','capture','seo','.com');
         foreach ($Botsign as $key => $value) 
         {
-            if(preg_match('/'.$value.'/', $USER_AGENT)) 
+            if(isset($USER_AGENT) || preg_match('/'.$value.'/', $USER_AGENT)) 
             {
                 return true;
             }
@@ -57,8 +57,8 @@
     }
     function is_fake_googlebot($ipaddress)
     {
-        $USER_AGENT = $_SERVER['HTTP_USER_AGENT'];
-        if(preg_match('/Googlebot/', $USER_AGENT))
+        $USER_AGENT = isset($_SERVER['HTTP_USER_AGENT'])?$_SERVER['HTTP_USER_AGENT']:'';
+        if(isset($USER_AGENT) || preg_match('/Googlebot/', $USER_AGENT))
         {
             if(is_fake('Googlebot',$USER_AGENT,$ipaddress))
             {
@@ -82,7 +82,7 @@
         //         $highip = ip2long(trim($rangearray[1]));
         //         if(ip2long($userIp)>=$lowip && ip2long($userIp)<=$highip){
         //             $mo_wpns_config = new MoWpnsHandler();
-        //             $mo_wpns_config->block_ip($userIp, MoWpnsConstants::IP_RANGE_BLOCKING, true);
+        //             $mo_wpns_config->mo_wpns_block_ip($userIp, MoWpnsConstants::IP_RANGE_BLOCKING, true);
         //             return true;
         //         }
         //     }

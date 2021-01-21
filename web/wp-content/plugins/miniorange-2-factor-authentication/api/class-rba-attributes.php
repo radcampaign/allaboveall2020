@@ -153,6 +153,8 @@ class Miniorange_Rba_Attributes {
 			if ( ! MO2f_Utility::is_curl_installed() ) {
 				return $this->get_curl_error_message();
 			}
+
+
 			$url = MO_HOST_NAME . '/moas/api/auth/validate-google-auth-secret';
 			$mo2fApi= new Mo2f_Api();
 			

@@ -54,12 +54,12 @@
 			$isWhitelisted 	= $mo_wpns_config->is_whitelisted($ipAddress);
 			if(!$isWhitelisted)
 			{
-				if($mo_wpns_config->is_ip_blocked($ipAddress)){
+				if($mo_wpns_config->mo_wpns_is_ip_blocked($ipAddress)){
 					//Change message
 					echo("already blocked");	
 					exit;
 				} else{
-					$mo_wpns_config->block_ip($ipAddress, MoWpnsConstants::BLOCKED_BY_ADMIN, true);
+					$mo_wpns_config->mo_wpns_block_ip($ipAddress, MoWpnsConstants::BLOCKED_BY_ADMIN, true);
 					//not in structures
 					?>
 					<table id="blockedips_table1" class="display">

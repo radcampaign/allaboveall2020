@@ -2,10 +2,10 @@
 global $mo2f_dirName;
 require_once $mo2f_dirName . DIRECTORY_SEPARATOR.'includes'. DIRECTORY_SEPARATOR.'lib'. DIRECTORY_SEPARATOR.'mo-2fa-options-enum.php';
 
-echo'	
+echo '
                 <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<div class="mo_wpns_divided_layout_2">
+       <div class="mo_wpns_divided_layout_2">
 
 		<div class="mo_wpns_support_layout" id="mo_wpns_support_layout_tour">
 			
@@ -30,8 +30,11 @@ echo'
 						</tr>
 					</table>
 				<br />			
+		
 		<div class="call-setup-div">
                         <h3 style="margin-top: 0px; margin-left: 5px;">Setup a Call / Screen-share session with miniOrange Technical Team</h3>
+                        
+
                         <label class="switch">
                             <input type="checkbox" id="2fa_setup_call" name="2fa_setup_call">
                             <span class="slider round"></span>
@@ -39,9 +42,12 @@ echo'
                         <span style="padding-left:5px; font-size: 15px;">
                             <b><label for="2fa_setup_call"></label>Enable this option to setup a call</b><br><br>
                         </span>
+
+
                         <div id="call_setup_dets" style="margin-left: 5px; margin-top: 5px;">
                             <div>
                                 <div style="width: 26%; float:left;"><strong>TimeZone<font color="#FF0000">*&nbsp</font>&nbsp; : &nbsp;</strong> </div>
+                                
                                 <div style="width: 74% !important; float: left">
                                     <select id="js-timezone" name="mo_2fa_setup_call_timezone" style="width:93%;">';
                                             $zones = mo_2fa_time_zones::$time_zones;
@@ -80,6 +86,14 @@ echo'
     </div>
 					<input type="submit" name="send_query" id="send_query" value="Submit Query" style="margin-bottom:3%;" class="mo_wpns_button mo_wpns_button1" />
 				</form>
+				<br><br>	
+				<hr style="border-top: 2px solid lightseagreen;">
+				<h3>Overview of Premium Features</h3>
+	            <hr style="border-top: 2px solid lightseagreen;">
+                <p><iframe  width="100%" src="https://www.youtube.com/embed/9H520HY3CxY" allowfullscreen="true">
+                    </iframe></p>
+                <p>
+
 				<br />			
 		</div>
 		</div>';?>
@@ -103,7 +117,9 @@ echo'
 				var t=parseInt(e.value.trim());t>50?e.value=50:35>t&&(e.value=35)
 			}
             var min_time = "00:00";
+
 		    jQuery( function() {
+
 		        jQuery("#call_setup_dets").hide();
                 jQuery("#2fa_setup_call").click(function() {
                     if(jQuery(this).is(":checked")) {
@@ -112,6 +128,7 @@ echo'
                         document.getElementById("datepicker").required = true;
                         document.getElementById("timepicker").required = true;
                         document.getElementById("query").required = false;
+
                         var date = new Date();
                         var hrs = date.getHours();
                         var mins = date.getMinutes();
@@ -131,14 +148,18 @@ echo'
                         document.getElementById("query").required = true;
                     }
                 });
+
                 jQuery( "#datepicker" ).datepicker({
                     minDate: 0,
                     dateFormat: "M dd, yy"
                 });
+
+
                 jQuery("#datepicker").datepicker().on("change", function (ev) {
                    var sel_date = jQuery(this).val();
                    var selected_date = new Date(sel_date);
                    var today_date = new Date();
+
                    if( (selected_date.getDate() == today_date.getDate()) && (selected_date.getMonth() == today_date.getMonth()) ){
                         jQuery("#timepicker").timepicker("option", "minTime", new Date());
                    }
@@ -146,6 +167,7 @@ echo'
                        jQuery("#timepicker").timepicker("option", "minTime", "00:00");
                    }
                 });
+
             jQuery("#timepicker").timepicker({
                 timeFormat: "HH:mm",
                 interval: 30,
@@ -157,5 +179,7 @@ echo'
                 forceRoundTime: true
             });
             });
+
 	  		jQuery(function() { jQuery("#js-timezone").select2(); });
+
 		</script>

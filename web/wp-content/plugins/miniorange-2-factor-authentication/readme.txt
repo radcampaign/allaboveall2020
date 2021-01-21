@@ -1,23 +1,23 @@
 ﻿=== Google Authenticator - WordPress Two Factor Authentication (2FA , MFA) ===
 
 Contributors: cyberlord92, twofactor, hsn97
-Tags: google authenticator, two factor authentication, two factor, 2FA,two-step verification, mobile verification,OTP, two-step verification, mobile verification,two factor,Two step verification, 2FA, TFA, MFA, 2 factor authentication, Remember Device, OTP,WordPress otp, two step authentication,Clef,SMS, email, signup security, two factor auth, Mobile Authentication, strong authentication, 2 step authentication, mobile verification,Multifactor authentication, passwordless login, one time passcode, soft token Authentication, QR Code Authentication, email verification, KBA, Security Questions,2FA, login OTP, login with SMS, mobile login, phone login, OTP login, mobile verification,knowledge based authentication,authy, authy two factor,yubico,Two-Factor Authentication,WordPress otp, security,user security, ​Twilio WordPress, SMS gateway, Solutions Infini, Clickatell, BulkSMS, MSG91, Nexmo, SMS Country, message, woocommerce, website security, login security, multi factor authentication, multi factor,wordfence, IP Blocking, IP Whitelisting, login Audits, woocommerce, SMS login, passwordless login, auth, login with OTP WordPress,  OTP, two-step authentication, Mobile Authentication, passwordless login, login without password, passwordless authentication, secure login, temporary login, temporary access, WebAuthn, login with telegram, login with whatsapp, one time passcode, email verification, security, website security, login security, multi-factor authentication, woocommerce, smartphone, WordPress otp, register with OTP, user OTP verification, SMS OTP, OTP Email, registration with OTP verification, registration verification,smartphone authentication
+Tags: google authenticator, two factor authentication, two factor, 2FA,two-step verification, mobile verification,OTP, two-step verification, mobile verification,two factor,Two step verification, 2FA, TFA, MFA, 2 factor authentication, Remember Device, OTP,WordPress otp, two step authentication,Clef,SMS, email, signup security, two factor auth, Mobile Authentication, strong authentication, 2 step authentication, mobile verification,Multifactor authentication, passwordless login, one time passcode, soft token Authentication, QR Code Authentication, email verification, KBA, Security Questions,2FA, login OTP, login with SMS, mobile login, phone login, OTP login, mobile verification,knowledge based authentication,authy, authy two factor,yubico,Two-Factor Authentication,WordPress otp, security,user security, ​Twilio WordPress, SMS gateway, Solutions Infini, Clickatell, BulkSMS, MSG91, Nexmo, SMS Country, message, woocommerce, website security, login security, multi factor authentication, multi factor,wordfence, IP Blocking, IP Whitelisting, login Audits, woocommerce, SMS login, passwordless login, auth, login with OTP WordPress,  OTP, two-step authentication, Mobile Authentication, passwordless login, login without password, passwordless authentication, secure login, temporary login, temporary access, one time passcode, email verification, security, website security, login security, multi-factor authentication, woocommerce, smartphone, WordPress otp, register with OTP, user OTP verification, SMS OTP, OTP Email, registration with OTP verification, registration verification,smartphone authentication
 Donate link: https://miniorange.com/
 Requires at least: 3.0.1
 Tested up to: 5.6
 Requires PHP: 5.3.0
-Stable tag: 5.4.26
+Stable tag: 5.4.28
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Google Authenticator, OTP verificaion - SMS and Email, Apps like Microsoft, Duo, LastPass & more on login and Registration for all forms. Google AUthenticator also Supports QR Code, Push Notification, Passwordless login and Security Questions along with the Google Authenticator itself.
+Google Authenticator, OTP verificaion - SMS and Email, Apps like Microsoft, Duo, LastPass & more on login and Registration for all forms. Google AUthenticator also Supports QR Code, Push Notification and Security Questions along with the Google Authenticator itself.
 
 == Description ==
 
-Google Authenticator - Two Factor Authentication (2FA) plugin provides a completely Secure login to your WordPress website. Google Authenticator- Two Factor Authentication (2FA) is a FREE, Simple & very easy to setup plugin. Google Authenticator provides two factor authentication (2FA, MFA) whenever login to your WordPress website ensuring no unauthorised access to your website. Google Authenticator can be configured for any TOTP based Authentication Method. Google authenticator also provides OTP Over SMS, OTP Over Email, WebAuthn, Passwordless login and many more features.
+Google Authenticator - Two Factor Authentication (2FA) plugin provides a completely Secure login to your WordPress website. Google Authenticator- Two Factor Authentication (2FA) is a FREE, Simple & very easy to setup plugin. Google Authenticator provides two factor authentication (2FA, MFA) whenever login to your WordPress website ensuring no unauthorised access to your website. Google Authenticator can be configured for any TOTP based Authentication Method.
 
 = User Identity Verification or OTP Verification =
-Login and Registration: Verify users on login and Registration with different authentication methods like Google Authenticator, SMS Verification, Email, Authy Authenticator, Duo Authenticator, Microsoft Authenticator, TOTP Based Authenticator, Security Questions and many others. Easy OTP Verification with SMS Verification and Email Verification. Login without password i.e. Password less login with only username and the second factor.
+Login and Registration: Verify users on login and Registration with different authentication methods like Google Authenticator, SMS Verification, Email, Authy Authenticator, Duo Authenticator, Microsoft Authenticator, TOTP Based Authenticator, Security Questions and many others. Easy OTP Verification with SMS Verification and Email Verification.
 
 = Google Authenticator and other 2FA sync on multiple websites =
 You would not need to configure Google Authenticator and other 2FA methods from second site onword. Just login with miniOrange account and your 2FA will automatically get set. This is available for Google Authenticator, Duo Authenticator, Microsoft Authenticator, Securty Questions, LastPass, Authy, miniOrange methods, OTP over SMS, OTP over Email. It is supported only if you are using our cloud services.
@@ -121,11 +121,8 @@ OTP Verification on all the Registration and Google Authenticator, Security Ques
 * **Brute force attack prevention, IP Blocking & User login Monitorning. **
 * File protection & strong password
 
-== PASSWORDLESS LOGIN ==
-Passwordless login is a new way of login in which you and your users can login without entering the password. The login can be done by username and 2-factor or only username which can be decided based on the user role. If a role is not allowed for passwordless login they will login with password and username. All authentication method including OTP Over SMS and OTP Over email is supported for passwordless login.
-
-== WebAuthn ==
-WebAuthn is a new way for you to authenticate yourself in your website. It modifies the old way of authentication by removing the password need. It helps you replace your  passwords with devices like USB Keys, fingerprint scanners, Windows Hello compatible cameras, FaceID/TouchID and more
+= PASSWORDLESS LOGIN =
+Passwordless login is a new way of login in which you and your users can login without entering the password. The login can be done by username and 2-factor or only username which can be decided based on the user role. If a role is not allowed for passwordless login they will login with password and username.
 
 == Prevent Account Sharing Between Users ==
 Many video sharing and E-learning platforms want to prevent sharing of account between the users. This can be done using miniOrange Two factor plugin. Also, e-learning portals can use this to their advantage. It can be used on any websites which create and sell courses. It can be integrated with plugins like Learndash.
@@ -144,7 +141,6 @@ Other sites like premium video content or any premium content where you want use
 * **Limit Rate of Request : Protecting resources from any security hole exploit**
 * **Crawler Detection and blocking**
 * **Blocking IP and Attacks**
-* **Passwordless login : Login without password**
 * **Country Blocking and Browser Blocking**
 * **Brute Force Attacks prevention to stop password hack**
 * **Captcha for Bot Detection**
@@ -194,7 +190,7 @@ Adding to this, you can also use the same account on multiple applications and y
 *[Beginner’s Guide: How to Add Two-Factor Authentication to WordPress](https://themeisle.com/blog/how-to-add-two-factor-authentication-to-wordpress/)
 *[How to Add WordPress Two-Factor Authentication (2FA)](https://phppot.com/wordpress/how-to-add-wordpress-two-factor-authentication-2fa-using-google-authenticator-plugin/)
 
-Customized solutions and Active support is available. Email us at info@xecurify.com or call us at +1 9786589387.
+Customized solutions and Active support is available. Email us at info@miniorange.com or call us at +1 9786589387.
 
 **Note: The plugin is GDPR Compliant and supports wide variety of Language Translation**
 
@@ -252,7 +248,7 @@ Please check your php version. The plugin is supported in php version 5.3.0 or a
 
 = I did not recieve OTP while trying to register with miniOrange. What should I do? =
 
-The OTP is sent to your email address with which you have registered with miniOrange. If you can't see the email from miniOrange in your mails, please make sure to check your SPAM folder. If you don't see an email even in SPAM folder, please submit a query in our Support Section in the plugin or you can contact us at info@xecurify.com.
+The OTP is sent to your email address with which you have registered with miniOrange. If you can't see the email from miniOrange in your mails, please make sure to check your SPAM folder. If you don't see an email even in SPAM folder, please submit a query in our Support Section in the plugin or you can contact us at info@miniorange.com.
 
 = I want to configure 2nd factor by Google Authenticator. =
 
@@ -271,11 +267,11 @@ There are two cases according to the page you see -<br>
 
 = I have a custom / front-end login page on my site and I want the look and feel to remain the same when I add 2 factor ? =
 
-If you have a custom login form other than wp-login.php then we will provide you the shortcode. Shortcode will work only for the customized login page created from wordpress plugins. We are not claiming that it will work with all the customized login page. In such case, custom work is needed to integrate two factor with your customized login page. You can submit a query in our <b>Support Section</b> in the plugin or you can contact us at info@xecurify.com for more details.
+If you have a custom login form other than wp-login.php then we will provide you the shortcode. Shortcode will work only for the customized login page created from wordpress plugins. We are not claiming that it will work with all the customized login page. In such case, custom work is needed to integrate two factor with your customized login page. You can submit a query in our <b>Support Section</b> in the plugin or you can contact us at info@miniorange.com for more details.
 
 = I have Woocommerce theme login page on my site. How can I enable Two Factor ? =
 
-If you have Woocommerce theme login then go to Advanced Options Tab and check Enable Two-Factor for Woocommerce Front End Login. If you need any help setting up 2-Factor for your Woocommerce theme login form, please submit a query in our Support Section in the plugin or you can contact us at info@xecurify.com.
+If you have Woocommerce theme login then go to Advanced Options Tab and check Enable Two-Factor for Woocommerce Front End Login. If you need any help setting up 2-Factor for your Woocommerce theme login form, please submit a query in our Support Section in the plugin or you can contact us at info@miniorange.com.
 
 = I have installed plugins which limit the login attempts like Limit Login Attempt, Loginizer, Wordfence etc. Is there any incompatibilities with these kind of plugins? =
 
@@ -283,11 +279,11 @@ The limit login attempt kind of plugins limit the number of login attempts and b
 
 = If you are using any Security Plugin in WordPress like Simple Security Firewall, All in One WP Security Plugin and you are not able to login with Two-Factor. =
 
- Our Two-Factor plugin is compatible with most of the security plugins, but if it is not working for you. Please submit a query in our Support Section in the plugin or you can contact us at info@xecurify.com.
+ Our Two-Factor plugin is compatible with most of the security plugins, but if it is not working for you. Please submit a query in our Support Section in the plugin or you can contact us at info@miniorange.com.
 
 = If you are using any render blocking javascript and css plugin like Async JS and CSS Plugin and you are not able to login with Two-Factor or your screen got blank. =
 
-If you are using Async JS and CSS Plugin. Please go to its settings and add jquery in the list of exceptions and save settings. It will work. If you are still not able to get it right, Please submit a query in our Support Section in the plugin or you can contact us at info@xecurify.com.
+If you are using Async JS and CSS Plugin. Please go to its settings and add jquery in the list of exceptions and save settings. It will work. If you are still not able to get it right, Please submit a query in our Support Section in the plugin or you can contact us at info@miniorange.com.
 
 = My users have different types of phones. What phones are supported? =
 
@@ -328,7 +324,7 @@ You can login using our alternate login method. Click on the Forgot Phone link a
 
 = My phone has no internet connectivity and i am entering the one time passcode from miniOrange Authenticator App, it says Invalid OTP?
 
-Click on the <b>Settings Icon</b> on top right corner in <b>miniOrange Authenticator App</b> and then press <b>Sync button</b> under 'Time correction for codes' to sync your time with miniOrange Servers. If you still can't logged in then please email us at info@xecurify.com or <a href="https://miniorange.com/contact" target="_blank">Contact us</a>.Soft Token method is just like google authenticator method.
+Click on the <b>Settings Icon</b> on top right corner in <b>miniOrange Authenticator App</b> and then press <b>Sync button</b> under 'Time correction for codes' to sync your time with miniOrange Servers. If you still can't logged in then please email us at info@miniorange.com or <a href="https://miniorange.com/contact" target="_blank">Contact us</a>.Soft Token method is just like google authenticator method.
 
 = I want to go back to default login with password? =
 
@@ -338,15 +334,9 @@ You should go to <b>Login Settings Tab</b> and uncheck <b>Enable Two-Factor plug
 
 You should go to <b>Setup Two Factor</b> Tab and click on <b>Reconfigure</b> to reconfigure 2-Factor with your new phone.
 
-= How to enable Passwordless login / login without password for a certain role =
-
-please email us at info@xecurify.com or <a href="https://miniorange.com/contact" target="_blank">Contact us</a>
-
-
-
 = What If I want to use any other second factor like OTP Over SMS, Security Questions, Device Id, etc ? =
 
-miniOrange authentication service has 15+ authentication methods.One time passcodes (OTP) over SMS, OTP over Email, OTP over SMS and Email, Out of Band SMS, Out of Band Email, Soft Token, Push Notification, USB based Hardware token (yubico), Security Questions, Mobile Authentication (QR Code Authentication), Voice Authentication (Biometrics), Phone Verification, Device Identification, Location, Time of Access User Behavior. To know more about authentication methods, please visit <a href="https://miniorange.com/strong_auth" target="_blank">https://miniorange.com/strong_auth </a>. If you want to have any other 2-factor for your WordPress site, please email us at info@xecurify.com or <a href="https://miniorange.com/contact" target="_blank">Contact us</a>.
+miniOrange authentication service has 15+ authentication methods.One time passcodes (OTP) over SMS, OTP over Email, OTP over SMS and Email, Out of Band SMS, Out of Band Email, Soft Token, Push Notification, USB based Hardware token (yubico), Security Questions, Mobile Authentication (QR Code Authentication), Voice Authentication (Biometrics), Phone Verification, Device Identification, Location, Time of Access User Behavior. To know more about authentication methods, please visit <a href="https://miniorange.com/strong_auth" target="_blank">https://miniorange.com/strong_auth </a>. If you want to have any other 2-factor for your WordPress site, please email us at info@miniorange.com or <a href="https://miniorange.com/contact" target="_blank">Contact us</a>.
 
 == Screenshots ==
 
@@ -361,9 +351,22 @@ miniOrange authentication service has 15+ authentication methods.One time passco
 
 == Changelog ==
 
+= 5.4.28 =
+* Google Authenticator - Two Factor Authentication (2FA, OTP) :
+* New year sale update
+
+= 5.4.27 =
+* Google Authenticator - Two Factor Authentication (2FA, OTP) :
+* New year sale
+* WordPress 5.6 compatibility fix
+* WAF fixes
+* Real time IP blocking
+* IP based user login
+* New feature release notification
+
 = 5.4.26 =
 * Google Authenticator - Two Factor Authentication (2FA, OTP) :
-* Christmas Offer UI.
+* Christmas Offer
 
 = 5.4.25 =
 * Google Authenticator - Two Factor Authentication (2FA, OTP) :
@@ -935,9 +938,22 @@ More descriptive setup messages and UI changes.
 
 == Upgrade Notice ==
 
+= 5.4.28 =
+* Google Authenticator - Two Factor Authentication (2FA, OTP) :
+* New year sale update
+
+= 5.4.27 =
+* Google Authenticator - Two Factor Authentication (2FA, OTP) :
+* New year sale
+* WordPress 5.6 compatibility fix
+* WAF fixes
+* Real time IP blocking
+* IP based user login
+* New feature release notification
+
 = 5.4.26 =
 * Google Authenticator - Two Factor Authentication (2FA, OTP) :
-* Christmas Offer UI.
+* Christmas Offer
 
 = 5.4.25 =
 * Google Authenticator - Two Factor Authentication (2FA, OTP) :
@@ -1290,7 +1306,7 @@ More descriptive setup messages and UI changes.
 
 = 4.4 =
 * Google Authenticator - Two Factor Authentication (2FA):
-* Note: This is very important update having altogether new UI and compatibility with Limit Login Attempts. After updating, please do not logout from your admin dashboard. Try to login from another browser and if you face any issue , please contact us at info@xecurify.com
+* Note: This is very important update having altogether new UI and compatibility with Limit Login Attempts. After updating, please do not logout from your admin dashboard. Try to login from another browser and if you face any issue , please contact us at info@miniorange.com
 * Compatibility with Limit Login Attempts.
 * New User Interface for login.
 

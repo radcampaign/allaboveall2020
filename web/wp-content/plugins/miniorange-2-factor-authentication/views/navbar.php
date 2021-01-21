@@ -12,16 +12,14 @@ $security_features_nonce = wp_create_nonce('mo_2fa_security_features_nonce');
             if(get_option('mo2fa_'.$role)=='1')
             	$flag=1;
         }
-	
 	if(!$safe)
 	{
-		if (MoWpnsUtility::get_mo2f_db_option('mo_wpns_2fa_with_network_security', 'get_option')) 
+		if (MoWpnsUtility::get_mo2f_db_option('mo_wpns_2fa_with_network_security', 'site_option')) 
 		{
 			echo MoWpnsMessages::showMessage('WHITELIST_SELF');		
 		}
 	}
-	?>
-	<?php
+	
 	if((!get_user_meta($userID, 'mo_backup_code_generated', true) || ($backup_codes_remaining == 5 && !get_user_meta($userID, 'mo_backup_code_downloaded', true))) && $mo2f_two_fa_method != '' && !get_user_meta($userID, 'donot_show_backup_code_notice', true)){
 		echo MoWpnsMessages::showMessage('GET_BACKUP_CODES');
 	}
@@ -32,7 +30,7 @@ if( isset( $_GET[ 'page' ]) && $_GET['page'] != 'mo_2fa_upgrade')
 	{	
 			echo'<div class="wrap">';
 
-				$date1 = "2020-12-31";
+				$date1 = "2021-01-20";
 				$dateTimestamp1 = strtotime($date1);
 
 				$date2 = date("Y-m-d");
@@ -40,23 +38,23 @@ if( isset( $_GET[ 'page' ]) && $_GET['page'] != 'mo_2fa_upgrade')
 
 				if($dateTimestamp2<=$dateTimestamp1)
 				{
-					echo'<div class="mo2f_christmas_main_div">
+					echo'<div class="mo2f_offer_main_div">
 
 					
 
-					<div class="mo2f_christmas_first_section">
-						<img style="height: 201px;width: 540px;" src="'.dirname(plugin_dir_url(__FILE__)).'/includes/images/christmas_offer.png">
+					<div class="mo2f_offer_first_section">
+						<img style="height: 201px;width: 540px;" src="'.dirname(plugin_dir_url(__FILE__)).'/includes/images/new_year_offer.png">
 
 					</div>
 
-					<div class="mo2f_christmas_middle_section">
-						<p class="mo2f_christmas_get_upto">Get Upto </p>
-						<p class="mo2f_christmas_first_section_text">50% off</p>
-						<center><a class="mo2f_christmas_contact_us" href="'.$request_christmas_offer_url.'">Contact Us</a></center>
+					<div class="mo2f_offer_middle_section">
+						<p class="mo2f_offer_get_upto">Get Upto </p>
+						<p class="mo2f_offer_first_section_text">50% off</p>
+						<center><a class="mo2f_offer_contact_us" href="'.$request_offer_url.'">Contact Us</a></center>
 					</div>
 
-					<div class="mo2f_christmas_last_section">
-						<img src="'.dirname(plugin_dir_url(__FILE__)).'/includes/images/santa-gif.gif">
+					<div class="mo2f_offer_last_section">
+						<img src="'.dirname(plugin_dir_url(__FILE__)).'/includes/images/new_year.gif">
 					</div>
 
 
@@ -136,6 +134,3 @@ echo'					<span style="text-align:right;">
 		</div>
 <?php 
 	}
-
-
-

@@ -68,7 +68,7 @@
     $dashboard_url	= add_query_arg(array('page' => 'mo_2fa_dashboard'			), $_SERVER['REQUEST_URI']);
     $upgrade_url	= add_query_arg(array('page' => 'mo_2fa_upgrade'				), $_SERVER['REQUEST_URI']);
     $request_demo_url = add_query_arg(array('page' => 'mo_2fa_request_demo'				), $_SERVER['REQUEST_URI']); 
-    $request_christmas_offer_url = add_query_arg(array('page' => 'mo_2fa_request_christmas_offer'				), $_SERVER['REQUEST_URI']); 
+    $request_offer_url = add_query_arg(array('page' => 'mo_2fa_request_offer'				), $_SERVER['REQUEST_URI']); 
 
    //dynamic
     $logo_url = plugin_dir_url(dirname(__FILE__)) . 'includes/images/miniorange_logo.png';

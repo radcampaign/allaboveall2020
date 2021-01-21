@@ -37,6 +37,7 @@ class TwoFAMOGateway
                 $mo2f_sms = get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z');
                 if($mo2f_sms>0)
                 update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',$mo2f_sms-1);
+            
                 $content = (new Customer_Cloud_Setup)->send_otp_token($phone,$authType,$customerKey,$apiKey);
             }
             return json_decode($content,TRUE);

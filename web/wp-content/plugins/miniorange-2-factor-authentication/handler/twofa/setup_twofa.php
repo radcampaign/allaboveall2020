@@ -1,5 +1,5 @@
 <?php
-  	$setup_dirName = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'twofa'.DIRECTORY_SEPARATOR.'setup'.DIRECTORY_SEPARATOR;
+    $setup_dirName = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'twofa'.DIRECTORY_SEPARATOR.'setup'.DIRECTORY_SEPARATOR;
     $test_dirName = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'twofa'.DIRECTORY_SEPARATOR.'test'.DIRECTORY_SEPARATOR;
     include $setup_dirName.'setup_google_authenticator.php';
     include $setup_dirName.'setup_google_authenticator_onpremise.php';
@@ -116,15 +116,16 @@
 			"Security Questions"            	=> "https://developers.miniorange.com/docs/security/wordpress/wp-security/step-by-setup-guide-to-set-up-security-question",
 			"Google Authenticator" 				=> "https://developers.miniorange.com/docs/security/wordpress/wp-security/google-authenticator",
 			"miniOrange QR Code Authentication" => "https://developers.miniorange.com/docs/security/wordpress/wp-security/step-by-setup-guide-to-set-up-miniorange-QR-code",
-			"Email Verification" 				=> "",
+			"Email Verification" 				=> "https://developers.miniorange.com/docs/security/wordpress/wp-security/email_verification",
 			"miniOrange Soft Token" 			=> "https://developers.miniorange.com/docs/security/wordpress/wp-security/step-by-setup-guide-to-set-up-miniorange-soft-token",
 			"miniOrange Push Notification"  	=> "https://developers.miniorange.com/docs/security/wordpress/wp-security/step-by-setup-guide-to-set-up-miniorange-push-notification",
 			"Authy Authenticator" 				=> "",
 			"OTP Over SMS" 						=> "https://developers.miniorange.com/docs/security/wordpress/wp-security/step-by-setup-guide-to-set-up-otp-over-sms",
-			"OTP Over Email" 					=> "",
+			"OTP Over Email" 					=> "https://developers.miniorange.com/docs/security/wordpress/wp-security/otp_over_email",
 			"OTP Over SMS and Email" 			=> "",
 			"Hardware Token"  					=> "",
-			"" 									=> ""
+			"OTP Over Whatsapp" 				=> "https://developers.miniorange.com/docs/security/wordpress/wp-security/otp-over-whatsapp",
+			"OTP Over Telegram"					=> "https://developers.miniorange.com/docs/security/wordpress/wp-security/otp-over-telegram"
 		);
 	$two_factor_methods_video = array(
 			"Security Questions"            	=> "https://www.youtube.com/watch?v=pXPqQ047o-0",
@@ -211,7 +212,7 @@
 			     ( $is_NC && in_array( $auth_method, $two_factor_methods_NC ) ) ) {
 				$is_auth_method_av = true;
 			}
-
+			
 			$thumbnail_height = $is_auth_method_av && $category == 'free_plan' ? 190 : 160;
             $is_image = $auth_method == "" ? 0 :1;
 
@@ -340,21 +341,32 @@
 				         	</a>
 				         	
 				         </span>';
-		     			break; 
-					case 'Authy Authenticator':
-		     			$form .='   <span style="float:right">
+		     			break;  
+		     		case 'OTP Over Whatsapp':
+							$form .='   <span style="float:right">
 				         	<a href='.$two_factor_methods_doc[$auth_method].' target="_blank">
 				         	<span class="dashicons dashicons-text-page" style="font-size:19px;color:#269eb3;float: right;"></span>
-				         	
-				         	</a>
-				         	<a href='.$two_factor_methods_video[$auth_method].' target="_blank">
-				         	<span class="dashicons dashicons-video-alt3" style="font-size:18px;color:red;float: right;    margin-right: 5px;"></span>
-				         	</a>
-				         	
-				         </span>';
-
-		     		break;   
-
+				           	</a>
+				           	
+				         </span>';		
+				       	break;
+			       	case 'OTP Over Telegram':
+						$form .='   <span style="float:right">
+			         	<a href='.$two_factor_methods_doc[$auth_method].' target="_blank">
+			         	<span class="dashicons dashicons-text-page" style="font-size:19px;color:#269eb3;float: right;"></span>
+			           	</a>
+			           
+			        	</span>';		
+			       	break; 
+			       	case 'OTP Over Email':
+						$form .='   <span style="float:right">
+			         	<a href='.$two_factor_methods_doc[$auth_method].' target="_blank">
+			         	<span class="dashicons dashicons-text-page" style="font-size:19px;color:#269eb3;float: right;"></span>
+			           	</a>
+			           
+			        	</span>';		
+			       	break; 
+			       	
 	            	default:
 						{$form .= "";}
 				    break;
@@ -374,8 +386,6 @@
 					$is_auth_method_configured = 1;
 				$chat_id = get_user_meta($user->ID,'mo2f_chat_id',true);
 				$WhatsappID = get_user_meta($user->ID,'mo2f_whatsapp_id',true);
- 				
-				
 				$form .= '<div style="height:40px;width:100%;position: absolute;bottom: 0;background-color:';
 				$iscurrentMethod = 0;
 				if(MO2F_IS_ONPREM)
@@ -396,7 +406,7 @@
 							$can_user_configure_2fa_method = false;
 						}
 						else{
-							$can_user_configure_2fa_method = true;	
+						$can_user_configure_2fa_method = true;	
 						}
 					}
 					else{
@@ -409,9 +419,10 @@
 					$check = $is_customer_registered? true : false;
 					$show = 0;
 					
-
 					
+
 					$cloud_methods = array('miniOrange QR Code Authentication' , 'miniOrange Soft Token','miniOrange Push Notification');
+
 					if($auth_method == 'Email Verification' || $auth_method == 'Security Questions' || $auth_method == 'Google Authenticator' || $auth_method == 'miniOrange QR Code Authentication' || $auth_method =='miniOrange Soft Token' || $auth_method == 'miniOrange Push Notification' || $auth_method == 'OTP Over SMS' || $auth_method == 'OTP Over Email' || $auth_method == 'OTP Over Telegram' || $auth_method == 'OTP Over Whatsapp')
 				 	{
 						$show = 1;
@@ -737,7 +748,6 @@ function mo2f_show_2FA_test_screen( $user, $selected2FAmethod ) {
 		case "OTP Over Whatsapp":
 			mo2f_test_otp_over_Whatsapp( $user );
 			break;
-		
 		case "Security Questions":
 			mo2f_test_kba_security_questions( $user );
 			break;

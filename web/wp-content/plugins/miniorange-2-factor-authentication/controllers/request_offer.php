@@ -5,18 +5,18 @@
 	{
 		switch($_POST['option'])
 		{
-			case "mo_2FA_christmas_request_form":
-				wpns_handle_christmas_request_form($_POST); break;
+			case "mo_2FA_offer_request_form":
+				wpns_handle_offer_request_form($_POST); break;
 		}
 	}
 	
-	include $mo2f_dirName . 'views'.DIRECTORY_SEPARATOR.'request_christmas_offer.php';
+	include $mo2f_dirName . 'views'.DIRECTORY_SEPARATOR.'request_offer.php';
 	
-	function wpns_handle_christmas_request_form($post){
-		$nonce 	 	= isset($post['nonce'])?$post['nonce']:NULL;
-		$usecase 	= isset($post['mo_2FA_christmas_usecase'])? $post['mo_2FA_christmas_usecase']: NULL;
-		$email   	= isset($post['mo_2FA_christmas_email'])? $post['mo_2FA_christmas_email'] : NULL;
-		if ( ! wp_verify_nonce( $nonce, 'mo2f-Request-christmas' ) ){
+	function wpns_handle_offer_request_form($post){
+		$nonce 		= sanitize_text_field($post['nonce']);
+		$usecase 	= isset($post['mo_2FA_offer_usecase'])? sanitize_text_field($post['mo_2FA_offer_usecase']): NULL;
+		$email   	= isset($post['mo_2FA_offer_email'])? sanitize_text_field($post['mo_2FA_offer_email']) : NULL;
+		if ( ! wp_verify_nonce( $nonce, 'mo2f-Request-offer' ) ){
 	   			return;
 	   		}
 		if(empty($usecase) || empty($email)  )
@@ -26,9 +26,7 @@
 		}
 		else{
 
-			$usecase = sanitize_text_field( $usecase );
-			$email = sanitize_text_field( $email );
-			$query = 'REQUEST FOR CHRISTMAS OFFERS';
+			$query = 'REQUEST FOR NEW YEAR OFFERS';
 			$query .= ' =>';
 			$query .= ' : ';
 			$query .= $usecase;

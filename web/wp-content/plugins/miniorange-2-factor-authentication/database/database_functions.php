@@ -292,6 +292,11 @@
 			return $wpdb->get_results("SELECT id, reason, ip_address, created_timestamp FROM ".$this->blockedIPsTable);
 		}
 
+		function get_blocked_ips_realtime()
+		{
+			global $wpdb;
+			return $wpdb->get_results("SELECT ip_address FROM ".$this->blockedIPsTable);
+		}
 		function get_blocked_attack_list($tableName)
 		{
 			global $wpdb;

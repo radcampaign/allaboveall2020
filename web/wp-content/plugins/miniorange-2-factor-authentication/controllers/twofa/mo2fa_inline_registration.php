@@ -9,7 +9,6 @@ function prompt_user_to_select_2factor_mthod_inline($current_user_id, $login_sta
     global $Mo2fdbQueries;
     $current_user = get_userdata($current_user_id);
     $current_selected_method = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method',$current_user_id);
-    
 
     if($current_selected_method == 'MOBILE AUTHENTICATION' || $current_selected_method == 'SOFT TOKEN' || $current_selected_method == 'PUSH NOTIFICATIONS'){
         if(get_option( 'mo_2factor_admin_registration_status' ) == 'MO_2_FACTOR_CUSTOMER_REGISTERED_SUCCESS')
@@ -144,7 +143,6 @@ function prompt_user_to_select_2factor_mthod_inline($current_user_id, $login_sta
                                         </label>
                                     <br>
                                 </span>
-                                
                                 <span class="<?php if(  !(in_array("MOBILE AUTHENTICATION", $opt))  ){ echo "mo2f_td_hide"; }else { echo "mo2f_td_show"; }?>">
                                         <label title="<?php echo __('You have to scan the QR Code from your phone using miniOrange Authenticator App to login. Supported in Smartphones only.', 'miniorange-2-factor-authentication'); ?>">
                                             <input type="radio"  name="mo2f_selected_2factor_method"  value="MOBILE AUTHENTICATION"  />
@@ -235,7 +233,7 @@ function prompt_user_to_select_2factor_mthod_inline($current_user_id, $login_sta
 
 function create_user_in_miniOrange($current_user_id,$email,$currentMethod)
 {
-
+    
     global $Mo2fdbQueries;
     $mo2f_user_email = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $current_user_id );
     if(isset($mo2f_user_email) and $mo2f_user_email != '')
@@ -446,7 +444,7 @@ function prompt_user_for_miniorange_app_setup($current_user_id, $login_status, $
                                 
                             <?php mo2f_customize_logo() ?>
                             </div>
-<br>
+                            <br>
                             <br>
                         </div>
                     </div>
@@ -870,12 +868,6 @@ function prompt_user_for_kba_setup($current_user_id, $login_status, $login_messa
             </form>
         
         <script>
-
-
-
-
-
-
  function mologinback(){
                 jQuery('#mo2f_backto_mo_loginform').submit();
             }            
@@ -973,7 +965,7 @@ function prompt_user_for_kba_setup($current_user_id, $login_status, $login_messa
                     </table>
                 </form>
                             <br>
-                            <input type="button" name="back" id="mo2f_inline_back_btn" class="miniorange_button" value="<?php echo __('<< Back to Menu', 'miniorange-2-factor-authentication'); ?>" />
+                    <input type="button" name="back" id="mo2f_inline_back_btn" class="miniorange_button" value="<?php echo __('<< Back to Menu', 'miniorange-2-factor-authentication'); ?>" />
                             <?php mo2f_customize_logo() ?>
                         </div>
                     </div>

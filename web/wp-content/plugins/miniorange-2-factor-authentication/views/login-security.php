@@ -170,11 +170,11 @@ echo'		<br>
 				jQuery.post(ajaxurl, data, function(response) {
 				
 				if (response == "empty"){
-                    			error_msg(" Please fill out all the fields");
-			    	}else if(response == "true"){
-                    			success_msg("Brute force is enabled and configuration has been saved");
+                    error_msg(" Please fill out all the fields");
+			    }else if(response == "true"){
+                    success_msg("Brute force is enabled and configuration has been saved");
 				}else if(response == "false"){
-                    			error_msg(" Brute force is disabled");
+                    error_msg(" Brute force is disabled");
 				}
 				else if(response == "ERROR" ){
                     error_msg("There was an error in processing your request");
@@ -199,21 +199,21 @@ jQuery(document).ready(function(){
 				jQuery.post(ajaxurl, data, function(response) {
 
 				if (response == "empty"){
-                    		    error_msg(" Please fill out all the fields");
+                    error_msg(" Please fill out all the fields");
 				}else if(response == "true") {
-				    jQuery('#loginURL').empty();
-				    jQuery('#loginURL').hide();
-				    jQuery('#loginURL').show();
-				    jQuery('#loginURL').append(data.input_url);
-				    success_msg(" CAPTCHA is enabled.");
-				}else if(response == "false") {
-				    jQuery('#loginURL').empty();
-				    jQuery('#loginURL').hide();
-				    jQuery('#loginURL').show();
-				    jQuery('#loginURL').append('wp-login.php');
-				    error_msg("CAPTCHA is disabled.");
-				}else if(response == "ERROR" ){
-                    		    error_msg("There was an error in procession your request");
+                    jQuery('#loginURL').empty();
+                    jQuery('#loginURL').hide();
+                    jQuery('#loginURL').show();
+                    jQuery('#loginURL').append(data.input_url);
+                    success_msg(" CAPTCHA is enabled.");
+                }else if(response == "false") {
+                    jQuery('#loginURL').empty();
+                    jQuery('#loginURL').hide();
+                    jQuery('#loginURL').show();
+                    jQuery('#loginURL').append('wp-login.php');
+                    error_msg("CAPTCHA is disabled.");
+                }else if(response == "ERROR" ){
+                    error_msg("There was an error in procession your request");
 				}
 				});
 						});
@@ -228,7 +228,6 @@ jQuery(document).ready(function(){
 					'nonce'					 :jQuery("#str_pass").val(), 
 				}
 				jQuery.post(ajaxurl, data, function(response) {
-
 				if(response == "true"){
                     success_msg("Strong password is enabled.");
 				}else if(response == "false") {

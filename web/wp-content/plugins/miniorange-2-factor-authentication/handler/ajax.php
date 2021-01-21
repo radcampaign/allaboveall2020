@@ -18,11 +18,11 @@ class AjaxHandler
 				case "iplookup":
 					$this->lookupIP($_GET['ip']);	break;
 				
-				
 				case "dissmissSMTP":
 					$this->handle_smtp();			break;
 				case "whitelistself":
 					$this->whitelist_self();		break;
+				
 				case "dismissplugin":
 					$this->wpns_plugin_notice();	break;
 				
@@ -37,7 +37,23 @@ class AjaxHandler
 
 			    case "dismissfirewall":
 			         $this->wpns_dismiss_firewall_notice();   break;
+
+			    case "plugin_warning_never_show_again":
+			          $this->wpns_plugin_warning_never_show_again(); 
+			          break;
 				 
+				 case "dismissSms":
+					$this->wpns_sms_notice();  				break;
+
+				case "dismissEmail":
+					$this->wpns_email_notice();  			break;
+
+				case "dismissSms_always":
+					$this->wpns_sms_notice_always();  		break;
+
+				case "dismissEmail_always":
+					$this->wpns_email_notice_always();  	break;
+					
 			    case "dismisscodeswarning":
 					$this->mo2f_backup_codes_dismiss(); 	break;
 			}
@@ -83,10 +99,7 @@ class AjaxHandler
 		wp_send_json( $result );
 
     }
-	
-    
-
-	private function whitelist_self()
+       private function whitelist_self()
 	{
 		global $moWpnsUtility;
 		$moPluginsUtility = new MoWpnsHandler();
@@ -94,7 +107,7 @@ class AjaxHandler
 		wp_send_json('success');
 	}
 
-	 private function wpns_plugin_notice()
+    private function wpns_plugin_notice()
 	{
 
 		update_site_option('malware_notification_option', 1);
@@ -109,7 +122,7 @@ class AjaxHandler
 	}
 
 	function wpns_dismiss_bruteforce_notice(){
-      update_site_option(' 	bruteforce_notification_option', 1);
+      update_site_option('bruteforce_notification_option', 1);
        update_site_option('notice_dismiss_time',time());
        wp_send_json('success');
 	}
@@ -119,18 +132,44 @@ class AjaxHandler
        update_site_option('notice_dismiss_time',time());
        wp_send_json('success');
 	}
+	
+	function wpns_plugin_warning_never_show_again(){
+	 update_site_option('plugin_warning_never_show_again', 1);
+	 wp_send_json('success');
+	}
 
 	function wpns_dismiss_firewall_notice(){
        update_site_option('waf_notification_option', 1);
        update_site_option('notice_dismiss_time',time());
        wp_send_json('success');
 	}
-	
+	private function wpns_sms_notice()
+	{
+		update_site_option('mo2f_wpns_sms_dismiss', time());
+		wp_send_json('success');
+	}
+	private function wpns_email_notice()
+	{
+		update_site_option('mo2f_wpns_email_dismiss', time());
+		wp_send_json('success');
+	}
+	private function wpns_sms_notice_always()
+	{
+		update_site_option('mo2f_wpns_donot_show_low_sms_notice', 1);
+		wp_send_json('success');
+	}
+	private function wpns_email_notice_always()
+	{
+		update_site_option('mo2f_wpns_donot_show_low_email_notice', 1);
+		wp_send_json('success');
+	}
 	private function mo2f_backup_codes_dismiss()
 	{
 		$user_id = get_current_user_id();
 		update_user_meta($user_id, 'donot_show_backup_code_notice' , 1);
 		wp_send_json('success');
 	}
+	
+    
 
 }new AjaxHandler;

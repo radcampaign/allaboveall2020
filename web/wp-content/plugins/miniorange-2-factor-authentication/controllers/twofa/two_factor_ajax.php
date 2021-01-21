@@ -30,6 +30,8 @@ class mo_2f_ajax
 				$this->mo2f_enable_disable_inline();	break;
 			case 'mo2f_shift_to_onprem':
 				$this->mo2f_shift_to_onprem();break;
+			case 'mo2f_enable_disable_twofactor_prompt_on_login':
+				$this->mo2f_enable_disable_twofactor_prompt_on_login();break;
 			case 'mo2f_save_custom_form_settings':
 				$this ->mo2f_save_custom_form_settings();
 				break;
@@ -195,11 +197,42 @@ function mo2f_shift_to_onprem(){
 
 			$enable = sanitize_text_field($_POST['mo2f_enable_2fa']);
 			if($enable == 'true'){
-				update_option('mo2f_activate_plugin' , true);
+				update_option('mo2f_activate_plugin' , 1);
 				wp_send_json('true');
 			}
 			else{
-				update_option('mo2f_activate_plugin' , false);
+				update_option('mo2f_activate_plugin' , 0);
+				wp_send_json('false');
+			}
+		}
+
+		function mo2f_enable_disable_twofactor_prompt_on_login(){
+			
+			global $Mo2fdbQueries;
+			$user = wp_get_current_user();
+			$nonce = sanitize_text_field($_POST['mo2f_nonce_enable_2FA_prompt_on_login']);
+			$auth_method = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user->ID );
+			if ( ! wp_verify_nonce( $nonce, 'mo2f-enable-2FA-on-login-page-option-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+
+			}
+			$enable= sanitize_text_field($_POST['mo2f_enable_2fa_prompt_on_login']);
+			if(!($auth_method == "Google Authenticator" || $auth_method =="miniOrange Soft Token" || $auth_method == "Authy Authenticator"))
+			{
+			update_site_option('mo2f_enable_2fa_prompt_on_login_page' , false);
+			if(!MO2F_IS_ONPREM)
+				wp_send_json('false_method_cloud');
+			else
+				wp_send_json('false_method_onprem');
+
+			}
+			else if($enable == 'true'){
+				update_site_option('mo2f_enable_2fa_prompt_on_login_page' , true);
+				wp_send_json('true');
+			}
+			else{
+				update_site_option('mo2f_enable_2fa_prompt_on_login_page' , false);
 				wp_send_json('false');
 			}
 		}
@@ -319,21 +352,40 @@ function mo2f_shift_to_onprem(){
 			}
 			else
 			{
-
-				$email 		= sanitize_text_field($_POST['email']);
-				$currentMethod = sanitize_text_field($_POST['current_method']);
-				$error 		= false;
-				$user_id 	= sanitize_text_field($_POST['user_id']);
-				if(MO2F_IS_ONPREM)
-				{
-					$twofactor_transactions = new Mo2fDB;
+                    $user_id = get_current_user_id();
+                    $twofactor_transactions = new Mo2fDB;
 					$exceeded = $twofactor_transactions->check_alluser_limit_exceeded($user_id);
 
 					if($exceeded){
 						echo "USER_LIMIT_EXCEEDED";
 						exit;
 					}
-				}
+				
+               if(MO2F_IS_ONPREM){
+				$customer_key               = get_site_option( 'mo2f_customerKey' );
+				$api_key                    = get_site_option( 'mo2f_api_key' );
+	            $email 		= sanitize_text_field($_POST['email']);
+				$enduser = new Customer_Setup();
+	            $content = $enduser->send_otp_token($email,'OUT OF BAND EMAIL',$customer_key,$api_key, get_user_by('id',$user_id));
+	            
+	            $response = json_decode($content,true);
+	             }else{
+	             	$response['status'] = 'SUCCESS';
+	             }
+				if($response['status'] == 'FAILED'){
+					
+					
+					echo "smtpnotset";
+						exit;	
+                
+				}else if ($response['status'] == 'SUCCESS'){           
+                 
+				$email 		= sanitize_text_field($_POST['email']);
+				$currentMethod = sanitize_text_field($_POST['current_method']);
+				$error 		= false;
+				
+			   }
+				
 				if (!filter_var($email, FILTER_VALIDATE_EMAIL))
 				{
 					$error = true;
@@ -357,20 +409,20 @@ function mo2f_shift_to_onprem(){
 						'mo2f_user_email'                      => $email
 						));
 
+						}
+						update_user_meta($user_id,'tempEmail',$email);
+						echo "settingsSaved";
+						exit;
 					}
-					update_user_meta($user_id,'tempEmail',$email);
-					echo "settingsSaved";
-					exit;
-				}
 				else
 				{
 					echo "invalidEmail";
 					exit;
 				}
+			 }	
 
 			}
 
-		}
 		function CheckEVStatus()
 		{
 			if(isset($_POST['txid']))

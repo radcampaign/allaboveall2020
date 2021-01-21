@@ -43,11 +43,11 @@
 		var current_pointer = 0;
 		var site_type = '';
 		var site_elmt = '';
-
 		var display = '<?php echo $display; ?>';
 		var getting_started_modal = document.getElementById("getting-started");
 
 		jQuery('#getting-started').css('display', display);
+
 		jQuery('#start-plugin-tour').html('Start a tour');
 		jQuery('.modal-footer a').css('display', 'inline-block');
 		

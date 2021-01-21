@@ -1,7 +1,7 @@
 <?php
 	
 	include_once('mo-waf-db-common.php');
-	function setting_file()
+	function mo_wpns_setting_file()
 	{
 		global $prefix,$dbcon;
         $dir_name    = dirname(__FILE__);
@@ -40,14 +40,14 @@
 
 	}
 	
-	function getRLEAttack($ipaddress)
+	function mo_wpns_getRLEAttack($ipaddress)
 	{
 		global $wpdb;
 		$query 	 = "select time from ".$wpdb->base_prefix."wpns_attack_logs where ip ='".$ipaddress."' ORDER BY time DESC LIMIT 1;";
 		$results = $wpdb->get_results($query);
 		return $results[0]->time;
 	}
-	function log_attack($ipaddress,$value1,$value)
+	function mo_wpns_log_attack($ipaddress,$value1,$value)
     {
         global $wpdb;
         $value      = htmlspecialchars($value);
@@ -59,12 +59,12 @@
     }
   	
 
-	function CheckRate($ipaddress)
+	function mo_wpns_CheckRate($ipaddress)
 	{
 		global $wpdb;
 		$time 		= 60;
-		clearRate($time);
-        insertRate($ipaddress);
+		mo_wpns_clearRate($time);
+        mo_wpns_insertRate($ipaddress);
 	    $query = "select count(*) as count from ".$wpdb->base_prefix."wpns_ip_rate_details where ip='".$ipaddress."';";
 		$results = $wpdb->get_results($query);
 
@@ -75,13 +75,13 @@
 	    return 0;
 	    
 	}
-	function clearRate($time)
+	function mo_wpns_clearRate($time)
 	{
 		global $wpdb;
 		$query = "delete from ".$wpdb->base_prefix."wpns_ip_rate_details where time<".(time()-$time);
 	    $results = $wpdb->get_results($query);
 	}
-	function insertRate($ipaddress)
+	function mo_wpns_insertRate($ipaddress)
 	{
 		global $wpdb;
 		$query = "insert into ".$wpdb->base_prefix."wpns_ip_rate_details values('".$ipaddress."',".time().");";

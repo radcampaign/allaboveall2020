@@ -18,7 +18,7 @@
     $mowpnshandle   = new MoWpnsHandler();
     $ipaddress      = get_ipaddress();
     $ipaddress      = sanitize_text_field($ipaddress);
-    if($mowpnshandle->is_ip_blocked($ipaddress))
+    if($mowpnshandle->mo_wpns_is_ip_blocked($ipaddress))
     {
         if(!$mowpnshandle->is_whitelisted($ipaddress))
         {
@@ -27,7 +27,7 @@
              exit;
         }
     }
-    $fileName = setting_file();
+    $fileName = mo_wpns_setting_file();
     if($fileName != "notMissing")
     {
         include_once($fileName);
@@ -36,7 +36,7 @@
     {
         if(!is_crawler())
         {
-            applyRateLimiting($RequestsPMin,$actionRateL,$ipaddress,$errorPage);
+            mo_wpns_applyRateLimiting($RequestsPMin,$actionRateL,$ipaddress,$errorPage);
         }
     }
     if(isset($RateLimitingCrawler))
@@ -53,7 +53,7 @@
                 }
                 if($RateLimitingCrawler == '1')
                 {
-                    applyRateLimitingCrawler($ipaddress,$fileName,$errorPage); 
+                    mo_wpns_applyRateLimitingCrawler($ipaddress,$fileName,$errorPage); 
                 }
 
             }
@@ -116,13 +116,13 @@
 
                                     if($annomalyS>=5 || $SQLScore>=10 || $XSSScore >=10)
                                     {
-                                        $attackCount = log_attack($ipaddress,$value1,$value);
+                                        $attackCount = mo_wpns_log_attack($ipaddress,$value1,$value);
                                         if($attackCount>$limitAttack)
                                         {
                                             if(!$mowpnshandle->is_whitelisted($ipaddress))
                                             {
-                                                if(!$mowpnshandle->is_ip_blocked($ipaddress))
-                                                    $mowpnshandle->block_ip($ipaddress,'Attack limit Exceeded',true);         //Attack Limit Exceed
+                                                if(!$mowpnshandle->mo_wpns_is_ip_blocked($ipaddress))
+                                                    $mowpnshandle->mo_wpns_block_ip($ipaddress,'Attack limit Exceeded',true);         //Attack Limit Exceed
                                             }
                                         }
 
@@ -139,23 +139,23 @@
         }
     }
 
-    function applyRateLimiting($reqLimit,$action,$ipaddress,$errorPage)
+    function mo_wpns_applyRateLimiting($reqLimit,$action,$ipaddress,$errorPage)
     {
         global $wpdb,$mowpnshandle;
-        $rate = CheckRate($ipaddress);
+        $rate = mo_wpns_CheckRate($ipaddress);
         if($rate>=$reqLimit)
         {
-            $lastAttack     = getRLEAttack($ipaddress)+60;
+            $lastAttack     = mo_wpns_getRLEAttack($ipaddress)+60;
             $current_time   = time();
             if($lastAttack < $current_time-60)
             {
-                log_attack($ipaddress,'RLE','RLE');
+                mo_wpns_log_attack($ipaddress,'RLE','RLE');
             }
             if($action != 'ThrottleIP')
             {   
                 if(!$mowpnshandle->is_whitelisted($ipaddress))
                 {
-                    $mowpnshandle->block_ip($ipaddress,'RLE',true);
+                    $mowpnshandle->mo_wpns_block_ip($ipaddress,'RLE',true);
                 }       
             }
             header('HTTP/1.1 403 Forbidden');
@@ -163,14 +163,14 @@
              exit;
         }
     }
-    function applyRateLimitingCrawler($ipaddress,$filename,$errorPage)
+    function mo_wpns_applyRateLimitingCrawler($ipaddress,$filename,$errorPage)
     {
         if(file_exists($filename))
         {
             include($filename);
         }
         global $wpdb,$mowpnshandle;
-        $USER_AGENT = $_SERVER['HTTP_USER_AGENT'];
+        $USER_AGENT = isset($_SERVER['HTTP_USER_AGENT'])?$_SERVER['HTTP_USER_AGENT']:'';
         if(isset($RateLimitingCrawler))
         {
             if($RateLimitingCrawler=='1')
@@ -178,23 +178,23 @@
                 if(isset($RequestsPMinCrawler))
                 {
                     $reqLimit   = $RequestsPMinCrawler;
-                    $rate       = CheckRate($ipaddress);
+                    $rate       = mo_wpns_CheckRate($ipaddress);
                     if($rate>=$reqLimit)
                     {
                         $action         = $actionRateLCrawler;
-                        $lastAttack     = getRLEattack($ipaddress)+60;
+                        $lastAttack     = mo_wpns_getRLEattack($ipaddress)+60;
                         $current_time   = time();
-                        if($current_time>$lastAttack)
+                        if($current_time>$lastAttack && $_SERVER['HTTP_USER_AGENT']!='')
                         {
-                            log_attack($ipaddress,'RLECrawler',$USER_AGENT);
+                            mo_wpns_log_attack($ipaddress,'RLECrawler',$USER_AGENT);
                         }
                         if($action != 'ThrottleIP')
                         {
                            if(!$mowpnshandle->is_whitelisted($ipaddress))
                             {
-                                if(!$mowpnshandle->is_ip_blocked($ipaddress))
+                                if(!$mowpnshandle->mo_wpns_is_ip_blocked($ipaddress))
                                 {
-                                    $mowpnshandle->block_ip($ipaddress,'RLECrawler',true);
+                                    $mowpnshandle->mo_wpns_block_ip($ipaddress,'RLECrawler',true);
                                 }
                             }
                         }

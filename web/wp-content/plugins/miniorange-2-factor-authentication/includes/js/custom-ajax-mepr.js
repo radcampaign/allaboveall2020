@@ -27,6 +27,7 @@ jQuery(document).ready(function()
     const otp_over_email = '<label for="mo2f_reg_email">OTP Over Email&nbsp;<span class="required">*</span></label> <input type="text" name="mo2f_email_otp" id="mo2f_email_otp" placeholder="Enter OTP sent on email" />';
     const otp_over_sms   = '<label for="mo2f_reg_sms">OTP Over SMS&nbsp;<span class="required">*</span></label> <input type="text" name="mo2f_phone_otp" id="mo2f_phone_otp" placeholder="Enter OTP sent on phone number" />';
 
+
     switch (authType)
     {
         case  'phone':
@@ -122,7 +123,7 @@ jQuery(document).ready(function()
                     timerIdSMS   = setInterval(sms_countdown, 1000);                   
                     jQuery("#mo2f_send_ajax_sms").attr('disabled',true);
                     if(typeof jQuery('#mo2f_phone_otp').val() == 'undefined')
-                        jQuery(".buttonInsidePhone").after(otp_over_sms);
+						jQuery(".buttonInsidePhone").after(otp_over_sms);
                 }
                 else if(response.status=='ERROR'){
                     jQuery("#mo2f_error").empty();
@@ -166,7 +167,7 @@ jQuery(document).ready(function()
                 }
             }else{
                 jQuery("#mo2f_error").empty();
-                jQuery(".buttonInsideEmail").after("<p class='mepr-form-has-errors' style='display:block;'><span id='mo2f_error'>Please enter valid OTP</span></p>");
+                jQuery(".buttonInsideEmail").after("<p class='mepr-form-has-errors' style='display:block;'><span id='mo2f_error'>Please enter valid OTP</span></p>");                
                 jQuery('#loading').css('display', 'none');
                 jQuery("#miniorange_submit").prop('disabled',false);
             }
@@ -206,7 +207,7 @@ jQuery(document).ready(function()
                             addLoaderMessage("Validating Phone");
                             validate_otp(sms_txId,otp,'phone',isBoth);
                         }
-                        else{
+                        else{          
                             jQuery("#mo2f_error").empty();
                             jQuery(".buttonInsidePhone").after("<p class='mepr-form-has-errors' style='display:block;'><span id='mo2f_error'>Please validate Phone</span></p>");
                             jQuery("#loading").css('display','none');
@@ -278,7 +279,7 @@ jQuery(document).ready(function()
         }else{
             jQuery(submitSelector).attr('id','miniorange_submit');
             jQuery('#miniorange_submit').attr('name','miniorange_submit');
-        }
+        }        
         jQuery('#miniorange_submit').removeAttr('class');
     }
 

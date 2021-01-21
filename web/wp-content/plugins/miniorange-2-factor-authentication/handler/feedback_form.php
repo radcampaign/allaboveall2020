@@ -52,6 +52,7 @@ class FeedbackHandler
         else{
             $days = abs(round($diff / 86400)); 
         }
+        update_site_option( 'No_of_days_active_work', $days , 'yes' );
 
         if ($feedback_option != "mo_wpns_rating") 
         {

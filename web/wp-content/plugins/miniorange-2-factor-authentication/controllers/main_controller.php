@@ -56,8 +56,8 @@
 				include $controller .'twofa'.DIRECTORY_SEPARATOR. 'two_fa.php';					break;
 			case 'mo_2fa_request_demo':
 				include $controller . 'request_demo.php';			break;	
-			case 'mo_2fa_request_christmas_offer':
-				include $controller . 'request_christmas_offer.php';
+			case 'mo_2fa_request_offer':
+				include $controller . 'request_offer.php';
 		}
 	}
 

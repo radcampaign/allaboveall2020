@@ -27,10 +27,10 @@ function miniorange_2_factor_user_roles($current_user) {
 				<?php
 				if($id=='administrator' || $id=='superadmin'){
                     if(get_site_option('mo2fa_'.$id))
-						echo 'checked' ;
+                        echo 'checked' ;
                     else
-						echo 'unchecked';
-				}
+                        echo 'unchecked'; 
+                }
 				else{
 					echo 'disabled' ;
 				}
@@ -71,7 +71,10 @@ $method_exisits = in_array($configured_2FA_method, $configured_meth);
 if(current_user_can('administrator')){
 	?>
     <div class="mo_wpns_setting_layout" id="disable_two_factor_tour">
-        <h2>Two-factor Authentication</h2>
+        <h2>Enable/disable 2-factor Authentication<a href='<?php echo $two_factor_premium_doc['Enable/disable 2-factor Authentication'];?>' target="_blank">
+            <span class="dashicons dashicons-text-page" style="font-size:19px;color:#269eb3;float: right;"></span>
+
+        </a></h2>
         <hr>
         <div style="padding-top: 1%;">
             <form name="f" method="post" action="" >
@@ -93,8 +96,32 @@ if(current_user_can('administrator')){
             </form>
         </div>
     </div>
+    <div class="mo_wpns_setting_layout" id="disable_two_factor_prompt_on_login">
+        <h2>Enable/disable 2FA prompt on the WP Login Page</h2>
+        <hr>
+        <div style="padding-top: 1%;">
+            <form name="f" method="post" action="" >
+                <input type="hidden" id="mo2f_nonce_enable_2FA_prompt_on_login" name="mo2f_nonce_enable_2FA_prompt_on_login"
+                       value="<?php echo wp_create_nonce( "mo2f-enable-2FA-on-login-page-option-nonce" ) ?>"/>
+                <h3>
+                <?php
+                echo mo2f_lt( 'Enable 2FA prompt on the WP Login Page:' );
+                ?>
+                </h3>
+                <p><i>If you disable this checkbox, Two-Factor authentication prompt will not be invoked during login.</i>
+                <label class="mo_wpns_switch" style="float: right;">
+                <input type="checkbox" onChange="mo_toggle_twofa_prompt_on_login()" style="padding-top: 50px;" id="mo2f_enable_2faa_prompt_on_login"
+                       name="mo2f_enable_2fa_prompt_on_login"
+                       value="<?php MoWpnsUtility::get_mo2f_db_option('mo2f_enable_2fa_prompt_on_login_page', 'site_option') ?>"<?php  checked( MoWpnsUtility::get_mo2f_db_option('mo2f_enable_2fa_prompt_on_login_page', 'site_option') == 1 );?>/>
+
+                <span class="mo_wpns_slider mo_wpns_round"></span>
+                </label>
+                </p>
+            </form>
+        </div>
+    </div>
     <div class="mo_wpns_setting_layout" id="mo2f_inline_registration_tour">
-        <h2>User Enrollment / Provisioning for 2FA</h2>
+        <h2>Enable/disable User Enrollment / Provisioning for 2FA</h2>
         <hr>
         <div style="padding-top: 1%;">
             <form name="f" method="post" action="" >
@@ -105,7 +132,7 @@ if(current_user_can('administrator')){
                 echo mo2f_lt( 'Enable User Enrollment / Provisioning:' );
                 ?>
                 </h3>
-                <p> <i> If you disable this checkbox, user enrollment for 2FA will not be invoked for any user during login.</i> 
+                <p> <i> If you disable this checkbox, user enrollment for 2FA will not be invoked for any user during login.</i>
                 <label class="mo_wpns_switch" style="float: right;">
                 <input type="checkbox" onChange="mo_toggle_inline()" style="padding-top: 50px;float: right;" id="mo2f_inline_registration"
                        name="mo2f_inline_registration"
@@ -135,6 +162,29 @@ if(current_user_can('administrator')){
 
         }
 
+        function mo_toggle_twofa_prompt_on_login(){
+            var data =  {
+                'action'                        : 'mo_two_factor_ajax',
+                'mo_2f_two_factor_ajax'         : 'mo2f_enable_disable_twofactor_prompt_on_login',
+                'mo2f_nonce_enable_2FA_prompt_on_login'         :  jQuery('#mo2f_nonce_enable_2FA_prompt_on_login').val(),
+                'mo2f_enable_2fa_prompt_on_login'               :  jQuery('#mo2f_enable_2faa_prompt_on_login').is(":checked"),
+            };
+            jQuery.post(ajaxurl, data, function(response) {
+                var response = response.replace(/\s+/g,' ').trim();
+                if (response == "true"){
+                    success_msg("Two factor prompt on login is now enabled.");
+                }else if(response == "false_method_onprem"){
+                    error_msg("This field is supported only for Google Authenticator and miniOrange softToken.");
+                    jQuery("#mo2f_enable_2faa_prompt_on_login").prop("checked",false);
+                }else if(response == 'false_method_cloud'){
+                    error_msg("This field is supported only for Google/Authy Authenticator and miniOrange softToken.");
+                    jQuery("#mo2f_enable_2faa_prompt_on_login").prop("checked",false);
+                }else{
+                    error_msg("Two factor prompt on login is now disabled.");
+                }
+            });
+
+        }
         function mo_toggle_inline(){
             var data =  {
                 'action'                        : 'mo_two_factor_ajax',
@@ -169,7 +219,7 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
                         <h2>Select Roles to enable 2-Factor for Users <b  style="font-size: 70%;color: red;">(Upto 3 users in Free version)</b>
                         <a href= '<?php echo $two_factor_premium_doc['Enable 2FA Role Based'];?>' target="_blank">
                         <span class="dashicons dashicons-text-page" style="font-size:19px;color:#269eb3;float: right;"></span>
-                        
+
                         </a></h2>
                     <span>
                             <hr><br>
@@ -187,15 +237,7 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
         </div>
     </div>
 
-
-
-
-
-    <script>    
-
-
-
-
+    <script>
         jQuery("#save_role_2FA").click(function(){
             var enabledrole = [];
             $.each($("input[name='role']:checked"), function(){
@@ -215,12 +257,13 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
                 if (response == "true"){
                     success_msg("Settings are saved.");
                 }
-                else 
+                else
                 {
                     jQuery('#mo2f_confirmcloud').css('display', 'none');
                     jQuery( "#singleUser" ).prop( "checked", false );
                     jQuery('#single_user').css('display', 'none');
-		    error_msg("<b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.");
+
+                    error_msg("<b>You are not authorized to perform this action</b>. Only <b>"+response+"</b> is allowed. For more details contact miniOrange.");
                 }
             });
         });
@@ -268,7 +311,7 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
                     jQuery('#mo2f_save_free_plan_auth_methods_form').submit();
                     openTab2fa(setup_2fa);
                 }
-                else 
+                else
                 {
                     jQuery('#afterMigrate').css('display', 'none');
                     jQuery( "#unlimittedUser" ).prop( "checked", false );
@@ -294,7 +337,7 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
                     jQuery('#mo2f_save_free_plan_auth_methods_form').submit();
                     openTab2fa(setup_2fa);
                 }
-                else 
+                else
                 {
                     jQuery('#afterMigrate').css('display', 'none');
                     jQuery( "#unlimittedUser" ).prop( "checked", false );
@@ -315,7 +358,7 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
     </script>
 
     <script type="text/javascript">
-		
+
         jQuery('#closeConfirmOnPrem').click(function(){
             document.getElementById('unlimittedUser').checked = false;
             close_modal();
@@ -371,7 +414,7 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
                     'user_id'                   : user_id
                 };
                 jQuery.post(ajaxurl, data, function(response) {
-					
+
                     var response = response.replace(/\s+/g,' ').trim();
                     if(response=="settingsSaved")
                     {
@@ -400,7 +443,7 @@ if(MO2F_IS_ONPREM && current_user_can('administrator'))
             jQuery('.modal-content').css('width', '35%');
 
         });
-		
+
 
     </script>
     <script type="text/javascript">

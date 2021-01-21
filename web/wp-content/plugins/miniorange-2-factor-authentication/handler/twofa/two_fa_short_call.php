@@ -17,7 +17,6 @@ class TwoFACustomRegFormAPI
         {
             $auierpyasdcRy  = MoWpnsUtility::get_mo2f_db_option('cmVtYWluaW5nT1RQ', 'site_option');
             $cmVtYWluaW5nT1RQ 	= $auierpyasdcRy? $auierpyasdcRy : 0;
-
             if($cmVtYWluaW5nT1RQ > 0)
             {
                 $response = TwoFAMOGateway:: mo_send_otp_token('EMAIL', '', $email);

@@ -22,6 +22,8 @@
 	delete_option('mo_wpns_transactionId');
 	delete_option('mo_wpns_registration_status');
 	delete_site_option('EmailTransactionCurrent');
+	delete_site_option('mo2f_realtime_ip_block_free');
+	delete_site_option('mo2f_added_ips_realtime');
 	delete_option('mo_wpns_enable_brute_force');
 	delete_option('mo_wpns_show_remaining_attempts');
 	delete_option('mo_wpns_enable_ip_blocked_email_to_admin');
@@ -184,7 +186,10 @@
 		delete_user_meta( $user->ID, 'mo2f_otp_email_time');
 		delete_user_meta( $user->ID, 'tempRegEmail');
 		delete_user_meta( $user->ID, 'mo2f_EV_txid');
-		
+		delete_user_meta( $user->ID, 'mo_backup_code_generated' );
+		delete_user_meta( $user->ID, 'mo_backup_code_downloaded' );
+		delete_user_meta( $user->ID, 'mo2f_backup_codes' );
+		delete_user_meta( $user->ID, 'mo_backup_code_screen_shown' );
 	}
  	
 	//drop custom db tables
@@ -252,7 +257,7 @@
 		delete_option( 'mo2f_login_option_updated' );
 		delete_option( 'mo2f_bug_fix_done' );
 		delete_option( 'mo2f_feedback_form' );
-		delete_option( 'mo2f_enable_2fa_prompt_on_login_page' );
+		delete_site_option( 'mo2f_enable_2fa_prompt_on_login_page' );
 		delete_option( 'mo2f_configured_2_factor_method' );
 		delete_option( 'mo2f_enable_2fa' );
 		delete_option( 'kba_questions' );
@@ -276,7 +281,8 @@
 
 		delete_option( 'mo2f_custom_plugin_name' );
 		delete_option( 'SQLInjection' );
-		delete_option( 'WAFEnabled' );
+		delete_site_option( 'WAF');
+		delete_site_option( 'WAFEnabled' );
 		delete_option( 'XSSAttack' );
 		delete_option( 'RFIAttack' );
 		delete_option( 'LFIAttack' );
@@ -289,6 +295,11 @@
 		delete_option( 'mo_wpns_new_registration' );
 		delete_option( 'mo2f_is_NC' );
 
+		delete_site_option( 'mo2f_wpns_sms_dismiss');
+		delete_site_option( 'mo2f_wpns_email_dismiss');
+		delete_site_option( 'mo2f_wpns_donot_show_low_email_notice');
+		delete_site_option( 'mo2f_wpns_donot_show_low_sms_notice');
+		
 		delete_option( 'mo_wpns_enable_log_requests' );
 		delete_option( 'mo2f_data_storage' );
 		delete_option( 'mo_wpns_scan_files_extensions' );

@@ -183,7 +183,7 @@ class Mo2fDB {
 	function get_no_of_2fa_users() {
 		global $wpdb;
 		$count=$wpdb->query(
-		"SELECT * FROM `". $this->userDetailsTable."`WHERE `mo2f_2factor_enable_2fa_byusers`=1 "
+		"SELECT * FROM ". $this->userDetailsTable
 		);
 		return $count;
 	}
@@ -192,7 +192,7 @@ class Mo2fDB {
 		global $wpdb;
 		$all_methods = [];
 		$methods=$wpdb->get_results(
-		"SELECT `mo2f_configured_2FA_method` FROM ". $this->userDetailsTable." WHERE `mo2f_2factor_enable_2fa_byusers`=1",ARRAY_A
+		"SELECT `mo2f_configured_2FA_method` FROM ". $this->userDetailsTable,ARRAY_A
 		);
 		foreach($methods as $method){
 			array_push($all_methods,$method['mo2f_configured_2FA_method']);

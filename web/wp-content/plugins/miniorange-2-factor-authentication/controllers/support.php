@@ -38,23 +38,23 @@
             if(empty($email) || empty($query)){
 			do_action('wpns_show_message',MoWpnsMessages::showMessage('SUPPORT_FORM_VALUES'),'ERROR');
 			return;
-		}
-
-
-		$query = sanitize_text_field( $query );
+        }
+        $query = sanitize_text_field( $query );
 		$email = sanitize_text_field( $email );
 		$phone = sanitize_text_field( $phone );
-		$contact_us = new MocURL();
+        $contact_us = new MocURL();
+
         if($send_configuration)       
             $query = $query.MoWpnsUtility::mo_2fa_send_configuration(true);
         else
             $query = $query.MoWpnsUtility::mo_2fa_send_configuration();
+
         if($call_setup == false) {
             $query = $query.'<br><br>';
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 do_action('wpns_show_message',MoWpnsMessages::showMessage('SUPPORT_FORM_ERROR'),'ERROR');
             } else {
-		$submited = json_decode($contact_us->submit_contact_us($email, $phone, $query),true);
+                $submited = json_decode($contact_us->submit_contact_us( $email, $phone, $query),true);
             }
         } else {
 
@@ -68,10 +68,10 @@
                 $query = $query .  '<br><br>' .'Meeting Details: '.'('.$time_zone.') '. date('d M, Y  H:i',$convert_datetime). ' [IST Time -> '. $ist_date->format('d M, Y  H:i').']'.'<br><br>';
                 $submited = json_decode($contact_us->submit_contact_us( $email, $phone, $query, true),true);
 
-		}
+        }
                 if(json_last_error() == JSON_ERROR_NONE && $submited){
                         do_action('wpns_show_message',MoWpnsMessages::showMessage('SUPPORT_FORM_SENT'),'SUCCESS');
                 }else{
-		do_action('wpns_show_message',MoWpnsMessages::showMessage('SUPPORT_FORM_ERROR'),'ERROR');
-	}
+                        do_action('wpns_show_message',MoWpnsMessages::showMessage('SUPPORT_FORM_ERROR'),'ERROR');
+                }
     }

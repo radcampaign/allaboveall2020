@@ -39,12 +39,19 @@
   
 <?php
 function mo_backup_config_page_submit(){
+	$backup=''; 
+	if(get_site_option('mo_file_manual_backup_wp_files')|| get_site_option('mo_file_manual_backup_plugins') || get_site_option('mo_file_manual_backup_themes') )
+		$backup = 'files';
+	else if(get_site_option('mo_database_backup'))
+		$backup = 'database';
+	if($backup =='files' && (get_site_option('mo_database_backup')))
+		$backup = 'files and database';
 	$img_loader_url		= plugins_url('miniorange-2-factor-authentication'.DIRECTORY_SEPARATOR .'includes'.DIRECTORY_SEPARATOR .'images'.DIRECTORY_SEPARATOR .'loader.gif');
-	$filemessage			= '<div id=\'filebackupmessage\'><h2>DO NOT :</h2><ol><li>Close this browser</li><li>Reload this page</li><li>Click the Stop or Back button.</li></ol><h2>Untill your file backup is completed</h2></div><br/><div class=\'filebackupmessage\'><h2><div id=\'backupinprogress\'> BACKUP IN PROGRESS</div></h2></div><div id=\'fileloader\' ><img  src=\"'.$img_loader_url.'\"></div>';
+	$filemessage			= '<div id=\'filebackupmessage\'><h2>DO NOT :</h2><ol><li>Close this browser</li><li>Reload this page</li><li>Click the Stop or Back button.</li></ol><h2 id=\'mo_backup_message\'></h2></div><br/><div class=\'filebackupmessage\'><h2><div id=\'backupinprogress\'> BACKUP IN PROGRESS</div></h2></div><div id=\'fileloader\' ><img  src=\"'.esc_url_raw($img_loader_url).'\"></div>';
    $filemessage2a			= 'Backup is Completed. Check ';
    $filemessage2b			= ' file in <b>uploads/miniorangebackup</b> folder.';
    $backup_store_path = wp_upload_dir();
-	$str=str_replace("\\","\\\\",$backup_store_path["basedir"]);
+   $backup_store_path_=str_replace("\\","\\\\",$backup_store_path["basedir"]);
 ?>
 <script>
 
@@ -70,23 +77,26 @@ jQuery(document).ready(function(){
 			'database':jQuery('input[name= "mo_database_backup"]:checked').val(),
 			'nonce'   :jQuery('#wpns_backup_settings_url').val(),
 		};
-		
-		
-  
-		
+		  
+		if(data['backup_plugin']|| data['backup_themes'] || data['backup_wp_files'] )
+			var backup = 'files';
+		else if(data['database'])
+			var backup = 'database';
+		if(backup =='files' && (data['database']))
+			var backup = 'files and database';
+		jQuery('#mo_backup_message').html('Until your '+backup+' backup is Completed');
 			
 			
 			jQuery.post(ajaxurl, data, function(response){
 
-
 			if (response == "ERROR"){
-				error_msg("There is an error in processing request");
-				window.onload = barfw_response_handler('NONCE_ERROR','Nonce did not match');
+                error_msg("There is an error in processing request");
+                window.onload = barfw_response_handler('NONCE_ERROR','Nonce did not match');
 
 			}else if(response == "not_writable"){
-				jQuery('#mo_backup_message').empty();
-				error_msg("We don't have write permission. Please give the permission to create folder in uploads");
-				window.onload = barfw_response_handler('We do not have write permission. Please give the permission to create folder in uploads','Permission Denied');
+			jQuery('#mo_backup_message').empty();
+                error_msg("We don't have write permission. Please give the permission to create folder in uploads");
+                window.onload = barfw_response_handler('We do not have write permission. Please give the permission to create folder in uploads','Permission Denied');
 
 			}
             else if(response == "folder_error")
@@ -97,14 +107,12 @@ jQuery(document).ready(function(){
             }
             else
             {
-             var base_dir = '<?php echo $str;?>';
-             var str = 'Your backup is created and stored at this location: '+base_dir+'/miniorangebackup';
-        	 window.onload = barfw_response_handler('BACKUP COMPLETED', str);
+             var backup_store_path = '<?php echo $backup_store_path_;?>';
+             var success_message = 'Your backup is created and stored at this location: '+backup_store_path+'/miniorangebackup';
+        	 window.onload = barfw_response_handler('BACKUP COMPLETED', success_message);
 
             }
-
-
-	});
+		});
 			
 	
 

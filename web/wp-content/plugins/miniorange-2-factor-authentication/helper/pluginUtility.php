@@ -23,7 +23,7 @@
 class MoWpnsHandler
 {
 
-	function is_ip_blocked($ipAddress)
+	function mo_wpns_is_ip_blocked($ipAddress)
 	{
 		global $wpnsDbQueries;
 		if(empty($ipAddress))
@@ -106,12 +106,12 @@ class MoWpnsHandler
 		return $wpnsDbQueries->get_blocked_xss_list();	
 	}
 	
-	function block_ip($ipAddress, $reason, $permenently)
+	function mo_wpns_block_ip($ipAddress, $reason, $permenently)
 	{
 		global $wpnsDbQueries;
 		if(empty($ipAddress))
 			return;
-		if($this->is_ip_blocked($ipAddress))
+		if($this->mo_wpns_is_ip_blocked($ipAddress))
 			return;
 		$blocked_for_time = null;
 		if(!$permenently && get_option('mo2f_time_of_blocking_type'))
@@ -405,7 +405,7 @@ class MoWpnsHandler
 	function is_ip_blocked_in_anyway($userIp)
 	{
 		$isBlocked = false;
-		if($this->is_ip_blocked($userIp))
+		if($this->mo_wpns_is_ip_blocked($userIp))
 			$isBlocked = true;
 		else if($this->is_ip_range_blocked($userIp))
 			$isBlocked = true;
@@ -434,7 +434,7 @@ class MoWpnsHandler
 				$highip = ip2long(trim($rangearray[1]));
 				if(ip2long($userIp)>=$lowip && ip2long($userIp)<=$highip){
 					$mo_wpns_config = new MoWpnsHandler();
-					$mo_wpns_config->block_ip($userIp, MoWpnsConstants::IP_RANGE_BLOCKING, true);
+					$mo_wpns_config->mo_wpns_block_ip($userIp, MoWpnsConstants::IP_RANGE_BLOCKING, true);
 					return true;
 				}
 			}

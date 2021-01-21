@@ -150,26 +150,23 @@ add_action('admin_footer','mo_wpns_schedule_backup');
                 success_msg(" Backup Configuration Saved Successfully");
 			}
 			else if(response=="disable"){
-				 jQuery(".add_remove_disable").attr("disabled","disabled");
-                		error_msg(" Automatic Backup Disabled");
+                jQuery(".add_remove_disable").attr("disabled","disabled");
+                error_msg(" Automatic Backup Disabled");
 			}else if(response==="invalid_hours"){
-                		error_msg(" Please select valid hours");
+                error_msg(" Please select valid hours");
 			}else if(response==="ERROR"){
-                		error_msg("There was an error in procession your request");
-			}			
-
+                error_msg("There was an error in procession your request");
+			}
 		});
   
        });
 	});
 
-
-
 	function check1() {
 		 if(jQuery('input[name= "mo_schedule_file_backup_wp_files"]:checked').val()){
-     			disable_checkbox();
+             disable_checkbox();
 		 }else{
-             		enable_checkbox();
+             enable_checkbox();
 		 }
 	}
      if(jQuery('input[name= "mo_schedule_file_backup_wp_files"]:checked').val()){

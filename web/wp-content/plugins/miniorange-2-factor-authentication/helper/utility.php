@@ -267,6 +267,8 @@ class MoWpnsUtility
 		$useragent = strtolower($useragent);
 		if(strpos($useragent, 'edge') 		!== false)
 			return 'edge';
+		else if(strpos($useragent, 'edg') 		!== false)
+			return 'edge';
 		else if(strpos($useragent, 'opr') 	!== false)
 			return 'opera';
 		else if(strpos($useragent, 'chrome') !== false || strpos($useragent, 'CriOS') !== false)
@@ -335,8 +337,8 @@ class MoWpnsUtility
 	}
 	public static function mo_2fa_send_configuration($send_all_configuration=false){
         global $Mo2fdbQueries,$moWpnsUtility;
-		   	$user_object = wp_get_current_user();
-		   	$mo2f_configured_2FA_method 	= $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user_object->ID );
+		   $user_object = wp_get_current_user();
+		   $mo2f_configured_2FA_method 	= $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user_object->ID );
 		   	$other_methods					= $Mo2fdbQueries->get_all_user_2fa_methods();
            	$key                			= get_option('mo2f_customerKey');
 		    $is_plugin_active_for_network	= is_plugin_active_for_network( MoWpnsConstants::TWO_FACTOR_SETTINGS); 

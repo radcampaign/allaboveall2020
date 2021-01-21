@@ -184,18 +184,30 @@ class MocURL
         $customerKey = MoWpnsConstants::DEFAULT_CUSTOMER_KEY;
         $apiKey 	 = MoWpnsConstants::DEFAULT_API_KEY;
         $fromEmail			= 'no-reply@xecurify.com';
-        if ($feedback_option == 'mo_wpns_skip_feedback') 
+         $Di = get_site_option('No_of_days_active_work');
+         $Di = intval($Di);
+        if ($feedback_option == 'mo_wpns_skip_feedback' && $Di < 05 ) 
         {
-        	$subject            = "Deactivate [Feedback Skipped]: WordPress miniOrange 2-Factor Plugin";
+        	$subject = "Deactivate [Feedback Skipped]: WordPress miniOrange 2-Factor Plugin  Use:- ".$Di.' Day'; ;
+
         }
-        elseif ($feedback_option == 'mo_wpns_feedback') 
+        elseif ($feedback_option == 'mo_wpns_skip_feedback' && $Di  > 04 ) 
         {
-        	$subject            = "Feedback: WordPress miniOrange 2-Factor Plugin - ". $email;;
+        	$subject   = " [Feedback Skipped] WordPress miniOrange 2-Factor Plugin Use:- ".$Di.' Days';;
         }
-        elseif ($feedback_option == 'mo_wpns_rating') 
+        elseif ($feedback_option == 'mo_wpns_feedback' && $Di < 05) 
         {
-        	$subject            = "Feedback: WordPress miniOrange 2-Factor Plugin - ". $email;;
+        	$subject    = "Feedback: WordPress miniOrange 2-Factor Plugin - ". $email.' Use : '.$Di.' Day';;
         }
+        elseif ($feedback_option == 'mo_wpns_feedback' && $Di  > 04) 
+        {
+        	$subject     = "Feedback: WordPress miniOrange 2-Factor Plugin - ". $email.' Use :'.$Di.' Days';;
+        }
+        elseif ($feedback_option == 'mo_wpns_rating' ) 
+        {
+        	$subject       = "Feedback: WordPress miniOrange 2-Factor Plugin - ". $email.' Use :'.$Di.' Day';;
+        }
+        
 
         $user         = wp_get_current_user();
 		

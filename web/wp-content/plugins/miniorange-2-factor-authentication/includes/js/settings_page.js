@@ -81,29 +81,52 @@ jQuery(document).ready(function () {
         ajaxCall("whitelistself",".whitelistself-notice",true);
     });
 
+    $(".sms_low_dismiss").click(function(){
+        ajaxCall("dismissSms",".low_sms-notice",true);
+    });
+
+    $(".sms_low_dismiss_always").click(function(){
+        ajaxCall("dismissSms_always",".low_sms-notice",true);
+    });
+
+    $(".email_low_dismiss").click(function(){
+        ajaxCall("dismissEmail",".low_email-notice",true);
+    });
+    
+    $(".email_low_dismiss_always").click(function(){
+        ajaxCall("dismissEmail_always",".low_email-notice",true);
+    });
+
     $(".new_plugin_dismiss").click(function(){
-        ajaxCall("dismissplugin",".new_plugin_theme-notice",true);
+        ajaxCall("dismissplugin",".plugin_warning_hide-notice",true);
     });
 
 
      $(".dismiss_website_backup_notice").click(function(){
-        ajaxCall("dismissbackup",".create_backup-notice",true);
+        ajaxCall("dismissbackup",".plugin_warning_hide-notice",true);
     });
 
    
     $(".dismiss_brute_force_notice").click(function(){
-        ajaxCall("dismissbruteforce",".brute_force-notice",true);
+        ajaxCall("dismissbruteforce",".plugin_warning_hide-notice",true);
     });
 
     $(".dismiss_google_recaptcha_notice").click(function(){
-        ajaxCall("dismissrecaptcha",".google_recaptcha-notice",true);
+        ajaxCall("dismissrecaptcha",".plugin_warning_hide-notice",true);
     });
     $(".dismiss_firewall_notice").click(function(){
-        ajaxCall("dismissfirewall",".firewall-notice",true);
+        ajaxCall("dismissfirewall",".plugin_warning_hide-notice",true);
+    });
+    
+     $(".plugin_warning_never_show_again").click(function(){
+        ajaxCall("plugin_warning_never_show_again",".plugin_warning_hide-notice",true);
     });
 
     $(".wpns_premium_option :input").attr("disabled",true);
 
+    $("#setuptwofa_redirect").click(function(e){
+        localStorage.setItem("last_tab", "setup_2fa");
+    });
 });
 
 

@@ -2,9 +2,8 @@
 	$user   = wp_get_current_user();
     global $Mo2fdbQueries;
     $mo2f_second_factor = $Mo2fdbQueries->get_user_detail('mo2f_configured_2FA_method',$user->ID);
-    
     if($mo2f_second_factor != 'OTP Over Telegram' and $mo2f_second_factor != 'OTP Over Whatsapp')
-    $mo2f_second_factor = mo2f_get_activated_second_factor( $user );
+	$mo2f_second_factor = mo2f_get_activated_second_factor( $user );
     
     
 
@@ -28,16 +27,15 @@
 	}
 				
 	if($testMethod=='NONE'){
-		$testMethod = "Not Configured"; 
-	}
+				$testMethod = "Not Configured"; 
+		}
 	if ( $selectedMethod != 'NONE' and !MO2F_IS_ONPREM and $selectedMethod != 'OTP Over Telegram' and $selectedMethod != 'OTP Over Whatsapp') {
 		$Mo2fdbQueries->update_user_details( $user->ID, array(
 			'mo2f_configured_2FA_method'                                         => $selectedMethod,
 			'mo2f_' . str_replace( ' ', '', $selectedMethod ) . '_config_status' => true
 		) );
 		update_option('mo2f_configured_2_factor_method', $selectedMethod);
-	    
-    }
+	}
 
 	if ( $configured_2FA_method == "OTP Over SMS" ) {
 		update_option( 'mo2f_show_sms_transaction_message', 1 );
@@ -76,7 +74,6 @@
             "OTP Over Telegram",
             "OTP Over Whatsapp"       
 
-
 		);
 
 		$free_plan_new_user = array(
@@ -89,7 +86,6 @@
 			"miniOrange Push Notification",
             "OTP Over Telegram",
             "OTP Over Whatsapp"        
-
 		);
 
 		$standard_plan_existing_user = array(
@@ -124,7 +120,7 @@
             "miniOrange Push Notification",
             "OTP Over Telegram",
             "OTP Over Whatsapp"        
-   
+               
             );
 
             $free_plan_new_user = array(
@@ -137,12 +133,12 @@
             "miniOrange Push Notification",
             "OTP Over Telegram",
             "OTP Over Whatsapp"        
-
+            
             );
             $premium_plan = array(
             "Hardware Token",
              "Authy Authenticator"
-             
+
             );  
             $standard_plan_existing_user = array(
                 "",
@@ -172,17 +168,7 @@
             {
                 $selectedMethod = 'NONE';
                 $testMethod     = 'Not Configured'; 
-            }
-			
-			if($selectedMethod=="Google Authenticator"){
-                $currentTimeSlice = floor(time() / 30);
-				include_once $mo2f_dirName . DIRECTORY_SEPARATOR. 'handler'.DIRECTORY_SEPARATOR. 'twofa' . DIRECTORY_SEPARATOR . 'gaonprem.php';
-				$gauth_obj= new Google_auth_onpremise();
-				$secret= $gauth_obj->mo_GAuth_get_secret($user->ID);
-                $i = get_option('mo2f_time_slice',0);
-				$otpcode = $gauth_obj->getCode($secret, $currentTimeSlice + $i);
-				$showOTP=TRUE;
-			}        
+            }        
 
         } 
         ?>
@@ -197,31 +183,29 @@
 	                        <?php if ( $can_display_admin_features ) { ?>
                                 <span style="color:limegreen">( <?php echo mo2f_lt( 'Current Plan' ); ?> )</span>
 	                        <?php } ?>
-	                        <?php if($showOTP){?>
-                                <span style="color:black">[ <?php echo mo2f_lt( 'Current OTP: ' ). $otpcode; ?> (<span style="color:blue" onclick="window.location.reload();">Refresh</span>)] </span>
-	                        <?php } ?>
 
                             <button class="btn btn-primary btn-large" id="test" style="float:right; margin-right: 20px; height: 36px" onclick="testAuthenticationMethod('<?php echo $selectedMethod; ?>');"
 		                        <?php echo $is_customer_registered && ( $selectedMethod != 'NONE' ) ? "" : " disabled "; ?>>Test : <?php echo $testMethod;?>
                             </button>
 
 
-                        
+
                             <?php
                             if((!get_user_meta($userID, 'mo_backup_code_generated', true) || ($backup_codes_remaining == 5 && !get_user_meta($userID, 'mo_backup_code_downloaded', true))) && $mo2f_two_fa_method != ''){
                             ?>
-                                <button class="btn btn-primary btn-large" id="mo_2f_generate_codes" style="float:right; margin-right: 3%; height: 36px">Get backup codes
+                                <button class="btn btn-primary btn-large" id="mo_2f_generate_codes" style="float:right; margin-right: 3%; height: 36px;">Get backup codes
                                 </button>
-                            <?php }
+                            <?php
+                            }
                             ?>
-                            
+
                             
                         </p>
                     </a>
 					
 
                 </div>
-				<?php 
+				<?php
     				// if ( in_array( $selectedMethod, array(
     					// "Google Authenticator",
     					// "miniOrange Soft Token",
@@ -229,33 +213,39 @@
          //                "Security Questions",
          //                "miniOrange Push Notification",
          //                "miniOrange QR Code Authentication"
-    				// ) ) ) { 
+    				// ) ) ) {
                         ?>
                         <?php if(current_user_can('administrator')){ ?>
                         <div style="float:right;">
                             <form name="f" method="post" action="" id="mo2f_enable_2FA_on_login_page_form">
                                 <input type="hidden" name="option" value="mo2f_enable_2FA_on_login_page_option"/>
     							<input type="hidden" name="mo2f_enable_2FA_on_login_page_option_nonce"
-    							value="<?php echo wp_create_nonce( "mo2f-enable-2FA-on-login-page-option-nonce" ) ?>"/>
+    							value="
+                                <?php 
+                                echo wp_create_nonce( "mo2f-enable-2FA-on-login-page-option-nonce" )
+                                ?>
+                                "/>
 
-                                <input type="checkbox" id="mo2f_enable_2fa_prompt_on_login_page"
+                               <input type="checkbox" id="mo2f_enable_2fa_prompt_on_login_page"
                                        name="mo2f_enable_2fa_prompt_on_login_page" 
-                                       value="1" <?php checked( MoWpnsUtility::get_mo2f_db_option('mo2f_enable_2fa_prompt_on_login_page', 'get_option') == 1 );
+                                       value="1"
+                                       <?php 
+                                       checked( MoWpnsUtility::get_mo2f_db_option('mo2f_enable_2fa_prompt_on_login_page', 'get_option') == 1 );
 
     							if (!current_user_can('administrator') && ! in_array( $Mo2fdbQueries->get_user_detail( 'mo_2factor_user_registration_status', $user->ID ), array(
-    								'MO_2_FACTOR_PLUGIN_SETTINGS',
-    								'MO_2_FACTOR_INITIALIZE_TWO_FACTOR'
+    							'MO_2_FACTOR_PLUGIN_SETTINGS',
+    							'MO_2_FACTOR_INITIALIZE_TWO_FACTOR'
     							) ) ) {
     								echo 'disabled';
-    							} 
-                                ?> onChange="document.getElementById('mo2f_enable_2fa_prompt_on_login_page').form.submit()"/>
-    							<?php echo mo2f_lt( 'Enable 2FA prompt on the WP Login Page' ); ?>
+    							}
+                                ?> 
+                                onChange="document.getElementById('mo2f_enable_2fa_prompt_on_login_page').form.submit()"/>
+    							<?php 
+                                echo mo2f_lt( 'Enable 2FA prompt on the WP Login Page' );
+                                ?>
                             </form>
                         </div>
                         
-                    <?php 
-                ?>
-               <br>
                <?php
                             $EmailTransactions  = MoWpnsUtility::get_mo2f_db_option('cmVtYWluaW5nT1RQ', 'site_option');
                             $EmailTransactions  = $EmailTransactions? $EmailTransactions : 0;
@@ -426,7 +416,7 @@
             jQuery('#save_entered_email').click(function(){
                 var email   = jQuery('#emailEntered').val();
                 var nonce   = '<?php echo wp_create_nonce('EmailVerificationSaveNonce');?>';
-                var user_id = '<?php echo get_current_user_id();?>';
+               
                 var current_method = jQuery('#current_method').val();
                             
                 if(email != '')
@@ -436,7 +426,7 @@
                     'mo_2f_two_factor_ajax'         : 'mo2f_save_email_verification', 
                     'nonce'                         : nonce,
                     'email'                         : email,
-                    'user_id'                       : user_id,
+                    
                     'current_method'                : current_method
                     };
                     jQuery.post(ajaxurl, data, function(response) {    
@@ -456,8 +446,15 @@
                                 jQuery('#EnterEmail').css('display', 'none');
                                 error_msg(" Your limit of 3 users has exceeded. Please upgrade to premium plans for more users.");
                             }
+            			    else if (response == "smtpnotset"){
+                            jQuery('#EnterEmail').css('display', 'none');
+            			    error_msg(" Please set your SMTP to get the email for verification at the time of login to avoid getting locked out.");
+                                         
+                                
+                            }
                             else
                             {
+                                jQuery('#EnterEmail').css('display', 'none');
                                 error_msg(" Invalid Email.");
 
                             }    
@@ -614,7 +611,6 @@
             function show_how_to_configure_2fa() {
                 jQuery("#how_to_configure_2fa").slideToggle(700);
             }
-
 
         </script>
 <?php } ?>

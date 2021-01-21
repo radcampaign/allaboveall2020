@@ -613,7 +613,6 @@ class Miniorange_Authentication {
 								} else { //customer already exists, redirect him to login page
 
 									update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ACCOUNT_ALREADY_EXISTS" ) );
-									// $Mo2fdbQueries->update_user_details( $user->ID, array( 'mo_2factor_user_registration_status' => 'MO_2_FACTOR_VERIFY_CUSTOMER' ) );
 									update_option('mo_2factor_user_registration_status','MO_2_FACTOR_VERIFY_CUSTOMER');
 
 								}
@@ -1018,7 +1017,7 @@ class Miniorange_Authentication {
 					$mo_2factor_user_registration_status = $Mo2fdbQueries->get_user_detail( 'mo_2factor_user_registration_status', $user->ID );
 					if ( $mo_2factor_user_registration_status == 'MO_2_FACTOR_PLUGIN_SETTINGS' or MO2F_IS_ONPREM ) {
 
-						if($_POST['mo2f_login_option'] == 0 && MoWpnsUtility::get_mo2f_db_option('mo2f_enable_2fa_prompt_on_login_page', 'get_option')){
+						if($_POST['mo2f_login_option'] == 0 && MoWpnsUtility::get_mo2f_db_option('mo2f_enable_2fa_prompt_on_login_page', 'site_option')){
 							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "LOGIN_WITH_2ND_FACTOR" ) );
 							$this->mo_auth_show_error_message();
 						}else{
@@ -1806,6 +1805,7 @@ class Miniorange_Authentication {
                         }
 	          			$google_auth     = new Miniorange_Rba_Attributes();
 						$google_response = json_decode( $google_auth->mo2f_validate_google_auth( $email, $otpToken, $ga_secret ), true );
+
 						if ( json_last_error() == JSON_ERROR_NONE ) {
 							if ( $google_response['status'] == 'SUCCESS' ) {
 									$enduser  = new Two_Factor_Setup();
@@ -2268,6 +2268,7 @@ class Miniorange_Authentication {
 						$mo2f_sms = get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z');
 						if($mo2f_sms>0)
 						update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',$mo2f_sms-1);
+					
 						$this->mo_auth_show_success_message();
 					} else {
 						update_option( 'mo2f_message', Mo2fConstants::langTranslate( $content['message'] ) );
@@ -2545,7 +2546,7 @@ class Miniorange_Authentication {
 			}
 
 		}else if ( ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_save_free_plan_auth_methods' ) ) {// user clicks on Set 2-Factor method
-			$nonce = sanitize_text_field($_POST['miniorange_save_form_auth_methods_nonce']);
+				 $nonce = sanitize_text_field($_POST['miniorange_save_form_auth_methods_nonce']);
 			if ( ! wp_verify_nonce( $nonce, 'miniorange-save-form-auth-methods-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -2651,7 +2652,6 @@ class Miniorange_Authentication {
 					$selected_2FA_method = 'OTP Over Telegram';
 				if($selected_2FA_method == 'OTPOverWhatsapp')
 					$selected_2FA_method = 'OTP Over Whatsapp';
-					
 			}
 
 			if(MO2F_IS_ONPREM and ($selected_2FA_method =='Google Authenticator' or $selected_2FA_method == 'Security Questions' or $selected_2FA_method =='OTP Over Email' or $selected_2FA_method == 'Email Verification' or $selected_2FA_method == 'OTP Over Whatsapp' or $selected_2FA_method == 'OTP Over Telegram'))
@@ -2673,7 +2673,6 @@ class Miniorange_Authentication {
 					$selected_2FA_method = 'OTP Over Telegram';
 				if($selected_2FA_method == 'OTPOverWhatsapp')
 					$selected_2FA_method = 'OTP Over Whatsapp';
-				
 				if ( $selected_action == "select2factor" ) {
 
 					if ( $selected_2FA_method == 'OTP Over SMS' && $user_phone == 'false' ) {
@@ -2746,7 +2745,7 @@ class Miniorange_Authentication {
 							) ) ) {
 							
 						} else {
-							update_option( 'mo2f_enable_2fa_prompt_on_login_page', 0 );
+							update_site_option('mo2f_enable_2fa_prompt_on_login_page', 0 );
 						}
 
 					}
@@ -2802,20 +2801,19 @@ class Miniorange_Authentication {
 			} else {
 				update_option( 'mo2f_enable_2fa', isset( $_POST['mo2f_enable_2fa'] ) ? $_POST['mo2f_enable_2fa'] : 0 );
 			}
-		}else if( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_enable_2FA_on_login_page_option' ) {
-			$nonce = $_POST['mo2f_enable_2FA_on_login_page_option_nonce'];
+		// }else if( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_enable_2FA_on_login_page_option' ) {
+		// 	$nonce = $_POST['mo2f_enable_2FA_on_login_page_option_nonce'];
 		
-			if ( ! wp_verify_nonce( $nonce, 'mo2f-enable-2FA-on-login-page-option-nonce' ) ) {
-				$error = new WP_Error();
-				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+		// 	if ( ! wp_verify_nonce( $nonce, 'mo2f-enable-2FA-on-login-page-option-nonce' ) ) {
+		// 		$error = new WP_Error();
+		// 		$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
 
-				return $error;
-			} else {
-				update_option( 'mo2f_enable_2fa_prompt_on_login_page', isset( $_POST['mo2f_enable_2fa_prompt_on_login_page'] ) ? $_POST['mo2f_enable_2fa_prompt_on_login_page'] : 0 );
-			}
-		}
-
-		else if ( isset( $_POST['option'] ) && $_POST['option'] == 'mo_2factor_test_authentication_method' ) {
+		// 		return $error;
+		// 	} else {
+		// 		if(!class_exists("UM_functions"))
+		// 		update_site_option('mo2f_enable_2fa_prompt_on_login_page', isset( $_POST['mo2f_enable_2fa_prompt_on_login_page'] ) ? $_POST['mo2f_enable_2fa_prompt_on_login_page'] : 0 );
+		// 	}
+		}else if ( isset( $_POST['option'] ) && $_POST['option'] == 'mo_2factor_test_authentication_method' ) {
 		//network security feature 
 			$nonce = $_POST['mo_2factor_test_authentication_method_nonce'];
 			
@@ -3018,6 +3016,7 @@ class Miniorange_Authentication {
 							$mo2f_sms = get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z');
 							if($mo2f_sms>0)
 							update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',$mo2f_sms-1);
+					
 						}
 						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "OTP_SENT" ) . ' <b>' . ( $phone ) . '</b>. ' . Mo2fConstants:: langTranslate( "ENTER_OTP" ) );
 						update_option( 'mo2f_number_of_transactions', MoWpnsUtility::get_mo2f_db_option('mo2f_number_of_transactions', 'get_option') - 1 );
@@ -3609,7 +3608,66 @@ class Miniorange_Authentication {
 			}
 		}
 	}
+	static function low_otp_alert( $auth_type) {
+		global $Mo2fdbQueries;
+	    $email = get_site_option('mo2f_email');
+	    if(MO2F_IS_ONPREM)
+		{
+			$count=0;
+			if($auth_type =="email"){
+				$subject = 'Two Factor Authentication(Low Email Alert)';
+				$count = get_site_option('cmVtYWluaW5nT1RQ')-1;					//database value is updated after function call
+				$string = 'Email';					
+			}
+			else if($auth_type =="sms"){
+				$subject 	= 'Two Factor Authentication(Low SMS Alert)';
+				$count = get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z')-1;	//database value is updated after function call
+				$string = 'SMS';
+			}
+			$admin_url = network_site_url();
+			$url = explode('/wp-admin/admin.php?page=mo_2fa_upgrade', $admin_url);			
+			$headers 	= array('Content-Type: text/html; charset=UTF-8');
+			$headers[] = 'Cc: 2fasupport <2fasupport@xecurify.com>';
+			$message =  '<table cellpadding="25" style="margin:0px auto">
+			<tbody>
+			<tr>
+			<td>
+			<table cellpadding="24" width="584px" style="margin:0 auto;max-width:584px;background-color:#f6f4f4;border:1px solid #a8adad">
+			<tbody>
+			<tr>
+			<td><img src="https://ci5.googleusercontent.com/proxy/10EQeM1udyBOkfD2dwxGhIaMXV4lOwCRtUecpsDkZISL0JIkOL2JhaYhVp54q6Sk656rW2rpAFJFEgGQiAOVcYIIKxXYMHHMNSNB=s0-d-e1-ft#https://login.xecurify.com/moas/images/xecurify-logo.png" style="color:#5fb336;text-decoration:none;display:block;width:auto;height:auto;max-height:35px" class="CToWUd"></td>
+			</tr>
+			</tbody>
+			</table>
+			<table cellpadding="24" style="background:#fff;border:1px solid #a8adad;width:584px;border-top:none;color:#4d4b48;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px">
+			<tbody>
+			<tr>
+			<td>
+			<p style="margin-top:0;margin-bottom:20px">Dear Customer,</p>
+			<p style="margin-top:0;margin-bottom:20px"> You are going to exhaust all your '.$string.'. You have only <b>'.$count.'</b> '.$string.' remaining. You can recharge or add '.$string.' to your account: <a href='.MoWpnsConstants::rechargeLink.'>Recharge</a></p>
+			<p style="margin-top:0;margin-bottom:10px">After Recharge you can continue using your current plan. To know more about our plans you can also visit our site: <a href='.$url[0].'/wp-admin/admin.php?page=mo_2fa_upgrade>2FA Plans</a>.</p>
+			<p style="margin-top:0;margin-bottom:10px">If you do not wish to recharge, we advise you to <a href='.$url[0].'/wp-admin/admin.php?page=mo_2fa_two_fa>change the 2FA method</a> before you have no '.$string.' left. In case you get locked out, please use this guide to gain access: <a href='.MoWpnsConstants::OnPremiseLockedOut.'>Guide link</a></p>
+			<p style="margin-top:0;margin-bottom:20px">For more information, you can contact us directly at 2fasupport@xecurify.com.</p>
+			<p style="margin-top:0;margin-bottom:15px">Thank you,<br>miniOrange Team</p>
+			<p style="margin-top:0;margin-bottom:0px;font-size:11px">Disclaimer: This email and any files transmitted with it are confidential and intended solely for the use of the individual or entity to whom they are addressed.</p>
+			</div></div></td>
+			</tr>
+			</tbody>
+			</table>
+			</td>
+			</tr>
+			</tbody>
+			</table>';
+ 			$result = wp_mail($email,$subject,$message,$headers);
+			if($result){
+				$currentTimeInMillis = round(microtime(true) * 1000);
+				update_site_option( 'mo2f_message',  Mo2fConstants::langTranslate("VERIFICATION_EMAIL_SENT") .'<b> ' . $email . '</b>. ' .  Mo2fConstants::langTranslate("ACCEPT_LINK_TO_VERIFY_EMAIL"));
+				
+			}
+		
+		}
 
+	}
 	function mo_auth_activate() {
 		error_log(' miniOrange Two Factor Plugin Activated');
 

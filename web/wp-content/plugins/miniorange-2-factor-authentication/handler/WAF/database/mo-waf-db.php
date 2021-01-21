@@ -1,7 +1,7 @@
 <?php
 	global $dbcon,$prefix;
     include_once('mo-waf-db-common.php');
-    function log_attack($ipaddress,$value1,$value)
+    function mo_wpns_log_attack($ipaddress,$value1,$value)
     {
         global $prefix,$dbcon;
         $value      = htmlspecialchars($value);
@@ -12,7 +12,7 @@
         $rows       = mysqli_fetch_array($results);
         return $rows['count(*)'];
     }
-    function setting_file()
+    function mo_wpns_setting_file()
     {
         global $prefix,$dbcon;
         $dir_name    = dirname(__FILE__);
@@ -30,34 +30,34 @@
             $file   = fopen($fileName, "a+");
             $string = "<?php".PHP_EOL;
 
-            $sqlInjection = get_option_value("SQLInjection");
+            $sqlInjection = mo_wpns_get_option_value("SQLInjection");
             $string .= '$SQL='.$sqlInjection.';'.PHP_EOL;
 
-            $XSSAttack = get_option_value("XSSAttack");
+            $XSSAttack = mo_wpns_get_option_value("XSSAttack");
             $string .= '$XSS='.$XSSAttack.';'.PHP_EOL;
             
-            $RFIAttack = get_option_value("RFIAttack");
+            $RFIAttack = mo_wpns_get_option_value("RFIAttack");
             $string .= '$RFI='.$RFIAttack.';'.PHP_EOL;
 
-            $LFIAttack = get_option_value("LFIAttack");
+            $LFIAttack = mo_wpns_get_option_value("LFIAttack");
             $string .= '$LFI='.$LFIAttack.';'.PHP_EOL;
             
-            $RCEAttack = get_option_value("RCEAttack");
+            $RCEAttack = mo_wpns_get_option_value("RCEAttack");
             $string .= '$RCE='.$RCEAttack.';'.PHP_EOL;
 
-            $Rate_limiting = get_option_value("Rate_limiting");
+            $Rate_limiting = mo_wpns_get_option_value("Rate_limiting");
             if($Rate_limiting!='')
                 $string .= '$RateLimiting='.$Rate_limiting.';'.PHP_EOL;
             else
                 $string .= '$RateLimiting=0;'.PHP_EOL;
 
-            $Rate_request = get_option_value("Rate_request");
+            $Rate_request = mo_wpns_get_option_value("Rate_request");
             if($Rate_request!='')
                 $string .= '$RequestsPMin='.$Rate_request.';'.PHP_EOL;
             else
                 $string .= '$RequestsPMin=0;'.PHP_EOL;
 
-            $actionRateL = get_option_value("actionRateL");
+            $actionRateL = mo_wpns_get_option_value("actionRateL");
             if($actionRateL==1)
                 $string .= '$actionRateL="ThrottleIP";'.PHP_EOL;
             else
@@ -71,7 +71,7 @@
         }
         return "notMissing";
     }
-    function is_ip_whitelisted($ipaddress)
+    function mo_wpns_is_ip_whitelisted($ipaddress)
     {   
         global $dbcon,$prefix;
         $query      = 'select * from '.$prefix.'mo2f_network_whitelisted_ips where ip_address="'.$ipaddress.'";';
@@ -90,7 +90,7 @@
         }
         return false;   
     }
-    function is_ip_blocked($ipaddress)
+    function mo_wpns_is_ip_blocked($ipaddress)
     {
         global $dbcon,$prefix;
         $query =  'select * from '.$prefix.'mo2f_network_blocked_ips where ip_address="'.$ipaddress.'";';
@@ -109,13 +109,13 @@
         }
         return false;       
     }
-    function block_ip($ipaddress,$reason)
+    function mo_wpns_block_ip($ipaddress,$reason)
     {
         global $dbcon, $prefix;
         $query ="insert into ".$prefix."mo2f_network_blocked_ips values(NULL,'".$ipaddress."','".$reason."',NULL,".time().");";
         $results = mysqli_query($dbcon,$query);
     }
-    function dbconnection()
+    function mo_wpns_dbconnection()
     {
         global $dbcon,$prefix;
         $dir = dirname(__FILE__);
@@ -188,7 +188,7 @@
         $connection = mysqli_select_db($dbcon,$dbD['DB_NAME']);
         return $connection;
     }
-    function get_option_value($option)
+    function mo_wpns_get_option_value($option)
     {   
         global $dbcon,$prefix;
         $query          = 'select option_value from '.$prefix.'options where option_name ="'.$option.'";';
@@ -205,7 +205,7 @@
         return '';
     }
     
-    function getRLEattack($ipaddress)
+    function mo_wpns_getRLEattack($ipaddress)
     {
         global $dbcon,$prefix;
         $query = "select time from ".$prefix."wpns_attack_logs where ip ='".$ipaddress."' and type = 'RLE' ORDER BY time DESC LIMIT 1;";
@@ -217,12 +217,12 @@
         }
         return 0;
     }
-    function CheckRate($ipaddress)
+    function mo_wpns_CheckRate($ipaddress)
     {
         global $dbcon,$prefix;
         $time       = 60;
-        clearRate($time);
-        insertRate($ipaddress);
+        mo_wpns_clearRate($time);
+        mo_wpns_insertRate($ipaddress);
         $query = "select count(*) from ".$prefix."wpns_ip_rate_details where ip='".$ipaddress."';";
         $results = mysqli_query($dbcon,$query);
 
@@ -233,13 +233,13 @@
         }
         return 0;
     }
-    function clearRate($time)
+    function mo_wpns_clearRate($time)
     {
         global $dbcon,$prefix;
         $query = "delete from ".$prefix."wpns_ip_rate_details where time<".(time()-$time);
         $results = mysqli_query($dbcon,$query);
     }
-    function insertRate($ipaddress)
+    function mo_wpns_insertRate($ipaddress)
     {
         global $dbcon,$prefix;
         $query = "insert into ".$prefix."wpns_ip_rate_details values('".$ipaddress."',".time().");";

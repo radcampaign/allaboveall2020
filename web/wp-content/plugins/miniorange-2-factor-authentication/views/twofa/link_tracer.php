@@ -3,7 +3,7 @@
             "Enble 2fa" => "https://developers.miniorange.com/docs/security/wordpress/wp-security/step-by-setup-guide-to-set-up-security-question",
 
             "Custom url" => "https://developers.miniorange.com/docs/security/wordpress/wp-security/custom-redirect-login-url",
-            "Woocommerce"=> "https://developers.miniorange.com/docs/security/wordpress/wp-security/setup-custom-login-form",
+            "Woocommerce"=> "https://developers.miniorange.com/docs/security/wordpress/wp-security/2fa_on_woocomerce_login",
 
              "Remember Device" => "https://developers.miniorange.com/docs/security/wordpress/wp-security/remember-my-device",
 
@@ -25,6 +25,8 @@
 
             "Select login screen option" => "https://developers.miniorange.com/docs/security/wordpress/wp-security/passwordless-login",
             "What happens if my phone is lost, discharged or not with me"=> "https://developers.miniorange.com/docs/security/wordpress/wp-security/want-configure-backup-methods-users-can-configure-case-locked-site-not-able-log",
+
+            "Enable/disable 2-factor Authentication"=> "https://developers.miniorange.com/docs/security/wordpress/wp-security/disable-2fa",
 
             "Plugin level waf" => "https://developers.miniorange.com/docs/security/wordpress/wp-security/web-firewall/#firewall-level",
 
