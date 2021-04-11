@@ -6,7 +6,7 @@
   * Author URI: https://twitter.com/amanverma217
   * Description: Google Analytics for WordPress plugin allows you to track your website by entering your google analytics tracking code.
   * Tags: google analytics plugin, google analytics for wordpress, analytics for website, universal analytics for website, google analytics, website google analytics plugin wordpress, GA code, google analytics script, google analytics for woocommerce, googleanalytics
-  * Version: 1.4.8
+  * Version: 1.5
   * License: GPLv2 or later
   * License URI: http://www.gnu.org/licenses/gpl-2.0.html 
  **/
@@ -29,6 +29,7 @@ function fn_gaw_register_mysettings()
 {
    register_setting( 'gaw-settings-group', 'gaw_analytics_id' );
    register_setting( 'gaw-settings-group', 'gaw_disable_track' );
+   register_setting( 'gaw-settings-group', 'gaw_position' );
 }
 
 /*****settings options****/
@@ -37,11 +38,7 @@ function fn_gaw_settings_page()
    require plugin_dir_path(__FILE__) . 'options.php';
 }
 $gaw_disable = get_option('gaw_disable_track', 'No');
-
-/*******function to check ga code*******/
-function isAnalytics($str){
-    return preg_match('/^ua-\d{4,9}-\d{1,4}$/i', strval($str));
-}
+$gaw_position = get_option('gaw_position', 'wp_head');
 
 function fn_gaw_analytics() {
   $web_property_id = get_option('gaw_analytics_id');
@@ -59,9 +56,9 @@ function fn_gaw_analytics() {
 <?php
 }
 
-
+/*****Check if disabled from admin****/
 if ( $gaw_disable == 'No' ) {
-   add_action('wp_head', 'fn_gaw_analytics');
+   add_action($gaw_position, 'fn_gaw_analytics');
 }
 
 function fn_gaw_action_links( $links ) {
