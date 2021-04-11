@@ -1,6 +1,11 @@
 <?php
 namespace AIOSEO\Plugin\Common\Sitemap;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Contains general helper methods specific to the sitemap.
  *
@@ -118,6 +123,28 @@ class Helpers {
 			$pages[] = strtotime( $additionalPage->lastModified );
 		}
 
+		if ( empty( $pages ) ) {
+			$additionalPages = apply_filters( 'aioseo_sitemap_additional_pages', [] );
+			if ( empty( $additionalPages ) ) {
+				return false;
+			}
+
+			$lastModified = 0;
+			foreach ( $additionalPages as $page ) {
+				if ( empty( $page['lastmod'] ) ) {
+					continue;
+				}
+				$timestamp = strtotime( $page['lastmod'] );
+				if ( ! $timestamp ) {
+					continue;
+				}
+				if ( $lastModified < $timestamp ) {
+					$lastModified = $timestamp;
+				}
+			}
+			return 0 !== $lastModified ? aioseo()->helpers->formatDateTime( gmdate( 'Y-m-d H:i:s', $timestamp ) ) : false;
+		}
+
 		return aioseo()->helpers->formatDateTime( gmdate( 'Y-m-d H:i:s', max( $pages ) ) );
 	}
 
@@ -165,12 +192,13 @@ class Helpers {
 	 *
 	 * @since 4.0.0
 	 *
-	 * @return array The included post types.
+	 * @param  boolean $hasArchivesOnly Whether or not to only include post types which have archives.
+	 * @return array   $postTypes       The included post types.
 	 */
-	public function includedPostTypes() {
+	public function includedPostTypes( $hasArchivesOnly = false ) {
 		$postTypes = [];
 		if ( aioseo()->options->sitemap->{aioseo()->sitemap->type}->postTypes->all ) {
-			$postTypes = aioseo()->helpers->getPublicPostTypes( true );
+			$postTypes = aioseo()->helpers->getPublicPostTypes( true, $hasArchivesOnly );
 		} else {
 			$postTypes = aioseo()->options->sitemap->{aioseo()->sitemap->type}->postTypes->included;
 		}
@@ -180,7 +208,7 @@ class Helpers {
 		}
 
 		$options         = aioseo()->options->noConflict();
-		$publicPostTypes = aioseo()->helpers->getPublicPostTypes( true );
+		$publicPostTypes = aioseo()->helpers->getPublicPostTypes( true, $hasArchivesOnly );
 		foreach ( $postTypes as $postType ) {
 			// Check if post type is no longer registered.
 			if ( ! in_array( $postType, $publicPostTypes, true ) || ! $options->searchAppearance->dynamic->postTypes->has( $postType ) ) {

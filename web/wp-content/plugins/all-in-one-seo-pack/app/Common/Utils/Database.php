@@ -1,6 +1,11 @@
 <?php
 namespace AIOSEO\Plugin\Common\Utils;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Database utility class for AIOSEO.
  *
@@ -15,7 +20,9 @@ class Database {
 	 * @var array
 	 */
 	protected $customTables = [
-		'aioseo_notifications'
+		'aioseo_notifications',
+		'aioseo_posts',
+		'aioseo_terms'
 	];
 
 	/**

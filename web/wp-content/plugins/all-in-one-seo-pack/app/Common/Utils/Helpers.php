@@ -1,10 +1,24 @@
 <?php
 namespace AIOSEO\Plugin\Common\Utils;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use AIOSEO\Plugin\Common\Models;
 use AIOSEO\Plugin\Common\Tools;
+use AIOSEO\Plugin\Common\Traits\Helpers as TraitHelpers;
 
+/**
+ * Contains helper functions
+ *
+ * @since 4.0.0
+ */
 class Helpers {
+	use TraitHelpers\ActionScheduler;
+	use TraitHelpers\Strings;
+
 	/**
 	 * Whether or not we have a local connection.
 	 *
@@ -22,9 +36,10 @@ class Helpers {
 	 * @param  string      $url     The URL to parse.
 	 * @param  string      $medium  The UTM medium parameter.
 	 * @param  string|null $content The UTM content parameter or null.
+	 * @param  boolean     $esc     Whether or not to escape the URL.
 	 * @return string               The new URL.
 	 */
-	public function utmUrl( $url, $medium, $content = null ) {
+	public function utmUrl( $url, $medium, $content = null, $esc = true ) {
 		// First, remove any existing utm parameters on the URL.
 		$url = remove_query_arg( [
 			'utm_source',
@@ -46,7 +61,8 @@ class Helpers {
 		}
 
 		// Return the new URL.
-		return esc_url( add_query_arg( $args, $url ) );
+		$url = add_query_arg( $args, $url );
+		return $esc ? esc_url( $url ) : $url;
 	}
 
 	/**
@@ -401,56 +417,6 @@ class Helpers {
 	}
 
 	/**
-	 * Convert to snake case.
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param  string $string The string to convert.
-	 * @return string         The converted string.
-	 */
-	public function toSnakeCase( $string ) {
-		$string[0] = strtolower( $string[0] );
-		return preg_replace_callback( '/([A-Z])/', function ( $value ) {
-			return '_' . strtolower( $value[1] );
-		}, $string );
-	}
-
-	/**
-	 * Convert to camel case.
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param  string $string     The string to convert.
-	 * @param  bool   $capitalize Whether or not to capitalize the first letter.
-	 * @return string             The converted string.
-	 */
-	public function toCamelCase( $string, $capitalize = false ) {
-		if ( $capitalize ) {
-			$string[0] = strtoupper( $string[0] );
-		}
-		return preg_replace_callback( '/_([a-z0-9])/', function ( $value ) {
-			return strtoupper( $value[1] );
-		}, $string );
-	}
-
-	/**
-	 * Converts kebab case to camel case.
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param  string $string     The string to convert.
-	 * @param  bool   $capitalize Whether or not to capitalize the first letter.
-	 * @return string             The converted string.
-	 */
-	public function dashesToCamelCase( $string, $capitalizeFirstCharacter = false ) {
-		$string = str_replace( ' ', '', ucwords( str_replace( '-', ' ', $string ) ) );
-		if ( ! $capitalizeFirstCharacter ) {
-			$string[0] = strtolower( $string[0] );
-		}
-		return $string;
-	}
-
-	/**
 	 * Gets the data for vue.
 	 *
 	 * @since 4.0.0
@@ -492,6 +458,7 @@ class Helpers {
 				'rssSitemapUrl'     => home_url( '/sitemap.rss' ),
 				'robotsTxtUrl'      => $this->getSiteUrl() . '/robots.txt',
 				'blockedBotsLogUrl' => wp_upload_dir()['baseurl'] . '/aioseo-logs/aioseo-bad-bot-blocker.log',
+				'upgradeUrl'        => apply_filters( 'aioseo_upgrade_link', AIOSEO_MARKETING_URL ),
 				'staticHomePage'    => 'page' === get_option( 'show_on_front' ) ? get_edit_post_link( get_option( 'page_on_front' ), 'url' ) : null,
 				'connect'           => add_query_arg( [
 					'siteurl'  => site_url(),
@@ -582,8 +549,8 @@ class Helpers {
 				'priority'                    => ! empty( $post->priority ) ? $post->priority : 'default',
 				'frequency'                   => ! empty( $post->frequency ) ? $post->frequency : 'default',
 				'permalink'                   => get_the_permalink(),
-				'title'                       => ! empty( $post->title ) ? $post->title : '',
-				'description'                 => ! empty( $post->description ) ? $post->description : '',
+				'title'                       => ! empty( $post->title ) ? $post->title : aioseo()->meta->title->getPostTypeTitle( $postTypeObj->name ),
+				'description'                 => ! empty( $post->description ) ? $post->description : aioseo()->meta->description->getPostTypeDescription( $postTypeObj->name ),
 				'keywords'                    => ! empty( $post->keywords ) ? $post->keywords : wp_json_encode( [] ),
 				'keyphrases'                  => ! empty( $post->keyphrases )
 					? json_decode( $post->keyphrases )
@@ -635,9 +602,9 @@ class Helpers {
 				'twitter_image_type'          => $post->twitter_image_type,
 				'twitter_title'               => $post->twitter_title,
 				'twitter_description'         => $post->twitter_description,
-				'schema_type'                 => ( ! empty( $post->schema_type ) ) ? $post->schema_type : null,
+				'schema_type'                 => ( ! empty( $post->schema_type ) ) ? $post->schema_type : 'default',
 				'schema_type_options'         => ( ! empty( $post->schema_type_options ) )
-					? json_decode( $post->schema_type_options )
+					? json_decode( Models\Post::getDefaultSchemaOptions( $post->schema_type_options ) )
 					: json_decode( Models\Post::getDefaultSchemaOptions() ),
 				'local_seo'                   => ( ! empty( $post->local_seo ) )
 					? json_decode( $post->local_seo )
@@ -1056,9 +1023,15 @@ class Helpers {
 	 *
 	 * @since 4.0.0
 	 *
-	 * @return string The URL.
+	 * @param  boolean $canonical Whether or not to get the canonical URL.
+	 * @return string             The URL.
 	 */
-	public function getUrl() {
+	public function getUrl( $canonical = false ) {
+		if ( is_singular() ) {
+			$object = get_queried_object_id();
+			return $canonical ? wp_get_canonical_url( $object ) : get_permalink( $object );
+		}
+
 		global $wp;
 		return trailingslashit( home_url( $wp->request ) );
 	}
@@ -1090,7 +1063,7 @@ class Helpers {
 			return $metaData->canonical_url;
 		}
 
-		$url = $this->getUrl();
+		$url = $this->getUrl( true );
 		if ( aioseo()->options->searchAppearance->advanced->noPaginationForCanonical && 1 < $this->getPageNumber() ) {
 			$url = preg_replace( '#(\d+\/|(?<=\/)page\/\d+\/)$#', '', $url );
 		}
@@ -1391,11 +1364,7 @@ class Helpers {
 	 * @return string      The formatted image URL.
 	 */
 	public function removeImageDimensions( $url ) {
-		$uploadDirUrl = aioseo()->helpers->escapeRegex( $this->getWpContentUrl() );
-		if ( ! preg_match( "/$uploadDirUrl.*/", $url ) ) {
-			return $url;
-		}
-		return preg_replace( '#(-[0-9]*x[0-9]*)#', '', $url );
+		return $this->isValidAttachment( $url ) ? preg_replace( '#(-[0-9]*x[0-9]*)#', '', $url ) : $url;
 	}
 
 	/**
@@ -1974,6 +1943,19 @@ class Helpers {
 	}
 
 	/**
+	 * Checks whether the given URL is a valid attachment.
+	 *
+	 * @since 4.0.13
+	 *
+	 * @param  string  $url The URL.
+	 * @return boolean      Whether the URL is a valid attachment.
+	 */
+	public function isValidAttachment( $url ) {
+		$uploadDirUrl = aioseo()->helpers->escapeRegex( $this->getWpContentUrl() );
+		return preg_match( "/$uploadDirUrl.*/", $url );
+	}
+
+	/**
 	 * Escapes special regex characters.
 	 *
 	 * @since 4.0.5
@@ -1998,6 +1980,21 @@ class Helpers {
 	}
 
 	/**
+	 * preg_replace but with the replacement escaped.
+	 *
+	 * @since 4.0.10
+	 *
+	 * @param  string $pattern     The pattern to search for.
+	 * @param  string $replacement The replacement string.
+	 * @param  string $subject     The subject to search in.
+	 * @return string              The subject with matches replaced.
+	 */
+	public function pregReplace( $pattern, $replacement, $subject ) {
+		$replacement = $this->escapeRegexReplacement( $replacement );
+		return preg_replace( $pattern, $replacement, $subject );
+	}
+
+	/**
 	 * Returns the content with shortcodes replaced.
 	 *
 	 * @since 4.0.5
@@ -2006,7 +2003,7 @@ class Helpers {
 	 * @return string $content The post content with shortcodes replaced.
 	 */
 	public function doShortcodes( $content ) {
-		if ( is_admin() ) {
+		if ( is_admin() && ! wp_doing_ajax() && ! wp_doing_cron() ) {
 			return $content;
 		}
 
@@ -2017,6 +2014,9 @@ class Helpers {
 			'WooCommerce Order Tracking' => '[woocommerce_order_tracking]',
 			'WooCommerce Cart'           => '[woocommerce_cart]',
 			'WooCommerce Registration'   => '[wwp_registration_form]',
+			'WISDM Group Registration'   => '[wdm_group_users]',
+			'WISDM Quiz Reporting'       => '[wdm_quiz_statistics_details]',
+			'WISDM Course Review'        => '[rrf_course_review]'
 		];
 
 		$conflictingShortcodes = apply_filters( 'aioseo_conflicting_shortcodes', $conflictingShortcodes );
@@ -2093,5 +2093,60 @@ class Helpers {
 		}
 
 		return aioseo()->robotsTxt->extractSitemapUrls( explode( "\n", $robotsTxt ) );
+	}
+
+	/**
+	 * Tries to convert an attachment URL into a post ID.
+	 *
+	 * This our own optimized version of attachment_url_to_postid().
+	 *
+	 * @since 4.0.13
+	 *
+	 * @param  string       $url The attachment URL.
+	 * @return int|boolean       The attachment ID or false if no attachment could be found.
+	 */
+	public function attachmentUrlToPostId( $url ) {
+		$cacheName = "aioseo_attachment_url_to_post_id_$url";
+
+		$cachedId = wp_cache_get( $cacheName, 'aioseo' );
+		if ( $cachedId ) {
+			return 'none' !== $cachedId && is_numeric( $cachedId ) ? (int) $cachedId : false;
+		}
+
+		$path          = $url;
+		$uploadDirInfo = wp_get_upload_dir();
+
+		$siteUrl   = wp_parse_url( $uploadDirInfo['url'] );
+		$imagePath = wp_parse_url( $path );
+
+		// Force the protocols to match if needed.
+		if ( isset( $imagePath['scheme'] ) && ( $imagePath['scheme'] !== $siteUrl['scheme'] ) ) {
+			$path = str_replace( $imagePath['scheme'], $siteUrl['scheme'], $path );
+		}
+
+		if ( ! $this->isValidAttachment( $path ) ) {
+			wp_cache_set( $cacheName, 'none', 'aioseo', DAY_IN_SECONDS );
+			return false;
+		}
+
+		if ( 0 === strpos( $path, $uploadDirInfo['baseurl'] . '/' ) ) {
+			$path = substr( $path, strlen( $uploadDirInfo['baseurl'] . '/' ) );
+		}
+
+		$results = aioseo()->db->start( 'postmeta' )
+			->select( 'post_id' )
+			->where( 'meta_key', '_wp_attached_file' )
+			->where( 'meta_value', $path )
+			->limit( 1 )
+			->run()
+			->result();
+
+		if ( empty( $results[0]->post_id ) ) {
+			wp_cache_set( $cacheName, 'none', 'aioseo', DAY_IN_SECONDS );
+			return false;
+		}
+
+		wp_cache_set( $cacheName, $results[0]->post_id, 'aioseo', DAY_IN_SECONDS );
+		return $results[0]->post_id;
 	}
 }

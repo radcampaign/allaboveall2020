@@ -1,6 +1,11 @@
 <?php
 namespace AIOSEO\Plugin\Common\Main;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Abstract class that Pro and Lite both extend.
  *
@@ -18,7 +23,6 @@ class Main {
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueueAssets' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueueFrontEndAssets' ] );
 		add_action( 'admin_footer', [ $this, 'adminFooter' ] );
-		add_action( 'wp_footer', [ $this, 'adminFooter' ] );
 	}
 
 	/**

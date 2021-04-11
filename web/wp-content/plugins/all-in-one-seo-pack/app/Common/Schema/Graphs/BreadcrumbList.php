@@ -1,6 +1,11 @@
 <?php
 namespace AIOSEO\Plugin\Common\Schema\Graphs;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * BreadcrumbList graph class.
  *
@@ -34,7 +39,7 @@ class BreadcrumbList extends Graph {
 				'@id'      => $breadcrumb['url'] . '#listItem',
 				'position' => $breadcrumb['position'],
 				'item'     => [
-					'@type'       => ! empty( $breadcrumb['type'] ) ? $breadcrumb['type'] : '',
+					// '@type'       => ! empty( $breadcrumb['type'] ) ? $breadcrumb['type'] : '', TODO: See if we can make this dynamic.
 					'@id'         => $breadcrumb['url'] . '#item',
 					'name'        => ! empty( $breadcrumb['name'] ) ? $breadcrumb['name'] : '',
 					'description' => ! empty( $breadcrumb['description'] ) ? $breadcrumb['description'] : '',

@@ -1,6 +1,11 @@
 <?php
 namespace AIOSEO\Plugin\Common\Schema;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Determines the context.
  *
@@ -116,7 +121,7 @@ class Context {
 			'description' => $description,
 			'url'         => $url,
 			'breadcrumb'  => $this->breadcrumb->setPositions( [
-				'name'        => $title,
+				'name'        => get_the_author_meta( 'display_name', $author->ID ),
 				'description' => $description,
 				'url'         => $url,
 				'type'        => 'CollectionPage'
@@ -145,7 +150,7 @@ class Context {
 			'description' => $description,
 			'url'         => $url,
 			'breadcrumb'  => $this->breadcrumb->setPositions( [
-				'name'        => $title,
+				'name'        => $postType->label,
 				'description' => $description,
 				'url'         => $url,
 				'type'        => 'CollectionPage'
@@ -179,6 +184,7 @@ class Context {
 	 * @return array The context data.
 	 */
 	public function search() {
+		global $s;
 		$title       = aioseo()->meta->title->getTitle();
 		$description = aioseo()->meta->description->getDescription();
 		$url         = aioseo()->helpers->getUrl();
@@ -187,7 +193,7 @@ class Context {
 			'description' => $description,
 			'url'         => $url,
 			'breadcrumb'  => $this->breadcrumb->setPositions( [
-				'name'        => $title,
+				'name'        => $s,
 				'description' => $description,
 				'url'         => $url,
 				'type'        => 'SearchResultsPage'
@@ -212,7 +218,7 @@ class Context {
 			'description' => $description,
 			'url'         => $url,
 			'breadcrumb'  => $this->breadcrumb->setPositions( [
-				'name'        => $title,
+				'name'        => __( 'Not Found', 'all-in-one-seo-pack' ),
 				'description' => $description,
 				'url'         => $url
 			] )

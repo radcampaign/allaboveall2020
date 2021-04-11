@@ -1,6 +1,11 @@
 <?php
 namespace AIOSEO\Plugin\Common\Migration;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // phpcs:disable WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound
 
 use AIOSEO\Plugin\Common\Models;
@@ -33,7 +38,7 @@ class Meta {
 				return;
 			}
 
-			as_schedule_single_action( time(), 'aioseo_migrate_post_meta', [], 'aioseo' );
+			as_schedule_single_action( time() + 30, 'aioseo_migrate_post_meta', [], 'aioseo' );
 		} catch ( \Exception $e ) {
 			// Do nothing.
 		}
@@ -47,9 +52,14 @@ class Meta {
 	 * @return void
 	 */
 	public function migratePostMeta() {
+		if ( aioseo()->transients->get( 'v3_migration_in_progress_settings' ) ) {
+			aioseo()->helpers->scheduleSingleAction( 'aioseo_migrate_post_meta', 30 );
+			return;
+		}
+
 		$postsPerAction  = 50;
 		$publicPostTypes = implode( "', '", aioseo()->helpers->getPublicPostTypes( true ) );
-		$timeStarted     = gmdate( 'Y-m-d H:i:s', get_transient( 'aioseo_v3_migration_in_progress_posts' ) );
+		$timeStarted     = gmdate( 'Y-m-d H:i:s', aioseo()->transients->get( 'v3_migration_in_progress_posts' ) );
 
 		$postsToMigrate = aioseo()->db
 			->start( 'posts' . ' as p' )
@@ -63,7 +73,7 @@ class Meta {
 			->result();
 
 		if ( ! $postsToMigrate || ! count( $postsToMigrate ) ) {
-			delete_transient( 'aioseo_v3_migration_in_progress_posts' );
+			aioseo()->transients->delete( 'v3_migration_in_progress_posts' );
 			return;
 		}
 
@@ -84,7 +94,7 @@ class Meta {
 				// Do nothing.
 			}
 		} else {
-			delete_transient( 'aioseo_v3_migration_in_progress_posts' );
+			aioseo()->transients->delete( 'v3_migration_in_progress_posts' );
 		}
 	}
 
@@ -97,7 +107,7 @@ class Meta {
 	 * @return array $meta   The post meta.
 	 */
 	public function getMigratedPostMeta( $postId ) {
-		if ( is_category() || is_tag() || is_tax() ) {
+		if ( is_category() || is_tag() || is_tax() || ! is_numeric( $postId ) ) {
 			return [];
 		}
 
@@ -109,11 +119,10 @@ class Meta {
 			return [];
 		}
 
-		$post     = get_post( $postId );
 		$postMeta = aioseo()->db
 			->start( 'postmeta' . ' as pm' )
 			->select( 'pm.meta_key, pm.meta_value' )
-			->where( 'pm.post_id', $post->ID )
+			->where( 'pm.post_id', $postId )
 			->whereRaw( "`pm`.`meta_key` LIKE '_aioseop_%'" )
 			->run()
 			->result();
@@ -133,7 +142,7 @@ class Meta {
 		];
 
 		$meta = [
-			'post_id' => $post->ID,
+			'post_id' => $postId,
 		];
 
 		if ( ! $postMeta || ! count( $postMeta ) ) {
@@ -154,7 +163,7 @@ class Meta {
 					break;
 				case '_aioseop_title':
 					if ( ! empty( $value ) ) {
-						$meta[ $mappedMeta[ $name ] ] = $this->getTitleValue( $post, $value );
+						$meta[ $mappedMeta[ $name ] ] = $this->getPostTitle( $postId, $value );
 					}
 					break;
 				case '_aioseop_sitemap_exclude':
@@ -376,21 +385,21 @@ class Meta {
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param  int    $post     The post object.
+	 * @param  int    $postId   The post ID.
 	 * @param  string $seoTitle The old SEO title.
 	 * @return string           The title.
 	 */
-	protected function getTitleValue( $post, $seoTitle = '' ) {
+	protected function getPostTitle( $postId, $seoTitle = '' ) {
+		$post = get_post( $postId );
 		if ( ! is_object( $post ) ) {
 			return '';
 		}
 
-		$titleFormat = '#post_title #separator_sa #site_title';
-		if ( aioseo()->options->searchAppearance->dynamic->postTypes->has( $post->post_type ) ) {
-			$titleFormat = aioseo()->options->searchAppearance->dynamic->postTypes->{$post->post_type}->title;
-		}
+		$postType    = $post->post_type;
+		$oldOptions  = get_option( 'aioseo_options_v3' );
+		$titleFormat = isset( $oldOptions[ "aiosp_${postType}_title_format" ] ) ? $oldOptions[ "aiosp_${postType}_title_format" ] : '';
 
-		$seoTitle = preg_replace( '/(#post_title)/', $seoTitle, $titleFormat );
+		$seoTitle = aioseo()->helpers->pregReplace( '/(%post_title%|%page_title%)/', $seoTitle, $titleFormat );
 		return aioseo()->helpers->sanitizeOption( aioseo()->migration->helpers->macrosToSmartTags( $seoTitle ) );
 	}
 }

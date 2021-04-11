@@ -1,6 +1,11 @@
 <?php
 namespace AIOSEO\Plugin\Common\Tools;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 use AIOSEO\Vendor\Monolog\Logger;
 use AIOSEO\Vendor\Monolog\Handler\StreamHandler;
 
@@ -217,7 +222,7 @@ class BadBotBlocker {
 		if ( aioseo()->options->deprecated->tools->blocker->blockBots ) {
 			$blockReferer = aioseo()->options->deprecated->tools->blocker->blockReferer;
 			$track        = aioseo()->options->deprecated->tools->blocker->track;
-			$ip           = $_SERVER['REMOTE_ADDR'];
+			$ip           = ! empty( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '';
 			$ip           = aioseo()->helpers->validateIp( $ip ) ? $ip : __( '(Invalid IP)', 'all-in-one-seo-pack' );
 			if ( ! $this->allowBot() ) {
 				if ( $track ) {

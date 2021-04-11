@@ -1,6 +1,11 @@
 <?php
 namespace AIOSEO\Plugin\Common\Meta;
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Handles the robots meta tag.
  *
@@ -29,6 +34,45 @@ class Robots {
 		'max-image-preview' => '',
 		'max-video-preview' => ''
 	];
+
+	/**
+	 * Class constructor.
+	 *
+	 * @since 4.0.16
+	 */
+	public function __construct() {
+		add_action( 'template_redirect', [ $this, 'noindexFeed' ] );
+		add_action( 'wp_head', [ $this, 'disableWpRobotsCore' ], -1 );
+	}
+
+	/**
+	 * Prevents WP Core from outputting its own robots meta tag.
+	 *
+	 * @since 4.0.16
+	 *
+	 * @return void
+	 */
+	public function disableWpRobotsCore() {
+		remove_all_filters( 'wp_robots' );
+	}
+
+	/**
+	 * Noindexes RSS feed pages.
+	 *
+	 * @since 4.0.17
+	 *
+	 * @return void
+	 */
+	public function noindexFeed() {
+		if (
+			! is_feed() ||
+			( ! aioseo()->options->searchAppearance->advanced->globalRobotsMeta->default && ! aioseo()->options->searchAppearance->advanced->globalRobotsMeta->noindexFeed )
+		) {
+			return;
+		}
+
+		header( 'X-Robots-Tag: noindex, follow', true );
+	}
 
 	/**
 	 * Returns the robots meta tag value.
@@ -93,18 +137,24 @@ class Robots {
 	 */
 	protected function metaHelper() {
 		$pageNumber = aioseo()->helpers->getPageNumber();
-		if ( 1 < $pageNumber ) {
-			if ( aioseo()->options->searchAppearance->advanced->globalRobotsMeta->noindexPaginated ) {
+		if ( 1 < $pageNumber || 0 < (int) get_query_var( 'cpage', 0 ) ) {
+			if (
+				aioseo()->options->searchAppearance->advanced->globalRobotsMeta->default ||
+				aioseo()->options->searchAppearance->advanced->globalRobotsMeta->noindexPaginated
+			) {
 				$this->attributes['noindex'] = 'noindex';
 			}
 
-			if ( aioseo()->options->searchAppearance->advanced->globalRobotsMeta->nofollowPaginated ) {
+			if (
+				aioseo()->options->searchAppearance->advanced->globalRobotsMeta->default ||
+				aioseo()->options->searchAppearance->advanced->globalRobotsMeta->nofollowPaginated
+			) {
 				$this->attributes['nofollow'] = 'nofollow';
 			}
 		}
 
-		// Never allow users to noindex the homepage.
-		if ( is_front_page() ) {
+		// Never allow users to noindex the first page of the homepage.
+		if ( is_front_page() && 1 === $pageNumber ) {
 			$this->attributes['noindex'] = '';
 		}
 
