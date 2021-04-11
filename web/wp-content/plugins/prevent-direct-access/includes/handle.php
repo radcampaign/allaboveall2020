@@ -231,8 +231,6 @@ if(!class_exists("Pda_Free_Handle")) {
                 foreach ( $meta['sizes'] as $size => $data ) {
                     $meta['sizes'][$size]['file'] = $new_basenames[++$i];
                 }
-                error_log("Metadata");
-                error_log(serialize($meta));
             }
             return $meta;
         }

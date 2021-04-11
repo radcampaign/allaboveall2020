@@ -12,29 +12,25 @@ class Pda_Function {
         return $htaccess_file;
     }
 
-    function htaccess_writable() {
-
+	function htaccess_writable() {
     	$htaccess_file = $this->get_htaccess_file_path();
 
-    	if (!file_exists($htaccess_file)) {
-    		error_log( '.htaccess file not existed ');
-    		return '.htaccess file not existed';
-    	}
+		if ( ! file_exists( $htaccess_file ) ) {
+			return '.htaccess file not existed';
+		}
 
-    	error_log( '.htaccess is writeable: ' . is_writable($htaccess_file));
-    	if(is_writable($htaccess_file)) {
-    		return true;
-    	}
+		if ( is_writable( $htaccess_file ) ) {
+			return true;
+		}
 
-    	@chmod($htaccess_file, 0666);
+		@chmod( $htaccess_file, 0666 );
 
-    	if (!is_writable($htaccess_file)) {
-    		error_log( 'Please ask host manager to grant write permission for .htaccess file.');
-    		return 'Please ask host manager to grant write permission for .htaccess file.';
-    	}
+		if ( ! is_writable( $htaccess_file ) ) {
+			return 'Please ask host manager to grant write permission for .htaccess file.';
+		}
 
-    	return true;
-    }
+		return true;
+	}
 
     function get_htaccess_content() {
 

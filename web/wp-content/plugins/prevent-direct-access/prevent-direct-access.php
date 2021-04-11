@@ -3,7 +3,7 @@
 Plugin Name: Prevent Direct Access
 Plugin URI: https://preventdirectaccess.com/?utm_source=user-website&utm_medium=pluginpage&utm_campaign=plugin-author-link
 Description: Prevent Direct Access provides a simple solution to prevent Google indexing as well as the public from accessing your files without permission. This plugin is required for our Gold version to work properly.
-Version: 2.7.2
+Version: 2.7.4
 Author: BWPS
 Author URI: https://preventdirectaccess.com/?utm_source=user-website&utm_medium=pluginsite_link&utm_campaign=pda-lite
 Tags: files, management
@@ -31,9 +31,13 @@ define( 'PDA', __FILE__ );
 define( 'PDA_HOME_PAGE', 'https://preventdirectaccess.com/?utm_source=user-website&utm_medium=%s&utm_campaign=%s' );
 define( 'PDA_DOWNLOAD_PAGE', 'https://preventdirectaccess.com/pricing/?utm_source=user-website&amp;utm_medium=settings&amp;utm_campaign=sidebar-cta' );
 define( 'PDA_TEXTDOMAIN', 'prevent-direct-access' );
-define( 'PDAF_VERSION', '2.7.2' );
+define( 'PDAF_VERSION', '2.7.4' );
 define( 'PDA_LITE_BASE_URL', plugin_dir_url( __FILE__ ) );
 define( 'PDA_LITE_BASE_DIR', plugin_dir_path( __FILE__ ) );
+
+require_once PDA_LITE_BASE_DIR . '/includes/modules/Grid_View/loader.php';
+require_once PDA_LITE_BASE_DIR . '/includes/modules/Grid_View/service.php';
+
 
 class Pda_Admin {
 
@@ -84,8 +88,6 @@ class Pda_Admin {
 		add_filter( 'plugin_row_meta', array( $this, 'register_plugins_links' ), 10, 2 );
 		add_filter( 'robots_txt', array( $this, 'pda_custom_robots_txt' ), 10, 2 );
 
-		add_filter( 'attachment_fields_to_edit', array( $this, 'add_filed_attachment' ), 10000, 2 );
-
 		add_action( 'the_posts', array( $this, 'modify_protected_media' ), 10 );
 		add_action( 'plugins_loaded', array( $this, 'pda_load_text_domain' ) );
 
@@ -96,6 +98,8 @@ class Pda_Admin {
 
 		pda_add_defaults_fn();
 
+		$grid_view_module = new PDAFree\modules\Grid_View\Loader( $this );
+		$grid_view_module->register();
 	}
 
 	/**
@@ -199,15 +203,13 @@ class Pda_Admin {
 	}
 
 	public function admin_notices() {
-		global $pagenow;
+		global $pagenow, $is_apache;
 
 		if ( $pagenow == 'plugins.php' || $pagenow == 'upload.php' ) {
 			$is_htaccess_writable = $this->pda_function->htaccess_writable();
-			error_log( $is_htaccess_writable, 0 );
 
 			$plugin = plugin_basename( __FILE__ );
-			error_log( ".htaccess is writeable: " . $is_htaccess_writable );
-			if ( $is_htaccess_writable !== true && is_plugin_active( $plugin ) ) {
+			if ( $is_apache && $is_htaccess_writable !== true && is_plugin_active( $plugin ) ) {
 				?>
 				<div class="error is-dismissible notice">
 					<p><b><?php echo __( 'Prevent Direct Access: ', 'prevent-direct-access' ); ?></b> If your <b>.htaccess</b>
@@ -502,11 +504,7 @@ class Pda_Admin {
 	}
 
 	public function free_add_upload_columns( $columns ) {
-
-		$is_htaccess_writable = $this->pda_function->htaccess_writable();
-		if ( $is_htaccess_writable === true ) {
-			$columns['direct_access'] = __( 'Prevent Direct Access', 'prevent-direct-access' );
-		}
+		$columns['direct_access'] = __( 'Prevent Direct Access', 'prevent-direct-access' );
 
 		return $columns;
 	}
@@ -515,7 +513,6 @@ class Pda_Admin {
 		$nonce   = $_REQUEST['security_check'];
 		$post_id = $_REQUEST['id'];
 		if ( ! wp_verify_nonce( $nonce, 'pda_ajax_nonce' . $post_id ) ) {
-			error_log( 'not verify nonce', 0 );
 			wp_die( 'invalid_nonce' );
 		}
 
@@ -543,7 +540,6 @@ class Pda_Admin {
 
 	public function check_nonce( $nonce, $post_id ) {
 		if ( ! wp_verify_nonce( $nonce, 'pda_ajax_nonce' . $post_id ) ) {
-			error_log( 'not verify nonce', 0 );
 			wp_die( 'invalid_nonce' );
 		}
 	}
@@ -767,7 +763,6 @@ class Pda_Admin {
 	function pda_lite_update_general_settings() {
 		$nonce = $_REQUEST['security_check'];
 		if ( ! wp_verify_nonce( $nonce, 'pda_ajax_nonce_v3' ) ) {
-			error_log( 'not verify nonce', 0 );
 			wp_die( 'invalid_nonce' );
 		}
 		$settings = $_REQUEST['settings'];
@@ -798,7 +793,6 @@ class Pda_Admin {
 						'campaignId' => 'atMwe',
 					),
 				);
-				error_log( 'DEBUG: ' . wp_json_encode( $data ) );
 				$args     = array(
 					'body'        => json_encode( $data ),
 					'timeout'     => '100',

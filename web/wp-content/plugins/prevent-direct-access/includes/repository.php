@@ -233,7 +233,6 @@ class Repository {
 				WHERE post_id = %s
 				ORDER BY time DESC
 			", $post_id );
-        error_log(json_encode($this->wpdb->get_results( $prepare, ARRAY_A )));
         return $this->wpdb->get_results( $prepare, ARRAY_A );
     }
 
@@ -241,7 +240,6 @@ class Repository {
 		$handler = new Pda_Free_Handle();
         $file                     = get_post_meta( $post_id, '_wp_attached_file', true );
         $is_in_protected_folder   = strpos( $file, $handler->mv_upload_dir( '/' ) ) !== false;
-        error_log(json_encode(get_post_meta( $post_id, PDA_Lite_Constants::PROTECTION_META_DATA, true )));
         $is_protected_in_metadata = get_post_meta( $post_id, PDA_Lite_Constants::PROTECTION_META_DATA, true ) === "1";
 
         return $is_in_protected_folder && $is_protected_in_metadata;

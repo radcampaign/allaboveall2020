@@ -148,27 +148,15 @@ class SettingsPage
                         <div>
                             <div class="inside">
                                 <table class="pda_v3_settings_table" cellpadding="8">
+                            <?php include PDA_LITE_BASE_DIR . '/includes/views/view-prevent-direct-access-lite-nginx.php';
+                            ?>
                             <tr>
                                 <td colspan="2"><h3><?php echo esc_html__( 'FILE PROTECTION', 'prevent-direct-access' ) ?></h3></td>
                             </tr>
                             <?php
-                            include PDA_LITE_BASE_DIR . '/includes/views/view-prevent-direct-access-lite-auto-protect-new-file-upload.php';
                             include PDA_LITE_BASE_DIR . '/includes/views/view-prevent-direct-access-lite-file-access-permission.php';
                             include PDA_LITE_BASE_DIR . '/includes/views/view-prevent-direct-access-lite-no-access-page.php';
 //                            include PDA_LITE_BASE_DIR . '/includes/views/view-prevent-direct-access-lite-replace-content-options.php';
-                            ?>
-                            <tr>
-                                <td colspan="2">
-                                    <hr>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><h3><?php echo esc_html__( 'PRIVATE LINKS', 'prevent-direct-access' ) ?></h3></td>
-                            </tr>
-                            <?php
-                            include PDA_LITE_BASE_DIR . '/includes/views/view-prevent-direct-access-lite-private-url-prefix.php';
-//                            include PDA_LITE_BASE_DIR . '/includes/views/view-prevent-direct-access-lite-auto-create-private-link.php';
-//                            include PDA_LITE_BASE_DIR . '/includes/views/view-prevent-direct-access-lite-force-download.php';
                             ?>
                             <tr>
                                 <td colspan="2">
@@ -351,23 +339,22 @@ class SettingsPage
         $this->render_subscribe_form();
         ?>
             <div class="main_container">
-                <h3><?php _e('Prevent Direct Access Gold', 'prevent-direct-access'); ?></h3>
+                <h3><?php _e('Prevent Direct Access Plugins', 'prevent-direct-access'); ?></h3>
                 <div>
-<!--                    <div class="postbox">-->
-<!--                        <div class="inside">-->
-
-                            <p><?php _e('Upgrade to Prevent Direct Access Gold NOW and enjoy many more powerful features:', 'prevent-direct-access'); ?></p>
-                            <ul class="wpep_pro_upgrade_list">
-                                <li><span class="dashicons dashicons-yes"></span><?php _e('Protect Multiple Files simultaneously', 'prevent-direct-access'); ?></li>
-                                <li><span class="dashicons dashicons-yes"></span><?php _e('Create Unlimited Private URLs', 'prevent-direct-access'); ?></li>
-                                <li><span class="dashicons dashicons-yes"></span><?php _e('Grant Logged-in Users Special Access', 'prevent-direct-access'); ?></li>
-                                <li><span class="dashicons dashicons-yes"></span><?php _e('Search & Replace Unprotected URLs in content', 'prevent-direct-access'); ?></li>
-                                <li><span class="dashicons dashicons-yes"></span><?php _e('Integrate with Top Membership Plugins', 'prevent-direct-access'); ?></li>
-                                <li><span class="dashicons dashicons-yes"></span><?php _e('Support Multisite and NGINX servers', 'prevent-direct-access'); ?></li>
-                            </ul>
-                            <a href="<?php echo sprintf(constant( 'PDA_DOWNLOAD_PAGE' ), 'settings', 'sidebar-cta') ?>" target="_blank" class="button-primary"><?php _e('Download Now', 'prevent-direct-access'); ?></a>
-<!--                        </div>-->
-<!--                    </div>-->
+	                <p>
+		                You are new to PDA Lite? Check out the basics of <a target="_blank" rel="noreferrer noopener" href="https://preventdirectaccess.com/docs/prevent-direct-access-lite/">file protection under Media library</a> and <a target="_blank" rel="noreferrer noopener" href="https://preventdirectaccess.com/docs/">how our plugin works</a>.
+	                </p>
+                    <p><?php _e('Upgrade to Prevent Direct Access Gold NOW and enjoy many more powerful features:', 'prevent-direct-access'); ?></p>
+                    <ul class="wpep_pro_upgrade_list">
+                        <li><span class="dashicons dashicons-yes"></span><?php _e('Protect Multiple Files simultaneously', 'prevent-direct-access'); ?></li>
+                        <li><span class="dashicons dashicons-yes"></span><?php _e('Encrypt and decrypt protected files', 'prevent-direct-access'); ?></li>
+                        <li><span class="dashicons dashicons-yes"></span><?php _e('Create Unlimited Private URLs', 'prevent-direct-access'); ?></li>
+                        <li><span class="dashicons dashicons-yes"></span><?php _e('Grant Logged-in Users Special Access', 'prevent-direct-access'); ?></li>
+                        <li><span class="dashicons dashicons-yes"></span><?php _e('Search & Replace Unprotected URLs in content', 'prevent-direct-access'); ?></li>
+                        <li><span class="dashicons dashicons-yes"></span><?php _e('Integrate with Top Membership Plugins', 'prevent-direct-access'); ?></li>
+                        <li><span class="dashicons dashicons-yes"></span><?php _e('Support Multisite and NGINX servers', 'prevent-direct-access'); ?></li>
+                    </ul>
+                    <a href="<?php echo sprintf(constant( 'PDA_DOWNLOAD_PAGE' ), 'settings', 'sidebar-cta') ?>" target="_blank" class="button-primary"><?php _e('Download Now', 'prevent-direct-access'); ?></a>
                 </div>
             </div>
         <?php

@@ -72,7 +72,6 @@ if ( ! class_exists('PDA_Lite_API') ) {
         {
             $edit_url = wp_get_attachment_url($data['id']);
             $title = get_the_title($data['id']) === '' ? '(no title)' : get_the_title($data['id']);
-            error_log('title: ' . $title);
             return array(
                 'is_protected' => $this->repo->is_protected_file($data['id']),
                 'post' => array(

@@ -436,7 +436,6 @@ function _check_advance_file( $id, $original_file ) {
 	if ( $is_file_protected ) {
 		$fap = Pda_Helper::get_fap_setting();
 		if ( ! pda_free_check_fap_for_file( $id, $fap ) ) {
-			error_log( "Is prevented " . $original_file );
 			file_not_found();
 			exit();
 		}

@@ -12,7 +12,7 @@ class Pda_Database {
 		$this->jal_db_version = '1.0';
 		$this->pda_jal_db_version_free = '1.0';
 	}
-	
+
 	/**
 	 * Will be removed in the next version
 	 */
@@ -41,10 +41,7 @@ class Pda_Database {
 		}
 
 		$installed_ver = get_option( "jal_db_version" );
-		error_log( "Installed ver: " . $installed_ver );
-		error_log( "Jal db ver: " . $this->jal_db_version );
 		if ( $installed_ver == '1.0' ) {
-			error_log( " Different ");
 			$charset_collate = $wpdb->get_charset_collate();
 
 			$sql = "CREATE TABLE $table_name (
@@ -77,8 +74,6 @@ class Pda_Database {
 			dbDelta( $sql );
 			$this->jal_db_version = '1.3';
 			update_option( 'jal_db_version', $this->jal_db_version );
-		} else {
-			error_log( " Same ");
 		}
 	}
 
@@ -94,17 +89,14 @@ class Pda_Database {
 		$table_name = $wpdb->prefix . 'prevent_direct_access_free';
 		$wpdb->query( "DROP TABLE IF EXISTS $table_name" );
 		delete_option( 'pda_jal_db_version_free' );
-		error_log( get_option( 'pda_jal_db_version_free' ) );
 
 	}
 
 	function remove_db_options() {
 		delete_option( 'pda_jal_db_version_free' );
-		error_log( get_option( 'pda_jal_db_version_free' ) );
 	}
 
 	function create_new_table() {
-		error_log("create new table");
         global $wpdb;
 
         $table_name = $wpdb->prefix . 'prevent_direct_access_free';
