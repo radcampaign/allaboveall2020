@@ -77,7 +77,7 @@ class RevisionCreation {
 		} else {
 			$post_id = rvy_detect_post_id();
 		}
-
+		
 		if ( empty( $post_id ) || !is_scalar($post_id) ) {
 			return $status;
 		}
@@ -176,7 +176,7 @@ class RevisionCreation {
         if ( $revisionary->isBlockEditorActive() && !$revisionary->doing_rest ) {
             if (!empty($_REQUEST['meta-box-loader']) && !empty($_REQUEST['action']) && ('editpost' == $_REQUEST['action'])) {
                 // Use logged revision ID from preceding REST query
-                if (!$revision_id = rvy_get_transient("_rvy_pending_revision_{$current_user->ID}_{$postarr['ID']}")) {
+                if (!$revision_id = (int) rvy_get_transient("_rvy_pending_revision_{$current_user->ID}_{$postarr['ID']}")) {
                     return $data;
                 }
             } else {
@@ -341,7 +341,7 @@ class RevisionCreation {
 					}
 				}
 			}
-		} else {
+        } else {
             $msg = __('Sorry, an error occurred while attempting to submit your revision!', 'revisionary') . ' ';
             rvy_halt( $msg, __('Revision Submission Error', 'revisionary') );
         }
@@ -364,8 +364,8 @@ class RevisionCreation {
 			do_action( 'save_post', $revision_id, $post, false );
 			do_action( 'wp_insert_post', $revision_id, $post, false );
             do_action( 'revisionary_saved_revision', $post );
-		}
-		
+        }
+
         if (defined('PUBLISHPRESS_MULTIPLE_AUTHORS_VERSION')) {
             // Make sure Multiple Authors plugin does not change post_author value for revisor. Authors taxonomy terms can be revisioned for published post.
             $wpdb->update($wpdb->posts, ['post_author' => $current_user->ID], ['ID' => $revision_id]);
@@ -516,7 +516,7 @@ class RevisionCreation {
 		if ( $revisionary->isBlockEditorActive() && !$revisionary->doing_rest ) {
 			if (!empty($_REQUEST['meta-box-loader']) && !empty($_REQUEST['action']) && ('editpost' == $_REQUEST['action'])) {
 				// Use logged revision ID from preceding REST query
-				if (!$revision_id = rvy_get_transient("_rvy_scheduled_revision_{$current_user->ID}_{$post_arr['ID']}")) {
+				if (!$revision_id = (int) rvy_get_transient("_rvy_scheduled_revision_{$current_user->ID}_{$post_arr['ID']}")) {
 					return $data;
 				}
 			} else {
@@ -689,8 +689,8 @@ class RevisionCreation {
 		$archived_meta = [];
 		foreach(['_thumbnail_id', '_wp_page_template'] as $meta_key) {
 			if (!$archived_meta[$meta_key] = rvy_get_transient("_archive_{$meta_key}_{$published_post_id}")) {
-				$archived_meta[$meta_key] = get_post_meta($published_post_id, $meta_key, true);
-			}
+			$archived_meta[$meta_key] = get_post_meta($published_post_id, $meta_key, true);
+		}
 		}
 
 

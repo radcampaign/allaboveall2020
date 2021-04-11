@@ -5,7 +5,7 @@
  * Description: Maintain published content with teamwork and precision using the Revisions model to submit, approve and schedule changes.
  * Author: PublishPress
  * Author URI: https://publishpress.com
- * Version: 2.5.1
+ * Version: 2.5.3
  * Text Domain: revisionary
  * Domain Path: /languages/
  * Min WP Version: 4.9.7
@@ -62,7 +62,7 @@ define('REVISIONARY_FILE', __FILE__);
 // register these functions before any early exits so normal activation/deactivation can still run with RS_DEBUG
 register_activation_hook(__FILE__, function() 
 	{
-		$current_version = '2.5.1';
+		$current_version = '2.5.3';
 		
 		$last_ver = get_option('revisionary_last_version');
 
@@ -96,6 +96,37 @@ register_deactivation_hook(__FILE__, function()
 		}
 	}
 );
+
+
+if (!function_exists('rvy_archive_post_type_rest_controller')) {
+	global $rvy_rest_buffer_controller;
+	$rest_buffer_controller = [];
+
+	// WP Rest Cache plugin compat
+	add_filter('register_post_type_args', 'rvy_archive_post_type_rest_controller', 9, 2);
+	add_filter('register_post_type_args', 'rvy_restore_post_type_rest_controller_args', 11, 2);
+
+	function rvy_archive_post_type_rest_controller($args, $post_type) {
+		global $rvy_rest_buffer_controller;
+
+		$rvy_rest_buffer_controller[$post_type] = isset( $args['rest_controller_class'] ) ? $args['rest_controller_class'] : false;
+		return $args;
+	}
+
+	function rvy_restore_post_type_rest_controller_args($args, $post_type) {
+		global $rvy_rest_buffer_controller;
+		
+		if (strpos($_SERVER['REQUEST_URI'], 'wp-json/wp/') && ($_SERVER['REQUEST_METHOD'] === 'POST')) {
+			if (!empty($args['rest_controller_class']) && isset($rvy_rest_buffer_controller[$post_type])) {
+				if (false !== strpos($args['rest_controller_class'], 'WP_Rest_Cache_Plugin')) {
+					$args['rest_controller_class'] = $rvy_rest_buffer_controller[$post_type];
+				}
+			}
+		}
+
+		return $args;
+	}
+}
 
 // negative priority to precede any default WP action handlers
 add_action(
@@ -141,8 +172,8 @@ add_action(
 			return;
 		}
 
-		define('REVISIONARY_VERSION', 	  '2.5.1');
-		define('REVISIONARY_PRO_VERSION', '2.5.1');
+		define('REVISIONARY_VERSION', 	  '2.5.3');
+		define('REVISIONARY_PRO_VERSION', '2.5.3');
 		define('REVISIONARY_EDD_ITEM_ID', 40280);
 
 		if ( ! defined( 'RVY_VERSION' ) ) {

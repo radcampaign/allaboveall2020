@@ -7,7 +7,7 @@ Tags: revision, submit changes, workflow, collaboration, permissions, moderate, 
 Requires at least: 4.9.7
 Requires PHP: 5.6.20
 Tested up to: 5.7
-Stable tag: 2.5.1
+Stable tag: 2.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -99,6 +99,13 @@ Follow PublishPress on [Facebook](https://www.facebook.com/publishpress), [Twitt
 12. Scheduled Revisions in Publishing Soon list
 
 == Changelog ==
+
+= 2.5.3 - 6 Apr 2021 =
+* Compat : WP Rest Cache - Revision submission from Gutenberg failed
+* Compat : Elementor - Revision submission caused "Changes not saved" warning popup
+* Compat : PublishPress Permissions - Edit Category / Term: Permissions metaboxes were not displayed
+* Compat : PublishPress Permissions - Pending Revision Monitors group ineffective; notifications were sent to all Editors and Administrators (also requires PublishPress Permissions 3.5.1)
+* Compat : Enable revisioning of non-public post types if they have type-specific capabilities defined
 
 = 2.5.1 - 30 Mar 2021 =
 * Fixed : Revisors could not preview other users' pending revisions, even if they are listed in Revision Queue (Permissions integration requires 3.5.1)

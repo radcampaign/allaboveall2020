@@ -60,80 +60,12 @@ class RevisionaryCompat {
             add_action('wp_loaded', [$this, 'addACFEsupport']);
         }
 
-        // WP Rest Cache plugin compat
-        add_filter('register_post_type_args', [$this, 'archive_post_type_rest_controller'], 9, 2);
-        add_filter('register_post_type_args', [$this, 'restore_post_type_rest_controller_args'], 11, 2);
-
         add_filter("update_post_metadata", [$this, 'fltUpdatePostMetadata'], 99, 5);
         add_filter("add_post_metadata", [$this, 'fltAddPostMetadata'], 99, 5);
         add_filter("get_post_metadata", [$this, 'fltGetPostMetadata'], 10, 4);
 
-        // Log attachment fields. On revision submission, copy any missing fields from published post
-        /*
-		add_filter('attachment_fields_to_save', [$this, 'fltAttachmentFieldsToEdit'], PHP_INT_MAX, 3);
-        add_action('revisionary_create_revision', [$this, 'actCopyMissingAttachmentFields']);
-        */
-
         add_action('init', [$this, 'podsFilters'], 50);
     }
-
-    function archive_post_type_rest_controller($args, $post_type) {
-        $this->rest_buffer_controller[$post_type] = isset( $args['rest_controller_class'] ) ? $args['rest_controller_class'] : null;
-        return $args;
-    }
-
-    function restore_post_type_rest_controller_args($args, $post_type) {
-        if (strpos($_SERVER['REQUEST_URI'], 'wp-json/wp/') && ($_SERVER['REQUEST_METHOD'] === 'POST')) {
-            if (!empty($args['rest_controller_class']) && isset($this->rest_buffer_controller[$post_type])) {
-                if (false !== strpos($args['rest_controller_class'], 'WP_Rest_Cache_Plugin\Includes\Controller\Post_Controller')) {
-                    $args['rest_controller_class'] = $this->rest_buffer_controller[$post_type];
-                }
-            }
-        }
-
-        return $args;
-    }
-
-    /*
-    function fltAttachmentFieldsToEdit($fields, $post, $attachment) {
-        if (rvy_is_revision_status($post->post_status)) {
-            return $fields;
-        }
-
-        $attachment_fields = get_option('rvy_buffer_attachment_fields_to_edit', []);
-
-        $log_fields = array_merge(array_keys($fields), $attachment_fields);
-        $log_fields = array_diff(
-            $log_fields, 
-            ['post_author', 'post_date', 'post_date_gmt', 'post_content', 'post_title', 'post_excerpt', 'post_status', 'comment_status', 
-            'ping_status', 'post_password', 'post_name', 'to_ping', 'post_modified', 'post_modified_gmt', 'post_content_filtered', 
-            'post_parent', 'guid', 'menu_order', 'post_type', 'post_mime_type', 'comment_count'
-            ]
-        );
-
-        if (array_diff($log_fields, $attachment_fields)) {
-            update_option('rvy_buffer_attachment_fields_to_edit', $log_fields);
-        }
-
-        return $fields;
-    }
-
-    function actCopyMissingAttachmentFields($data) {
-        if ($attachment_fields = get_option('rvy_buffer_attachment_fields_to_edit', [])) {
-            $post_meta = get_post_meta(rvy_post_id($data['ID']));
-
-            if ($post_attachment_meta = array_intersect_key($post_meta, array_fill_keys($attachment_fields, true))) {
-                $revision_meta = get_post_meta($data['ID']);
-
-                if ($missing_attachment_meta = array_diff_key($post_attachment_meta, $revision_meta)) {
-                    foreach ($missing_attachment_meta as $field => $value) {
-                        update_post_meta($data['ID'], $field, $value);
-                    }
-                }
-            } 
-        }
-    }
-    */
 
     public function podsFilters() {
         if (class_exists('PodsMeta')) {
@@ -155,7 +87,8 @@ class RevisionaryCompat {
         if (!empty($revisionary->last_revision[$object_id])) {
             $revision_id = $revisionary->last_revision[$object_id];
         } else {
-            $revision_id = rvy_get_transient("_rvy_pending_revision_{$current_user->ID}_{$object_id}");
+        	//$revision_id = (int) rvy_get_transient("_rvy_pending_revision_{$current_user->ID}_{$object_id}");
+            $revision_id = get_transient("_rvy_pending_revision_{$current_user->ID}_{$object_id}");
         }
 
         if ($revision_id) {
@@ -218,7 +151,7 @@ class RevisionaryCompat {
         }
     
 		if (empty($revision_id) || !rvy_is_revision_status(get_post_field('post_status', $revision_id))) {
-			$revision_id = rvy_get_transient("_rvy_pending_revision_{$current_user->ID}_{$object_id}");
+			$revision_id = (int) rvy_get_transient("_rvy_pending_revision_{$current_user->ID}_{$object_id}");
 		}
 
         if ($revision_id && !in_array($meta_key, $unfiltered_meta_keys) && (rvy_is_revision_status(get_post_field('post_status', $revision_id)))) {
@@ -258,7 +191,8 @@ class RevisionaryCompat {
             if (!empty($revisionary->last_revision[$object_id])) {
                 $revision_id = $revisionary->last_revision[$object_id];
             } else {
-                $revision_id = rvy_get_transient("_rvy_pending_revision_{$current_user->ID}_{$object_id}");
+                //$revision_id = (int) rvy_get_transient("_rvy_pending_revision_{$current_user->ID}_{$object_id}");
+            	$revision_id = get_transient("_rvy_pending_revision_{$current_user->ID}_{$object_id}");
             }
 
             if ($revision_id) {
@@ -475,7 +409,8 @@ class RevisionaryCompat {
 
 		$busy = true;
 
-		if ($revision_id = rvy_get_transient("_rvy_pending_revision_{$current_user->ID}_{$post_id}")) {
+		//if ($revision_id = (int) rvy_get_transient("_rvy_pending_revision_{$current_user->ID}_{$post_id}")) {
+		if ($revision_id = get_transient("_rvy_pending_revision_{$current_user->ID}_{$post_id}")) {
 			if ($revision_id != $post_id) {
 				if (function_exists('acf_update_metadata')) {
 					acf_update_metadata($revision_id, $name, $value, $hidden);

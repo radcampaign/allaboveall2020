@@ -19,6 +19,33 @@ class RevisionaryElementor
         add_filter('revisionary_do_submission_redirect', [$this, 'elementorDisableSubmissionRedirect']);
         add_filter('elementor/documents/ajax_save/return_data', [$this, 'elementorRevisionSubmittedNotice']);
         add_action('wp_print_scripts', [$this, 'elementorFrontStyle']);
+        add_action('elementor/editor/wp_head', [$this, 'disableUnsavedChangesWarning'], 100);
+    }
+
+    function disableUnsavedChangesWarning() {
+        if ($post_id = rvy_detect_post_id()) {
+            if (!agp_user_can('edit_post', $post_id, '', ['skip_revision_allowance' => true])) {
+                ?>
+                <script type="text/javascript">
+                /* <![CDATA[ */
+                jQuery(document).ready( function($) {
+                    if (elementor) {
+                        elementor.saver.on('after:saveError', function(e) {
+                            $e.internal( 'document/save/set-is-modified', {status: false} );
+                            
+                            for (var i = 0; i < 10; i++) {
+                                setTimeout(function() {
+                                    var testvar = $e.run('document/save/discard');
+                                }, 500 * i);
+                            }
+                        });
+                    }
+                } );
+                /* ]]> */
+                </script>
+                <?php
+            }
+        }
     }
 
     function elementorMonitorQueries() {

@@ -21,7 +21,7 @@ class RvyOptionUI {
 	public static function instance($args = [])
     {
         if (is_null(self::$instance)) {
-            self::$instance = new RvyOptionUI($args);
+			self::$instance = new RvyOptionUI($args);
         }
 
         return self::$instance;
@@ -35,7 +35,7 @@ class RvyOptionUI {
 		$this->sitewide = $args['sitewide'];
 		$this->customize_defaults = $args['customize_defaults'];
 		$this->display_hints = rvy_get_option( 'display_hints' );
-    }
+	}
 	
 	function option_checkbox( $option_name, $tab_name, $section_name, $hint_text, $trailing_html, $args = '') {
 		$return = array( 'in_scope' => false, 'val' => '', 'subcaption' => '' );
