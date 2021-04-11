@@ -49,9 +49,9 @@
 	if ( get_user_meta( $user->ID, 'configure_2FA', true ) ) {
 
 		$current_selected_method = get_user_meta( $user->ID, 'mo2f_2FA_method_to_configure', true );
-        echo '<div class="mo_wpns_setting_layout">';
+        // echo '<div class="mo_wpns_setting_layout">';
 			mo2f_show_2FA_configuration_screen( $user, $current_selected_method );
-        echo '</div>';
+        // echo '</div>';
 	} else if ( get_user_meta( $user->ID, 'test_2FA', true ) ) {
 		$current_selected_method = get_user_meta( $user->ID, 'mo2f_2FA_method_to_test', true );
         echo '<div class="mo_wpns_setting_layout">';
@@ -72,7 +72,8 @@
 			"Google Authenticator",
 			"Authy Authenticator",
             "OTP Over Telegram",
-            "OTP Over Whatsapp"       
+            "OTP Over Whatsapp",
+            "Duo Authenticator"       
 
 		);
 
@@ -85,7 +86,8 @@
 			"miniOrange QR Code Authentication",
 			"miniOrange Push Notification",
             "OTP Over Telegram",
-            "OTP Over Whatsapp"        
+            "OTP Over Whatsapp",
+            "Duo Authenticator"        
 		);
 
 		$standard_plan_existing_user = array(
@@ -119,7 +121,8 @@
             "miniOrange Soft Token",
             "miniOrange Push Notification",
             "OTP Over Telegram",
-            "OTP Over Whatsapp"        
+            "OTP Over Whatsapp",
+            "Duo Authenticator"        
                
             );
 
@@ -132,7 +135,8 @@
             "miniOrange Soft Token",
             "miniOrange Push Notification",
             "OTP Over Telegram",
-            "OTP Over Whatsapp"        
+            "OTP Over Whatsapp",
+            "Duo Authenticator"        
             
             );
             $premium_plan = array(
@@ -191,7 +195,7 @@
 
 
                             <?php
-                            if((!get_user_meta($userID, 'mo_backup_code_generated', true) || ($backup_codes_remaining == 5 && !get_user_meta($userID, 'mo_backup_code_downloaded', true))) && $mo2f_two_fa_method != ''){
+                            if((!get_user_meta($user->ID, 'mo_backup_code_generated', true) || ($backup_codes_remaining == 5 && !get_user_meta($user->ID, 'mo_backup_code_downloaded', true))) && $mo2f_two_fa_method != ''){
                             ?>
                                 <button class="btn btn-primary btn-large" id="mo_2f_generate_codes" style="float:right; margin-right: 3%; height: 36px;">Get backup codes
                                 </button>
@@ -206,47 +210,8 @@
 
                 </div>
 				<?php
-    				// if ( in_array( $selectedMethod, array(
-    					// "Google Authenticator",
-    					// "miniOrange Soft Token",
-    					// "Authy Authenticator",
-         //                "Security Questions",
-         //                "miniOrange Push Notification",
-         //                "miniOrange QR Code Authentication"
-    				// ) ) ) {
-                        ?>
-                        <?php if(current_user_can('administrator')){ ?>
-                        <div style="float:right;">
-                            <form name="f" method="post" action="" id="mo2f_enable_2FA_on_login_page_form">
-                                <input type="hidden" name="option" value="mo2f_enable_2FA_on_login_page_option"/>
-    							<input type="hidden" name="mo2f_enable_2FA_on_login_page_option_nonce"
-    							value="
-                                <?php 
-                                echo wp_create_nonce( "mo2f-enable-2FA-on-login-page-option-nonce" )
-                                ?>
-                                "/>
-
-                               <input type="checkbox" id="mo2f_enable_2fa_prompt_on_login_page"
-                                       name="mo2f_enable_2fa_prompt_on_login_page" 
-                                       value="1"
-                                       <?php 
-                                       checked( MoWpnsUtility::get_mo2f_db_option('mo2f_enable_2fa_prompt_on_login_page', 'get_option') == 1 );
-
-    							if (!current_user_can('administrator') && ! in_array( $Mo2fdbQueries->get_user_detail( 'mo_2factor_user_registration_status', $user->ID ), array(
-    							'MO_2_FACTOR_PLUGIN_SETTINGS',
-    							'MO_2_FACTOR_INITIALIZE_TWO_FACTOR'
-    							) ) ) {
-    								echo 'disabled';
-    							}
-                                ?> 
-                                onChange="document.getElementById('mo2f_enable_2fa_prompt_on_login_page').form.submit()"/>
-    							<?php 
-                                echo mo2f_lt( 'Enable 2FA prompt on the WP Login Page' );
-                                ?>
-                            </form>
-                        </div>
+                if(current_user_can('administrator')){ 
                         
-               <?php
                             $EmailTransactions  = MoWpnsUtility::get_mo2f_db_option('cmVtYWluaW5nT1RQ', 'site_option');
                             $EmailTransactions  = $EmailTransactions? $EmailTransactions : 0;
                             $SMSTransactions    = get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z')?get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z'):0; 

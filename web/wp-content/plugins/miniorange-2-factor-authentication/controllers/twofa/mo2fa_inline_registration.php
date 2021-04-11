@@ -1,6 +1,8 @@
 <?php 
 function fetch_methods(){
     $methods = array("SMS","SOFT TOKEN","MOBILE AUTHENTICATION","PUSH NOTIFICATIONS","GOOGLE AUTHENTICATOR","KBA","OTP_OVER_EMAIL","OTP OVER TELEGRAM","OTP OVER WHATSAPP");
+    if(get_site_option('duo_credentials_save_successfully'))
+        array_push($methods,"DUO");
     return $methods;
 }
 
@@ -29,6 +31,8 @@ function prompt_user_to_select_2factor_mthod_inline($current_user_id, $login_sta
     {
         $current_selected_method == 'OTP Over Whatsapp';
         prompt_user_for_phone_setup($current_user_id, $login_status, $login_message,$current_selected_method,$redirect_to,$session_id);
+    }else if($current_selected_method == 'Duo Authenticator'){
+        prompt_user_for_duo_authenticator_setup($current_user_id, $login_status, $login_message,$redirect_to,$session_id);
     }
     else if($current_selected_method == 'GOOGLE AUTHENTICATOR' ){
         prompt_user_for_google_authenticator_setup($current_user_id, $login_status, $login_message,$redirect_to,$session_id);
@@ -50,7 +54,7 @@ function prompt_user_to_select_2factor_mthod_inline($current_user_id, $login_sta
             }
             $Mo2fdbQueries->update_user_details( $current_user_id, array('mo_2factor_user_registration_status' =>'MO_2_FACTOR_PLUGIN_SETTINGS') );
             $pass2fa= new Miniorange_Password_2Factor_Login();
-            $pass2fa->mo2fa_pass2login($redirect_to);
+            $pass2fa->mo2fa_pass2login($redirect_to, $session_id);
             }
         prompt_user_for_setup_success($current_user_id, $login_status, $login_message,$redirect_to,$session_id);
     }else{
@@ -183,6 +187,14 @@ function prompt_user_to_select_2factor_mthod_inline($current_user_id, $login_sta
                                     <input type="radio"  name="mo2f_selected_2factor_method"  value="OTP OVER EMAIL"  />
                                                 <?php echo __('OTP Over Email', 'miniorange-2-factor-authentication'); ?>
                                             </label>
+                                             <br>
+                                </span>
+                                 <span class="<?php if(  !(in_array("DUO", $opt))  ){ echo "mo2f_td_hide"; }else { echo "mo2f_td_show"; } ?>" >
+                                        <label title="<?php echo __('You will receive a push notification on your phone. You have to ACCEPT or DENY it to login. Supported in Smartphones only.', 'miniorange-2-factor-authentication'); ?>">
+                                            <input type="radio"  name="mo2f_selected_2factor_method"  value=" DUO PUSH NOTIFICATIONS"  />
+                                            <?php echo __('Duo Push Notification', 'miniorange-2-factor-authentication'); ?>
+                                        </label>
+                                        <br>    
                                 </span>
                                 <br><a href="#skiptwofactor" style="color:#F4D03F ;font-weight:bold;margin-left:35%;"><?php echo __('Skip Two Factor', 'miniorange-2-factor-authentication'); ?></a>>>
                                 <br />
@@ -494,11 +506,119 @@ function prompt_user_for_miniorange_app_setup($current_user_id, $login_status, $
     </html>
 <?php 
 }
+function prompt_user_for_duo_authenticator_setup($current_user_id, $login_status, $login_message,$redirect_to,$session_id){
+    global $Mo2fdbQueries;
+    $current_user = get_userdata($current_user_id);
+    $email = $current_user->user_email;
+    $opt=fetch_methods($current_user); 
+    $mobile_registration_status = $Mo2fdbQueries->get_user_detail( 'mobile_registration_status',$current_user_id);
+    
+?>
+    <html>
+        <head>  <meta charset="utf-8"/>
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <?php
+             mo2f_inline_css_and_js();
+            ?>
+        </head>
+        <body>
+            <div class="mo2f_modal" tabindex="-1" role="dialog" id="myModal5">
+                <div class="mo2f-modal-backdrop"></div>
+                <div class="mo2f_modal-dialog mo2f_modal-lg" >
+                    <div class="login mo_customer_validation-modal-content">
+                        <div class="mo2f_modal-header">
+                            <h4 class="mo2f_modal-title"><button type="button" class="mo2f_close" data-dismiss="modal" aria-label="Close" title="<?php echo __('Back to login', 'miniorange-2-factor-authentication'); ?>" onclick="mologinback();"><span aria-hidden="true">&times;</span></button>
+                            <?php echo __('Setup Duo', 'miniorange-2-factor-authentication'); ?> <b><?php echo __('Authenticator', 'miniorange-2-factor-authentication'); ?></b> <?php echo __('App', 'miniorange-2-factor-authentication'); ?></h4>
+                        </div>
+                        <div class="mo2f_modal-body">
+                            <?php if(isset($login_message) && !empty($login_message)) {  ?>
+                                
+                                <div  id="otpMessage">
+                                    <p class="mo2fa_display_message_frontend" style="text-align: left !important;"><?php echo __($login_message, 'miniorange-2-factor-authentication'); ?></p>
+                                </div>
+                            <?php } ?>
+                            <div style="margin-right:7px;"><?php mo2f_inline_download_instruction_for_duo_mobile_app($mobile_registration_status);
+
+                            ?></div>
+                            <div class="mo_margin_left">
+                                <h3><?php echo __('Step-2 : Setup Duo Push Notification', 'miniorange-2-factor-authentication'); ?></h3><hr class="mo_hr">
+                                <div id="mo2f_configurePhone"><h4><?php echo __('Please click on \'Configure your phone\' button below to setup duo push notification.', 'miniorange-2-factor-authentication'); ?></h4>
+                                    <center>
+                                    <?php if (sizeof($opt) > 1) { ?>
+                                        <input type="button" name="back" id="mo2f_inline_back_btn" class="miniorange_button" value="<?php echo __('Back', 'miniorange-2-factor-authentication'); ?>" />
+                                    <?php } ?>
+                                        <input type="button" name="submit" onclick="moconfigureapp();" class="miniorange_button" value="<?php echo __('Configure your phone', 'miniorange-2-factor-authentication'); ?>" />
+                                    </center>
+                                </div>
+                                <?php 
+
+                                if(isset($_POST['option']) && $_POST['option'] =='miniorange_inline_duo_auth_mobile_complete'){
+                                         go_for_user_enroll_on_duo($current_user,$session_id);
+                                         ?>
+                                <?php }else if(isset($_POST['option']) && $_POST['option'] == 'duo_mobile_send_push_notification_for_inline_form') {
+
+                                    initialize_inline_duo_auth_registration($current_user,$session_id);
+                                    ?>
+
+                                  <?php }?>   
+                                
+                            <?php mo2f_customize_logo() ?>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form name="f" id="mo2f_backto_mo_loginform" method="post" action="<?php echo wp_login_url(); ?>" style="display:none;">
+                <input type="hidden" name="miniorange_mobile_validation_failed_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-mobile-validation-failed-nonce'); ?>" />
+                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
+            </form>
+            <form name="f" method="post" action="" id="mo2f_inline_configureapp_form" style="display:none;">
+                <input type="hidden" name="option" value="miniorange_inline_show_mobile_config"/>
+                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
+                <input type="hidden" name="miniorange_inline_show_qrcode_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-show-qrcode-nonce'); ?>" />
+            </form>
+            <form name="f" method="post" id="mo2f_inline_duo_auth_register_form" action="" style="display:none;">
+                <input type="hidden" name="option" value="miniorange_inline_duo_auth_mobile_complete"/>
+                <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
+                <input type="hidden" name="mo_auth_inline_duo_auth_mobile_registration_complete_nonce" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-duo_auth-registration-complete-nonce'); ?>" />
+            </form>
+            <?php if (sizeof($opt) > 1) { ?>
+                <form name="f" method="post" action="" id="mo2f_goto_two_factor_form">
+                    <input type="hidden" name="option" value="miniorange_back_inline"/>
+                    <input type="hidden" name="miniorange_inline_two_factor_setup" value="<?php echo wp_create_nonce('miniorange-2-factor-inline-setup-nonce'); ?>" />
+                    <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+                    <input type="hidden" name="session_id" value="<?php echo $session_id; ?>"/>
+                </form>
+            <?php } ?>
+        <script>
+            function mologinback(){
+                jQuery('#mo2f_backto_mo_loginform').submit();
+            }
+            function moconfigureapp(){
+                jQuery('#mo2f_inline_duo_auth_register_form').submit();
+            }
+            jQuery('#mo2f_inline_back_btn').click(function() {  
+                    jQuery('#mo2f_goto_two_factor_form').submit();
+            });
+            <?php 
+                if(isset($showqrCode) && $showqrCode == 'MO_2_FACTOR_SHOW_QR_CODE' && isset($_POST['miniorange_inline_show_qrcode_nonce']) && wp_verify_nonce( $_POST['miniorange_inline_show_qrcode_nonce'], 'miniorange-2-factor-inline-show-qrcode-nonce' )){
+            ?>
+            <?php } ?>
+        </script>
+        </body>
+    </html>
+<?php     
+}
 
 function prompt_user_for_google_authenticator_setup($current_user_id, $login_status, $login_message,$redirect_to,$session_id){
-	$mo2f_google_auth=json_decode(get_user_meta($current_user_id,'mo2f_google_auth', true),true);
-	$data = isset($mo2f_google_auth) ? $mo2f_google_auth['ga_qrCode'] : null;
-	$ga_secret = isset($mo2f_google_auth) ? $mo2f_google_auth['ga_secret'] : null;
+    $ga_secret = MO2f_Utility::mo2f_get_transient($session_id, 'secret_ga');
+    $data = MO2f_Utility::mo2f_get_transient($session_id, 'ga_qrCode');
 
 	?>
     <html>
@@ -727,7 +847,9 @@ function mo2f_inline_css_and_js(){
 
 function initialize_inline_mobile_registration($current_user,$session_id,$qrCode){
         $data = $qrCode;
-	$mo2f_login_transaction_id = MO2f_Utility::mo2f_retrieve_user_temp_values( 'mo2f_transactionId', $session_id );
+        
+        $mo2f_login_transaction_id = MO2f_Utility::mo2f_get_transient($session_id, 'mo2f_transactionId' );
+
         $url = MO_HOST_NAME;
         $opt=fetch_methods($current_user);  
         ?>
@@ -793,6 +915,93 @@ function initialize_inline_mobile_registration($current_user,$session_id,$qrCode
                         });
                     }   
             </script>
+    <?php
+    }
+
+function initialize_inline_duo_auth_registration($current_user,$session_id_encrypt){
+ 
+    $user_id = MO2f_Utility::mo2f_get_transient($session_id_encrypt, 'mo2f_current_user_id'); 
+    update_user_meta($user_id,'current_user_email',$current_user->user_email);
+
+
+   $opt=fetch_methods($current_user);  
+        ?>
+            <h3><?php echo mo2f_lt( 'Test Duo Authenticator' ); ?></h3>
+    <hr>
+    <div>
+        <br>
+        <br>
+        <center>
+            <h3><?php echo mo2f_lt( 'Duo push notification is sent to your mobile phone.' ); ?>
+                <br>
+                <?php echo mo2f_lt( 'We are waiting for your approval...' ); ?></h3>
+            <img src="<?php echo plugins_url( 'includes/images/ajax-loader-login.gif', dirname(dirname(__FILE__)) ); ?>"/>
+        </center>
+
+        <input type="button" name="back" id="go_back" class="mo_wpns_button mo_wpns_button1"
+               value="<?php echo mo2f_lt( 'Back' ); ?>"
+               style="margin-top:100px;margin-left:10px;"/>
+    </div>
+
+    <form name="f" method="post" action="" id="mo2f_go_back_form">
+        <input type="hidden" name="option" value="mo2f_go_back"/>
+        <input type="hidden" name="mo2f_go_back_nonce"
+               value="<?php echo wp_create_nonce( "mo2f-go-back-nonce" ) ?>"/>
+    </form>
+    <form name="f" method="post" id="mo2f_inline_duo_authenticator_success_form" action="">
+        <input type="hidden" name="option" value="mo2f_inline_duo_authenticator_success_form"/>
+        <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
+        <input type="hidden" name="mo2f_duo_authenticator_success_nonce"
+               value="<?php echo wp_create_nonce( "mo2f-duo-authenticator-success-nonce" ) ?>"/>
+    </form>
+    <form name="f" method="post" id="mo2f_duo_authenticator_error_form" action="">
+        <input type="hidden" name="option" value="mo2f_inline_duo_authenticator_error"/>
+        <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
+        <input type="hidden" name="mo2f_inline_duo_authentcator_error_nonce"
+               value="<?php echo wp_create_nonce( "mo2f-inline-duo-authenticator-error-nonce" ) ?>"/>
+    </form>
+
+    <script>
+        jQuery('#go_back').click(function () {
+            jQuery('#mo2f_go_back_form').submit();
+        });
+        jQuery("#mo2f_configurePhone").empty();
+        jQuery("#mo2f_app_div").hide();
+        var timeout;
+
+
+
+            pollMobileValidation();
+            function pollMobileValidation() {
+                var ajax_url = "<?php echo admin_url('admin-ajax.php'); ?>";
+                var nonce = "<?php echo wp_create_nonce( 'miniorange-2-factor-duo-nonce' ); ?>";
+                var session_id_encrypt = "<?php echo $session_id_encrypt; ?>";
+
+                var data={
+                'action':'mo2f_duo_ajax_request',
+                'call_type':'check_duo_push_auth_status',
+                'session_id_encrypt': session_id_encrypt,
+                'nonce': nonce,
+               
+            }; 
+
+            jQuery.post(ajax_url, data, function(response){
+                        
+                        if (response == 'SUCCESS') {
+                            jQuery('#mo2f_inline_duo_authenticator_success_form').submit();
+                        } else if (response == 'ERROR' || response == 'FAILED' || response == 'DENIED') {
+
+                            jQuery('#mo2f_duo_authenticator_error_form').submit();
+                        } else {
+                            timeout = setTimeout(pollMobileValidation, 3000);
+                        }
+                    
+                });
+            
+            }
+
+    </script>
+
     <?php
     }
 function prompt_user_for_kba_setup($current_user_id, $login_status, $login_message,$redirect_to,$session_id){
@@ -1091,7 +1300,7 @@ function prompt_user_for_setup_success($id, $login_status, $login_message,$redir
                         if(get_site_option('mo2f_remember_device')!=1)
                         {
                             $pass2fa= new Miniorange_Password_2Factor_Login();
-                            $pass2fa->mo2fa_pass2login(site_url());
+                            $pass2fa->mo2fa_pass2login(site_url(), $session_id);
                             ?>
                                 <center>
                                 <p style="font-size:17px;"><?php echo __('You have successfully set up ', 'miniorange-2-factor-authentication'); ?><b style="color:#28B463;"><?php echo $mo2f_second_factor; ?> </b><?php echo __('as your Two Factor method.', 'miniorange-2-factor-authentication'); ?><br><br>

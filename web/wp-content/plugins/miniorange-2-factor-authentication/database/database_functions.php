@@ -22,7 +22,7 @@
 			$this->whitelistIPsTable	= $wpdb->base_prefix.'mo2f_network_whitelisted_ips';
 			$this->emailAuditTable		= $wpdb->base_prefix.'mo2f_network_email_sent_audit';
 			$this->IPrateDetails 		= $wpdb->base_prefix.'wpns_ip_rate_details';
-			$this->attackLogs		= $wpdb->base_prefix.'wpns_attack_logs';
+			$this->attackLogs		    = $wpdb->base_prefix.'wpns_attack_logs';
 			$this->malwarereportTable	= $wpdb->base_prefix.'wpns_malware_scan_report';
 			$this->scanreportdetails	= $wpdb->base_prefix.'wpns_malware_scan_report_details';
 			$this->skipfiles			= $wpdb->base_prefix.'wpns_malware_skip_files';
@@ -130,20 +130,7 @@
 				$sql1= "UPDATE $this->malwarereportTable SET `scan_mode`='Custom Scan';";
 				$resluts = $wpdb->query($sql1);
 			}
-			$result= $wpdb->get_var("SHOW COLUMNS FROM `$tableName` LIKE 'repo_key'");
-			if(is_null($result)){
-				$sql = "ALTER TABLE  `$tableName` ADD  `repo_key` mediumtext AFTER  `malicious_links` ;";
-				$results1 = $wpdb->query($sql);
-				$sql1= "UPDATE $this->malwarereportTable SET `repo_key`= NULL;";
-				$resluts = $wpdb->query($sql1);
-			}
-			$result= $wpdb->get_var("SHOW COLUMNS FROM `$tableName` LIKE 'net_connection'");
-			if(is_null($result)){
-				$sql = "ALTER TABLE  `$tableName` ADD  `net_connection` mediumtext AFTER  `repo_key` ;";
-				$results1 = $wpdb->query($sql);
-				$sql1= "UPDATE $this->malwarereportTable SET `net_connection`= 0;";
-				$resluts = $wpdb->query($sql1);
-			}
+			
 
 			$tableName = $this->scanreportdetails;
 			if($wpdb->get_var("show tables like '$tableName'") != $tableName)
@@ -200,6 +187,20 @@
 	        if(empty($rowhash)){
 	        	$result = $wpdb->query("ALTER TABLE $this->hashfile ADD COLUMN `scan_data` mediumtext NOT NULL");
 	        }
+	        $result= $wpdb->get_results("SHOW COLUMNS FROM ".$this->malwarereportTable." LIKE 'repo_key'");
+			if(empty($result)){
+				$sql = "ALTER TABLE  $this->malwarereportTable ADD  `repo_key` mediumtext AFTER  `malicious_links` ;";
+				$results1 = $wpdb->query($sql);
+				$sql1= "UPDATE $this->malwarereportTable SET `repo_key`= NULL;";
+				$resluts = $wpdb->query($sql1);
+			}
+			$result= $wpdb->get_results("SHOW COLUMNS FROM ".$this->malwarereportTable." LIKE 'net_connection'");
+			if(empty($result)){
+				$sql = "ALTER TABLE $this->malwarereportTable ADD  `net_connection` mediumtext AFTER  `repo_key` ;";
+				$results1 = $wpdb->query($sql);
+				$sql1= "UPDATE $this->malwarereportTable SET `net_connection`= 0;";
+				$resluts = $wpdb->query($sql1);
+			}
 		}
 
 	       function insert_backup_detail($backup_id,$file_name,$backup_created_timestamp,$plugin_path){

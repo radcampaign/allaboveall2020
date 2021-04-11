@@ -231,6 +231,15 @@ class MO2f_Utility {
 
 	}
 
+	public static function mo2f_set_transient( $session_id, $key, $value, $expiration = 300 ) {
+		set_transient($session_id.$key, $value, $expiration);
+	}
+
+	public static function mo2f_get_transient( $session_id, $key) {
+		$transient_value = get_transient($session_id.$key);
+		return $transient_value;
+	}
+
 	/**
 	 * The function returns the session variables, and if not, retrieves the cookie values set in case the right permissions are not aassigned for the sessions folder in the server.
 	 *
@@ -667,6 +676,9 @@ class MO2f_Utility {
                                 
         exit;
     }
+
+   
+
 
     public static function mo2f_mail_and_download_codes(){
         global $Mo2fdbQueries;

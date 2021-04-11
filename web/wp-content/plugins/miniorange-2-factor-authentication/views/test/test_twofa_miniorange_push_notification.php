@@ -40,7 +40,7 @@
         pollMobileValidation();
 
         function pollMobileValidation() {
-            var transId = "<?php echo $_SESSION['mo2f_transactionId'];  ?>";
+            var transId = "<?php echo get_user_meta($user->ID, 'mo2f_transactionId', true);  ?>";
             var jsonString = "{\"txId\":\"" + transId + "\"}";
             var postUrl = "<?php echo MO_HOST_NAME;  ?>" + "/moas/api/auth/auth-status";
 

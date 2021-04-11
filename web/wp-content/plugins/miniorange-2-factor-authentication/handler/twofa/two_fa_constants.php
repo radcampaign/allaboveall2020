@@ -261,6 +261,9 @@ class Mo2fConstants {
 			case 'ERROR_DURING_USER_REGISTRATION':
 				Return mo2f_lt( 'Error occurred while registering the user. Please try again.' );
 				break;
+			case 'VALIDATE_DUO':
+			    Return mo2f_lt( 'Duo push notification validate successfully.' );
+				break;
 			case 'SET_AS_2ND_FACTOR':
 				Return mo2f_lt( 'is set as your 2 factor authentication method.' );
 				break;
@@ -393,6 +396,9 @@ class Mo2fConstants {
 			case 'DENIED_REQUEST':
 				Return mo2f_lt( 'You have denied the request.' );
 				break;
+			case 'DENIED_DUO_REQUEST':
+				Return mo2f_lt( 'You have denied the request or you have not set duo push notification yet' );
+				break;	
 			case 'DISABLED_2FA':
 				Return mo2f_lt( 'Two-Factor plugin has been disabled.' );
 				break;

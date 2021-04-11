@@ -25,10 +25,10 @@ class Miniorange_Authentication {
 			add_action( 'init', array( $pass2fa_login, 'miniorange_pass2login_redirect' ) );
 			//for shortcode addon
 			$mo2f_ns_config = new MoWpnsUtility();
-		
+
 			//strong password file
 			$mo2f_strong_password = new class_miniorange_2fa_strong_password();
-		
+
 			if($mo2f_ns_config->hasLoginCookie())
 			{
 				add_action('user_profile_update_errors', array( $mo2f_strong_password, 'validatePassword'), 0, 3 );
@@ -70,17 +70,17 @@ class Miniorange_Authentication {
 					) );
 
 					if(get_site_option('mo2f_woocommerce_login_prompt')){
-					add_action( 'woocommerce_login_form', array(
-						$pass2fa_login,
-						'mo_2_factor_pass2login_show_wp_login_form'
-					) );
-				}
-				else if(!get_site_option('mo2f_woocommerce_login_prompt') && MoWpnsUtility::get_mo2f_db_option('mo2f_enable_2fa_prompt_on_login_page', 'site_option') ) {
-					add_action('woocommerce_login_form_end' ,array(
-						$pass2fa_login,
-						'mo_2_factor_pass2login_woocommerce'
-					) );
-				}
+						add_action( 'woocommerce_login_form', array(
+							$pass2fa_login,
+							'mo_2_factor_pass2login_show_wp_login_form'
+						) );
+					}
+					else if(!get_site_option('mo2f_woocommerce_login_prompt') && MoWpnsUtility::get_mo2f_db_option('mo2f_enable_2fa_prompt_on_login_page', 'site_option') ) {
+						add_action('woocommerce_login_form_end' ,array(
+							$pass2fa_login,
+							'mo_2_factor_pass2login_woocommerce'
+						) );
+					}
 					add_action( 'wp_enqueue_scripts', array(
 						$pass2fa_login,
 						'mo_2_factor_enable_jquery_default_login'
@@ -128,8 +128,8 @@ class Miniorange_Authentication {
 		$userid = wp_get_current_user()->ID;
 		add_option('mo2f_onprem_admin' ,  $userid );
 		if(is_multisite()){
-				add_site_option('mo2fa_superadmin',1);
-			}
+			add_site_option('mo2fa_superadmin',1);
+		}
 		// Deciding on On-Premise solution
 		$is_NC=MoWpnsUtility::get_mo2f_db_option('mo2f_is_NC', 'get_option');
 		$is_NNC=MoWpnsUtility::get_mo2f_db_option('mo2f_is_NNC', 'get_option');
@@ -153,10 +153,10 @@ class Miniorange_Authentication {
 		}
 		if(get_option('mo2f_encryption_key',"not_exits")=="not_exits"){
 			$get_encryption_key = MO2f_Utility::random_str(16);
-		    update_option('mo2f_encryption_key',$get_encryption_key);
-	
+			update_option('mo2f_encryption_key',$get_encryption_key);
+
 		}
-	    global $Mo2fdbQueries;
+		global $Mo2fdbQueries;
 		$user_id = get_option( 'mo2f_miniorange_admin' );
 		$current_db_version = get_option( 'mo2f_dbversion' );
 		
@@ -167,11 +167,11 @@ class Miniorange_Authentication {
 		}
 		if(MO2F_IS_ONPREM){
 			$twofactordb = new Mo2fDB;
-            $userSync = get_site_option('mo2f_user_sync');
-            if($userSync<1){
-              update_site_option('mo2f_user_sync',1);
-              $twofactordb->get_all_onprem_userids();
-            }
+			$userSync = get_site_option('mo2f_user_sync');
+			if($userSync<1){
+				update_site_option('mo2f_user_sync',1);
+				$twofactordb->get_all_onprem_userids();
+			}
 		}
 
 		if ( ! get_option( 'mo2f_existing_user_values_updated' ) ) {
@@ -230,7 +230,7 @@ class Miniorange_Authentication {
 					}
 
 					$mo2f_external_app_type = get_user_meta( $user_id, 'mo2f_external_app_type', true ) == 'AUTHY 2-FACTOR AUTHENTICATION' ?
-						'Authy Authenticator' : 'Google Authenticator';
+					'Authy Authenticator' : 'Google Authenticator';
 
 					update_user_meta( $user_id, 'mo2f_external_app_type', $mo2f_external_app_type );
 
@@ -315,8 +315,8 @@ class Miniorange_Authentication {
 		if ( $selected_2_Factor_method == 'NONE' ) {
 			if ( MoWpnsUtility::get_mo2f_db_option('mo2f_enable_2fa_for_users', 'get_option') || ( current_user_can( 'manage_options' ) && get_option( 'mo2f_miniorange_admin' ) == $user->ID ) ) {
 				echo '<div class="is-dismissible notice notice-warning"><p><b>' . mo2f_lt( "miniOrange 2-Factor Plugin: " ) . '</b>' . mo2f_lt( 'You have not configured your 2-factor authentication method yet.' ) .
-				     '<a href="admin.php?page=mo_2fa_two_fa">' . mo2f_lt( ' Click here' ) . '</a>' . mo2f_lt( ' to set it up.' ) .
-				     '<button type="button" class="notice-dismiss"><span class="screen-reader-text">' . mo2f_lt( 'Dismiss this notice.' ) . '</span></button></div>';
+				'<a href="admin.php?page=mo_2fa_two_fa">' . mo2f_lt( ' Click here' ) . '</a>' . mo2f_lt( ' to set it up.' ) .
+				'<button type="button" class="notice-dismiss"><span class="screen-reader-text">' . mo2f_lt( 'Dismiss this notice.' ) . '</span></button></div>';
 			}
 		}
 	}
@@ -324,24 +324,24 @@ class Miniorange_Authentication {
 
 	function mo_auth_success_message() {
 		$message = get_option( 'mo2f_message' ); ?>
-        <script>
-            jQuery(document).ready(function () {
-                var message = "<?php echo $message; ?>";
-                jQuery('#messages').append("<div  style='padding:5px;'><div class='error notice is-dismissible mo2f_error_container' style='position: fixed;left: 60.4%;top: 6%;width: 37%;z-index: 99999;background-color: bisque;font-weight: bold;'> <p class='mo2f_msgs'>" + message + "</p></div></div>");
-            });
-        </script>
+		<script>
+			jQuery(document).ready(function () {
+				var message = "<?php echo $message; ?>";
+				jQuery('#messages').append("<div  style='padding:5px;'><div class='error notice is-dismissible mo2f_error_container' style='position: fixed;left: 60.4%;top: 6%;width: 37%;z-index: 99999;background-color: bisque;font-weight: bold;'> <p class='mo2f_msgs'>" + message + "</p></div></div>");
+			});
+		</script>
 		<?php
 	}
 
 	function mo_auth_error_message() {
 		$message = get_option( 'mo2f_message' ); ?>
 
-        <script>
-            jQuery(document).ready(function () {
-                var message = "<?php echo $message; ?>";
-                jQuery('#messages').append("<div  style='padding:5px;'><div class='updated notice is-dismissible mo2f_success_container' style='position: fixed;left: 60.4%;top: 6%;width: 37%;z-index: 9999;background-color: #bcffb4;font-weight: bold;'> <p class='mo2f_msgs'>" + message + "</p></div></div>");
-            });
-        </script>
+		<script>
+			jQuery(document).ready(function () {
+				var message = "<?php echo $message; ?>";
+				jQuery('#messages').append("<div  style='padding:5px;'><div class='updated notice is-dismissible mo2f_success_container' style='position: fixed;left: 60.4%;top: 6%;width: 37%;z-index: 9999;background-color: #bcffb4;font-weight: bold;'> <p class='mo2f_msgs'>" + message + "</p></div></div>");
+			});
+		</script>
 		<?php
 
 	}
@@ -357,7 +357,7 @@ class Miniorange_Authentication {
 		$is_2fa_enabled_for_users        = MoWpnsUtility::get_mo2f_db_option('mo2f_enable_2fa_for_users', 'get_option');
 		$can_current_user_manage_options = current_user_can( 'manage_options' );
 		$admin_registration_status       = get_option( 'mo_2factor_admin_registration_status' ) == 'MO_2_FACTOR_CUSTOMER_REGISTERED_SUCCESS'
-			? true : false;
+		? true : false;
 
 		if(MO2F_IS_ONPREM)
 		{
@@ -378,9 +378,9 @@ class Miniorange_Authentication {
 	function hookpages() {
 		$url = explode('handler',plugin_dir_url(__FILE__));
 		if(get_site_option('mo2f_enable_custom_icon')!=1)
-				$iconurl = $url[0] . '/includes/images/miniorange_icon.png';
-			else
-				$iconurl = site_url(). '/wp-content/uploads/miniorange/plugin_icon.png';
+			$iconurl = $url[0] . '/includes/images/miniorange_icon.png';
+		else
+			$iconurl = site_url(). '/wp-content/uploads/miniorange/plugin_icon.png';
 		$menu_slug = 'miniOrange_2_factor_settings';
 		add_menu_page( 'miniOrange 2 Factor Auth', MoWpnsUtility::get_mo2f_db_option('mo2f_custom_plugin_name', 'get_option'), 'read', $menu_slug, array($this,'mo_auth_login_options'), $iconurl );			
 	}
@@ -393,7 +393,7 @@ class Miniorange_Authentication {
 	}
 
 	function mo_2_factor_enable_frontend_style() {
-       wp_enqueue_style( 'mo2f_frontend_login_style', plugins_url( 'includes/css/front_end_login.css?version='.MO2F_VERSION.'', __FILE__ ) );
+		wp_enqueue_style( 'mo2f_frontend_login_style', plugins_url( 'includes/css/front_end_login.css?version='.MO2F_VERSION.'', __FILE__ ) );
 		wp_enqueue_style( 'bootstrap_style', plugins_url( 'includes/css/bootstrap.min.css?version='.MO2F_VERSION.'', __FILE__ ) );
 		wp_enqueue_style( 'mo_2_factor_admin_settings_phone_style', plugins_url( 'includes/css/phone.css?version='.MO2F_VERSION.'', __FILE__ ) );
 		wp_enqueue_style( 'mo_2_factor_wpb-fa', plugins_url( 'includes/css/font-awesome.min.css', __FILE__ ) );
@@ -434,7 +434,7 @@ class Miniorange_Authentication {
 		}
 		if ( array_key_exists( 'page', $_REQUEST ) && $_REQUEST['page'] == 'mo_2fa_two_fa' ) {
 			if ( ! session_id() || session_id() == '' || ! isset( $_SESSION ) ) {
-				 session_start();
+				session_start();
 			}
 		}
 
@@ -476,24 +476,24 @@ class Miniorange_Authentication {
 				}
 			}else if(isset($_POST['option']) and $_POST['option'] == 'mo2f_skiplogin'){
 				$nonce = $_POST['mo2f_skiplogin_nonce'];
-			    if ( ! wp_verify_nonce( $nonce, 'miniorange-2-factor-skiplogin-failed-nonce' ) ) {
+				if ( ! wp_verify_nonce( $nonce, 'miniorange-2-factor-skiplogin-failed-nonce' ) ) {
 					$error = new WP_Error();
 					$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
 					return $error;
 				} else {
-				    update_option('mo2f_tour_started',2);
+					update_option('mo2f_tour_started',2);
 				}
 			}else if(isset($_POST['option']) and $_POST['option'] == 'mo2f_userlogout'){
-			    $nonce = $_POST['mo2f_userlogout_nonce'];
-			    if ( ! wp_verify_nonce( $nonce, 'miniorange-2-factor-userlogout-failed-nonce' ) ) {
+				$nonce = $_POST['mo2f_userlogout_nonce'];
+				if ( ! wp_verify_nonce( $nonce, 'miniorange-2-factor-userlogout-failed-nonce' ) ) {
 					$error = new WP_Error();
 					$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
 					return $error;
 				} else {
-				    update_option('mo2f_tour_started',2);
-				    wp_logout();
-				    wp_redirect(admin_url());
-			    }
+					update_option('mo2f_tour_started',2);
+					wp_logout();
+					wp_redirect(admin_url());
+				}
 			}else if(isset($_POST['option']) and $_POST['option'] == 'restart_plugin_tour'){
 				$nonce = $_POST['_wpnonce'];
 				if ( ! wp_verify_nonce( $nonce, 'restart_plugin_tour' ) ) {
@@ -501,44 +501,44 @@ class Miniorange_Authentication {
 					$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
 					return $error;
 				} else {
-				$page = isset($_POST['page'])? $_POST['page'] : '';
-				$page = sanitize_text_field($page);
-				update_option('mo2f_two_factor_tour',0);
-				update_option('mo2f_tour_firewall',0);
-				update_option('mo2f_tour_loginSpam',0);
-		    	update_option('mo2f_tour_backup',0);
-				update_option('mo2f_tour_malware_scan',0);
-				update_option('mo2f_tour_advance_blocking',0);
-				switch ($_REQUEST['page']) {
-					case 'mo_2fa_two_fa':
+					$page = isset($_POST['page'])? $_POST['page'] : '';
+					$page = sanitize_text_field($page);
+					update_option('mo2f_two_factor_tour',0);
+					update_option('mo2f_tour_firewall',0);
+					update_option('mo2f_tour_loginSpam',0);
+					update_option('mo2f_tour_backup',0);
+					update_option('mo2f_tour_malware_scan',0);
+					update_option('mo2f_tour_advance_blocking',0);
+					switch ($_REQUEST['page']) {
+						case 'mo_2fa_two_fa':
 						update_option('mo2f_two_factor_tour',1);
 						break;
-					case 'mo_2fa_waf':
+						case 'mo_2fa_waf':
 						update_option('mo2f_tour_firewall',1);
 						break;
-					case 'mo_2fa_login_and_spam':
+						case 'mo_2fa_login_and_spam':
 						update_option('mo2f_tour_loginSpam',1);
 						break;
-					case 'mo_2fa_backup':
+						case 'mo_2fa_backup':
 						update_option('mo2f_tour_backup',1);
 						break;
-					case 'mo_2fa_malwarescan':
+						case 'mo_2fa_malwarescan':
 						update_option('mo2f_tour_malware_scan',1);
 						break;
-					case 'mo_2fa_advancedblocking':
+						case 'mo_2fa_advancedblocking':
 						update_option('mo2f_tour_advance_blocking',1);
 						break;
+					}
+					if($page != '')
+					{
+						$url = get_option('siteurl').'/wp-admin/admin.php?page='.$page;
+						wp_redirect($url);
+						exit;
+					}
+					$redirect=explode('&',htmlentities($_SERVER['REQUEST_URI']))[0];
+					header("Location: ".$redirect);
+					return;    
 				}
-				if($page != '')
-				{
-					$url = get_option('siteurl').'/wp-admin/admin.php?page='.$page;
-					wp_redirect($url);
-					exit;
-				}
-                $redirect=explode('&',htmlentities($_SERVER['REQUEST_URI']))[0];
-                header("Location: ".$redirect);
-                return;    
-            	}
 			}else if ( isset( $_POST['option'] ) and $_POST['option'] == "mo2f_save_proxy_settings" ) {
 				$nonce = $_POST['mo2f_save_proxy_settings_nonce'];
 				if ( ! wp_verify_nonce( $nonce, 'mo2f-save-proxy-settings-nonce' ) ) {
@@ -672,21 +672,21 @@ class Miniorange_Authentication {
 				}
 			}else if ( isset( $_POST['option'] ) and $_POST['option'] == "mo_auth_verify_customer" ) {    //register the admin to miniOrange if already exist
 
-			$nonce = $_POST['miniorange_verify_customer_nonce'];
-			
+				$nonce = $_POST['miniorange_verify_customer_nonce'];
+
 				if ( ! wp_verify_nonce( $nonce, 'miniorange-verify-customer-nonce' ) ) {
 					$error = new WP_Error();
 					$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
 
 					return $error;
 				} else {
-			
+
 					//validation and sanitization
 					$email    = '';
 					$password = '';
 					$Mo2fdbQueries->insert_user( $user_id, array( 'user_id' => $user_id ) );
 
-			
+
 					if ( MO2f_Utility::mo2f_check_empty_or_null( $_POST['email'] ) || MO2f_Utility::mo2f_check_empty_or_null( $_POST['password'] ) ) {
 						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "INVALID_ENTRY" ) );
 						$this->mo_auth_show_error_message();
@@ -702,7 +702,7 @@ class Miniorange_Authentication {
 					$customer    = new Customer_Setup();
 					$content     = $customer->get_customer_key();
 					$customerKey = json_decode( $content, true );
-				
+
 					if ( json_last_error() == JSON_ERROR_NONE ) {
 						if ( is_array( $customerKey ) && array_key_exists( "status", $customerKey ) && $customerKey['status'] == 'ERROR' ) {
 							update_option( 'mo2f_message', Mo2fConstants::langTranslate( $customerKey['message'] ) );
@@ -773,7 +773,7 @@ class Miniorange_Authentication {
 								$mo2f_message .= ' ' . '<a href=\"admin.php?page=mo_2fa_two_fa\" >' . Mo2fConstants:: langTranslate( "CLICK_HERE" ) . '</a> ' . Mo2fConstants:: langTranslate( "CONFIGURE_2FA" );
 
 								delete_user_meta( $user->ID, 'register_account_popup' );
-	
+
 								$mo2f_customer_selected_plan = get_option( 'mo2f_customer_selected_plan' );
 								if ( ! empty( $mo2f_customer_selected_plan ) ) {
 									delete_option( 'mo2f_customer_selected_plan' );
@@ -833,9 +833,9 @@ class Miniorange_Authentication {
 				}
 
 			}else if  ( isset( $_POST['option'] ) and $_POST['option'] == "mo_2factor_resend_otp" ) { //resend OTP over email for admin
-			
+
 				$nonce = $_POST['mo_2factor_resend_otp_nonce'];
-			
+
 				if ( ! wp_verify_nonce( $nonce, 'mo-2factor-resend-otp-nonce' ) ) {
 					$error = new WP_Error();
 					$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -869,8 +869,8 @@ class Miniorange_Authentication {
 				update_option( 'mo2f_bug_fix_done', 1 );
 			}else if  ( isset( $_POST['option'] ) and $_POST['option'] == "mo_2factor_validate_otp" ) { //validate OTP over email for admin
 
-					$nonce = $_POST['mo_2factor_validate_otp_nonce'];
-			
+				$nonce = $_POST['mo_2factor_validate_otp_nonce'];
+
 				if ( ! wp_verify_nonce( $nonce, 'mo-2factor-validate-otp-nonce' ) ) {
 					$error = new WP_Error();
 					$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -915,7 +915,7 @@ class Miniorange_Authentication {
 
 				//validation and sanitization
 				$nonce = $_POST['mo_2factor_validate_user_otp_nonce'];
-			
+
 				if ( ! wp_verify_nonce( $nonce, 'mo-2factor-validate-user-otp-nonce' ) ) {
 					$error = new WP_Error();
 					$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -956,14 +956,14 @@ class Miniorange_Authentication {
 				}
 			}else if  ( isset( $_POST['option'] ) and $_POST['option'] == "mo_2factor_send_query" ) { //Help me or support
 				$nonce = $_POST['mo_2factor_send_query_nonce'];
-			
+
 				if ( ! wp_verify_nonce( $nonce, 'mo-2factor-send-query-nonce' ) ) {
 					$error = new WP_Error();
 					$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
 
 					return $error;
 				} else {
-				
+
 					$query = '';
 					if ( MO2f_Utility::mo2f_check_empty_or_null( $_POST['EMAIL_MANDATORY'] ) || MO2f_Utility::mo2f_check_empty_or_null( $_POST['query'] ) ) {
 						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "EMAIL_MANDATORY" ) );
@@ -1079,40 +1079,40 @@ class Miniorange_Authentication {
 		if ( isset( $_POST['option'] ) and $_POST['option'] == 'mo2f_fix_database_error' ) {
 			$nonce = $_POST['mo2f_fix_database_error_nonce'];
 			
-				if ( ! wp_verify_nonce( $nonce, 'mo2f-fix-database-error-nonce' ) ) {
-					$error = new WP_Error();
-					$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+			if ( ! wp_verify_nonce( $nonce, 'mo2f-fix-database-error-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
 
-					return $error;
-				} else {
-					global $Mo2fdbQueries;
+				return $error;
+			} else {
+				global $Mo2fdbQueries;
 
-					$Mo2fdbQueries->database_table_issue();
+				$Mo2fdbQueries->database_table_issue();
 
-				}
-        }else if ( isset( $_POST['option'] ) and $_POST['option'] == 'mo2f_skip_feedback' ) {
+			}
+		}else if ( isset( $_POST['option'] ) and $_POST['option'] == 'mo2f_skip_feedback' ) {
 
 			$nonce = $_POST['mo2f_skip_feedback_nonce'];
 			
-				if ( ! wp_verify_nonce( $nonce, 'mo2f-skip-feedback-nonce' ) ) {
-					$error = new WP_Error();
-					$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+			if ( ! wp_verify_nonce( $nonce, 'mo2f-skip-feedback-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
 
-					return $error;
-				} else {
-					deactivate_plugins( '/miniorange-2-factor-authentication/miniorange_2_factor_settings.php' );
-				}
+				return $error;
+			} else {
+				deactivate_plugins( '/miniorange-2-factor-authentication/miniorange_2_factor_settings.php' );
+			}
 
 		}else if ( isset( $_POST['mo2f_feedback'] ) and $_POST['mo2f_feedback'] == 'mo2f_feedback' ) {
 			
 			$nonce = $_POST['mo2f_feedback_nonce'];
 			
-				if ( ! wp_verify_nonce( $nonce, 'mo2f-feedback-nonce' ) ) {
-					$error = new WP_Error();
-					$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+			if ( ! wp_verify_nonce( $nonce, 'mo2f-feedback-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
 
-					return $error;
-				} else {
+				return $error;
+			} else {
 				$reasons_not_to_worry_about = array( "Upgrading to Standard / Premium", "Temporary deactivation - Testing" );
 
 				$message = 'Plugin Deactivated:';
@@ -1179,114 +1179,114 @@ class Miniorange_Authentication {
 			
 			$nonce = $_POST['mo_2factor_resend_user_otp_nonce'];
 			
-				if ( ! wp_verify_nonce( $nonce, 'mo-2factor-resend-user-otp-nonce' ) ) {
-					$error = new WP_Error();
-					$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+			if ( ! wp_verify_nonce( $nonce, 'mo-2factor-resend-user-otp-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
 
-					return $error;
+				return $error;
+			} else {
+				$customer = new Customer_Setup();
+				$content  = json_decode( $customer->send_otp_token( get_user_meta( $user->ID, 'user_email', true ), 'EMAIL', get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ) ), true );
+				if ( strcasecmp( $content['status'], 'SUCCESS' ) == 0 ) {
+					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "OTP_SENT" ) . ' <b>' . ( get_user_meta( $user->ID, 'user_email', true ) ) . '</b>. ' . Mo2fConstants:: langTranslate( "ENTER_OTP" ) );
+					update_user_meta( $user->ID, 'mo_2fa_verify_otp_create_account', $content['txId'] );
+					$mo_2factor_user_registration_status = 'MO_2_FACTOR_OTP_DELIVERED_SUCCESS';
+					$Mo2fdbQueries->update_user_details( $user->ID, array( 'mo_2factor_user_registration_status' => $mo_2factor_user_registration_status ) );
+					$this->mo_auth_show_success_message();
 				} else {
-					$customer = new Customer_Setup();
-					$content  = json_decode( $customer->send_otp_token( get_user_meta( $user->ID, 'user_email', true ), 'EMAIL', get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ) ), true );
-					if ( strcasecmp( $content['status'], 'SUCCESS' ) == 0 ) {
-						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "OTP_SENT" ) . ' <b>' . ( get_user_meta( $user->ID, 'user_email', true ) ) . '</b>. ' . Mo2fConstants:: langTranslate( "ENTER_OTP" ) );
-						update_user_meta( $user->ID, 'mo_2fa_verify_otp_create_account', $content['txId'] );
-						$mo_2factor_user_registration_status = 'MO_2_FACTOR_OTP_DELIVERED_SUCCESS';
-						$Mo2fdbQueries->update_user_details( $user->ID, array( 'mo_2factor_user_registration_status' => $mo_2factor_user_registration_status ) );
-						$this->mo_auth_show_success_message();
-					} else {
-						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_IN_SENDING_EMAIL" ) );
-						$mo_2factor_user_registration_status = 'MO_2_FACTOR_OTP_DELIVERED_FAILURE';
-						$Mo2fdbQueries->update_user_details( $user->ID, array( 'mo_2factor_user_registration_status' => $mo_2factor_user_registration_status ) );
-						$this->mo_auth_show_error_message();
+					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_IN_SENDING_EMAIL" ) );
+					$mo_2factor_user_registration_status = 'MO_2_FACTOR_OTP_DELIVERED_FAILURE';
+					$Mo2fdbQueries->update_user_details( $user->ID, array( 'mo_2factor_user_registration_status' => $mo_2factor_user_registration_status ) );
+					$this->mo_auth_show_error_message();
 
-					}
 				}
+			}
 
 		}else if  ( isset( $_POST['option'] ) and ( $_POST['option'] == "mo2f_configure_miniorange_authenticator_validate" || $_POST['option'] == 'mo_auth_mobile_reconfiguration_complete' ) ) { //mobile registration successfully complete for all users
 
 			$nonce = $_POST['mo2f_configure_miniorange_authenticator_validate_nonce'];
 			
-				if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-miniorange-authenticator-validate-nonce' ) ) {
-					$error = new WP_Error();
-					$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-miniorange-authenticator-validate-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
 
-					return $error;
-				} else {
-					delete_option( 'mo2f_transactionId' );
-					$session_variables = array( 'mo2f_qrCode', 'mo2f_transactionId', 'mo2f_show_qr_code' );
-					MO2f_Utility::unset_session_variables( $session_variables );
+				return $error;
+			} else {
+				delete_option( 'mo2f_transactionId' );
+				$session_variables = array( 'mo2f_qrCode', 'mo2f_transactionId', 'mo2f_show_qr_code' );
+				MO2f_Utility::unset_session_variables( $session_variables );
 
-					$email                     = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
-					$TwoFA_method_to_configure = get_user_meta( $user->ID, 'mo2f_2FA_method_to_configure', true );
-					$enduser                   = new Two_Factor_Setup();
-					$current_method            = MO2f_Utility::mo2f_decode_2_factor( $TwoFA_method_to_configure, "server" );
+				$email                     = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
+				$TwoFA_method_to_configure = get_user_meta( $user->ID, 'mo2f_2FA_method_to_configure', true );
+				$enduser                   = new Two_Factor_Setup();
+				$current_method            = MO2f_Utility::mo2f_decode_2_factor( $TwoFA_method_to_configure, "server" );
 
-					$response = json_decode( $enduser->mo2f_update_userinfo( $email, $current_method, null, null, null ), true );
+				$response = json_decode( $enduser->mo2f_update_userinfo( $email, $current_method, null, null, null ), true );
 
-					if ( json_last_error() == JSON_ERROR_NONE ) { /* Generate Qr code */
-						if ( $response['status'] == 'ERROR' ) {
-							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( $response['message'] ) );
+				if ( json_last_error() == JSON_ERROR_NONE ) { /* Generate Qr code */
+					if ( $response['status'] == 'ERROR' ) {
+						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( $response['message'] ) );
 
-							$this->mo_auth_show_error_message();
-
-
-						} else if ( $response['status'] == 'SUCCESS' ) {
-
-							$selectedMethod = $TwoFA_method_to_configure;
-
-							delete_user_meta( $user->ID, 'mo2f_2FA_method_to_configure' );
+						$this->mo_auth_show_error_message();
 
 
-							$Mo2fdbQueries->update_user_details( $user->ID, array(
-								'mo2f_configured_2FA_method'                        => $selectedMethod,
-								'mobile_registration_status'                        => true,
-								'mo2f_miniOrangeQRCodeAuthentication_config_status' => true,
-								'mo2f_miniOrangeSoftToken_config_status'            => true,
-								'mo2f_miniOrangePushNotification_config_status'     => true,
-								'user_registration_with_miniorange'                 => 'SUCCESS',
-								'mo_2factor_user_registration_status'               => 'MO_2_FACTOR_PLUGIN_SETTINGS'
-							) );
+					} else if ( $response['status'] == 'SUCCESS' ) {
 
-							delete_user_meta( $user->ID, 'configure_2FA' );
+						$selectedMethod = $TwoFA_method_to_configure;
+
+						delete_user_meta( $user->ID, 'mo2f_2FA_method_to_configure' );
+
+
+						$Mo2fdbQueries->update_user_details( $user->ID, array(
+							'mo2f_configured_2FA_method'                        => $selectedMethod,
+							'mobile_registration_status'                        => true,
+							'mo2f_miniOrangeQRCodeAuthentication_config_status' => true,
+							'mo2f_miniOrangeSoftToken_config_status'            => true,
+							'mo2f_miniOrangePushNotification_config_status'     => true,
+							'user_registration_with_miniorange'                 => 'SUCCESS',
+							'mo_2factor_user_registration_status'               => 'MO_2_FACTOR_PLUGIN_SETTINGS'
+						) );
+
+						delete_user_meta( $user->ID, 'configure_2FA' );
 							//update_user_meta( $user->ID, 'currentMethod' , $selectedMethod);
-							mo2f_display_test_2fa_notification($user);
-
-						} else {
-							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_DURING_PROCESS" ) );
-							$this->mo_auth_show_error_message();
-						}
+						mo2f_display_test_2fa_notification($user);
 
 					} else {
-						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "INVALID_REQ" ) );
+						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_DURING_PROCESS" ) );
 						$this->mo_auth_show_error_message();
 					}
+
+				} else {
+					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "INVALID_REQ" ) );
+					$this->mo_auth_show_error_message();
 				}
+			}
 		}else if  ( isset( $_POST['option'] ) and $_POST['option'] == 'mo2f_mobile_authenticate_success' ) { // mobile registration for all users(common)
 
 			$nonce = $_POST['mo2f_mobile_authenticate_success_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-mobile-authenticate-success-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
 
 				return $error;
 			} else {
-		
+
 				if ( current_user_can( 'manage_options' ) ) {
-						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "COMPLETED_TEST" ) );
-					} else {
-						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "COMPLETED_TEST" ) );
-					}
+					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "COMPLETED_TEST" ) );
+				} else {
+					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "COMPLETED_TEST" ) );
+				}
 
-					$session_variables = array( 'mo2f_qrCode', 'mo2f_transactionId', 'mo2f_show_qr_code' );
-					MO2f_Utility::unset_session_variables( $session_variables );
+				$session_variables = array( 'mo2f_qrCode', 'mo2f_transactionId', 'mo2f_show_qr_code' );
+				MO2f_Utility::unset_session_variables( $session_variables );
 
-					delete_user_meta( $user->ID, 'test_2FA' );
-					$this->mo_auth_show_success_message();
+				delete_user_meta( $user->ID, 'test_2FA' );
+				$this->mo_auth_show_success_message();
 			}
 		}else if  ( isset( $_POST['option'] ) and $_POST['option'] == 'mo2f_mobile_authenticate_error' ) { //mobile registration failed for all users(common)
 			$nonce = $_POST['mo2f_mobile_authenticate_error_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-mobile-authenticate-error-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -1306,14 +1306,14 @@ class Miniorange_Authentication {
 		}else if  ( isset( $_POST['option'] ) and $_POST['option'] == "mo_auth_refresh_mobile_qrcode" ) { // refrsh Qrcode for all users
 			
 			$nonce = $_POST['mo_auth_refresh_mobile_qrcode_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo-auth-refresh-mobile-qrcode-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
 
 				return $error;
 			} else {
-
+				$session_id = sanitize_text_field($_POST['mo2f_session_id']);
 				$twofactor_transactions = new Mo2fDB;
 				$exceeded = $twofactor_transactions->check_alluser_limit_exceeded($user_id);
 
@@ -1330,7 +1330,7 @@ class Miniorange_Authentication {
 					'MO_2_FACTOR_PLUGIN_SETTINGS'
 				) ) ) {
 					$email = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
-					$this->mo2f_get_qr_code_for_mobile( $email, $user->ID );
+					$this->mo2f_get_qr_code_for_mobile( $email, $user->ID, $session_id );
 
 				} else {
 					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "REGISTER_WITH_MO" ) );
@@ -1410,7 +1410,7 @@ class Miniorange_Authentication {
 			}
 		}else if  ( isset( $_POST['option'] ) and $_POST['option'] == 'mo_2factor_backto_user_registration' ) { //back to registration page for additional admin and non-admin
 			$nonce = $_POST['mo_2factor_backto_user_registration_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo-2factor-backto-user-registration-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -1426,8 +1426,8 @@ class Miniorange_Authentication {
 		}else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_validate_soft_token' ) {  // validate Soft Token during test for all users
 			
 			$nonce = $_POST['mo2f_validate_soft_token_nonce'];
-				
-		
+
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-validate-soft-token-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -1468,7 +1468,7 @@ class Miniorange_Authentication {
 		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_validate_otp_over_Whatsapp' ) { //validate otp over Telegram
 			
 			$nonce = $_POST['mo2f_validate_otp_over_Whatsapp_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-validate-otp-over-Whatsapp-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -1478,7 +1478,7 @@ class Miniorange_Authentication {
 				
 				$otp 			= sanitize_text_field($_POST['otp_token']);
 				$otpToken 		= get_user_meta($user->ID,'mo2f_otp_token_wa',true);
-	
+
 				$time  			= get_user_meta($user->ID,'mo2f_whatsapp_time',true);
 				$accepted_time	= time()-600;
 				$time 			= (int)$time;
@@ -1505,14 +1505,14 @@ class Miniorange_Authentication {
 				{
 					update_option( 'mo2f_message', 'Wrong OTP Please try again.' );
 					$this->mo_auth_show_error_message();
-			
+
 				}
 			}
 		}
 		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_validate_otp_over_Telegram' ) { //validate otp over Telegram
 			
 			$nonce = $_POST['mo2f_validate_otp_over_Telegram_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-validate-otp-over-Telegram-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -1522,7 +1522,7 @@ class Miniorange_Authentication {
 				
 				$otp 			= sanitize_text_field($_POST['otp_token']);
 				$otpToken 		= get_user_meta($user->ID,'mo2f_otp_token',true);
-	
+
 				$time  			= get_user_meta($user->ID,'mo2f_telegram_time',true);
 				$accepted_time	= time()-300;
 				$time 			= (int)$time;
@@ -1549,14 +1549,14 @@ class Miniorange_Authentication {
 				{
 					update_option( 'mo2f_message', 'Wrong OTP Please try again.' );
 					$this->mo_auth_show_error_message();
-			
+
 				}
 			}
 		}
 		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_validate_otp_over_sms' ) { //validate otp over sms and phone call during test for all users
 			
 			$nonce = $_POST['mo2f_validate_otp_over_sms_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-validate-otp-over-sms-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -1572,11 +1572,9 @@ class Miniorange_Authentication {
 				} else {
 					$otp_token = sanitize_text_field( $_POST['otp_token'] );
 				}
-
-				//if the php session folder has insufficient permissions, temporary options to be used
-				$mo2f_transactionId        = isset( $_SESSION['mo2f_transactionId'] ) && ! empty( $_SESSION['mo2f_transactionId'] ) ? $_SESSION['mo2f_transactionId'] : get_option( 'mo2f_transactionId' );
+				$mo2f_transactionId 	   = get_user_meta($user->ID, 'mo2f_transactionId', true);
 				$email                     = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
-				 $selected_2_2factor_method = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user->ID );
+				$selected_2_2factor_method = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user->ID );
 				$customer                  = new Customer_Setup();
 				$content                   = json_decode( $customer->validate_otp_token($selected_2_2factor_method , $email, $mo2f_transactionId, $otp_token, get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ) ), true );
 
@@ -1603,7 +1601,7 @@ class Miniorange_Authentication {
 			}
 		}else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_out_of_band_success' ) {
 			$nonce = $_POST['mo2f_out_of_band_success_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-out-of-band-success-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -1619,10 +1617,10 @@ class Miniorange_Authentication {
 					{
 						if($status != 1)
 						{
-								update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "INVALID_EMAIL_VER_REQ" ));
-								$show = 0;
-								$this->mo_auth_show_error_message();
-								
+							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "INVALID_EMAIL_VER_REQ" ));
+							$show = 0;
+							$this->mo_auth_show_error_message();
+
 						}
 					}
 				}
@@ -1649,13 +1647,13 @@ class Miniorange_Authentication {
 					'mo2f_EmailVerification_config_status' => true
 				) );
 				if($show)
-				$this->mo_auth_show_success_message();
+					$this->mo_auth_show_success_message();
 			}
 
 
 		}else if  ( isset( $_POST['option'] ) and $_POST['option'] == 'mo2f_out_of_band_error' ) { //push and out of band email denied
-		$nonce = $_POST['mo2f_out_of_band_error_nonce'];
-		
+			$nonce = $_POST['mo2f_out_of_band_error_nonce'];
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-out-of-band-error-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -1671,10 +1669,51 @@ class Miniorange_Authentication {
 				$this->mo_auth_show_error_message();
 			}
 
-		}else if  ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_validate_google_authy_test' ) {
+		}else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_duo_authenticator_success_form' ) {
+			$nonce = $_POST['mo2f_duo_authenticator_success_nonce'];
+		
+			if ( ! wp_verify_nonce( $nonce, 'mo2f-duo-authenticator-success-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+
+				return $error;
+			}else{
+
+				update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "COMPLETED_TEST" ) );
+				
+				delete_user_meta( $user->ID, 'test_2FA' );
+				$Mo2fdbQueries->update_user_details( $user->ID, array(
+					'mo_2factor_user_registration_status'  => 'MO_2_FACTOR_PLUGIN_SETTINGS',
+					'mo2f_DuoAuthenticator_config_status' => true
+				) );
+				
+				$this->mo_auth_show_success_message();
+
+			}	
+		}else if  ( isset( $_POST['option'] ) and $_POST['option'] == 'mo2f_duo_authenticator_error' ) { //push and out of band email denied
+ 		$nonce = $_POST['mo2f_duo_authentcator_error_nonce'];
+		   
+			if ( ! wp_verify_nonce( $nonce, 'mo2f-duo-authenticator-error-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+
+				return $error;
+			} else {
+				global 	$Mo2fdbQueries;
+				
+				update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "DENIED_DUO_REQUEST" ) );
+				delete_user_meta( $user->ID, 'test_2FA' );
+				$Mo2fdbQueries->update_user_details( $user->ID, array(
+									'mobile_registration_status' =>false,
+							     ) );	
+				$this->mo_auth_show_error_message();
+			}
+
+		}
+		else if  ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_validate_google_authy_test' ) {
 			
 			$nonce = sanitize_text_field($_POST['mo2f_validate_google_authy_test_nonce']);
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-validate-google-authy-test-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -1692,9 +1731,9 @@ class Miniorange_Authentication {
 				}
 				$email    = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
 
-					$customer = new Customer_Setup();
-					$content  = json_decode( $customer->validate_otp_token( 'GOOGLE AUTHENTICATOR', $email, null, $otp_token, get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ) ), true );
-					if ( json_last_error() == JSON_ERROR_NONE ) {
+				$customer = new Customer_Setup();
+				$content  = json_decode( $customer->validate_otp_token( 'GOOGLE AUTHENTICATOR', $email, null, $otp_token, get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ) ), true );
+				if ( json_last_error() == JSON_ERROR_NONE ) {
 
 					if ( strcasecmp( $content['status'], 'SUCCESS' ) == 0 ) { //Google OTP validated
 
@@ -1717,11 +1756,11 @@ class Miniorange_Authentication {
 					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_WHILE_VALIDATING_OTP" ) );
 					$this->mo_auth_show_error_message();
 
-					}
+				}
 			}
 		}else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_validate_otp_over_email' ) {
 			$nonce = $_POST['mo2f_validate_otp_over_email_test_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-validate-otp-over-email-test-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -1739,16 +1778,18 @@ class Miniorange_Authentication {
 				}
 				$email    = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
 
-					$customer = new Customer_Setup();
-					$content  = json_decode( $customer->validate_otp_token( 'OTP_OVER_EMAIL', $email, $_SESSION['mo2f_transactionId'], $otp_token, get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ) ), true );
-					if ( json_last_error() == JSON_ERROR_NONE ) {
+				$customer = new Customer_Setup();
+
+				$mo2f_transactionId = get_user_meta($user->ID, 'mo2f_transactionId', true);
+				$content  = json_decode( $customer->validate_otp_token( 'OTP_OVER_EMAIL', $email, $mo2f_transactionId, $otp_token, get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ) ), true );
+				if ( json_last_error() == JSON_ERROR_NONE ) {
 
 					if ( strcasecmp( $content['status'], 'SUCCESS' ) == 0 ) { //Google OTP validated
 
 						if ( current_user_can( 'manage_options' ) ) {
 							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "COMPLETED_TEST" ) );
 							delete_user_meta( $user->ID, 'configure_2FA');
-							$Mo2fdbQueries->update_user_details( $user->ID, array( 'mo2f_configured_2FA_method' => 'OTP Over Email' ) );
+							$Mo2fdbQueries->update_user_details( $user->ID, array( 'mo2f_configured_2FA_method' => 'OTP Over Email','mo2f_OTPOverEmail_config_status'=>true ) );
 						} else {
 							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "COMPLETED_TEST" ) );
 						}
@@ -1766,11 +1807,11 @@ class Miniorange_Authentication {
 					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_WHILE_VALIDATING_OTP" ) );
 					$this->mo_auth_show_error_message();
 
-					}
+				}
 			}
 		}else if  ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_google_appname' ) {
 			$nonce = sanitize_text_field($_POST['mo2f_google_appname_nonce']);
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-google-appname-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -1778,12 +1819,12 @@ class Miniorange_Authentication {
 				return $error;
 			} else {	
 				
-					update_option('mo2f_google_appname',((isset($_POST['mo2f_google_auth_appname']) && $_POST['mo2f_google_auth_appname']!='') ? sanitize_text_field($_POST['mo2f_google_auth_appname']) : 'miniOrangeAu'));
+				update_option('mo2f_google_appname',((isset($_POST['mo2f_google_auth_appname']) && $_POST['mo2f_google_auth_appname']!='') ? sanitize_text_field($_POST['mo2f_google_auth_appname']) : 'miniOrangeAu'));
 			}
 
-        }else if  ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_configure_google_authenticator_validate' ) {
+		}else if  ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_configure_google_authenticator_validate' ) {
 			$nonce = sanitize_text_field($_POST['mo2f_configure_google_authenticator_validate_nonce']);
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-google-authenticator-validate-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -1795,70 +1836,99 @@ class Miniorange_Authentication {
 				
 				if ( MO2f_Utility::mo2f_check_number_length( $otpToken ) ) {
 					$email           = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
-                            $twofactor_transactions = new Mo2fDB;
-                        $exceeded = $twofactor_transactions->check_alluser_limit_exceeded($user_id);
+					$twofactor_transactions = new Mo2fDB;
+					$exceeded = $twofactor_transactions->check_alluser_limit_exceeded($user_id);
 
-                        if($exceeded){
-                            update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "USER_LIMIT_EXCEEDED" ) );
-                            $this->mo_auth_show_error_message();
-                            return;
-                        }
-	          			$google_auth     = new Miniorange_Rba_Attributes();
-						$google_response = json_decode( $google_auth->mo2f_validate_google_auth( $email, $otpToken, $ga_secret ), true );
+					if($exceeded){
+						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "USER_LIMIT_EXCEEDED" ) );
+						$this->mo_auth_show_error_message();
+						return;
+					}
+					$google_auth     = new Miniorange_Rba_Attributes();
+					$google_response = json_decode( $google_auth->mo2f_validate_google_auth( $email, $otpToken, $ga_secret ), true );
 
-						if ( json_last_error() == JSON_ERROR_NONE ) {
-							if ( $google_response['status'] == 'SUCCESS' ) {
-									$enduser  = new Two_Factor_Setup();
-									$response = json_decode( $enduser->mo2f_update_userinfo( $email, "GOOGLE AUTHENTICATOR", null, null, null ), true );
-								if ( json_last_error() == JSON_ERROR_NONE ) {
+					if ( json_last_error() == JSON_ERROR_NONE ) {
+						if ( $google_response['status'] == 'SUCCESS' ) {
+							$enduser  = new Two_Factor_Setup();
+							$response = json_decode( $enduser->mo2f_update_userinfo( $email, "GOOGLE AUTHENTICATOR", null, null, null ), true );
+							if ( json_last_error() == JSON_ERROR_NONE ) {
 
-									if ( $response['status'] == 'SUCCESS' ) {
+								if ( $response['status'] == 'SUCCESS' ) {
 
-										delete_user_meta( $user->ID, 'mo2f_2FA_method_to_configure' );
+									delete_user_meta( $user->ID, 'mo2f_2FA_method_to_configure' );
 
-										delete_user_meta( $user->ID, 'configure_2FA' );
+									delete_user_meta( $user->ID, 'configure_2FA' );
 
-										$Mo2fdbQueries->update_user_details( $user->ID, array(
-											'mo2f_GoogleAuthenticator_config_status' => true,
-											'mo2f_AuthyAuthenticator_config_status'  => false,
-											'mo2f_configured_2FA_method'             => "Google Authenticator",
-											'user_registration_with_miniorange'      => 'SUCCESS',
-											'mo_2factor_user_registration_status'    => 'MO_2_FACTOR_PLUGIN_SETTINGS'
-										) );
+									$Mo2fdbQueries->update_user_details( $user->ID, array(
+										'mo2f_GoogleAuthenticator_config_status' => true,
+										'mo2f_AuthyAuthenticator_config_status'  => false,
+										'mo2f_configured_2FA_method'             => "Google Authenticator",
+										'user_registration_with_miniorange'      => 'SUCCESS',
+										'mo_2factor_user_registration_status'    => 'MO_2_FACTOR_PLUGIN_SETTINGS'
+									) );
 
-										update_user_meta( $user->ID, 'mo2f_external_app_type', "Google Authenticator" );
-										mo2f_display_test_2fa_notification($user);
-										unset($_SESSION['secret_ga']);
+									update_user_meta( $user->ID, 'mo2f_external_app_type', "Google Authenticator" );
+									mo2f_display_test_2fa_notification($user);
+									delete_user_meta($user->ID, 'mo2f_google_auth');
 
-									} else {
-										update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_DURING_PROCESS" ) );
-										$this->mo_auth_show_error_message();
-
-									}
 								} else {
 									update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_DURING_PROCESS" ) );
 									$this->mo_auth_show_error_message();
 
 								}
 							} else {
-								update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_IN_SENDING_OTP_CAUSES" ) . '<br>1. ' . Mo2fConstants:: langTranslate( "INVALID_OTP" ) . '<br>2. ' . Mo2fConstants:: langTranslate( "APP_TIME_SYNC" ) . '<br>3.' . Mo2fConstants::langTranslate( "SERVER_TIME_SYNC" ));
+								update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_DURING_PROCESS" ) );
 								$this->mo_auth_show_error_message();
 
 							}
 						} else {
-							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_WHILE_VALIDATING_USER" ) );
+							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_IN_SENDING_OTP_CAUSES" ) . '<br>1. ' . Mo2fConstants:: langTranslate( "INVALID_OTP" ) . '<br>2. ' . Mo2fConstants:: langTranslate( "APP_TIME_SYNC" ) . '<br>3.' . Mo2fConstants::langTranslate( "SERVER_TIME_SYNC" ));
 							$this->mo_auth_show_error_message();
 
 						}
+					} else {
+						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_WHILE_VALIDATING_USER" ) );
+						$this->mo_auth_show_error_message();
+
+					}
 				} else {
 					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ONLY_DIGITS_ALLOWED" ) );
 					$this->mo_auth_show_error_message();
 
 				}
 			}
-		}else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_authy_authenticator' ) {
-			$nonce = $_POST['mo2f_configure_authy_authenticator_nonce'];
+		}else if(isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_configure_duo_authenticator_validate_nonce'){
+           
+            $nonce = sanitize_text_field($_POST['mo2f_configure_duo_authenticator_validate_nonce']);
 		
+			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-duo-authenticator-validate-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+
+				return $error;
+			}else{
+
+				delete_user_meta( $user->ID, 'mo2f_2FA_method_to_configure' );
+
+				delete_user_meta( $user->ID, 'configure_2FA' );
+                delete_user_meta($user->ID,'user_not_enroll');
+				$Mo2fdbQueries->update_user_details( $user->ID, array(
+					'mo2f_DuoAuthenticator_config_status' => true,
+					
+					'mo2f_configured_2FA_method'             => "Duo Authenticator",
+					'user_registration_with_miniorange'      => 'SUCCESS',
+					'mo_2factor_user_registration_status'    => 'MO_2_FACTOR_PLUGIN_SETTINGS'
+				) );
+
+				update_user_meta( $user->ID, 'mo2f_external_app_type', "Duo Authenticator" );
+                update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "VALIDATE_DUO" ) );
+				$this->mo_auth_show_success_message();
+			}	
+
+		}
+		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_authy_authenticator' ) {
+			$nonce = $_POST['mo2f_configure_authy_authenticator_nonce'];
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-authy-authenticator-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -1885,7 +1955,7 @@ class Miniorange_Authentication {
 			}
 		}else if( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_authy_authenticator_validate' ) {
 			$nonce = $_POST['mo2f_configure_authy_authenticator_validate_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-authy-authenticator-validate-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -1956,96 +2026,96 @@ class Miniorange_Authentication {
 				return;
 			}
 
-				$kba_q1 = sanitize_text_field($_POST['mo2f_kbaquestion_1']);
-				$kba_a1 = sanitize_text_field( $_POST['mo2f_kba_ans1'] );
-				$kba_q2 = sanitize_text_field($_POST['mo2f_kbaquestion_2']);
-				$kba_a2 = sanitize_text_field( $_POST['mo2f_kba_ans2'] );
-				$kba_q3 = sanitize_text_field( $_POST['mo2f_kbaquestion_3'] );
-				$kba_a3 = sanitize_text_field( $_POST['mo2f_kba_ans3'] );
+			$kba_q1 = sanitize_text_field($_POST['mo2f_kbaquestion_1']);
+			$kba_a1 = sanitize_text_field( $_POST['mo2f_kba_ans1'] );
+			$kba_q2 = sanitize_text_field($_POST['mo2f_kbaquestion_2']);
+			$kba_a2 = sanitize_text_field( $_POST['mo2f_kba_ans2'] );
+			$kba_q3 = sanitize_text_field( $_POST['mo2f_kbaquestion_3'] );
+			$kba_a3 = sanitize_text_field( $_POST['mo2f_kba_ans3'] );
 
 			if ( MO2f_Utility::mo2f_check_empty_or_null( $kba_q1 ) || MO2f_Utility::mo2f_check_empty_or_null( $kba_a1 ) || MO2f_Utility::mo2f_check_empty_or_null( $kba_q2 ) || MO2f_Utility::mo2f_check_empty_or_null( $kba_a2) || MO2f_Utility::mo2f_check_empty_or_null( $kba_q3) || MO2f_Utility::mo2f_check_empty_or_null( $kba_a3) ) {
-					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "INVALID_ENTRY" ) );
-					$this->mo_auth_show_error_message();
-					return;
-				}
+				update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "INVALID_ENTRY" ) );
+				$this->mo_auth_show_error_message();
+				return;
+			}
 
-				if ( strcasecmp( $kba_q1, $kba_q2 ) == 0 || strcasecmp( $kba_q2, $kba_q3 ) == 0 || strcasecmp( $kba_q3, $kba_q1 ) == 0 ) {
-					update_option( 'mo2f_message', 'The questions you select must be unique.' );
-					$this->mo_auth_show_error_message();
-					return;
-				}
-					$kba_q1 = addcslashes( stripslashes( $kba_q1 ), '"\\' );
-					$kba_q2 = addcslashes( stripslashes( $kba_q2 ), '"\\' );
-					$kba_q3 = addcslashes( stripslashes( $kba_q3 ), '"\\' );
+			if ( strcasecmp( $kba_q1, $kba_q2 ) == 0 || strcasecmp( $kba_q2, $kba_q3 ) == 0 || strcasecmp( $kba_q3, $kba_q1 ) == 0 ) {
+				update_option( 'mo2f_message', 'The questions you select must be unique.' );
+				$this->mo_auth_show_error_message();
+				return;
+			}
+			$kba_q1 = addcslashes( stripslashes( $kba_q1 ), '"\\' );
+			$kba_q2 = addcslashes( stripslashes( $kba_q2 ), '"\\' );
+			$kba_q3 = addcslashes( stripslashes( $kba_q3 ), '"\\' );
 
-					$kba_a1 = addcslashes( stripslashes( $kba_a1 ), '"\\' );
-					$kba_a2 = addcslashes( stripslashes( $kba_a2 ), '"\\' );
-					$kba_a3 = addcslashes( stripslashes( $kba_a3 ), '"\\' );
+			$kba_a1 = addcslashes( stripslashes( $kba_a1 ), '"\\' );
+			$kba_a2 = addcslashes( stripslashes( $kba_a2 ), '"\\' );
+			$kba_a3 = addcslashes( stripslashes( $kba_a3 ), '"\\' );
 
-					$email            = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
-					$kba_registration = new Two_Factor_Setup();
-					$kba_reg_reponse  = json_decode( $kba_registration->register_kba_details( $email, $kba_q1, $kba_a1, $kba_q2, $kba_a2, $kba_q3, $kba_a3, $user->ID ), true );
-					if ( json_last_error() == JSON_ERROR_NONE ) {
-						if ( $kba_reg_reponse['status'] == 'SUCCESS' ) {
-							if ( isset( $_POST['mobile_kba_option'] ) && $_POST['mobile_kba_option'] == 'mo2f_request_for_kba_as_emailbackup' ) {
-								MO2f_Utility::unset_session_variables( 'mo2f_mobile_support' );
+			$email            = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
+			$kba_registration = new Two_Factor_Setup();
+			$kba_reg_reponse  = json_decode( $kba_registration->register_kba_details( $email, $kba_q1, $kba_a1, $kba_q2, $kba_a2, $kba_q3, $kba_a3, $user->ID ), true );
+			if ( json_last_error() == JSON_ERROR_NONE ) {
+				if ( $kba_reg_reponse['status'] == 'SUCCESS' ) {
+					if ( isset( $_POST['mobile_kba_option'] ) && $_POST['mobile_kba_option'] == 'mo2f_request_for_kba_as_emailbackup' ) {
+						MO2f_Utility::unset_session_variables( 'mo2f_mobile_support' );
 
+						delete_user_meta( $user->ID, 'configure_2FA' );
+						delete_user_meta( $user->ID, 'mo2f_2FA_method_to_configure' );
+
+						$message = mo2f_lt( 'Your KBA as alternate 2 factor is configured successfully.' );
+						update_option( 'mo2f_message', $message );
+						$this->mo_auth_show_success_message();
+
+					} else {
+						$enduser  = new Two_Factor_Setup();
+						$response = json_decode( $enduser->mo2f_update_userinfo( $email, 'KBA', null, null, null ), true );
+						if ( json_last_error() == JSON_ERROR_NONE ) {
+							if ( $response['status'] == 'ERROR' ) {
+								update_option( 'mo2f_message', Mo2fConstants:: langTranslate( $response['message'] ) );
+								$this->mo_auth_show_error_message();
+
+							} else if ( $response['status'] == 'SUCCESS' ) {
 								delete_user_meta( $user->ID, 'configure_2FA' );
-								delete_user_meta( $user->ID, 'mo2f_2FA_method_to_configure' );
 
-								$message = mo2f_lt( 'Your KBA as alternate 2 factor is configured successfully.' );
-								update_option( 'mo2f_message', $message );
-								$this->mo_auth_show_success_message();
-
-							} else {
-								$enduser  = new Two_Factor_Setup();
-								$response = json_decode( $enduser->mo2f_update_userinfo( $email, 'KBA', null, null, null ), true );
-								if ( json_last_error() == JSON_ERROR_NONE ) {
-									if ( $response['status'] == 'ERROR' ) {
-										update_option( 'mo2f_message', Mo2fConstants:: langTranslate( $response['message'] ) );
-										$this->mo_auth_show_error_message();
-
-									} else if ( $response['status'] == 'SUCCESS' ) {
-										delete_user_meta( $user->ID, 'configure_2FA' );
-
-										$Mo2fdbQueries->update_user_details( $user->ID, array(
-											'mo2f_SecurityQuestions_config_status' => true,
-											'mo2f_configured_2FA_method'           => "Security Questions",
-											'mo_2factor_user_registration_status'  => "MO_2_FACTOR_PLUGIN_SETTINGS"
-										) );
+								$Mo2fdbQueries->update_user_details( $user->ID, array(
+									'mo2f_SecurityQuestions_config_status' => true,
+									'mo2f_configured_2FA_method'           => "Security Questions",
+									'mo_2factor_user_registration_status'  => "MO_2_FACTOR_PLUGIN_SETTINGS"
+								) );
 										// $this->mo_auth_show_success_message();
-										mo2f_display_test_2fa_notification($user);
+								mo2f_display_test_2fa_notification($user);
 
-									}else {
-										update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_DURING_PROCESS" ) );
-										$this->mo_auth_show_error_message();
+							}else {
+								update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_DURING_PROCESS" ) );
+								$this->mo_auth_show_error_message();
 
-									}
-								} else {
-									update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "INVALID_REQ" ) );
-									$this->mo_auth_show_error_message();
-
-								}
 							}
 						} else {
-							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_WHILE_SAVING_KBA" ) );
+							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "INVALID_REQ" ) );
 							$this->mo_auth_show_error_message();
 
-
-							return;
 						}
-					} else {
-						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_WHILE_SAVING_KBA" ) );
-						$this->mo_auth_show_error_message();
+					}
+				} else {
+					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_WHILE_SAVING_KBA" ) );
+					$this->mo_auth_show_error_message();
 
 
-						return;
-				}	
+					return;
+				}
+			} else {
+				update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_WHILE_SAVING_KBA" ) );
+				$this->mo_auth_show_error_message();
+
+
+				return;
+			}	
 
 
 		}else if  ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_validate_kba_details' ) {
 			$nonce = sanitize_text_field($_POST['mo2f_validate_kba_details_nonce']);
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-validate-kba-details-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -2064,23 +2134,21 @@ class Miniorange_Authentication {
 					$kba_ans_2 = sanitize_text_field( $_POST['mo2f_answer_2'] );
 				}
 				//if the php session folder has insufficient permissions, temporary options to be used
-				$kba_questions = isset( $_SESSION['mo_2_factor_kba_questions'] ) && ! empty( $_SESSION['mo_2_factor_kba_questions'] ) ? $_SESSION['mo_2_factor_kba_questions'] : get_option( 'kba_questions' );
+				$kba_questions = get_user_meta($user->ID, 'mo_2_factor_kba_questions', true);
 
 				$kbaAns    = array();
 				if(!MO2F_IS_ONPREM){
-                    $kbaAns[0] = $kba_questions[0]['question'];
-                    $kbaAns[1] = $kba_ans_1;
-                    $kbaAns[2] = $kba_questions[1]['question'];
-                    $kbaAns[3] = $kba_ans_2;
+					$kbaAns[0] = $kba_questions[0]['question'];
+					$kbaAns[1] = $kba_ans_1;
+					$kbaAns[2] = $kba_questions[1]['question'];
+					$kbaAns[3] = $kba_ans_2;
 				}
 				//if the php session folder has insufficient permissions, temporary options to be used
-				$mo2f_transactionId = isset( $_SESSION['mo2f_transactionId'] ) && ! empty( $_SESSION['mo2f_transactionId'] ) ? $_SESSION['mo2f_transactionId'] : get_option( 'mo2f_transactionId' );
+				$mo2f_transactionId = get_option('mo2f_transactionId');
 				$kba_validate          = new Customer_Setup();
 				$kba_validate_response = json_decode( $kba_validate->validate_otp_token( 'KBA', null, $mo2f_transactionId, $kbaAns, get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ) ), true );
 				if ( json_last_error() == JSON_ERROR_NONE ) {
 					if ( strcasecmp( $kba_validate_response['status'], 'SUCCESS' ) == 0 ) {
-						unset( $_SESSION['mo_2_factor_kba_questions'] );
-						unset( $_SESSION['mo2f_transactionId'] );
 						delete_option('mo2f_transactionId');
 						delete_option('kba_questions');
 						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "COMPLETED_TEST" ) );
@@ -2097,7 +2165,7 @@ class Miniorange_Authentication {
 		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_otp_over_Whatsapp_send_otp' ) { // sendin otp for configuring OTP over Whatsapp
 			
 			$nonce = $_POST['mo2f_configure_otp_over_Whatsapp_send_otp_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-otp-over-Whatsapp-send-otp-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -2142,7 +2210,7 @@ class Miniorange_Authentication {
 					update_user_meta($user->ID,'mo2f_otp_token_wa',$otpToken);
 					update_user_meta($user->ID,'mo2f_whatsapp_time',time());
 					$url = 'https://api.callmebot.com/whatsapp.php?phone='.$verify_whatsappNum.'&text=Please+find+your+one+time+passcode:+'.$otpToken.'&apikey='.$verify_whatsappID;
-		
+
 					$data = file_get_contents($url);
 					if(strpos($data, 'Message queued') !== false)
 					{
@@ -2154,7 +2222,7 @@ class Miniorange_Authentication {
 					{
 						update_option( 'mo2f_message', 'An Error has occured while sending the OTP. Please verify your phone number and API key.');
 						$this->mo_auth_show_error_message();
-					
+
 					}
 				}
 			}
@@ -2162,7 +2230,7 @@ class Miniorange_Authentication {
 		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_otp_over_Telegram_send_otp' ) { // sendin otp for configuring OTP over Telegram
 			
 			$nonce = $_POST['mo2f_configure_otp_over_Telegram_send_otp_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-otp-over-Telegram-send-otp-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -2192,7 +2260,7 @@ class Miniorange_Authentication {
 				}
 				update_user_meta($user->ID,'mo2f_otp_token',$otpToken);
 				update_user_meta($user->ID,'mo2f_telegram_time',time());
-		
+
 				$url = 'https://sitestats.xecurify.com/teleTest/send_otp.php';
 				$postdata = array( 'mo2f_otp_token' => $otpToken,
 					'mo2f_chatid' => $chatID
@@ -2201,14 +2269,14 @@ class Miniorange_Authentication {
 				$handle = curl_init();
 
 				curl_setopt_array($handle,
-				  array(
-				    CURLOPT_URL => $url,
-				    CURLOPT_POST       => true,
-				    CURLOPT_POSTFIELDS => $postdata,
-				    CURLOPT_RETURNTRANSFER     => true,
-				  	CURLOPT_SSL_VERIFYHOST => FALSE,
-				  	CURLOPT_SSL_VERIFYPEER => FALSE,
-				  )
+					array(
+						CURLOPT_URL => $url,
+						CURLOPT_POST       => true,
+						CURLOPT_POSTFIELDS => $postdata,
+						CURLOPT_RETURNTRANSFER     => true,
+						CURLOPT_SSL_VERIFYHOST => FALSE,
+						CURLOPT_SSL_VERIFYPEER => FALSE,
+					)
 				);
 
 				$data = curl_exec($handle);
@@ -2224,7 +2292,7 @@ class Miniorange_Authentication {
 				{
 					update_option( 'mo2f_message', 'An Error has occured while sending the OTP. Please verify your chat ID.');
 					$this->mo_auth_show_error_message();
-				
+
 				}
 				
 			}
@@ -2232,7 +2300,7 @@ class Miniorange_Authentication {
 		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_otp_over_sms_send_otp' ) { // sendin otp for configuring OTP over SMS
 			
 			$nonce = $_POST['mo2f_configure_otp_over_sms_send_otp_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-otp-over-sms-send-otp-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -2249,26 +2317,29 @@ class Miniorange_Authentication {
 				}
 
 				$phone                  = str_replace( ' ', '', $phone );
-				$_SESSION['user_phone'] = $phone;
+				$session_id_encrypt = sanitize_text_field($_POST['mo2f_session_id']);
+				MO2f_Utility::mo2f_set_transient($session_id_encrypt, 'user_phone', $phone);
 				update_option( 'user_phone_temp', $phone );
 				$customer      = new Customer_Setup();
 				$currentMethod = "SMS";
 
 				$content = json_decode( $customer->send_otp_token( $phone, $currentMethod, get_option( 'mo2f_customerKey' ), get_option( 'mo2f_api_key' ) ), true );
-               
+
 				if ( json_last_error() == JSON_ERROR_NONE ) { /* Generate otp token */
 					if ( $content['status'] == 'ERROR' ) {
 						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( $content['message'] ) );
 						$this->mo_auth_show_error_message();
 					} else if ( $content['status'] == 'SUCCESS' ) {
-						$_SESSION['mo2f_transactionId'] = $content['txId'];
+						MO2f_Utility::mo2f_set_transient($session_id_encrypt, 'mo2f_transactionId', $content['txId']);
+
+
 						update_option( 'mo2f_transactionId', $content['txId'] );
 						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "OTP_SENT" ) . ' ' . $phone . ' .' . Mo2fConstants:: langTranslate( "ENTER_OTP" ) );
 						update_option( 'mo2f_number_of_transactions', MoWpnsUtility::get_mo2f_db_option('mo2f_number_of_transactions', 'get_option') - 1 );
 						$mo2f_sms = get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z');
 						if($mo2f_sms>0)
-						update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',$mo2f_sms-1);
-					
+							update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',$mo2f_sms-1);
+
 						$this->mo_auth_show_success_message();
 					} else {
 						update_option( 'mo2f_message', Mo2fConstants::langTranslate( $content['message'] ) );
@@ -2283,7 +2354,7 @@ class Miniorange_Authentication {
 		}
 		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_otp_over_Whatsapp_validate' ) {
 			$nonce = $_POST['mo2f_configure_otp_over_Whatsapp_validate_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-otp-over-Whatsapp-validate-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -2319,48 +2390,48 @@ class Miniorange_Authentication {
 					if($accepted_time<$time){
 						if(MO2F_IS_ONPREM)
 							$Mo2fdbQueries->update_user_details( $user->ID, array( 'mo2f_configured_2FA_method' => 'OTP Over Whatsapp',
-													'mo2f_OTPOverWhatsapp_config_status'       => true,											
-													'mo_2factor_user_registration_status' => 'MO_2_FACTOR_PLUGIN_SETTINGS'
-							 ) );
+								'mo2f_OTPOverWhatsapp_config_status'       => true,											
+								'mo_2factor_user_registration_status' => 'MO_2_FACTOR_PLUGIN_SETTINGS'
+							) );
 						else
-						{	$Mo2fdbQueries->update_user_details( $user->ID, array(
-									'mo2f_configured_2FA_method'          => 'OTP Over Whatsapp',
-									'user_registration_with_miniorange'   => 'SUCCESS',
-									'mo2f_OTPOverWhatsapp_config_status'       => true,											
-									'mo_2factor_user_registration_status' => 'MO_2_FACTOR_PLUGIN_SETTINGS',
-								) );
-						}
-						delete_user_meta( $user->ID, 'configure_2FA' );
-						update_user_meta( $user->ID, 'mo2f_whatsapp_id',get_user_meta($user->ID,'mo2f_temp_whatsappID',true));
-						update_user_meta( $user->ID, 'mo2f_whatsapp_num',get_user_meta($user->ID,'mo2f_temp_whatsapp_num',true));
-						
-						delete_user_meta( $user->ID, 'mo2f_temp_whatsappID' );
-						delete_user_meta( $user->ID, 'mo2f_temp_whatsapp_num' );
+							{	$Mo2fdbQueries->update_user_details( $user->ID, array(
+								'mo2f_configured_2FA_method'          => 'OTP Over Whatsapp',
+								'user_registration_with_miniorange'   => 'SUCCESS',
+								'mo2f_OTPOverWhatsapp_config_status'       => true,											
+								'mo_2factor_user_registration_status' => 'MO_2_FACTOR_PLUGIN_SETTINGS',
+							) );
+					}
+					delete_user_meta( $user->ID, 'configure_2FA' );
+					update_user_meta( $user->ID, 'mo2f_whatsapp_id',get_user_meta($user->ID,'mo2f_temp_whatsappID',true));
+					update_user_meta( $user->ID, 'mo2f_whatsapp_num',get_user_meta($user->ID,'mo2f_temp_whatsapp_num',true));
+
+					delete_user_meta( $user->ID, 'mo2f_temp_whatsappID' );
+					delete_user_meta( $user->ID, 'mo2f_temp_whatsapp_num' );
 					
-						delete_user_meta( $user->ID, 'mo2f_otp_token_wa');
-						delete_user_meta( $user->ID, 'mo2f_2FA_method_to_configure' );
-						mo2f_display_test_2fa_notification($user);
-						update_option( 'mo2f_message','OTP Over Whatsapp is set as the second-factor. Enjoy the unlimited service.');
-						$this->mo_auth_show_success_message();
-						delete_user_meta($user->ID,'mo2f_whatsapp_time');
-					}
-					else
-					{	
-						update_option( 'mo2f_message','OTP has been expired please reinitiate another transaction.');
-						$this->mo_auth_show_error_message();
-						delete_user_meta($user->ID,'mo2f_whatsapp_time');
-					}
+					delete_user_meta( $user->ID, 'mo2f_otp_token_wa');
+					delete_user_meta( $user->ID, 'mo2f_2FA_method_to_configure' );
+					mo2f_display_test_2fa_notification($user);
+					update_option( 'mo2f_message','OTP Over Whatsapp is set as the second-factor. Enjoy the unlimited service.');
+					$this->mo_auth_show_success_message();
+					delete_user_meta($user->ID,'mo2f_whatsapp_time');
 				}
 				else
-				{
-					update_option( 'mo2f_message','Invalid OTP. Please try again.');
+				{	
+					update_option( 'mo2f_message','OTP has been expired please reinitiate another transaction.');
 					$this->mo_auth_show_error_message();
+					delete_user_meta($user->ID,'mo2f_whatsapp_time');
 				}
+			}
+			else
+			{
+				update_option( 'mo2f_message','Invalid OTP. Please try again.');
+				$this->mo_auth_show_error_message();
+			}
 			
 		}}
 		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_otp_over_Telegram_validate' ) {
 			$nonce = $_POST['mo2f_configure_otp_over_Telegram_validate_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-otp-over-Telegram-validate-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -2396,46 +2467,46 @@ class Miniorange_Authentication {
 					if($accepted_time<$time){
 						if(MO2F_IS_ONPREM)
 							$Mo2fdbQueries->update_user_details( $user->ID, array( 'mo2f_configured_2FA_method' => 'OTP Over Telegram',
-																				   'mo2f_OTPOverTelegram_config_status'       => true,
-																				   'mo_2factor_user_registration_status' => 'MO_2_FACTOR_PLUGIN_SETTINGS'
-							 ) );
+								'mo2f_OTPOverTelegram_config_status'       => true,
+								'mo_2factor_user_registration_status' => 'MO_2_FACTOR_PLUGIN_SETTINGS'
+							) );
 						else
-						{	$Mo2fdbQueries->update_user_details( $user->ID, array(
-									'mo2f_configured_2FA_method'          => 'OTP Over Telegram',
-									'mo2f_OTPOverTelegram_config_status'       => true,
-									'user_registration_with_miniorange'   => 'SUCCESS',
-									'mo_2factor_user_registration_status' => 'MO_2_FACTOR_PLUGIN_SETTINGS',
-								) );
-						}
-						delete_user_meta( $user->ID, 'configure_2FA' );
-						update_user_meta( $user->ID, 'mo2f_chat_id',get_user_meta($user->ID,'mo2f_temp_chatID',true));
-						
-						delete_user_meta( $user->ID, 'mo2f_temp_chatID' );
-						
-						delete_user_meta( $user->ID, 'mo2f_otp_token');
-						delete_user_meta( $user->ID, 'mo2f_2FA_method_to_configure' );
-						mo2f_display_test_2fa_notification($user);
-						update_option( 'mo2f_message','OTP Over Telegram is set as the second-factor. Enjoy the unlimited service.');
-						$this->mo_auth_show_success_message();
-						delete_user_meta($user->ID,'mo2f_telegram_time');
+							{	$Mo2fdbQueries->update_user_details( $user->ID, array(
+								'mo2f_configured_2FA_method'          => 'OTP Over Telegram',
+								'mo2f_OTPOverTelegram_config_status'       => true,
+								'user_registration_with_miniorange'   => 'SUCCESS',
+								'mo_2factor_user_registration_status' => 'MO_2_FACTOR_PLUGIN_SETTINGS',
+							) );
 					}
-					else
-					{	
-						update_option( 'mo2f_message','OTP has been expired please reinitiate another transaction.');
-						$this->mo_auth_show_error_message();
-						delete_user_meta($user->ID,'mo2f_telegram_time');
-					}
+					delete_user_meta( $user->ID, 'configure_2FA' );
+					update_user_meta( $user->ID, 'mo2f_chat_id',get_user_meta($user->ID,'mo2f_temp_chatID',true));
+
+					delete_user_meta( $user->ID, 'mo2f_temp_chatID' );
+
+					delete_user_meta( $user->ID, 'mo2f_otp_token');
+					delete_user_meta( $user->ID, 'mo2f_2FA_method_to_configure' );
+					mo2f_display_test_2fa_notification($user);
+					update_option( 'mo2f_message','OTP Over Telegram is set as the second-factor. Enjoy the unlimited service.');
+					$this->mo_auth_show_success_message();
+					delete_user_meta($user->ID,'mo2f_telegram_time');
 				}
 				else
-				{
-					update_option( 'mo2f_message','Invalid OTP. Please try again.');
+				{	
+					update_option( 'mo2f_message','OTP has been expired please reinitiate another transaction.');
 					$this->mo_auth_show_error_message();
+					delete_user_meta($user->ID,'mo2f_telegram_time');
 				}
+			}
+			else
+			{
+				update_option( 'mo2f_message','Invalid OTP. Please try again.');
+				$this->mo_auth_show_error_message();
+			}
 			
 		}}
 		else if  ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_otp_over_sms_validate' ) {
 			$nonce = $_POST['mo2f_configure_otp_over_sms_validate_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-otp-over-sms-validate-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -2459,12 +2530,11 @@ class Miniorange_Authentication {
 					return;
 				} else {
 					$otp_token = sanitize_text_field( $_POST['otp_token'] );
+					$session_id_encrypt = sanitize_text_field($_POST['mo2f_session_id']);
 				}
+				$mo2f_transactionId = MO2f_Utility::mo2f_get_transient( $session_id_encrypt, 'mo2f_transactionId' );
 
-				//if the php session folder has insufficient permissions, temporary options to be used
-				$mo2f_transactionId         = isset( $_SESSION['mo2f_transactionId'] ) && ! empty( $_SESSION['mo2f_transactionId'] ) ? $_SESSION['mo2f_transactionId'] : get_option( 'mo2f_transactionId' );
-				$user_phone                 = isset( $_SESSION['user_phone'] ) && $_SESSION['user_phone'] != 'false' ? $_SESSION['user_phone'] : get_option( 'user_phone_temp' );
-				//$mo2f_configured_2FA_method = $Mo2fdbQueries->get_user_detail( 'mo2f_configured_2FA_method', $user->ID );
+				$user_phone = MO2f_Utility::mo2f_get_transient( $session_id_encrypt, 'user_phone' );				
 				$mo2f_configured_2FA_method = get_user_meta( $user->ID, 'mo2f_2FA_method_to_configure', true );
 				$phone                      = $Mo2fdbQueries->get_user_detail( 'mo2f_user_phone', $user->ID );
 				$customer                   = new Customer_Setup();
@@ -2521,7 +2591,7 @@ class Miniorange_Authentication {
 							delete_user_meta( $user->ID, 'configure_2FA' );
 							delete_user_meta( $user->ID, 'mo2f_2FA_method_to_configure' );
 
-							unset( $_SESSION['user_phone'] );
+							
 							MO2f_Utility::unset_session_variables( 'user_phone' );
 							delete_option( 'user_phone_temp' );
 
@@ -2545,192 +2615,273 @@ class Miniorange_Authentication {
 				}
 			}
 
-		}else if ( ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_save_free_plan_auth_methods' ) ) {// user clicks on Set 2-Factor method
+		}else if(isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_duo_authenticator'){
+			
+             $nonce = $_POST['mo2f_configure_duo_authenticator_nonce'];
+
+             if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-duo-authenticator' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+
+				return $error;
+			} else {
+				 if($_POST['ikey'] == '' || $_POST['skey'] == '' || $_POST['apihostname'] == '' ){
+                   update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "Some field is missing, please fill all required details." ) );
+                 $this->mo_auth_show_error_message();
+                 return;
+				 }else{
+                 update_site_option('mo2f_d_integration_key',isset($_POST['ikey'])? sanitize_text_field($_POST['ikey']):'');
+                 update_site_option('mo2f_d_secret_key',isset($_POST['skey'])? sanitize_text_field($_POST['skey']):'');
+                 update_site_option('mo2f_d_api_hostname',isset($_POST['apihostname'])? sanitize_text_field($_POST['apihostname']):'');
+                 
+                 $ikey = sanitize_text_field($_POST['ikey']);
+                 $skey = sanitize_text_field($_POST['skey']);
+                 $host = sanitize_text_field($_POST['apihostname']);
+
+                include_once dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'handler'.DIRECTORY_SEPARATOR.'twofa'.DIRECTORY_SEPARATOR.'two_fa_duo_handler.php';
+ 
+                
+                $duo_up_response = ping($skey,$ikey,$host);
+              
+				if($duo_up_response['response']['stat'] == 'OK'){
+                 
+                	$duo_check_credentials = check($skey, $ikey, $host);
+
+                	if($duo_check_credentials['response']['stat'] == 'OK'){
+                		
+                        
+                    }else{
+                    	
+                		update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "Not the valid credential, please enter valid keys" ) );
+		                 $this->mo_auth_show_error_message();
+		                 return;
+                	}
+
+                }else{
+                	
+                	update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "Duo server is not responding right now, please try after some time" ) );
+                 $this->mo_auth_show_error_message();
+                 return;
+                }
+                update_site_option('duo_credentials_save_successfully',1);
+   		         update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "Setting saved successfully." ) );
+                 $this->mo_auth_show_success_message();
+                 return;
+                }
+			}
+		}else if(isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_configure_duo_authenticator_abc'){
+
+			$nonce = $_POST['mo2f_configure_duo_authenticator_nonce'];
+
+             if ( ! wp_verify_nonce( $nonce, 'mo2f-configure-duo-authenticator-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+
+				return $error;
+			}else{
+               include_once dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'handler'.DIRECTORY_SEPARATOR.'twofa'.DIRECTORY_SEPARATOR.'two_fa_duo_handler.php';
+				        $ikey = get_site_option('mo2f_d_integration_key');
+		                $skey = get_site_option('mo2f_d_secret_key');
+		                $host = get_site_option('mo2f_d_api_hostname');
+
+				        $user_email = $user->user_email;
+
+                		$duo_preauth = preauth( $user_email ,true,  $skey, $ikey, $host);
+                		 
+                		 
+                        if($duo_preauth['response']['stat'] == 'OK'){
+
+	                         if(isset($duo_preauth['response']['response']['status_msg']) && $duo_preauth['response']['response']['status_msg'] == 'Account is active'){
+	                         	update_user_meta( $user->ID , 'user_not_enroll', true  );
+	                         	update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "This user is already available on duo, please send push notification to setup push notification as two factor." ) );
+				                 $this->mo_auth_show_success_message();
+				                 return;
+	                         }else if(isset($duo_preauth['response']['response']['enroll_portal_url'])){
+                                 
+	                        	$duo_enroll_url = $duo_preauth['response']['response']['enroll_portal_url'];
+	                            update_user_meta( $user->ID , 'user_not_enroll_on_duo_before', $duo_enroll_url  );
+	                            update_user_meta( $user->ID , 'user_not_enroll', true  );
+	                        }else{
+	                        
+
+                               update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "Your account is inactive from duo side, please contact to your administrator." ) );
+			                   $this->mo_auth_show_error_message();
+			                   return;
+	                        }
+                          
+                          }else{
+                          
+
+                           update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "Invalid or missing parameters, or a user with this name already exists." ) );
+			                 $this->mo_auth_show_error_message();
+			                 return;
+
+                        }
+			}	
+		}else if(isset( $_POST['option'] ) && $_POST['option'] == 'duo_mobile_send_push_notification_inside_plugin'){
+
+			$nonce = $_POST['duo_mobile_send_push_notification_inside_plugin_nonce'];
+
+             if ( ! wp_verify_nonce( $nonce, 'mo2f-send-duo-push-notification-inside-plugin-nonce' ) ) {
+				$error = new WP_Error();
+				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
+
+				return $error;
+			}else{
+
+			}	
+
+		 }else if ( ( isset( $_POST['option'] ) && sanitize_text_field($_POST['option']) == 'mo2f_save_free_plan_auth_methods' ) ) {// user clicks on Set 2-Factor method
 				 $nonce = sanitize_text_field($_POST['miniorange_save_form_auth_methods_nonce']);
 			if ( ! wp_verify_nonce( $nonce, 'miniorange-save-form-auth-methods-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
 				return $error;
 			} else {
-			$configuredMethod = sanitize_text_field($_POST['mo2f_configured_2FA_method_free_plan']);
-			$selectedAction   = sanitize_text_field($_POST['mo2f_selected_action_free_plan']);
+				$configuredMethod = sanitize_text_field($_POST['mo2f_configured_2FA_method_free_plan']);
+				$selectedAction   = sanitize_text_field($_POST['mo2f_selected_action_free_plan']);
 
-			$cloud_methods = array('OTPOverSMS','miniOrangeQRCodeAuthentication','miniOrangePushNotification','miniOrangeSoftToken');
+				$cloud_methods = array('OTPOverSMS','miniOrangeQRCodeAuthentication','miniOrangePushNotification','miniOrangeSoftToken');
 
 				if($configuredMethod == 'OTPOverSMS')
 					$configuredMethod = 'OTP Over SMS';
 
             //limit exceed check
-			$exceeded = $Mo2fdbQueries->check_alluser_limit_exceeded($user_id);
+				$exceeded = $Mo2fdbQueries->check_alluser_limit_exceeded($user_id);
 
-            if($exceeded){
-                update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "USER_LIMIT_EXCEEDED" ) );
-                $this->mo_auth_show_error_message();
-                return;
-            }           
-			$selected_2FA_method = MO2f_Utility::mo2f_decode_2_factor( isset( $_POST['mo2f_configured_2FA_method_free_plan'] ) ? $_POST['mo2f_configured_2FA_method_free_plan'] : $_POST['mo2f_selected_action_standard_plan'], "wpdb" );
-			$selected_2FA_method = sanitize_text_field($selected_2FA_method);
-			$onprem_methods = array('Google Authenticator','Security Questions','OTP Over Telegram','OTP Over Whatsapp');
-            $Mo2fdbQueries->insert_user( $user->ID );
-            if(MO2F_IS_ONPREM && ! in_array($selected_2FA_method, $onprem_methods) ){
-	            foreach ($cloud_methods as $cloud_method) {
-		            $is_end_user_registered = $Mo2fdbQueries->get_user_detail( 'mo2f_' . $cloud_method. '_config_status', $user->ID );
-		            if(!is_null($is_end_user_registered) && $is_end_user_registered == 1)
-		            	break;
-	        	}
-        	}else{
-        		$is_end_user_registered = $Mo2fdbQueries->get_user_detail('user_registration_with_miniorange', $user->ID ) ;
-        	}
-			$is_customer_registered= false; 
+				if($exceeded){
+					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "USER_LIMIT_EXCEEDED" ) );
+					$this->mo_auth_show_error_message();
+					return;
+				}           
+				$selected_2FA_method = MO2f_Utility::mo2f_decode_2_factor( isset( $_POST['mo2f_configured_2FA_method_free_plan'] ) ? $_POST['mo2f_configured_2FA_method_free_plan'] : $_POST['mo2f_selected_action_standard_plan'], "wpdb" );
+				$selected_2FA_method = sanitize_text_field($selected_2FA_method);
+			$onprem_methods = array('Google Authenticator','Security Questions','OTPOverTelegram','OTPOverWhatsapp','DuoAuthenticator');
+				$Mo2fdbQueries->insert_user( $user->ID );
+				if(MO2F_IS_ONPREM && ! in_array($selected_2FA_method, $onprem_methods) ){
+					foreach ($cloud_methods as $cloud_method) {
+						$is_end_user_registered = $Mo2fdbQueries->get_user_detail( 'mo2f_' . $cloud_method. '_config_status', $user->ID );
+						if(!is_null($is_end_user_registered) && $is_end_user_registered == 1)
+							break;
+					}
+				}else{
+					$is_end_user_registered = $Mo2fdbQueries->get_user_detail('user_registration_with_miniorange', $user->ID ) ;
+				}
+				$is_customer_registered= false; 
 
-    	    if(!MO2F_IS_ONPREM or $configuredMethod == 'miniOrangeSoftToken' or $configuredMethod == 'miniOrangeQRCodeAuthentication' or $configuredMethod == 'miniOrangePushNotification' or $configuredMethod == 'OTPOverSMS' or $configuredMethod == 'OTP Over SMS')
-    			$is_customer_registered = get_option('mo2f_api_key') ? true : false;
-    			$email = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
-    			if(!isset($email) or is_null($email) or $email == '')
-    			{
-    				$email = $user->user_email;
-    			}
-    			$is_end_user_registered  = $is_end_user_registered ? $is_end_user_registered : false;
-    			$allowed = false;
-    			if(get_option('mo2f_miniorange_admin'))
+				if(!MO2F_IS_ONPREM or $configuredMethod == 'miniOrangeSoftToken' or $configuredMethod == 'miniOrangeQRCodeAuthentication' or $configuredMethod == 'miniOrangePushNotification' or $configuredMethod == 'OTPOverSMS' or $configuredMethod == 'OTP Over SMS')
+					$is_customer_registered = get_option('mo2f_api_key') ? true : false;
+				$email = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
+				if(!isset($email) or is_null($email) or $email == '')
+				{
+					$email = $user->user_email;
+				}
+				$is_end_user_registered  = $is_end_user_registered ? $is_end_user_registered : false;
+				$allowed = false;
+				if(get_option('mo2f_miniorange_admin'))
 					$allowed = wp_get_current_user()->ID == get_option('mo2f_miniorange_admin');
 				
 				if($is_customer_registered && !$is_end_user_registered and !$allowed){
-    				$enduser    = new Two_Factor_Setup();
-			        $check_user = json_decode( $enduser->mo_check_user_already_exist( $email ), true );
-			        if(json_last_error() == JSON_ERROR_NONE){
-			            if($check_user['status'] == 'ERROR'){
-				            update_option( 'mo2f_message', Mo2fConstants:: langTranslate( $check_user['message'] ) );
-				            $this->mo_auth_show_error_message();
-				            return;
-			            }
-			            else if(strcasecmp($check_user['status' ], 'USER_FOUND') == 0){
-			                                        
-			                $Mo2fdbQueries->update_user_details( $user->ID, array(
-                                'user_registration_with_miniorange' =>'SUCCESS',
-                                'mo2f_user_email' =>$email
-			                ) );
-			                update_site_option(base64_encode("totalUsersCloud"),get_site_option(base64_encode("totalUsersCloud"))+1);
-			                    
-			            }
-			            else if(strcasecmp($check_user['status'], 'USER_NOT_FOUND') == 0){
+					$enduser    = new Two_Factor_Setup();
+					$check_user = json_decode( $enduser->mo_check_user_already_exist( $email ), true );
+					if(json_last_error() == JSON_ERROR_NONE){
+						if($check_user['status'] == 'ERROR'){
+							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( $check_user['message'] ) );
+							$this->mo_auth_show_error_message();
+							return;
+						}
+						else if(strcasecmp($check_user['status' ], 'USER_FOUND') == 0){
 
-			                $content = json_decode($enduser->mo_create_user($user,$email), true);
-			                if(json_last_error() == JSON_ERROR_NONE) {
-			                    if(strcasecmp($content['status'], 'SUCCESS') == 0) {
-			                    update_site_option(base64_encode("totalUsersCloud"),get_site_option(base64_encode("totalUsersCloud"))+1);
-			                    $Mo2fdbQueries->update_user_details( $user->ID, array(
-			                    'user_registration_with_miniorange' =>'SUCCESS',
-			                    'mo2f_user_email' =>$email
-                                ) );
-			                    
-			                    }
-			                }
-			                    
+							$Mo2fdbQueries->update_user_details( $user->ID, array(
+								'user_registration_with_miniorange' =>'SUCCESS',
+								'mo2f_user_email' =>$email
+							) );
+							update_site_option(base64_encode("totalUsersCloud"),get_site_option(base64_encode("totalUsersCloud"))+1);
 
-			            }
-			            else if(strcasecmp($check_user['status'], 'USER_FOUND_UNDER_DIFFERENT_CUSTOMER') == 0){
-			                   $mo2fa_login_message = __('The email associated with your account is already registered in miniOrange. Please Choose another email or contact miniOrange.','miniorange-2-factor-authentication');
-			                   update_option('mo2f_message',$mo2fa_login_message);
-			                   $this->mo_auth_show_error_message();
-			            }
+						}
+						else if(strcasecmp($check_user['status'], 'USER_NOT_FOUND') == 0){
 
-			        }
+							$content = json_decode($enduser->mo_create_user($user,$email), true);
+							if(json_last_error() == JSON_ERROR_NONE) {
+								if(strcasecmp($content['status'], 'SUCCESS') == 0) {
+									update_site_option(base64_encode("totalUsersCloud"),get_site_option(base64_encode("totalUsersCloud"))+1);
+									$Mo2fdbQueries->update_user_details( $user->ID, array(
+										'user_registration_with_miniorange' =>'SUCCESS',
+										'mo2f_user_email' =>$email
+									) );
 
-    			}	
-
-    		update_user_meta( $user->ID, 'mo2f_2FA_method_to_configure', $selected_2FA_method );
-			if(MO2F_IS_ONPREM)
-			{
-				if($selected_2FA_method == 'EmailVerification')
-					$selected_2FA_method = 'Email Verification';
-				if($selected_2FA_method == 'OTPOverEmail')
-					$selected_2FA_method = 'OTP Over Email';
-				if($selected_2FA_method == 'OTPOverSMS')
-					$selected_2FA_method = 'OTP Over SMS';
-				if($selected_2FA_method == 'OTPOverTelegram')
-					$selected_2FA_method = 'OTP Over Telegram';
-				if($selected_2FA_method == 'OTPOverWhatsapp')
-					$selected_2FA_method = 'OTP Over Whatsapp';
-			}
-
-			if(MO2F_IS_ONPREM and ($selected_2FA_method =='Google Authenticator' or $selected_2FA_method == 'Security Questions' or $selected_2FA_method =='OTP Over Email' or $selected_2FA_method == 'Email Verification' or $selected_2FA_method == 'OTP Over Whatsapp' or $selected_2FA_method == 'OTP Over Telegram'))
-				$is_customer_registered = 1;
-			
-			if ( $is_customer_registered ) {
-				$selected_2FA_method        = MO2f_Utility::mo2f_decode_2_factor( isset( $_POST['mo2f_configured_2FA_method_free_plan'] ) ? $_POST['mo2f_configured_2FA_method_free_plan'] : $_POST['mo2f_selected_action_standard_plan'], "wpdb" );
-				$selected_2FA_method 		= sanitize_text_field($selected_2FA_method);
-				$selected_action            = isset( $_POST['mo2f_selected_action_free_plan'] ) ? $_POST['mo2f_selected_action_free_plan'] : $_POST['mo2f_selected_action_standard_plan'];
-				$selected_action 			= sanitize_text_field($selected_action);
-				$user_phone                 = '';
-				if ( isset( $_SESSION['user_phone'] ) ) {
-					$user_phone = $_SESSION['user_phone'] != 'false' ? $_SESSION['user_phone'] : $Mo2fdbQueries->get_user_detail( 'mo2f_user_phone', $user->ID );
-				}
-
-				// set it as his 2-factor in the WP database and server
-				$enduser = new Customer_Setup();
-				if($selected_2FA_method == 'OTPOverTelegram')
-					$selected_2FA_method = 'OTP Over Telegram';
-				if($selected_2FA_method == 'OTPOverWhatsapp')
-					$selected_2FA_method = 'OTP Over Whatsapp';
-				if ( $selected_action == "select2factor" ) {
-
-					if ( $selected_2FA_method == 'OTP Over SMS' && $user_phone == 'false' ) {
-						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "PHONE_NOT_CONFIGURED" ) );
-						$this->mo_auth_show_error_message();
-					} else {
-						// update in the Wordpress DB
-						$email                      = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
-						$customer_key               = get_option( 'mo2f_customerKey' );
-						$api_key                    = get_option( 'mo2f_api_key' );	
-						$customer                   = new Customer_Setup();
-						$cloud_method1 = array('miniOrange QR Code Authentication','miniOrange Push Notification','miniOrange Soft Token');
-						if(($selected_2FA_method == "OTP Over Email") and MO2F_IS_ONPREM)
-						{	
-							$check = 1;
-							if(MoWpnsUtility::get_mo2f_db_option('cmVtYWluaW5nT1RQ', 'site_option')<=0)
-							{
-								update_site_option("bGltaXRSZWFjaGVk",1);		
-								$check = 0;
-
+								}
 							}
 
 
-							if($check == 1)
-								$response = json_decode( $customer->send_otp_token( $email, $selected_2FA_method, $customer_key, $api_key ), true );
-							else
-								$response['status'] = 'FAILED';
-							if ( strcasecmp( $response['status'], 'SUCCESS' ) == 0) {
-								$cmVtYWluaW5nT1RQ = MoWpnsUtility::get_mo2f_db_option('cmVtYWluaW5nT1RQ', 'site_option');
-								if($cmVtYWluaW5nT1RQ>0)
-								update_site_option("cmVtYWluaW5nT1RQ",$cmVtYWluaW5nT1RQ-1);
-								update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "OTP_SENT" ) . ' <b>' . ( $email ) . '</b>. ' . Mo2fConstants:: langTranslate( "ENTER_OTP" ) );
-								update_option( 'mo2f_number_of_transactions', MoWpnsUtility::get_mo2f_db_option('mo2f_number_of_transactions', 'get_option') - 1 );
-
-								$_SESSION['mo2f_transactionId'] = $response['txId'];
-								update_option( 'mo2f_transactionId', $response['txId'] );
-								$this->mo_auth_show_success_message();
-
-							} else {
-								update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_IN_SENDING_OTP_ONPREM" ) );	
-								$this->mo_auth_show_error_message();
-
-							}
-							update_user_meta( $user->ID, 'configure_2FA', 1 );
-							
-						}else if($selected_2FA_method == "Email Verification")
-						{
-							$enduser->send_otp_token($email,'OUT OF BAND EMAIL',$customer_key,$api_key);
+						}
+						else if(strcasecmp($check_user['status'], 'USER_FOUND_UNDER_DIFFERENT_CUSTOMER') == 0){
+							$mo2fa_login_message = __('The email associated with your account is already registered in miniOrange. Please Choose another email or contact miniOrange.','miniorange-2-factor-authentication');
+							update_option('mo2f_message',$mo2fa_login_message);
+							$this->mo_auth_show_error_message();
 						}
 
+					}
 
-						if($selected_2FA_method != 'OTP Over Email')
+				}	
+
+				update_user_meta( $user->ID, 'mo2f_2FA_method_to_configure', $selected_2FA_method );
+				if(MO2F_IS_ONPREM)
+				{
+					if($selected_2FA_method == 'EmailVerification')
+						$selected_2FA_method = 'Email Verification';
+					if($selected_2FA_method == 'OTPOverEmail')
+						$selected_2FA_method = 'OTP Over Email';
+					if($selected_2FA_method == 'OTPOverSMS')
+						$selected_2FA_method = 'OTP Over SMS';
+					if($selected_2FA_method == 'OTPOverTelegram')
+						$selected_2FA_method = 'OTP Over Telegram';
+					if($selected_2FA_method == 'OTPOverWhatsapp')
+						$selected_2FA_method = 'OTP Over Whatsapp';
+				        if($selected_2FA_method == 'DuoAuthenticator')
+					         $selected_2FA_method = 'Duo Authenticator';
+				}
+
+			if(MO2F_IS_ONPREM and ($selected_2FA_method =='Google Authenticator' or $selected_2FA_method == 'Security Questions' or $selected_2FA_method =='OTP Over Email' or $selected_2FA_method == 'Email Verification' or $selected_2FA_method == 'OTP Over Whatsapp' or $selected_2FA_method == 'OTP Over Telegram' or $selected_2FA_method == 'Duo Authenticator' ))
+					$is_customer_registered = 1;
+
+				if ( $is_customer_registered ) {
+					$selected_2FA_method        = MO2f_Utility::mo2f_decode_2_factor( isset( $_POST['mo2f_configured_2FA_method_free_plan'] ) ? $_POST['mo2f_configured_2FA_method_free_plan'] : $_POST['mo2f_selected_action_standard_plan'], "wpdb" );
+					$selected_2FA_method 		= sanitize_text_field($selected_2FA_method);
+					$selected_action            = isset( $_POST['mo2f_selected_action_free_plan'] ) ? $_POST['mo2f_selected_action_free_plan'] : $_POST['mo2f_selected_action_standard_plan'];
+					$selected_action 			= sanitize_text_field($selected_action);
+					$user_phone                 = '';
+					if ( isset( $_SESSION['user_phone'] ) ) {
+						$user_phone = $_SESSION['user_phone'] != 'false' ? $_SESSION['user_phone'] : $Mo2fdbQueries->get_user_detail( 'mo2f_user_phone', $user->ID );
+					}
+
+				// set it as his 2-factor in the WP database and server
+					$enduser = new Customer_Setup();
+					if($selected_2FA_method == 'OTPOverTelegram')
+						$selected_2FA_method = 'OTP Over Telegram';
+					if($selected_2FA_method == 'OTPOverWhatsapp')
+						$selected_2FA_method = 'OTP Over Whatsapp';
+				if($selected_2FA_method == 'DuoAuthenticator')
+					$selected_2FA_method = 'Duo Authenticator';
+					if ( $selected_action == "select2factor" ) {
+
+						if ( $selected_2FA_method == 'OTP Over SMS' && $user_phone == 'false' ) {
+							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "PHONE_NOT_CONFIGURED" ) );
+							$this->mo_auth_show_error_message();
+						} else {
+						// update in the Wordpress DB
+							$email                      = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
+							$customer_key               = get_option( 'mo2f_customerKey' );
+							$api_key                    = get_option( 'mo2f_api_key' );	
+							$customer                   = new Customer_Setup();
+							$cloud_method1 = array('miniOrange QR Code Authentication','miniOrange Push Notification','miniOrange Soft Token');
+
 							$Mo2fdbQueries->update_user_details( $user->ID, array( 'mo2f_configured_2FA_method' => $selected_2FA_method ) );
 
 						// update the server
-						if(!MO2F_IS_ONPREM)
-							$this->mo2f_save_2_factor_method( $user, $selected_2FA_method );
-						if ( in_array( $selected_2FA_method, array(
+							if(!MO2F_IS_ONPREM)
+								$this->mo2f_save_2_factor_method( $user, $selected_2FA_method );
+							if ( in_array( $selected_2FA_method, array(
 								"miniOrange QR Code Authentication",
 								"miniOrange Soft Token",
 								"miniOrange Push Notification",
@@ -2743,29 +2894,29 @@ class Miniorange_Authentication {
 								"OTP Over SMS and Email",
 								"Hardware Token"
 							) ) ) {
-							
-						} else {
-							update_site_option('mo2f_enable_2fa_prompt_on_login_page', 0 );
-						}
 
-					}
-				} else if ( $selected_action == "configure2factor" ) {
+							} else {
+								update_site_option('mo2f_enable_2fa_prompt_on_login_page', 0 );
+							}
+
+						}
+					} else if ( $selected_action == "configure2factor" ) {
 
 					//show configuration form of respective Two Factor method
-					update_user_meta( $user->ID, 'configure_2FA', 1 );
-					update_user_meta( $user->ID, 'mo2f_2FA_method_to_configure', $selected_2FA_method );
+						update_user_meta( $user->ID, 'configure_2FA', 1 );
+						update_user_meta( $user->ID, 'mo2f_2FA_method_to_configure', $selected_2FA_method );
+					}
+
+				} else {
+					update_option("mo_2factor_user_registration_status","REGISTRATION_STARTED" );
+					update_user_meta( $user->ID, 'register_account_popup', 1 );
+					update_option( 'mo2f_message', '' );
+
 				}
-
-			} else {
-				update_option("mo_2factor_user_registration_status","REGISTRATION_STARTED" );
-				update_user_meta( $user->ID, 'register_account_popup', 1 );
-				update_option( 'mo2f_message', '' );
-
-			}
 			}
 		}else if ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_enable_2FA_for_users_option' ) {
 			$nonce = $_POST['mo2f_enable_2FA_for_users_option_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-enable-2FA-for-users-option-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -2776,7 +2927,7 @@ class Miniorange_Authentication {
 			}
 		}else if ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_disable_proxy_setup_option' ) {
 			$nonce = $_POST['mo2f_disable_proxy_setup_option_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-disable-proxy-setup-option-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -2792,7 +2943,7 @@ class Miniorange_Authentication {
 			}
 		}else if ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_enable_2FA_option' ) {
 			$nonce = $_POST['mo2f_enable_2FA_option_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-enable-2FA-option-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -2803,7 +2954,7 @@ class Miniorange_Authentication {
 			}
 		// }else if( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_enable_2FA_on_login_page_option' ) {
 		// 	$nonce = $_POST['mo2f_enable_2FA_on_login_page_option_nonce'];
-		
+
 		// 	if ( ! wp_verify_nonce( $nonce, 'mo2f-enable-2FA-on-login-page-option-nonce' ) ) {
 		// 		$error = new WP_Error();
 		// 		$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -2836,32 +2987,30 @@ class Miniorange_Authentication {
 				if ( $selected_2FA_method == 'Security Questions' ) {
 
 
-  					$response = json_decode( $customer->send_otp_token( $email, $selected_2FA_method_server, $customer_key, $api_key ), true );
+					$response = json_decode( $customer->send_otp_token( $email, $selected_2FA_method_server, $customer_key, $api_key ), true );
 
-  					if ( json_last_error() == JSON_ERROR_NONE ) { /* Generate KBA Questions*/
-  						if ( $response['status'] == 'SUCCESS' ) {
-  							$_SESSION['mo2f_transactionId'] = $response['txId'];
-  							update_option( 'mo2f_transactionId', $response['txId'] );
-  							$questions                             = array();
+					if ( json_last_error() == JSON_ERROR_NONE ) { /* Generate KBA Questions*/
+						if ( $response['status'] == 'SUCCESS' ) {
+							update_option( 'mo2f_transactionId', $response['txId'] );
+							$questions                             = array();
 
-  							$questions[0]                          = $response['questions'][0];
-  							$questions[1]                          = $response['questions'][1];
-  							$_SESSION['mo_2_factor_kba_questions'] = $questions;
-  							update_option( 'kba_questions', $questions );
-  
-  							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ANSWER_SECURITY_QUESTIONS" ) );
-  							$this->mo_auth_show_success_message();
-  
-  						} else if ( $response['status'] == 'ERROR' ) {
-  							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_FETCHING_QUESTIONS" ) );
-  							$this->mo_auth_show_error_message();
-  
-  						}
-  					} else {
-  						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_FETCHING_QUESTIONS" ) );
-  						$this->mo_auth_show_error_message();
-  
-  					}
+							$questions[0]                          = $response['questions'][0];
+							$questions[1]                          = $response['questions'][1];
+							update_user_meta($user->ID, 'mo_2_factor_kba_questions', $questions);
+
+							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ANSWER_SECURITY_QUESTIONS" ) );
+							$this->mo_auth_show_success_message();
+
+						} else if ( $response['status'] == 'ERROR' ) {
+							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_FETCHING_QUESTIONS" ) );
+							$this->mo_auth_show_error_message();
+
+						}
+					} else {
+						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_FETCHING_QUESTIONS" ) );
+						$this->mo_auth_show_error_message();
+
+					}
 
 
 				} else if ( $selected_2FA_method == 'miniOrange Push Notification' ) {
@@ -2873,10 +3022,10 @@ class Miniorange_Authentication {
 
 						} else {
 							if ( $response['status'] == 'SUCCESS' ) {
-								$_SESSION['mo2f_transactionId'] = $response['txId'];
-								update_option( 'mo2f_transactionId', $response['txId'] );
-								$_SESSION['mo2f_show_qr_code'] = 'MO_2_FACTOR_SHOW_QR_CODE';
-								update_option( 'mo2f_transactionId', $response['txId'] );
+								update_user_meta($user->ID, 'mo2f_transactionId', $response['txId']);
+								update_user_meta($user->ID, 'mo2f_show_qr_code', 'MO_2_FACTOR_SHOW_QR_CODE');
+
+
 								update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "PUSH_NOTIFICATION_SENT" ) );
 								$this->mo_auth_show_success_message();
 
@@ -2921,7 +3070,7 @@ class Miniorange_Authentication {
 						update_user_meta($user->ID,'mo2f_whatsapp_time',time());
 						
 						$url = 'https://api.callmebot.com/whatsapp.php?phone='.$whatsappNum.'&text=Please+find+your+one+time+passcode:+'.$otpToken.'&apikey='.$whatsappID;
-		
+
 						$data = file_get_contents($url);
 						if(strpos($data, 'Message queued') !== false)
 						{
@@ -2933,7 +3082,7 @@ class Miniorange_Authentication {
 						{
 							update_option( 'mo2f_message', 'An Error has occured while sending the OTP. Please verify your configuration.');
 							$this->mo_auth_show_error_message();
-						
+
 						}
 					}
 				}
@@ -2950,7 +3099,7 @@ class Miniorange_Authentication {
 
 					update_user_meta($user->ID,'mo2f_otp_token',$otpToken);
 					update_user_meta($user->ID,'mo2f_telegram_time',time());
-				
+
 					$url = 'https://sitestats.xecurify.com/teleTest/send_otp.php';
 					$postdata = array( 'mo2f_otp_token' => $otpToken,
 						'mo2f_chatid' => $chatID
@@ -2959,15 +3108,15 @@ class Miniorange_Authentication {
 					$handle = curl_init();
 					
 					curl_setopt_array($handle,
-					  array(
-					    CURLOPT_URL => $url,
-					    CURLOPT_POST       => true,
-					    CURLOPT_POSTFIELDS => $postdata,
-					    CURLOPT_RETURNTRANSFER     => true,
-					    CURLOPT_SSL_VERIFYHOST => FALSE,
-				  		CURLOPT_SSL_VERIFYPEER => FALSE,
-				  
-					  )
+						array(
+							CURLOPT_URL => $url,
+							CURLOPT_POST       => true,
+							CURLOPT_POSTFIELDS => $postdata,
+							CURLOPT_RETURNTRANSFER     => true,
+							CURLOPT_SSL_VERIFYHOST => FALSE,
+							CURLOPT_SSL_VERIFYPEER => FALSE,
+
+						)
 					);
 
 					$data = curl_exec($handle);
@@ -2981,10 +3130,10 @@ class Miniorange_Authentication {
 					{
 						update_option( 'mo2f_message', 'An Error has occured while sending the OTP. Please verify your chat ID.');
 						$this->mo_auth_show_error_message();
-					
+
 					}
 				}	
-				 else if ( $selected_2FA_method == 'OTP Over SMS' || $selected_2FA_method == 'OTP Over Email') {
+				else if ( $selected_2FA_method == 'OTP Over SMS' || $selected_2FA_method == 'OTP Over Email') {
 					
 					$phone    = $Mo2fdbQueries->get_user_detail( 'mo2f_user_phone', $user->ID );
 					$check = 1;
@@ -3009,19 +3158,18 @@ class Miniorange_Authentication {
 						{
 							$cmVtYWluaW5nT1RQ = MoWpnsUtility::get_mo2f_db_option('cmVtYWluaW5nT1RQ', 'site_option');
 							if($cmVtYWluaW5nT1RQ>0)
-							update_site_option("cmVtYWluaW5nT1RQ",$cmVtYWluaW5nT1RQ-1);
+								update_site_option("cmVtYWluaW5nT1RQ",$cmVtYWluaW5nT1RQ-1);
 						}
 						else if($selected_2FA_method == 'OTP Over SMS')
 						{
 							$mo2f_sms = get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z');
 							if($mo2f_sms>0)
-							update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',$mo2f_sms-1);
-					
+								update_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z',$mo2f_sms-1);
+
 						}
 						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "OTP_SENT" ) . ' <b>' . ( $phone ) . '</b>. ' . Mo2fConstants:: langTranslate( "ENTER_OTP" ) );
 						update_option( 'mo2f_number_of_transactions', MoWpnsUtility::get_mo2f_db_option('mo2f_number_of_transactions', 'get_option') - 1 );
-
-						$_SESSION['mo2f_transactionId'] = $response['txId'];
+						update_user_meta($user->ID, 'mo2f_transactionId', $response['txId']);
 						update_option( 'mo2f_transactionId', $response['txId'] );
 						$this->mo_auth_show_success_message();
 
@@ -3030,7 +3178,7 @@ class Miniorange_Authentication {
 							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_IN_SENDING_OTP" ) );
 						else
 							update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_IN_SENDING_OTP_ONPREM" ) );
-							
+
 						$this->mo_auth_show_error_message();
 
 					}
@@ -3045,16 +3193,15 @@ class Miniorange_Authentication {
 
 						} else {
 							if ( $response['status'] == 'SUCCESS' ) {
-								$_SESSION['mo2f_qrCode']        = $response['qrCode'];
-								$_SESSION['mo2f_transactionId'] = $response['txId'];
-								$_SESSION['mo2f_show_qr_code']  = 'MO_2_FACTOR_SHOW_QR_CODE';
+								update_user_meta($user->ID, 'mo2f_qrCode', $response['qrCode']);
+								update_user_meta($user->ID, 'mo2f_transactionId', $response['txId']);
+								update_user_meta($user->ID, 'mo2f_show_qr_code', 'MO_2_FACTOR_SHOW_QR_CODE');
+								
+
 								update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "SCAN_QR_CODE" ) );
 								$this->mo_auth_show_success_message();
 
 							} else {
-								unset( $_SESSION['mo2f_qrCode'] );
-								unset( $_SESSION['mo2f_transactionId'] );
-								unset( $_SESSION['mo2f_show_qr_code'] );
 								update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_DURING_PROCESS" ) );
 								$this->mo_auth_show_error_message();
 
@@ -3068,6 +3215,9 @@ class Miniorange_Authentication {
 				} else if ( $selected_2FA_method == 'Email Verification' ) {
 					$this->miniorange_email_verification_call( $user );
 				}
+				else if($selected_2FA_method == 'Duo Authenticator'){
+                    
+				}
 
 
 				update_user_meta( $user->ID, 'mo2f_2FA_method_to_test', $selected_2FA_method );
@@ -3075,7 +3225,7 @@ class Miniorange_Authentication {
 
 		}else if ( isset( $_POST['option'] ) && $_POST['option'] == 'mo2f_go_back' ) {
 			$nonce = $_POST['mo2f_go_back_nonce'];
-		
+
 			if ( ! wp_verify_nonce( $nonce, 'mo2f-go-back-nonce' ) ) {
 				$error = new WP_Error();
 				$error->add( 'empty_username', '<strong>' . mo2f_lt( 'ERROR' ) . '</strong>: ' . mo2f_lt( 'Invalid Request.' ) );
@@ -3098,9 +3248,6 @@ class Miniorange_Authentication {
 				delete_user_meta( $user->ID, 'test_2FA' );
 				delete_user_meta( $user->ID, 'configure_2FA' );
 
-				if(isset($_SESSION['secret_ga'])){
-					unset($_SESSION['secret_ga']);
-				}
 			}
 		}
 
@@ -3126,7 +3273,7 @@ class Miniorange_Authentication {
 		if ( $mo2f_register_with_another_email || $is_EC || $is_NNC ) {
 			update_option( 'mo2f_register_with_another_email', 0 );
 			$users = get_users( array() );
-			 $this->mo2f_delete_user_details( $users );
+			$this->mo2f_delete_user_details( $users );
 			$url = admin_url( 'plugins.php' );
 			wp_redirect( $url );
 		}
@@ -3149,33 +3296,33 @@ class Miniorange_Authentication {
 	function mo2f_show_email_page($email )
 	{
 		?>
-		 <div id="EnterEmailCloudVerification" class="modal">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" style="text-align: center; font-size: 20px; color: #20b2aa">Email Address for miniOrange</h3><span id="closeEnterEmailCloud" class="modal-span-close">X</span>
-                </div>
-                <div class="modal-body" style="height: auto">
-                    <h2><i>Enter your Email:&nbsp;&nbsp;&nbsp;  <input type ='email' id='emailEnteredCloud' name='emailEnteredCloud' size= '40' required value="<?php echo $email;?>"/></i></h2> 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="mo_wpns_button mo_wpns_button1 modal-button" id="save_entered_email_cloud">Save</button>
-                </div>
-            </div>
-        </div>
+		<div id="EnterEmailCloudVerification" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title" style="text-align: center; font-size: 20px; color: #20b2aa">Email Address for miniOrange</h3><span id="closeEnterEmailCloud" class="modal-span-close">X</span>
+				</div>
+				<div class="modal-body" style="height: auto">
+					<h2><i>Enter your Email:&nbsp;&nbsp;&nbsp;  <input type ='email' id='emailEnteredCloud' name='emailEnteredCloud' size= '40' required value="<?php echo $email;?>"/></i></h2> 
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="mo_wpns_button mo_wpns_button1 modal-button" id="save_entered_email_cloud">Save</button>
+				</div>
+			</div>
+		</div>
 
 
-        <script type="text/javascript">
-        	
-        	jQuery('#EnterEmailCloudVerification').css('display', 'block');
+		<script type="text/javascript">
 
-        	jQuery('#closeEnterEmailCloud').click(function(){
-             jQuery('#EnterEmailCloudVerification').css('display', 'none');
-               
-        });
-        
+			jQuery('#EnterEmailCloudVerification').css('display', 'block');
 
-        </script>
+			jQuery('#closeEnterEmailCloud').click(function(){
+				jQuery('#EnterEmailCloudVerification').css('display', 'none');
+
+			});
+
+
+		</script>
 
 		<?php
 
@@ -3314,7 +3461,7 @@ class Miniorange_Authentication {
 					if ( ! empty( $mo2f_customer_selected_plan ) ) {
 						delete_option( 'mo2f_customer_selected_plan' );
 						header( 'Location: admin.php?page=mo_2fa_upgrade' );
-                        } else {
+					} else {
 						header( 'Location: admin.php?page=mo_2fa_two_fa' );
 					}
 
@@ -3331,28 +3478,28 @@ class Miniorange_Authentication {
 	}
 
 	public static function mo2f_get_GA_parameters($user){
-        global $Mo2fdbQueries;
-        $email           = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
-        $google_auth     = new Miniorange_Rba_Attributes();
+		global $Mo2fdbQueries;
+		$email           = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $user->ID );
+		$google_auth     = new Miniorange_Rba_Attributes();
 		$gauth_name= get_option('mo2f_google_appname');
 		$gauth_name = $gauth_name ? $gauth_name : 'miniOrangeAu';
-        $google_response = json_decode( $google_auth->mo2f_google_auth_service( $email,$gauth_name ), true );
-        if ( json_last_error() == JSON_ERROR_NONE ) {
-	        if ( $google_response['status'] == 'SUCCESS' ) {
-		        $mo2f_google_auth              = array();
-		        $mo2f_google_auth['ga_qrCode'] = $google_response['qrCodeData'];
-		        $mo2f_google_auth['ga_secret'] = $google_response['secret'];
-			    $_SESSION['mo2f_google_auth']  = $mo2f_google_auth;
-	        }else {
-		        update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_DURING_USER_REGISTRATION" ) );
-		        do_action('mo_auth_show_error_message');
-	        }
-        }else {
-	        update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_DURING_USER_REGISTRATION" ) );
-	    	do_action('mo_auth_show_error_message');
+		$google_response = json_decode( $google_auth->mo2f_google_auth_service( $email,$gauth_name ), true );
+		if ( json_last_error() == JSON_ERROR_NONE ) {
+			if ( $google_response['status'] == 'SUCCESS' ) {
+				$mo2f_google_auth              = array();
+				$mo2f_google_auth['ga_qrCode'] = $google_response['qrCodeData'];
+				$mo2f_google_auth['ga_secret'] = $google_response['secret'];
+				update_user_meta($user->ID, 'mo2f_google_auth', $mo2f_google_auth);
+			}else {
+				update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_DURING_USER_REGISTRATION" ) );
+				do_action('mo_auth_show_error_message');
+			}
+		}else {
+			update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_DURING_USER_REGISTRATION" ) );
+			do_action('mo_auth_show_error_message');
 
-        }
-    }
+		}
+	}
 
 	function mo_auth_show_error_message() {
 		do_action('wpns_show_message', get_option( 'mo2f_message' ), 'ERROR');
@@ -3427,7 +3574,7 @@ class Miniorange_Authentication {
 		}
 	}
 
-	function mo2f_get_qr_code_for_mobile( $email, $id ) {
+	function mo2f_get_qr_code_for_mobile( $email, $id, $session_id = null ) {
 
 		$registerMobile = new Two_Factor_Setup();
 		$content        = $registerMobile->register_mobile( $email );
@@ -3444,10 +3591,12 @@ class Miniorange_Authentication {
 			} else {
 				if ( $response['status'] == 'IN_PROGRESS' ) {
 					update_option( 'mo2f_message', Mo2fConstants::langTranslate( "SCAN_QR_CODE" ) );
-					$_SESSION['mo2f_qrCode']        = $response['qrCode'];
-					$_SESSION['mo2f_transactionId'] = $response['txId'];
-					update_option( 'mo2f_transactionId', $response['txId'] );
-					$_SESSION['mo2f_show_qr_code'] = 'MO_2_FACTOR_SHOW_QR_CODE';
+					MO2f_Utility::mo2f_set_transient($session_id, 'mo2f_qrCode', $response['qrCode']);
+					MO2f_Utility::mo2f_set_transient($session_id, 'mo2f_transactionId', $response['txId']);
+					update_user_meta($id, 'mo2f_transactionId', $response['txId']);
+					MO2f_Utility::mo2f_set_transient($session_id, 'mo2f_show_qr_code', 'MO_2_FACTOR_SHOW_QR_CODE');
+
+
 					$this->mo_auth_show_success_message();
 				} else {
 					update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_DURING_PROCESS" ) );
@@ -3508,9 +3657,9 @@ class Miniorange_Authentication {
 
 	function miniorange_email_verification_call( $current_user ) {
 		global $Mo2fdbQueries;
-	    $email           = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $current_user->ID );
+		$email           = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $current_user->ID );
 
-	    if(MO2F_IS_ONPREM)
+		if(MO2F_IS_ONPREM)
 		{
 
 			$challengeMobile 		= new Customer_Setup();
@@ -3529,8 +3678,12 @@ class Miniorange_Authentication {
 			}
 			$otpTokenH 				= hash('sha512',$otpToken);
 			$otpTokenDH 			= hash('sha512', $otpTokenD);
-			$_SESSION['txid'] 		= $txid;
-			$_SESSION['otpToken'] 	= $otpToken;
+
+
+			update_user_meta($current_user->ID, 'mo2f_transactionId', $txid);
+			update_user_meta($current_user->ID, 'otpToken', $otpToken);
+
+
 			$userID 				= hash('sha512',$current_user->ID);
 			update_site_option($userID,$otpTokenH);
 			update_site_option($txid,3);
@@ -3566,7 +3719,7 @@ class Miniorange_Authentication {
 			</tr>
 			</tbody>
 			</table>';
- 			$result = wp_mail($email,$subject,$message,$headers);
+			$result = wp_mail($email,$subject,$message,$headers);
 			if($result){
 				$time = "time".$txid;
 				$currentTimeInMillis = round(microtime(true) * 1000);
@@ -3577,7 +3730,7 @@ class Miniorange_Authentication {
 				update_site_option( 'mo2f_message',  Mo2fConstants::langTranslate("ERROR_DURING_PROCESS_EMAIL"));
 				$this->mo_auth_show_error_message();
 			}
-		
+
 		}
 		else
 		{
@@ -3592,12 +3745,13 @@ class Miniorange_Authentication {
 					$this->mo_auth_show_error_message();
 				} else {
 					if ( $response['status'] == 'SUCCESS' ) {
-						$_SESSION['mo2f_transactionId'] = $response['txId'];
+						update_user_meta($current_user->ID, 'mo2f_transactionId', $response['txId']);
+
+
 						update_option( 'mo2f_transactionId', $response['txId'] );
 						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "VERIFICATION_EMAIL_SENT" ) . '<b> ' . $email . '</b>. ' . Mo2fConstants:: langTranslate( "ACCEPT_LINK_TO_VERIFY_EMAIL" ) );
 						$this->mo_auth_show_success_message();
 					} else {
-						unset( $_SESSION['mo2f_transactionId'] );
 						update_option( 'mo2f_message', Mo2fConstants:: langTranslate( "ERROR_DURING_PROCESS" ) );
 						$this->mo_auth_show_error_message();
 					}
@@ -3610,23 +3764,23 @@ class Miniorange_Authentication {
 	}
 	static function low_otp_alert( $auth_type) {
 		global $Mo2fdbQueries;
-	    $email = get_site_option('mo2f_email');
-	    if(MO2F_IS_ONPREM)
+		$email = get_option('mo2f_email')?get_option('mo2f_email'):get_option('admin_email');
+		if(MO2F_IS_ONPREM)
 		{
 			$count=0;
 			if($auth_type =="email"){
 				$subject = 'Two Factor Authentication(Low Email Alert)';
-				$count = get_site_option('cmVtYWluaW5nT1RQ')-1;					//database value is updated after function call
-				$string = 'Email';					
+				$count = get_site_option('cmVtYWluaW5nT1RQ')-1; //database value is updated after function call
+				$string = 'Email';
 			}
 			else if($auth_type =="sms"){
-				$subject 	= 'Two Factor Authentication(Low SMS Alert)';
-				$count = get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z')-1;	//database value is updated after function call
+				$subject = 'Two Factor Authentication(Low SMS Alert)';
+				$count = get_site_option('cmVtYWluaW5nT1RQVHJhbnNhY3Rpb25z')-1; //database value is updated after function call
 				$string = 'SMS';
 			}
 			$admin_url = network_site_url();
-			$url = explode('/wp-admin/admin.php?page=mo_2fa_upgrade', $admin_url);			
-			$headers 	= array('Content-Type: text/html; charset=UTF-8');
+			$url = explode('/wp-admin/admin.php?page=mo_2fa_upgrade', $admin_url);
+			$headers = array('Content-Type: text/html; charset=UTF-8');
 			$headers[] = 'Cc: 2fasupport <2fasupport@xecurify.com>';
 			$message =  '<table cellpadding="25" style="margin:0px auto">
 			<tbody>
@@ -3658,56 +3812,56 @@ class Miniorange_Authentication {
 			</tr>
 			</tbody>
 			</table>';
- 			$result = wp_mail($email,$subject,$message,$headers);
+			$result = wp_mail($email,$subject,$message,$headers);
 			if($result){
 				$currentTimeInMillis = round(microtime(true) * 1000);
 				update_site_option( 'mo2f_message',  Mo2fConstants::langTranslate("VERIFICATION_EMAIL_SENT") .'<b> ' . $email . '</b>. ' .  Mo2fConstants::langTranslate("ACCEPT_LINK_TO_VERIFY_EMAIL"));
-				
+
 			}
-		
+
 		}
 
 	}
-	function mo_auth_activate() {
-		error_log(' miniOrange Two Factor Plugin Activated');
+function mo_auth_activate() {
+	error_log(' miniOrange Two Factor Plugin Activated');
 
-		$get_encryption_key = MO2f_Utility::random_str(16);
-		update_option('mo2f_encryption_key',$get_encryption_key);
-		
-		if ( get_option( 'mo2f_customerKey' ) && ! MoWpnsUtility::get_mo2f_db_option('mo2f_is_NC', 'get_option') ) {
-			update_option( 'mo2f_is_NC', 0 );
-		} else {
-			update_option( 'mo2f_is_NC', 1 );
-			update_option( 'mo2f_is_NNC', 1 );
-		}
+	$get_encryption_key = MO2f_Utility::random_str(16);
+	update_option('mo2f_encryption_key',$get_encryption_key);
 
-		do_action('mo2f_network_create_db');
-
-		update_option( 'mo2f_host_name', 'https://login.xecurify.com' );
-		update_option('mo2f_data_storage',null);
-		global $Mo2fdbQueries;
-		$Mo2fdbQueries->mo_plugin_activate();
-
-
+	if ( get_option( 'mo2f_customerKey' ) && ! MoWpnsUtility::get_mo2f_db_option('mo2f_is_NC', 'get_option') ) {
+		update_option( 'mo2f_is_NC', 0 );
+	} else {
+		update_option( 'mo2f_is_NC', 1 );
+		update_option( 'mo2f_is_NNC', 1 );
 	}
 
-	function mo_get_2fa_shorcode( $atts ) {
-		if ( ! is_user_logged_in() && mo2f_is_customer_registered() ) {
-			$mo2f_shorcode = new MO2F_ShortCode();
-			$html          = $mo2f_shorcode->mo2FAFormShortCode( $atts );
+	do_action('mo2f_network_create_db');
 
-			return $html;
-		}
+	update_option( 'mo2f_host_name', 'https://login.xecurify.com' );
+	update_option('mo2f_data_storage',null);
+	global $Mo2fdbQueries;
+	$Mo2fdbQueries->mo_plugin_activate();
+
+
+}
+
+function mo_get_2fa_shorcode( $atts ) {
+	if ( ! is_user_logged_in() && mo2f_is_customer_registered() ) {
+		$mo2f_shorcode = new MO2F_ShortCode();
+		$html          = $mo2f_shorcode->mo2FAFormShortCode( $atts );
+
+		return $html;
 	}
+}
 
-	function mo_get_login_form_shortcode( $atts ) {
-		if ( ! is_user_logged_in() && mo2f_is_customer_registered() ) {
-			$mo2f_shorcode = new MO2F_ShortCode();
-			$html          = $mo2f_shorcode->mo2FALoginFormShortCode( $atts );
+function mo_get_login_form_shortcode( $atts ) {
+	if ( ! is_user_logged_in() && mo2f_is_customer_registered() ) {
+		$mo2f_shorcode = new MO2F_ShortCode();
+		$html          = $mo2f_shorcode->mo2FALoginFormShortCode( $atts );
 
-			return $html;
-		}
+		return $html;
 	}
+}
 }
 
 function mo2f_is_customer_registered() {

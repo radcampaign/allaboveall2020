@@ -2,8 +2,8 @@
 /**
  * Plugin Name: miniOrange 2 Factor Authentication
  * Plugin URI: https://miniorange.com
- * Description: This plugin provides various two-factor authentication methods as an additional layer of security after the default wordpress login. We Support Google/Authy/LastPass Authenticator, QR Code, Push Notification, Soft Token and Security Questions(KBA) for 3 User in the free version of the plugin.
- * Version: 5.4.28
+ * Description: This TFA plugin provides various two-factor authentication methods as an additional layer of security after the default wordpress login. We Support Google/Authy/LastPass Authenticator, QR Code, Push Notification, Soft Token and Security Questions(KBA) for 3 User in the free version of the plugin.
+ * Version: 5.4.33
  * Author: miniOrange
  * Author URI: https://miniorange.com
  * Text Domain: miniorange-2-factor-authentication
@@ -15,7 +15,7 @@
 
     define( 'MO_HOST_NAME', 'https://login.xecurify.com' );
 
-	define( 'MO2F_VERSION', '5.4.28' );
+	define( 'MO2F_VERSION', '5.4.33' );
 	define('MO2F_PLUGIN_URL', (plugin_dir_url(__FILE__)));
 	define( 'MO2F_TEST_MODE', false );
 	define( 'MO2F_IS_ONPREM', get_option('is_onprem'));
@@ -494,6 +494,7 @@
 			require('handler/twofa/two_fa_short_custom.php');
 			require('controllers/wpns-loginsecurity-ajax.php');
 			require('controllers/malware_scanner/malware_scan_ajax.php');
+			require('controllers/duo_authenticator/duo_authenticator_ajax.php');
 			require('controllers/backup/backup_ajax.php');
 			require('controllers/tour/tour_ajax.php');
 			require('controllers/twofa/two_factor_ajax.php');

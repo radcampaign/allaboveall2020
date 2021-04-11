@@ -342,86 +342,108 @@ function mo2f_shift_to_onprem(){
 				}
 			}
 		}
-		function mo2f_save_email_verification()
-		{
+		
 
+function mo2f_save_email_verification()
+	{
+                
 			if(!wp_verify_nonce($_POST['nonce'],'EmailVerificationSaveNonce'))
 			{
-				echo "NonceDidNotMatch";
-				exit;
+			echo "NonceDidNotMatch";
+			exit;
 			}
 			else
 			{
-                    $user_id = get_current_user_id();
-                    $twofactor_transactions = new Mo2fDB;
-					$exceeded = $twofactor_transactions->check_alluser_limit_exceeded($user_id);
+				$user_id = get_current_user_id();              
+				$twofactor_transactions = new Mo2fDB;
+				$exceeded = $twofactor_transactions->check_alluser_limit_exceeded($user_id);
 
-					if($exceeded){
-						echo "USER_LIMIT_EXCEEDED";
-						exit;
-					}
+				if($exceeded){
+				echo "USER_LIMIT_EXCEEDED";
+				exit;
+				}
+				$email = sanitize_email($_POST['email']);
+				$currentMethod = sanitize_text_field($_POST['current_method']);
+				$error = false;
 				
-               if(MO2F_IS_ONPREM){
 				$customer_key               = get_site_option( 'mo2f_customerKey' );
 				$api_key                    = get_site_option( 'mo2f_api_key' );
-	            $email 		= sanitize_text_field($_POST['email']);
-				$enduser = new Customer_Setup();
-	            $content = $enduser->send_otp_token($email,'OUT OF BAND EMAIL',$customer_key,$api_key, get_user_by('id',$user_id));
-	            
-	            $response = json_decode($content,true);
-	             }else{
-	             	$response['status'] = 'SUCCESS';
-	             }
-				if($response['status'] == 'FAILED'){
-					
-					
-					echo "smtpnotset";
-						exit;	
-                
-				}else if ($response['status'] == 'SUCCESS'){           
-                 
-				$email 		= sanitize_text_field($_POST['email']);
-				$currentMethod = sanitize_text_field($_POST['current_method']);
-				$error 		= false;
-				
-			   }
-				
-				if (!filter_var($email, FILTER_VALIDATE_EMAIL))
-				{
-					$error = true;
-				}
-				if($email!='' && !$error)
-				{
-					global $Mo2fdbQueries;
-					if($currentMethod == 'EmailVerification')
-					{
-						$Mo2fdbQueries->update_user_details(get_current_user_id(),array(
-						'mo2f_EmailVerification_config_status'=>true,
-						'mo_2factor_user_registration_status'               => 'MO_2_FACTOR_PLUGIN_SETTINGS',
-						'mo2f_configured_2FA_method'=>"Email Verification",
-						'mo2f_user_email'                      => $email
-						));
-					}
-					else
-					{
-						$Mo2fdbQueries->update_user_details(get_current_user_id(),array(
-						'mo2f_EmailVerification_config_status'=>true,
-						'mo2f_user_email'                      => $email
-						));
 
+			  
+						if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+						{
+						$error = true;
 						}
-						update_user_meta($user_id,'tempEmail',$email);
-						echo "settingsSaved";
-						exit;
-					}
-				else
-				{
-					echo "invalidEmail";
-					exit;
-				}
-			 }	
+		if($email!='' && !$error)
+		{
+		global $Mo2fdbQueries;
+		if($currentMethod == 'EmailVerification')
+		{
 
+
+			
+			if(MO2F_IS_ONPREM){
+		
+			update_user_meta($user_id,'tempEmail',$email);
+			$enduser = new Customer_Setup();
+			$content = $enduser->send_otp_token($email,'OUT OF BAND EMAIL',$customer_key,$api_key);
+			$decoded = json_decode($content,true);
+			if($decoded['status'] == 'FAILED'){
+			echo "smtpnotset";
+			exit;
 			}
+			
+			update_user_meta($user_id,'Mo2fTxid',$decoded['txId']);
+			$otpToken = '';
+			$otpToken .= rand(0,9);
+			update_user_meta($user_id,'Mo2fOtpToken',$otpToken);
+			
+			}
+
+
+
+			//for cloud
+			if(! MO2F_IS_ONPREM){
+			$enduser = new Two_Factor_Setup();
+			$enduser->mo2f_update_userinfo($email, "OUT OF BAND EMAIL",null,null,null);
+			}
+			   // }
+
+			echo "settingsSaved";
+			exit;
+			}
+		elseif ($currentMethod == 'OTPOverEmail')
+		{
+				update_user_meta($user_id,'tempEmail',$email);
+				$enduser = new Customer_Setup();
+				                  $content = $enduser->send_otp_token($email,"OTP Over Email",$customer_key,$api_key);
+
+				                  $decoded = json_decode($content,true);
+				 if($decoded['status'] == 'FAILED'){
+
+
+				echo "smtpnotset";
+				exit;
+				               
+				}
+				    update_user_meta( $user_id, 'configure_2FA', 1 );
+				    update_user_meta($user_id,'Mo2fOtpOverEmailtxId',$decoded['txId']);
+				                
+
+		}
+			update_user_meta($user_id,'tempRegEmail',$email);
+			echo "settingsSaved";
+			exit;
+			}
+		else
+		{
+		echo "invalidEmail";
+		exit;
+		}
+
+	}
+
+}
 
 		function CheckEVStatus()
 		{

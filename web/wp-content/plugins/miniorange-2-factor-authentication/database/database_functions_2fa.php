@@ -47,7 +47,8 @@ class Mo2fDB {
 				`mo2f_GoogleAuthenticator_config_status` tinyint, 
 				`mo2f_OTPOverEmail_config_status` tinyint, 
 				`mo2f_OTPOverTelegram_config_status` tinyint, 
-				`mo2f_OTPOverWhatsapp_config_status` tinyint, 
+				`mo2f_OTPOverWhatsapp_config_status` tinyint,
+				`mo2f_DuoAuthenticator_config_status` tinyint, 
 				`mobile_registration_status` tinyint, 
 				`mo2f_2factor_enable_2fa_byusers` tinyint DEFAULT 1,
 				`mo2f_configured_2FA_method` mediumtext NOT NULL , 
@@ -69,6 +70,7 @@ class Mo2fDB {
 
 		$check_if_column_exists = $this->check_if_column_exists( 'mo2f_user_details', "mo2f_OTPOverEmail_config_status" );
 		$check_if_column_exists_tel = $this->check_if_column_exists( 'mo2f_user_details', "mo2f_OTPOverTelegram_config_status" );
+		$check_if_column_exists_duo = $this->check_if_column_exists( 'mo2f_user_details', "mo2f_DuoAuthenticator_config_status" );
 
 		if (  ! $check_if_column_exists  ) {
 			$query = "ALTER TABLE `$tableName` ADD COLUMN `mo2f_OTPOverEmail_config_status` tinyint";
@@ -80,6 +82,12 @@ class Mo2fDB {
 			$query = "ALTER TABLE " . $tableName . " ADD COLUMN (
 			`mo2f_OTPOverTelegram_config_status` tinyint, 
 			`mo2f_OTPOverWhatsapp_config_status` tinyint);";
+			$this->execute_add_column( $query );	
+		}
+		if(!$check_if_column_exists_duo)
+		{
+			$query = "ALTER TABLE " . $tableName . " ADD COLUMN ( 
+			`mo2f_DuoAuthenticator_config_status` tinyint);";
 			$this->execute_add_column( $query );	
 		}
 
@@ -97,6 +105,8 @@ class Mo2fDB {
 			 `mo2f_transactionId` mediumtext NOT NULL , 
 			 `mo_2_factor_kba_questions` longtext NOT NULL , 
 			 `mo2f_rba_status` longtext NOT NULL , 
+			 `secret_ga` mediumtext NOT NULL,
+			 `ga_qrCode` mediumtext NOT NULL,
 			 `ts_created` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 			  PRIMARY KEY (`session_id`(100)));";
 			
@@ -107,6 +117,20 @@ class Mo2fDB {
 
 		if (  ! $check_if_column_exists  ) {
 			$query = "ALTER TABLE `$tableName` ADD COLUMN `mo_2factor_login_status` mediumtext NOT NULL";
+			$this->execute_add_column( $query );
+			
+		}
+		$check_if_column_exists = $this->check_if_column_exists( "user_login_info_table", "secret_ga" );
+
+		if (  ! $check_if_column_exists  ) {
+			$query = "ALTER TABLE `$tableName` ADD COLUMN `secret_ga` mediumtext NOT NULL";
+			$this->execute_add_column( $query );
+			
+		}
+		$check_if_column_exists = $this->check_if_column_exists( "user_login_info_table", "ga_qrCode" );
+
+		if (  ! $check_if_column_exists  ) {
+			$query = "ALTER TABLE `$tableName` ADD COLUMN `ga_qrCode` mediumtext NOT NULL";
 			$this->execute_add_column( $query );
 			
 		}

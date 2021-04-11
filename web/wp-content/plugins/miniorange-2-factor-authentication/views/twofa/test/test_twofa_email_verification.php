@@ -1,11 +1,8 @@
 <?php
- function mo2f_test_email_verification() {
+ function mo2f_test_email_verification($user = null) {
     $mo2f_dirName = dirname(__FILE__);
     $mo2f_dirName = explode('wp-content', $mo2f_dirName);
     $mo2f_dirName = explode('views', $mo2f_dirName[1]);
-
-    $checkEV = get_site_option('siteurl').DIRECTORY_SEPARATOR."wp-content".$mo2f_dirName[0]."handler".DIRECTORY_SEPARATOR."two_fa_pass2login.php";
-    $checkEV = 'http://localhost/onpremchanges/wordpress\wp-content\plugins\miniorange-2-factor-authentication\viewshandler\two_fa_pass2login.php';
   ?>
 
     <h3><?php echo mo2f_lt( 'Test Email Verification' ); ?></h3>
@@ -34,7 +31,7 @@
         <input type="hidden" name="option" value="mo2f_out_of_band_success"/>
 		<input type="hidden" name="mo2f_out_of_band_success_nonce"
 						value="<?php echo wp_create_nonce( "mo2f-out-of-band-success-nonce" ) ?>"/>
-        <input type="hidden" name="TxidEmail" value="<?php echo $_SESSION['txid']; ?>"/>
+        <input type="hidden" name="TxidEmail" value="<?php echo get_user_meta($user->ID, 'mo2f_transactionId', true); ?>"/>
     </form>
     <form name="f" method="post" id="mo2f_out_of_band_error_form" action="">
         <input type="hidden" name="option" value="mo2f_out_of_band_error"/>
@@ -52,8 +49,8 @@
 
     if(MO2F_IS_ONPREM)
     {
-        $otpToken = isset($_SESSION['otpToken']) ? $_SESSION['otpToken'] : '';
-        $txid     = isset($_SESSION["txid"])     ? $_SESSION["txid"]     : ''; 
+        $otpToken = get_user_meta($user->ID, 'otpToken', true);
+        $txid     = get_user_meta($user->ID, 'mo2f_transactionId', true);
     ?>
     <script type="text/javascript">
         var timeout;
@@ -86,7 +83,7 @@
     }
     else 
     {
-        $mo2f_transactionId = isset($_SESSION['mo2f_transactionId']) ? $_SESSION['mo2f_transactionId'] : '';
+        $mo2f_transactionId = get_user_meta($user->ID, 'mo2f_transactionId', true);
 
     ?>
         <script type="text/javascript">

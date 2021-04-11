@@ -1,9 +1,9 @@
 <?php
 
 function mo2f_configure_google_authenticator( $user ) {
-    $mo2f_google_auth     = isset( $_SESSION['mo2f_google_auth'] ) ? $_SESSION['mo2f_google_auth'] : null;
-    $data                 = isset( $_SESSION['mo2f_google_auth'] ) ? $mo2f_google_auth['ga_qrCode'] : null;
-    $ga_secret            = isset( $_SESSION['mo2f_google_auth'] ) ? $mo2f_google_auth['ga_secret'] : null;
+    $mo2f_google_auth = get_user_meta($user->ID, 'mo2f_google_auth', true);
+    $data = isset($mo2f_google_auth['ga_qrCode']) ? $mo2f_google_auth['ga_qrCode'] : null;
+    $ga_secret = isset($mo2f_google_auth['ga_secret']) ? $mo2f_google_auth['ga_secret'] : null;
     $h_size               = 'h3';
     $gauth_name= get_option('mo2f_google_appname');
     $gauth_name = $gauth_name ? $gauth_name : 'miniOrangeAu';
@@ -104,7 +104,7 @@ function mo2f_configure_google_authenticator( $user ) {
             <td class="mo2f_google_authy_step3">
                 <h4><?php echo '<' . $h_size . '>' . mo2f_lt( 'Step-2: Verify and Save' ) . '</' . $h_size . '>';; ?></h4>
                 <hr>
-                <div style="<?php echo isset( $_SESSION['mo2f_google_auth'] ) ? 'display:block' : 'display:none'; ?>">
+                <div style="<?php echo isset( $mo2f_google_auth ) ? 'display:block' : 'display:none'; ?>">
                     <div><?php echo mo2f_lt( 'After you have scanned the QR code and created an account, enter the verification code from the scanned account here.' ); ?></div>
                     <br>
                     <form name="f" method="post" action="">

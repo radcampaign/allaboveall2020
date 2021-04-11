@@ -1,4 +1,6 @@
-<?php function mo2f_test_kba_security_questions( $user ) { ?>
+<?php function mo2f_test_kba_security_questions( $user ) {
+  $questions = get_user_meta($user->ID, 'mo_2_factor_kba_questions', true);
+ ?>
 
         <h3><?php echo mo2f_lt( 'Test Security Questions( KBA )' ); ?></h3>
         <hr>
@@ -11,8 +13,8 @@
 						value="<?php echo wp_create_nonce( "mo2f-validate-kba-details-nonce" ) ?>"/>
 						
         <div id="mo2f_kba_content">
-			<?php if ( isset( $_SESSION['mo_2_factor_kba_questions'] ) ) {
-				echo $_SESSION['mo_2_factor_kba_questions'][0]['question'];
+			<?php if ( isset( $questions ) ) {
+				echo $questions[0]['question'];
 				?>
                 <br>
                 <input class="mo2f_table_textbox" style="width:227px;" type="text" name="mo2f_answer_1"
@@ -21,7 +23,7 @@
                        title="Only alphanumeric letters with special characters(_@.$#&amp;+-) are allowed."
                        autocomplete="off"><br><br>
 				<?php
-				echo $_SESSION['mo_2_factor_kba_questions'][1]['question'];
+				echo $questions[1]['question'];
 				?>
                 <br>
                 <input class="mo2f_table_textbox" style="width:227px;" type="text" name="mo2f_answer_2"

@@ -26,7 +26,7 @@ function mo2f_test_miniorange_qr_code_authentication( $user ) {
     <table class="mo2f_settings_table">
         <div id="qr-success"></div>
         <div id="displayQrCode" >
-            <br><?php echo '<img style="width:165px;" src="data:image/jpg;base64,' . $_SESSION['mo2f_qrCode'] . '" />'; ?>
+            <br><?php echo '<img style="width:165px;" src="data:image/jpg;base64,' . get_user_meta($user->ID, 'mo2f_qrCode', true) . '" />'; ?>
         </div>
 
     </table>
@@ -57,7 +57,7 @@ function mo2f_test_miniorange_qr_code_authentication( $user ) {
         pollMobileValidation();
 
         function pollMobileValidation() {
-            var transId = "<?php echo $_SESSION['mo2f_transactionId'];  ?>";
+            var transId = "<?php echo get_user_meta($user->ID, 'mo2f_transactionId', true);  ?>";
             var jsonString = "{\"txId\":\"" + transId + "\"}";
             var postUrl = "<?php echo MO_HOST_NAME;  ?>" + "/moas/api/auth/auth-status";
 

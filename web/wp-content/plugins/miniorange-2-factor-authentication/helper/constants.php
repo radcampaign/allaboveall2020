@@ -11,7 +11,7 @@
 		const ERR_403					= "403";
 		const DEFAULT_CUSTOMER_KEY		= "16555";
 		const DEFAULT_API_KEY 			= "fFd2XcvTGDemZvbw1bcUesNJWEqKbbUq";
-		const DB_VERSION				= 153;
+		const DB_VERSION				= 155;
 		const DB_FEATURE_MAIL			= 1;
 		const SUPPORT_EMAIL				= 'info@xecurify.com';
 		const REAL_TIME_IP_HOST			= 'https://firewall.xecurify.com/';

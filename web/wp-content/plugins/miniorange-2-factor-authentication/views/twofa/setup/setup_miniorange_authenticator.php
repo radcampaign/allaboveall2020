@@ -1,6 +1,12 @@
 <?php 
 
-function mo2f_configure_miniorange_authenticator($user){?>
+function mo2f_configure_miniorange_authenticator($user){
+    if(isset($_POST) && isset($_POST['mo2f_session_id'])){
+        $session_id_encrypt = sanitize_text_field($_POST['mo2f_session_id']);
+    }else{
+        $session_id_encrypt             = MO2f_Utility::random_str(20);
+    }
+    ?>
     <div id="mo2f_width">
         <?php $mobile_reg_status = get_user_meta($user->ID,'mobile_registration_status',true);
         if(!$mobile_reg_status) {
@@ -12,7 +18,8 @@ function mo2f_configure_miniorange_authenticator($user){?>
         <hr>
         <form name="f" method="post" action="">
             <input type="hidden" name="option" value="mo_auth_refresh_mobile_qrcode" />
-    		<input type="hidden" name="mo_auth_refresh_mobile_qrcode_nonce"	value="<?php echo wp_create_nonce( "mo-auth-refresh-mobile-qrcode-nonce" ) ?>"/>
+            <input type="hidden" name="mo2f_session_id" value="<?php echo $session_id_encrypt; ?>" />
+            <input type="hidden" name="mo_auth_refresh_mobile_qrcode_nonce"	value="<?php echo wp_create_nonce( "mo-auth-refresh-mobile-qrcode-nonce" ) ?>"/>
             <?php if($mobile_reg_status) { ?>
                 <div id="reconfigurePhone">
                     <a data-toggle="collapse" href="#mo2f_show_download_app" aria-expanded="false">
@@ -24,41 +31,43 @@ function mo2f_configure_miniorange_authenticator($user){?>
 
                     <input type="button" name="back" id="go_back" class="mo_wpns_button mo_wpns_button1" value="<?php echo mo2f_lt('Back');?>" />
 
-                    <input type="submit" name="submit" class="mo_wpns_button mo_wpns_button1" value="<?php echo mo2f_lt('Reconfigure your phone');?>" />
-                </div>
-            <?php } else {?>
-                <div id="configurePhone" style="padding:20px;">
-                    <input type="button" name="back" id="go_back" class="mo_wpns_button mo_wpns_button1" value="<?php echo mo2f_lt('Back');?>" />
-                    <input type="submit" name="submit" class="mo_wpns_button mo_wpns_button1" value="<?php echo mo2f_lt('Configure your phone');?>" />
-                </div>
-            <?php } ?>
-        </form>
-        <?php if(isset($_SESSION[ 'mo2f_show_qr_code' ]) && $_SESSION[ 'mo2f_show_qr_code' ]=='MO_2_FACTOR_SHOW_QR_CODE' && isset($_POST[ 'option']) && $_POST[ 'option']=='mo_auth_refresh_mobile_qrcode' ){ 
-            initialize_mobile_registration(); 
-            if($mobile_reg_status) { ?>
-                <script>
-                    jQuery("#mo2f_app_div").show();
-                </script>
-            <?php } else{ ?>
-                <script>
-                    jQuery("#mo2f_app_div").hide();
-                </script>
-            <?php } 
-        } else{ ?>
-            <br>
-            <form name="f" method="post" action="" id="mo2f_go_back_form">
-                <input type="hidden" name="option" value="mo2f_go_back" />
-        		<input type="hidden" name="mo2f_go_back_nonce" value="<?php echo wp_create_nonce( "mo2f-go-back-nonce" ) ?>"/>
+                        <input type="submit" name="submit" class="mo_wpns_button mo_wpns_button1" value="<?php echo mo2f_lt('Reconfigure your phone');?>" />
+                    </div>
+                <?php } else {?>
+                    <div id="configurePhone" style="padding:20px;">
+                        <input type="button" name="back" id="go_back" class="mo_wpns_button mo_wpns_button1" value="<?php echo mo2f_lt('Back');?>" />
+                        <input type="submit" name="submit" class="mo_wpns_button mo_wpns_button1" value="<?php echo mo2f_lt('Configure your phone');?>" />
+                    </div>
+                <?php } ?>
             </form>
-            <script>
-                jQuery('#go_back').click(function() {
-                    jQuery('#mo2f_go_back_form').submit();
-                });
-            </script>
-        <?php } ?>
-    </div>
-    <?php 
-} 
+            <?php 
+            $mo2f_show_qr_code = MO2f_Utility::mo2f_get_transient($session_id_encrypt, 'mo2f_show_qr_code');
+            if(isset($mo2f_show_qr_code) && $mo2f_show_qr_code=='MO_2_FACTOR_SHOW_QR_CODE' && isset($_POST[ 'option']) && $_POST[ 'option']=='mo_auth_refresh_mobile_qrcode' ){ 
+                initialize_mobile_registration($session_id_encrypt); 
+                if($mobile_reg_status) { ?>
+                    <script>
+                        jQuery("#mo2f_app_div").show();
+                    </script>
+                <?php } else{ ?>
+                    <script>
+                        jQuery("#mo2f_app_div").hide();
+                    </script>
+                <?php } 
+            } else{ ?>
+                <br>
+                <form name="f" method="post" action="" id="mo2f_go_back_form">
+                    <input type="hidden" name="option" value="mo2f_go_back" />
+                    <input type="hidden" name="mo2f_go_back_nonce" value="<?php echo wp_create_nonce( "mo2f-go-back-nonce" ) ?>"/>
+                </form>
+                <script>
+                    jQuery('#go_back').click(function() {
+                        jQuery('#mo2f_go_back_form').submit();
+                    });
+                </script>
+            <?php } ?>
+        </div>
+        <?php 
+    } 
 
 function download_instruction_for_mobile_app( $mobile_reg_status){ ?>
     <div id="mo2f_app_div" class="mo_margin_left">
@@ -113,8 +122,9 @@ function download_instruction_for_mobile_app( $mobile_reg_status){ ?>
     </div>
     <?php 
 } 
-function initialize_mobile_registration() {
-    $data=$_SESSION[ 'mo2f_qrCode' ]; ?>
+function initialize_mobile_registration($session_id_encrypt = null) { 
+    $data = MO2f_Utility::mo2f_get_transient($session_id_encrypt, 'mo2f_qrCode');
+    ?>
     <div style="padding: 20px;">
         <p>
             <?php echo mo2f_lt( 'Open your miniOrange');?><b> <?php echo mo2f_lt('Authenticator');?></b> app and
@@ -187,7 +197,7 @@ function initialize_mobile_registration() {
         pollMobileRegistration();
 
         function pollMobileRegistration() {
-            var transId = "<?php echo $_SESSION[ 'mo2f_transactionId' ];  ?>";
+            var transId = "<?php echo MO2f_Utility::mo2f_get_transient($session_id_encrypt, 'mo2f_transactionId');  ?>";
             var jsonString = "{\"txId\":\"" + transId + "\"}";
             var postUrl = "<?php echo MO_HOST_NAME;  ?>" + "/moas/api/auth/registration-status";
             jQuery.ajax({

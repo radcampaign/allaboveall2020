@@ -30,7 +30,7 @@ class Customer_Setup extends Customer_Cloud_Setup {
 
 
 	function send_otp_token( $uKey, $authType, $cKey, $apiKey,  $currentuser=null ) {
-
+   
 		$cloud_methods = array('MOBILE AUTHENTICATION','PUSH NOTIFICATIONS','SMS');
 		if(MO2F_IS_ONPREM and !in_array($authType, $cloud_methods)){
 			include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'Mo2f_OnPremRedirect.php';

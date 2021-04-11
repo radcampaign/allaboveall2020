@@ -260,7 +260,7 @@ function mo2f_get_kba_authentication_prompt($login_status, $login_message, $redi
 	$mo_wpns_config = new MoWpnsHandler();
     $mo2f_login_option            = MoWpnsUtility::get_mo2f_db_option('mo2f_login_option', 'get_option');
 	$mo2f_remember_device_enabled = get_option( 'mo2f_remember_device' );
-    $user_id                      = MO2f_Utility::mo2f_retrieve_user_temp_values( 'mo2f_current_user_id',$session_id_encrypt );
+    $user_id = MO2f_Utility::mo2f_get_transient($session_id_encrypt, 'mo2f_current_user_id');
 	?>
     <html>
     <head>
@@ -482,6 +482,211 @@ function mo2f_backup_form($login_status, $login_message, $redirect_to, $session_
 <?php
    }
 
+ function mo2f_get_duo_push_authentication_prompt( $login_status, $login_message, $redirect_to, $session_id_encrypt,$user_id ){
+    
+   $mo_wpns_config = new MoWpnsHandler();
+    
+    global $Mo2fdbQueries,$txid;
+    $mo2f_enable_forgotphone = MoWpnsUtility::get_mo2f_db_option('mo2f_enable_forgotphone', 'get_option');
+    $mo2f_KBA_config_status  = $Mo2fdbQueries->get_user_detail( 'mo2f_SecurityQuestions_config_status', $user_id );
+    $mo2f_is_new_customer    = MoWpnsUtility::get_mo2f_db_option('mo2f_is_NC', 'get_option');
+    $mo2f_EV_txid            = get_user_meta($user_id,'mo2f_EV_txid',true);    
+    $user_id =  MO2f_Utility::mo2f_get_transient( $session_id_encrypt, 'mo2f_current_user_id' );
+    
+     $current_user = get_user_by('id',$user_id);
+     update_user_meta($user_id,'current_user_email',$current_user->user_email);
+
+
+?>
+
+ <html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?php
+        echo_js_css_files(); ?>
+    </head>
+    <body>
+    <div class="mo2f_modal" tabindex="-1" role="dialog">
+        <div class="mo2f-modal-backdrop"></div>
+        <div class="mo_customer_validation-modal-dialog mo_customer_validation-modal-md">
+            <div class="login mo_customer_validation-modal-content">
+                <div class="mo2f_modal-header">
+                    <h4 class="mo2f_modal-title">
+                        <button type="button" class="mo2f_close" data-dismiss="modal" aria-label="Close"
+                                title="<?php echo mo2f_lt( 'Back to login' ); ?>"
+                                onclick="mologinback();"><span aria-hidden="true">&times;</span></button>
+                        <?php echo mo2f_lt( 'Accept Your Transaction' ); ?></h4>
+                </div>
+                <div class="mo2f_modal-body">
+                    <?php if ( isset( $login_message ) && ! empty( $login_message ) ) { ?>
+                        <div id="otpMessage">
+                            <p class="mo2fa_display_message_frontend"><?php echo $login_message; ?></p>
+                        </div>
+                    <?php } ?>
+                    <div id="pushSection">
+
+                        <div>
+                            <center>
+                                <p class="mo2f_push_oob_message"><?php echo mo2f_lt( 'Waiting for your approval...' ); ?></p>
+                            </center>
+                        </div>
+                        <div id="showPushImage">
+                            <center>
+                                <img src="<?php echo plugins_url( 'includes/images/ajax-loader-login.gif', dirname(dirname(__FILE__)) ); ?>"/>
+                            </center>
+                        </div>
+
+
+                        <span style="padding-right:2%;">
+                           <?php if ( isset( $login_status ) && $login_status == 'MO_2_FACTOR_CHALLENGE_PUSH_NOTIFICATIONS' ) { ?>
+                               <center>
+                                   <?php if ( $mo2f_enable_forgotphone && ! $mo2f_is_new_customer ) { ?>
+                                       <input type="button" name="miniorange_login_forgotphone"
+                                              onclick="mologinforgotphone();" id="miniorange_login_forgotphone"
+                                              class="miniorange_login_forgotphone"
+                                              value="<?php echo mo2f_lt( 'Forgot Phone?' ); ?>"/>
+                                   <?php } ?>
+                                   &emsp;&emsp;
+                            
+                           </center>
+                           <?php } else if ( isset( $login_status ) && $login_status == 'MO_2_FACTOR_CHALLENGE_OOB_EMAIL' && $mo2f_enable_forgotphone && $mo2f_KBA_config_status ) { ?>
+                               <center>
+                              <a href="#mo2f_alternate_login_kba">
+                                 <p class="mo2f_push_oob_backup"><?php echo mo2f_lt( 'Didn\'t receive push nitification?' ); ?></p>
+                              </a>
+                           </center>
+                           <?php } ?>
+                        </span>
+                        <center>
+                            <?php 
+                                if(empty(get_user_meta($user_id, 'mo_backup_code_generated', true))){ ?>
+                                    <div>
+                                        <a href="#mo2f_backup_generate">
+                                            <p style="font-size:14px; font-weight:bold;"><?php echo __('Send backup codes on email', 'miniorange-2-factor-authentication');?></p>
+                                        </a>
+                                    </div>
+                            <?php }else{ ?>
+                                    <div>
+                                        <a href="#mo2f_backup_option">
+                                            <p style="font-size:14px; font-weight:bold;"><?php echo __('Use Backup Codes', 'miniorange-2-factor-authentication');?></p>
+                                        </a>
+                                    </div>
+                            <?php }
+                            ?>
+                            <div style="padding:10px;">
+                                <p><a href="<?php echo $mo_wpns_config->lockedOutlink();?>" target="_blank" style="color:#ca2963;font-weight:bold;">I'm locked out & unable to login.</a></p>
+                            </div>
+                        </center>
+                    </div>
+
+                    <?php 
+                        mo2f_customize_logo(); 
+                        mo2f_create_backup_form($redirect_to, $session_id_encrypt, $login_status, $login_message);
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form name="f" id="mo2f_backto_duo_mo_loginform" method="post" action="<?php echo wp_login_url(); ?>"
+          class="mo2f_display_none_forms">
+        <input type="hidden" name="miniorange_duo_push_validation_failed_nonce"
+               value="<?php echo wp_create_nonce( 'miniorange-2-factor-duo-push-validation-failed-nonce' ); ?>"/>
+        <input type="hidden" name="option" value="miniorange_duo_push_validation_failed">
+        <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+        <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
+        <input type="hidden" name="currentMethod" value="emailVer"/>
+        
+    </form>
+    <form name="f" id="mo2f_duo_push_validation_form" method="post" class="mo2f_display_none_forms">
+        <input type="hidden" name="miniorange_duo_push_validation_nonce"
+               value="<?php echo wp_create_nonce( 'miniorange-2-factor-duo-validation-nonce' ); ?>"/>
+        <input type="hidden" name="option" value="miniorange_duo_push_validation">
+        <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+        <input type="hidden" name="tx_type"/>
+        <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
+        <input type="hidden" name="TxidEmail" value="<?php echo $mo2f_EV_txid; ?>"/>
+        
+    </form>
+   
+    <form name="f" id="mo2f_show_forgotphone_loginform" method="post" class="mo2f_display_none_forms">
+        <input type="hidden" name="request_origin_method" value="<?php echo $login_status; ?>"/>
+        <input type="hidden" name="miniorange_forgotphone"
+               value="<?php echo wp_create_nonce( 'miniorange-2-factor-forgotphone' ); ?>"/>
+        <input type="hidden" name="option" value="miniorange_forgotphone">
+        <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+        <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
+    </form>
+    <form name="f" id="mo2f_alternate_login_kbaform" method="post" class="mo2f_display_none_forms">
+        <input type="hidden" name="miniorange_alternate_login_kba_nonce"
+               value="<?php echo wp_create_nonce( 'miniorange-2-factor-alternate-login-kba-nonce' ); ?>"/>
+        <input type="hidden" name="option" value="miniorange_alternate_login_kba">
+        <input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>"/>
+        <input type="hidden" name="session_id" value="<?php echo $session_id_encrypt; ?>"/>
+    </form>
+    
+    <script>
+        var timeout;
+        
+            pollPushValidation();
+            function pollPushValidation()
+            {   
+               var ajax_url = "<?php echo admin_url('admin-ajax.php'); ?>"; 
+               var nonce = "<?php echo wp_create_nonce( 'miniorange-2-factor-duo-nonce' ); ?>";
+               var session_id_encrypt = "<?php echo $session_id_encrypt; ?>";
+               var data={
+                'action':'mo2f_duo_ajax_request',
+                'call_type':'check_duo_push_auth_status',
+                'session_id_encrypt': session_id_encrypt,
+                'nonce' : nonce,
+               
+               
+               }; 
+               
+               jQuery.post(ajax_url, data, function(response){
+                           
+                      
+                          if (response == 'SUCCESS') {
+                            jQuery('#mo2f_duo_push_validation_form').submit();
+                          } else if (status == 'ERROR' || status == 'FAILED' || status == 'DENIED' || status ==0) {
+                            jQuery('#mo2f_backto_duo_mo_loginform').submit();
+                          } else {
+                            timeout = setTimeout(pollMobileValidation, 3000);
+                          }
+                       
+                });
+        }
+
+
+    
+       
+
+       
+        function mologinforgotphone() {
+            jQuery('#mo2f_show_forgotphone_loginform').submit();
+        }
+
+        function mologinback() {
+            jQuery('#mo2f_backto_duo_mo_loginform').submit();
+        }
+
+        jQuery('a[href="#mo2f_alternate_login_kba"]').click(function () {
+            jQuery('#mo2f_alternate_login_kbaform').submit();
+        });
+        jQuery('a[href="#mo2f_backup_option"]').click(function() {
+            jQuery('#mo2f_backup').submit();
+        });
+        jQuery('a[href="#mo2f_backup_generate"]').click(function() {
+            jQuery('#mo2f_create_backup_codes').submit();
+        });
+
+    </script>
+    </body>
+    </html>
+
+<?php
+ }  
+
 function mo2f_get_push_notification_oobemail_prompt( $id, $login_status, $login_message, $redirect_to, $session_id_encrypt, $cookievalue ) {
 	$mo_wpns_config = new MoWpnsHandler();
 	
@@ -489,10 +694,8 @@ function mo2f_get_push_notification_oobemail_prompt( $id, $login_status, $login_
 	$mo2f_enable_forgotphone = MoWpnsUtility::get_mo2f_db_option('mo2f_enable_forgotphone', 'get_option');
 	$mo2f_KBA_config_status  = $Mo2fdbQueries->get_user_detail( 'mo2f_SecurityQuestions_config_status', $id );
 	$mo2f_is_new_customer    = MoWpnsUtility::get_mo2f_db_option('mo2f_is_NC', 'get_option');
-    $mo2f_EV_txid            = get_user_meta($id,'mo2f_EV_txid',true);    
-    $user_id                      = MO2f_Utility::mo2f_retrieve_user_temp_values( 'mo2f_current_user_id',$session_id_encrypt );  
-    if(!MO2F_IS_ONPREM)
-        $mo2f_EV_txid        = $_SESSION['mo2f_transactionId'];
+    $mo2f_EV_txid            = get_user_meta($id,'mo2f_EV_txid',true);  
+    $user_id = MO2f_Utility::mo2f_get_transient($session_id_encrypt, 'mo2f_current_user_id');
     	?>
     <html>
     <head>
@@ -729,7 +932,7 @@ function mo2f_get_qrcode_authentication_prompt( $login_status, $login_message, $
 	$mo2f_enable_forgotphone = MoWpnsUtility::get_mo2f_db_option('mo2f_enable_forgotphone', 'get_option');
 	$mo_wpns_config = new MoWpnsHandler();
 	$mo2f_is_new_customer    = MoWpnsUtility::get_mo2f_db_option('mo2f_is_NC', 'get_option');
-    $user_id                      = MO2f_Utility::mo2f_retrieve_user_temp_values( 'mo2f_current_user_id',$session_id_encrypt );
+    $user_id = MO2f_Utility::mo2f_get_transient($session_id_encrypt, 'mo2f_current_user_id');
 	?>
     <html>
     <head>
@@ -906,7 +1109,7 @@ function mo2f_get_otp_authentication_prompt( $login_status, $login_message, $red
 	$mo_wpns_config = new MoWpnsHandler();
 	$mo2f_is_new_customer    = MoWpnsUtility::get_mo2f_db_option('mo2f_is_NC', 'get_option');
     $attempts = get_option('mo2f_attempts_before_redirect', 3);
-    $user_id                      = MO2f_Utility::mo2f_retrieve_user_temp_values( 'mo2f_current_user_id',$session_id_encrypt );
+    $user_id = MO2f_Utility::mo2f_get_transient($session_id_encrypt, 'mo2f_current_user_id');
     $mo2f_otp_over_email_config_status        = $Mo2fdbQueries->get_user_detail( 'mo2f_OTPOverEmail_config_status', $user_id );
     ?>
     <html>

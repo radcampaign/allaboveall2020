@@ -1,8 +1,7 @@
 <?php
-	global $Mo2fdbQueries;
+	global $Mo2fdbQueries,$mainDir;
 	$user = wp_get_current_user();
 	$is_NC = MoWpnsUtility::get_mo2f_db_option('mo2f_is_NC', 'get_option');
-	$network_security_enabled = get_option('mo_wpns_2fa_with_network_security');
 	$is_customer_registered = $Mo2fdbQueries->get_user_detail( 'user_registration_with_miniorange', $user->ID ) == 'SUCCESS' ? true : false;
 
 	$mo2f_2fa_method_list = array(
@@ -41,7 +40,7 @@
 		$mo2f_2fa_method_description_set = array(
 		"Enter the soft token from the account in your Google Authenticator App to login.",
 		"Answer the three security questions you had set, to login.",
-		"Enter the soft token from the account in your Authy Authenticator / Microsoft Authenticator / TOTP Authenticator App to login.",
+		"Enter the soft token from the account in your Authy Authenticator/Microsoft Authenticator/TOTP Authenticator App to login.",
 		"Accept the verification link sent to your email to login.",
 		"You will receive a one time passcode via Email.",
 		"You will receive a One Time Passcode via SMS on your Phone",
@@ -106,7 +105,7 @@
 		"According to user's role the particular user will be redirected to specific location",
 		"Have your own gateway? You can use it, no need to purchase SMS then",
 		"For access wordpress on different moblie apps, app specific passwords can be set",
-		"This protects your site from attacks which tries to gain access / login to a site with random usernames and passwords.",
+		"This protects your site from attacks which tries to gain access/login to a site with random usernames and passwords.",
 		"Allows you to manually/automatically block any IP address that seems malicious from accessing your website. ",
 		"Monitor activity of your users. For ex:- login activity, error report",
 		"Enforce users to set a strong password.",
@@ -171,669 +170,520 @@ echo '
 ?>
 <br><br>
 
-
+	<?php 
+	if( get_option("mo_wpns_2fa_with_network_security"))
+		{
+	?>
 	<div class="mo_upgrade_toggle">
+		<p class="mo_upgrade_toggle_2fa">
+	    <input type="radio" name="sitetype" value="Recharge" id="mo2f_2fa_plans" onclick="show_2fa_plans();" style="display: none;">
+	    <label for="mo2f_2fa_plans" class="mo_upgrade_toggle_2fa_lable" id="mo_2fa_lite_licensing_plans_title" style="display: none;">&nbsp;&nbsp;&nbsp;2-Factor Authentication</label>
+		<label for="mo2f_2fa_plans" class="mo_upgrade_toggle_2fa_lable mo2f_active_plan" id="mo_2fa_lite_licensing_plans_title1" style="display: block;">&nbsp;&nbsp;&nbsp;2-Factor Authentication</label>
+		<input type="radio" name="sitetype" value="Recharge" id="mo2f_ns_plans" onclick="mo_ns_show_plans();" style="display: none;">
+	    <label for="mo2f_ns_plans" class="mo_upgrade_toggle_2fa_lable" id="mo_ns_licensing_plans_title">Website Security</label>
+		<label for="mo2f_ns_plans" class="mo_upgrade_toggle_2fa_lable mo2f_active_plan" id="mo_ns_licensing_plans_title1" style="display: none;">Website Security</label>
+		</p>
+	</div>
+	<?php
+		}
+?>
+<span class="cd-switch"></span>
 
-                    <p class="mo_upgrade_toggle_2fa">
 
-                        <input type="radio" name="sitetype" value="regular_plans" id="regular_plans" onclick="mo_2fa_cloud_show_plans();" style="display: none;" >
-                        <label for="regular_plans" id="mo_2fa_cloud_licensing_plans_title" class="mo_upgrade_toggle_2fa_lable" style="display: none;">Unlimited Sites</label>
-    					<label for="regular_plans" id="mo_2fa_cloud_licensing_plans_title1" class="mo_upgrade_toggle_2fa_lable mo2f_active_plan">Unlimited Sites</label>
-
-                        <input type="radio" name="sitetype" value="Recharge" id="mo2f_onpremise_plan" onclick="mo_2fa_onpremise_show_plans();" style="display: none;">
-
-                        <label for="mo2f_onpremise_plan" class="mo_upgrade_toggle_2fa_lable" id="mo_2fa_lite_licensing_plans_title">Unlimited Users</label>
-    					<label for="mo2f_onpremise_plan" class="mo_upgrade_toggle_2fa_lable mo2f_active_plan" id="mo_2fa_lite_licensing_plans_title1" style="display: none;">Unlimited Users</label>
-
-    					<?php if( get_option("mo_wpns_2fa_with_network_security"))
-    						{
-    					?>
-
-		    					<input type="radio" name="sitetype" value="Recharge" id="Recharge" onclick="mo_ns_show_plans();" style="display: none;">
-
-		                        <label for="Recharge" class="mo_upgrade_toggle_2fa_lable" id="mo_ns_licensing_plans_title">Website Security</label>
-		    					<label for="Recharge" class="mo_upgrade_toggle_2fa_lable mo2f_active_plan" id="mo_ns_licensing_plans_title1" style="display: none;">Website Security</label>
-		    			<?php
-		    				}
-		    			?>
-		                        <span class="cd-switch"></span>
-		                  
-                    </p>
-    </div>
 <br><br>
-
-
-
-
-
-
-
-
-
-
-
-<div style="margin-left: 19%;" id="mo2f_unlimited_sites">
-
-    	<div class="mo2f_upgrade_main_div">
-
-    		<div class="mo2f_upgrade_plan_name">
-    			<h1 class="mo2f_upgrade_plan_name_title">Premium</h1>
-    		</div>
-    		<div class="mo2f_upgrade_center_align">
-    			<p style="margin-bottom: -16px;">Starting at</p>
-    			<h1 class="mo2f_upgrade_plan_amount">$30<span class="mo2f_upgrade_yearly">/year</span></h1>
-    		</div>
-    		   <hr class="mo2f_upgrade_hr">
-    			<div class="mo2f_upgrade_site_details" style="margin-left: 24%;">
-    				<div class="mo2f_upgrade_site_details_left">
-    					<span class="dashicons dashicons-thumbs-up mo2f_upgrade_thumb_icon"></span>
-    				</div>
-    				<div class="mo2f_upgrade_site_details_right">
-    					<p class="mo2f_upgrade_site_details_name">complete <b>2FA</b></p>
-    			
-    				</div>
-    			</div>
-    		<hr class="mo2f_upgrade_hr">
-    		<div style="text-align: center;margin-top: 7%;margin-bottom: 7%;">
-
-			<?php
-			 if( isset($is_customer_registered) && $is_customer_registered) {
-						?>
-                        <button class=" mo_wpns_upgrade_page_button mo2f_upgrade_button_style"  onclick="mo2f_upgradeform('wp_2fa_premium_plan','2fa_plan')" >Upgrade</button>
-		                <?php 
-		            }else{ ?>
-						<button class=" mo_wpns_upgrade_page_button mo2f_upgrade_button_style"  onclick="mo2f_register_and_upgradeform('wp_2fa_premium_plan','2fa_plan')" >Upgrade</button>
-		                <?php } 
-		                ?>
-						
-		
-		    </div>
-		   
-    		<p style="margin-top: 20px;text-align: center;">
-    				<span class=" dashicons dashicons-saved mo2f_upgrade_tick_icon"></span><span class="mo2f_upgrade_feature_details"><b>Force Two Factor </b>for users</span><br>
-    				<span class=" dashicons dashicons-saved mo2f_upgrade_tick_icon"></span><span class="mo2f_upgrade_feature_details">Enable 2FA for <b>specific User Roles</b></span><br>
-    				<span class=" dashicons dashicons-saved mo2f_upgrade_tick_icon"></span><span class="mo2f_upgrade_feature_details"><b>Additional </b>2FA methods</span>
-    		</p>
-    		<br>
-    		<hr class="mo2f_upgrade_hr">
-					<?php echo mo2f_yearly_premium_pricing_plan(); ?>
-
-			<hr class="mo2f_upgrade_hr">
-			<br>
-			<h3 style="text-align: center;">Authentication Methods</h3>
-		  		<?php 
-		  		for ( $i = 0; $i < 13; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_2fa_method_list[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_2fa_method_list_with_plans[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-						if ( gettype( $f_feature_set_with_plan[0] ) == "boolean") 
-							{
-								echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[0] );
-							}
-							echo $feature_set;
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_2fa_method_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-				?>
-				<h3 style="text-align: center;">Other Features</h3>
-				<?php
-				for ( $i = 0; $i < 15; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_feature_set[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_feature_set_with_plans[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-
-							echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[0] );
-							echo $feature_set;
-							if ($feature_set == "Force Two Factor") {
-								echo " for all users";
-								echo mo2f_feature_on_hover_2fa_upgrade("Enforce administrators to setup 2nd factor during registration");
-
-							}
-							else
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_2fa_feature_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-				?>
-
-				<h3 style="text-align: center;">Custom SMS Gateway 
-					<a  style="text-decoration:none;" href="https://login.xecurify.com/moas/login?redirectUrl=https://login.xecurify.com/moas/admin/customer/smsconfig" target="_blank">Test Now</a>
-				</h3>
-
-				<?php
-				for ( $i = 0; $i < 6; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_custom_sms_gateways[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_custom_sms_gateways_feature_set[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-
-							echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[0] );
-							echo $feature_set;
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_custom_sms_gateways_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-
-				?>
-				<h3 style="text-align: center;">Addons</h3>
-
-				<?php
-				for ( $i = 0; $i < 3; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_addons_set[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_addons[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-
-							echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[0] );
-							echo $feature_set;
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_addons_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-
-				?>
-    	</div>
-
-    	<div class="mo2f_upgrade_main_div" style="box-shadow: 0 1px 34px 0px #c0c0c0;min-height: 633px;">
-    		<div class="mo2f_upgrade_plan_name box">
-    			<h1 class="mo2f_upgrade_plan_name_title">Enterprise</h1>
-    			<div>
-    				 <div class="ribbon ribbon-top-right"><span>Popular</span></div>
-    		</div>
-    		</div>
-    		
-    		<div class="mo2f_upgrade_center_align">
-    			<p style="margin-bottom: -16px;">Starting at</p>
-    			<h1 class="mo2f_upgrade_plan_amount">$59<span class="mo2f_upgrade_yearly">/year</span></h1>
-    		</div>
-    		  <hr class="mo2f_upgrade_hr">
-    			<div class="mo2f_upgrade_site_details"  style="margin-left: 11%;">
-    				<div class="mo2f_upgrade_site_details_left">
-    					<span class="dashicons dashicons-thumbs-up mo2f_upgrade_thumb_icon"></span>
-    				</div>
-    				<div class="mo2f_upgrade_site_details_right">
-    					<p class="mo2f_upgrade_site_details_name">Complete<b> Login Security</b></p>
-    				</div>
-    			</div>
-    			
-    		<hr class="mo2f_upgrade_hr">
-    		<div style="text-align: center;margin-top: 7%;margin-bottom: 7%;">
-
-			<?php
-			 if( isset($is_customer_registered) && $is_customer_registered) {
-						?>
-                        <button class=" mo_wpns_upgrade_page_button mo2f_upgrade_button_style"  onclick="mo2f_upgradeform('wp_2fa_enterprise_plan','2fa_plan')" >Upgrade</button>
-		                <?php 
-		            }else{ ?>
-						<button class=" mo_wpns_upgrade_page_button mo2f_upgrade_button_style"  onclick="mo2f_register_and_upgradeform('wp_2fa_enterprise_plan','2fa_plan')" >Upgrade</button>
-		                <?php } 
-		                ?>
-						
-		
-		    </div>
-
-		    
-    		 <p style="margin-top: 20px;text-align: center;">
-    				<span class=" dashicons dashicons-saved mo2f_upgrade_tick_icon"></span><span class="mo2f_upgrade_feature_details"><b>All</b> Premium Features</span><br>
-    				<span class=" dashicons dashicons-saved mo2f_upgrade_tick_icon"></span><span class="mo2f_upgrade_feature_details"><b>Force Two Factor </b>for <b>Users</b></span><br>
-    				<span class=" dashicons dashicons-saved mo2f_upgrade_tick_icon"></span><span class="mo2f_upgrade_feature_details">Basic <b>Security </b>Features</span>
-    			</p>
-    			<br>
-	    		<hr class="mo2f_upgrade_hr">
-						<?php echo mo2f_yearly_all_inclusive_pricing_plan(); ?>
-
-				<hr class="mo2f_upgrade_hr">
-				<br>
-				<h3 style="text-align: center;">Authentication Methods</h3>
-		  		<?php 
-		  		for ( $i = 0; $i < 13; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_2fa_method_list[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_2fa_method_list_with_plans[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-						if ( gettype( $f_feature_set_with_plan[1] ) == "boolean" && ($feature_set != "Other Features" )&& ($feature_set != "Custom SMS Gateway" )) 
-							{
-								echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[1] );
-							}
-							echo $feature_set;
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_2fa_method_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-				?>
-
-				<h3 style="text-align: center;">Other Features</h3>
-				<?php
-				for ( $i = 0; $i < 15; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_feature_set[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_feature_set_with_plans[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-
-							echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[1] );
-							echo $feature_set;
-							if ($feature_set == "Force Two Factor") {
-								echo " for all users";
-								echo mo2f_feature_on_hover_2fa_upgrade("Enforce users to setup 2nd factor during registration");
-
-							}
-							else
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_2fa_feature_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-
-				?>
-
-				<h3 style="text-align: center;">Custom SMS Gateway 
-					<a  style="text-decoration:none;" href="https://login.xecurify.com/moas/login?redirectUrl=https://login.xecurify.com/moas/admin/customer/smsconfig" target="_blank">Test Now</a>
-				</h3>
-
-				<?php
-				for ( $i = 0; $i < 6; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_custom_sms_gateways[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_custom_sms_gateways_feature_set[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-
-							echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[0] );
-							echo $feature_set;
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_custom_sms_gateways_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-				?>
-				<h3 style="text-align: center;">Addons</h3>
-
-				<?php
-				for ( $i = 0; $i < 3; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_addons_set[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_addons[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-
-							echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[1] );
-							echo $feature_set;
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_addons_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-
-				?>
-    	</div>
-
-
-    
-    	    
-    </div>
-
-
-
-
-
-
-    <div style="margin-left: 19%; display: none;" id="mo2f_unlimited_users">
-    	<div class="mo2f_upgrade_main_div">
-
-    		<div class="mo2f_upgrade_plan_name">
-    			<h1 class="mo2f_upgrade_plan_name_title">Standard Lite</h1>
-    		</div>
-    		<div class="mo2f_upgrade_center_align">
-    			<p style="margin-bottom: -16px;">Starting at</p>
-    			<h1 class="mo2f_upgrade_plan_amount">$49<span class="mo2f_upgrade_yearly">/year</span></h1>
-    		</div>
-    		   <hr class="mo2f_upgrade_hr">
-    			<div class="mo2f_upgrade_site_details" style="margin-left: 11%;">
-    				<div class="mo2f_upgrade_site_details_left">
-    					<span class="dashicons dashicons-thumbs-up mo2f_upgrade_thumb_icon"></span>
-    				</div>
-    				<div class="mo2f_upgrade_site_details_right">
-    					<p class="mo2f_upgrade_site_details_name"><b>basic</b> two-factor security</p>
-    			
-    				</div>
-    			</div>
-    		<hr class="mo2f_upgrade_hr">
-    		<div style="text-align: center;margin-top: 7%;margin-bottom: 7%;">
-
-			<?php
-			 if( isset($is_customer_registered) && $is_customer_registered) {
-						?>
-                        <button class=" mo_wpns_upgrade_page_button mo2f_upgrade_button_style"  onclick="mo2f_upgradeform('wp_security_two_factor_standard_lite_plan','2fa_plan')" >Upgrade</button>
-		                <?php 
-		            }else{ ?>
-						<button class=" mo_wpns_upgrade_page_button mo2f_upgrade_button_style"  onclick="mo2f_register_and_upgradeform('wp_security_two_factor_standard_lite_plan','2fa_plan')" >Upgrade</button>
-		                <?php } 
-		                ?>
-						
-		
-		    </div>
-		   
-    		 <p style="margin-top: 20px;text-align: center;">
-    				<span class=" dashicons dashicons-saved mo2f_upgrade_tick_icon"></span><span class="mo2f_upgrade_feature_details"><b>Force Two Factor </b>for admins</span><br>
-    				<span class=" dashicons dashicons-saved mo2f_upgrade_tick_icon"></span><span class="mo2f_upgrade_feature_details">Enable 2FA for <b>specific User Roles</b></span><br>
-    				<span class=" dashicons dashicons-saved mo2f_upgrade_tick_icon"></span><span class="mo2f_upgrade_feature_details"><b>Additional </b>2FA methods</span>
-    			</p>
-		  <br>
-    		<hr class="mo2f_upgrade_hr">
-					<?php echo mo2f_sms_cost(); ?>
-
-			<hr class="mo2f_upgrade_hr">
-			<br>
-			<h3 style="text-align: center;">Authentication Methods</h3>
-		  		<?php 
-		  		for ( $i = 0; $i < 13; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_2fa_method_list[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_2fa_method_list_with_plans[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-								echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[2] );
-							echo $feature_set;
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_2fa_method_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-				?>
-				<h3 style="text-align: center;">Other Features</h3>
-				<?php
-				for ( $i = 0; $i < 15; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_feature_set[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_feature_set_with_plans[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-
-							echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[2] );
-							echo $feature_set;
-							if ($feature_set == "Force Two Factor") {
-								echo " for Administrators";
-								echo mo2f_feature_on_hover_2fa_upgrade("Enforce administrators to setup 2nd factor during registration");
-
-							}
-							else
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_2fa_feature_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-				?>
-
-				<h3 style="text-align: center;">Custom SMS Gateway 
-					<a  style="text-decoration:none;" href="https://login.xecurify.com/moas/login?redirectUrl=https://login.xecurify.com/moas/admin/customer/smsconfig" target="_blank">Test Now</a>
-				</h3>
-
-				<?php
-				for ( $i = 0; $i < 6; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_custom_sms_gateways[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_custom_sms_gateways_feature_set[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-
-							echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[2] );
-							echo $feature_set;
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_custom_sms_gateways_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-
-				?>
-				<h3 style="text-align: center;">Addons</h3>
-
-				<?php
-				for ( $i = 0; $i < 3; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_addons_set[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_addons[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-
-							echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[2] );
-							echo $feature_set;
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_addons_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-
-				?>
-    	</div>
-
-
-    	<div class="mo2f_upgrade_main_div" style="box-shadow: 0 1px 34px 0px #c0c0c0;min-height: 633px;">
-    		<div class="mo2f_upgrade_plan_name box">
-    			<h1 class="mo2f_upgrade_plan_name_title">Premium Lite</h1>
-    			<div>
-    				 <div class="ribbon ribbon-top-right"><span>Popular</span></div>
-    		</div>
-    		</div>
-    		
-    		<div class="mo2f_upgrade_center_align">
-    			<p style="margin-bottom: -16px;">Starting at</p>
-    			<h1 class="mo2f_upgrade_plan_amount">$99<span class="mo2f_upgrade_yearly">/year</span></h1>
-    		</div>
-    		  <hr class="mo2f_upgrade_hr">
-    			<div class="mo2f_upgrade_site_details"  style="margin-left: 6%;">
-    				<div class="mo2f_upgrade_site_details_left">
-    					<span class="dashicons dashicons-thumbs-up mo2f_upgrade_thumb_icon"></span>
-    				</div>
-    				<div class="mo2f_upgrade_site_details_right">
-    					<p class="mo2f_upgrade_site_details_name"><b>Complete</b> two-factor security</p>
-    				</div>
-    			</div>
-    			
-    		<hr class="mo2f_upgrade_hr">
-    		<div style="text-align: center;margin-top: 7%;margin-bottom: 7%;">
-
-			<?php
-			 if( isset($is_customer_registered) && $is_customer_registered) {
-						?>
-                        <button class=" mo_wpns_upgrade_page_button mo2f_upgrade_button_style"  onclick="mo2f_upgradeform('wp_security_two_factor_premium_lite_plan','2fa_plan')" >Upgrade</button>
-		                <?php 
-		            }else{ ?>
-						<button class=" mo_wpns_upgrade_page_button mo2f_upgrade_button_style"  onclick="mo2f_register_and_upgradeform('wp_security_two_factor_premium_lite_plan','2fa_plan')" >Upgrade</button>
-		                <?php } 
-		                ?>
-						
-		
-		    </div>
-
-		    
-    		<p style="margin-top: 20px;text-align: center;">
-    				<span class=" dashicons dashicons-saved mo2f_upgrade_tick_icon"></span><span class="mo2f_upgrade_feature_details"><b>All</b> Standard Features</span><br>
-    				<span class=" dashicons dashicons-saved mo2f_upgrade_tick_icon"></span><span class="mo2f_upgrade_feature_details"><b>Force Two Factor </b>for <b>Users</b></span><br>
-    				<span class=" dashicons dashicons-saved mo2f_upgrade_tick_icon"></span><span class="mo2f_upgrade_feature_details">Basic <b>Security </b>Features</span>
-    		</p>
-		 
-    		<br>
-    		<hr class="mo2f_upgrade_hr">
-					<?php echo mo2f_sms_cost(); ?>
-
-			<hr class="mo2f_upgrade_hr">
-			<br>
-			<h3 style="text-align: center;">Authentication Methods</h3>
-		  		<?php 
-		  		for ( $i = 0; $i < 13; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_2fa_method_list[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_2fa_method_list_with_plans[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-								echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[3] );
-							echo $feature_set;
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_2fa_method_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-				?>
-				<h3 style="text-align: center;">Other Features</h3>
-				<?php
-				for ( $i = 0; $i < 15; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_feature_set[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_feature_set_with_plans[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-
-							echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[3] );
-							echo $feature_set;
-							if ($feature_set == "Force Two Factor") {
-								echo " for all users";
-								echo mo2f_feature_on_hover_2fa_upgrade("Enforce users to setup 2nd factor during registration");
-
-							}
-							else
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_2fa_feature_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-				?>
-
-				<h3 style="text-align: center;">Custom SMS Gateway 
-					<a  style="text-decoration:none;" href="https://login.xecurify.com/moas/login?redirectUrl=https://login.xecurify.com/moas/admin/customer/smsconfig" target="_blank">Test Now</a>
-				</h3>
-
-				<?php
-				for ( $i = 0; $i < 6; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_custom_sms_gateways[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_custom_sms_gateways_feature_set[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-
-							echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[3] );
-							echo $feature_set;
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_custom_sms_gateways_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-
-				?>
-				<h3 style="text-align: center;">Addons</h3>
-
-				<?php
-				for ( $i = 0; $i < 3; $i ++ ) 
-		  		{ 
-						$feature_set = $mo2f_addons_set[ $i ];
-                   	
-						$f_feature_set_with_plan = $mo2f_addons[ $feature_set ];
-						?>
-							<div style="margin-bottom: -3%;margin-left: 2%;margin-right: 2%;">
-						<?php
-
-							echo mo2f_get_binary_equivalent_2fa_lite( $f_feature_set_with_plan[3] );
-							echo $feature_set;
-							echo mo2f_feature_on_hover_2fa_upgrade($mo2f_addons_description_set[$i]);
-
-							?>
-						</div>
-							<br>
-							<?php	
-				}
-
-				?>
-
-    	</div>
-
-
-    
-    </div>
-
-
-
-
-
-
-
-
-
- <div id="mo_ns_features_only" style="display: none;">
-
-	<div class="mo_wpns_upgrade_security_title"  >
+<link rel="stylesheet" href=<?php echo $mainDir.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.'css'.DIRECTORY_SEPARATOR.'upgrade.css';?>>
+
+<div class="mo2f_upgrade_super_div" id="mo2f_twofa_plans">
+<div class="mo2f_upgrade_main_div">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"/>
+	<div id="pricing_tabs_mo" class="mo2fa_pricing_tabs_mo mo2fa_pricing_tabs_mo_premium_lite">
+		<div id="pricing_head" class="mo2fa_pricing_head_supporter"><center><h3 class="mo2fa_pricing_head_mo_2fa">Premium Lite</h3></center></div>
+		<div id="pricing_head" class="mo2fa_pricing_head_supporter"><center><span class="mo2fa_pricing_head_mo_2fa">$99</span>/Year</center></div>
+
+		<div id="getting_started_2fa_mo">
+			<center>
+			<a href="#addon_site_based"><button class="mo2fa_make_my_plan_mo">Getting Started</button></a>
+			</center>
+		</div>
+
+		<div id="pricing_feature_collection_supporter" class="mo2fa_pricing_feature_collection_supporter">
+			<div id="pricing_feature_collection" class="mo2fa_pricing_feature_collection">
+				<ul class="mo2fa_ul">
+					<p class="mo2fa_feature"><strong>Features</strong></p>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_limit_pricing_feature_mo_2fa"><i class="fas fa-times"></i>Unlimited Sites</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Unlimited Users</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature">
+					<i class="fas fa-check"></i>
+				    <span class="mo2fa_tooltip_methodlist">10+ Authentication Methods
+				    <span class="methodlist">
+					<ul class="methods-list-mo2fa" style="margin-left: -43px; ">
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Google Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Security Questions</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Authy Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Microsoft Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>LastPass Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>FreeOTP Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Duo Mobile Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Email Verification</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>OTP Over Email</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>OTP Over SMS</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-mo-size-cross"><i class="fas fa-times  mo2fa_fa-times icon-mo2fa-methods"></i>miniOrange QR Code Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-mo-size-cross"><i class="fas fa-times  mo2fa_fa-times icon-mo2fa-methods"></i>miniOrange Soft Token</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-mo-size-cross"><i class="fas fa-times  mo2fa_fa-times icon-mo2fa-methods"></i>miniOrange Push Notification</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-mo-size-cross"><i class="fas fa-times  mo2fa_fa-times icon-mo2fa-methods"></i>OTP Over SMS and Email</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-mo-size-cross"><i class="fas fa-times  mo2fa_fa-times icon-mo2fa-methods"></i>Hardware Token</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>OTP Over Whatsapp</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>OTP Over Telegram</li>
+					</ul>
+					</span>
+				    </span>
+					</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Force users to set-up 2FA</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i> 3+ Backup Login Methods</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Passwordless Login</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_limit_pricing_feature_mo_2fa"><i class="fas fa-times"></i>Strong Password</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Custom SMS Gateway </li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_limit_pricing_feature_mo_2fa"><i class="fas fa-times"></i>Add-Ons (Purchase Seperately)</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Advance Login Settings</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_limit_pricing_feature_mo_2fa"><i class="fas fa-times"></i>Advance Security Features</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"  id="addon_site_based"><i class="fas fa-check"></i>Multi-Site Support</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Language Translation Support</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Get Online Support Via GoTo/Zoom </li>
+				</ul>
+
+			</div>
+		</div>
+		<div id="pricing_addons_site_based" class="mo2fa_pricing">
+				<center>
+			<div id="purchase_user_limit">
+					<p class="mo2fa_more_details_p mo2fa_class"><a href="#details" onclick="mo2fa_show_details()">Click here to compare all plans</a></p>
+					<p class="mo2fa_more_details_p1 mo2fa_hide1"><a href="#details" onclick="mo2fa_show_details()">Click here to hide comparison</a></p>
+				<center><h3 class="mo2fa_purchase_user_limit_mo mo2fa_purchase_limit_mo">Choose No. of Sites</h3>
+				<p class="mo2fa_pricing_p">(Yearly Subscription Fees*)</p>
+				<select id="site_price_mo" onchange="update_site_limit()" onclick="update_site_limit()" class="mo2fa_increase_my_limit">
+					<option value="99">1 Site - free with the plan</option>
+					<option value="159">2 Sites - $159 per year</option>
+					<option value="199">Upto 5 Sites - $199 per year</option>
+					<option value="259">Upto 10 Sites - $259 per year</option>
+					<option value="349">Upto 25 Sites - $349per year</option>
+					<option value="0"> Above 25 - Contact us</option>
+				</select>
+			</div>
+			<div id="purchase_sms_limit">
+				<center><h3 class="mo2fa_purchase_otp_limit mo2fa_purchase_limit_mo">No. of SMS Transactions  </h3>
+					<p class="mo2fa_country">(For all countries*)</p>
+				<select id="sms_price_site_based_mo" onchange="update_sms_limit_site_based_mo()" class="mo2fa_increase_my_limit">
+					<option value="0">0 Transaction - $0</option>
+					<option value="12">100 Transactions - $12</option>
+					<option value="54">500 Transactions - $54</option>
+					<option value="105">1000 Transactions - $105</option>
+					<option value="510">5000 Transactions - $510</option>
+					<option value="1010">10,000 Transactions - $1010</option>
+					<option value="4945">50,000 Transactions - $4945</option>
+				</select>
+				</center>
+			</div>
+			<div id="purchase_email_limit">
+				<center><h3 class="mo2fa_purchase_otp_limit mo2fa_purchase_limit_mo">No. of Email Transactions </h3>
+				<select id="email_price_site_based_mo" onchange="update_email_limit_site_based_mo()" class="mo2fa_increase_my_limit">
+					<option value="0">0 Transaction - $0</option>
+					<option value="2">100 Transactions - $2</option>
+					<option value="5">500 Transactions - $5</option>
+					<option value="7">1000 Transactions - $7</option>
+					<option value="20">5000 Transactions - $20</option>
+					<option value="30">10,000 Transactions - $30</option>
+					<option value="45">50,000 Transactions - $45</option>
+				</select>
+				</center>
+			</div>
+			<div class="mo2fa_dollar"> <center><span>$</span><span id="mo_pricing_adder_site_based"></span></center></div>
+
+			<div id="custom_my_plan_2fa_mo">
+				<center>
+				<?php	if( isset($is_customer_registered) && $is_customer_registered) { ?>
+				<a onclick="mo2f_upgradeform('wp_security_two_factor_premium_lite_plan','2fa_plan')" target="blank"><button class="mo2fa_upgrade_my_plan">Proceed</button></a>
+				<?php }else{ ?>
+				<a onclick="mo2f_register_and_upgradeform('wp_security_two_factor_premium_lite_plan','2fa_plan')" target="blank"><button class="mo2fa_upgrade_my_plan">Proceed</button></a>
+				<?php }?>
+				</center>
+			</div>
+			</center>
+		</div>
+	</div>
+	<script>
+		var base_price_site_based =0;
+		var display_my_site_based_price = parseInt(base_price_site_based)+parseInt(0)+parseInt(0)+parseInt(0);
+		document.getElementById("mo_pricing_adder_site_based").innerHTML = + display_my_site_based_price;
+		jQuery('#site_price_mo').click();
+		function update_site_limit() {
+			var users = document.getElementById("site_price_mo").value;
+			var sms_user_selection= document.getElementById("sms_price_site_based_mo").value;
+			var email_user_selection= document.getElementById("email_price_site_based_mo").value;
+			var users_addion = parseInt(base_price_site_based)+parseInt(users)+parseInt(sms_user_selection)+parseInt(email_user_selection);
+
+			document.getElementById("mo_pricing_adder_site_based").innerHTML = + users_addion;
+
+		}
+
+		function update_sms_limit_site_based_mo() {
+			var sms = document.getElementById("sms_price_site_based_mo").value;
+			var users_sms_selection = document.getElementById("site_price_mo").value;
+			var email_sms_selection= document.getElementById("email_price_site_based_mo").value;
+
+			var sms_addion = parseInt(base_price_site_based)+parseInt(sms)+parseInt(users_sms_selection )+parseInt(email_sms_selection);
+
+			document.getElementById("mo_pricing_adder_site_based").innerHTML = + sms_addion;
+
+		}
+
+		function update_email_limit_site_based_mo() {
+			var email= document.getElementById("email_price_site_based_mo").value;
+			var users_email_selection = document.getElementById("site_price_mo").value;
+			var sms_email_selection = document.getElementById("sms_price_site_based_mo").value;
+			var email_addion = parseInt(base_price_site_based)+parseInt(email)+parseInt(users_email_selection)+parseInt(sms_email_selection);
+
+			document.getElementById("mo_pricing_adder_site_based").innerHTML = + email_addion;
+
+		}
+
+
+	</script>
+</div>
+
+
+<div class="mo2f_upgrade_main_div">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+	<div id="pricing_tabs_mo" class="mo2fa_pricing_tabs_mo mo2fa_pricing_tabs_mo_premium">
+		<div class="mo2fa_recommended"><center><h4 class="mo2fa_h4">Recommended</h4></center> </div>
+		<div id="pricing_head_all_inclusive" class="mo2fa_pricing_head_supporter"><center><h3 class="mo2fa_pricing_head_mo_2fa">Premium</h3></center></div>
+		<div id="pricing_head_all_inclusive" class="mo2fa_pricing_head_supporter"><center><span class="mo2fa_pricing_head_mo_2fa">$199</span>/Year</center></div>
+		<div id="getting_started_2fa_mo_all_inclusive">
+		<center>
+			<a href="#addon_all_inclusive"><button class="mo2fa_make_my_plan_mo">Getting Started</button></a>
+	</center>
+		</div>
+
+		<div id="pricing_feature_collection_supporter_all_inclusive" class="mo2fa_pricing_feature_collection_supporter">
+			<div id="pricing_feature_collection_all_inclusive" class="mo2fa_pricing_feature_collection">
+				<ul class="mo2fa_ul">
+					<p class="mo2fa_feature"><strong>Features</strong></p>
+
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_limit_pricing_feature_mo_2fa"><i class="fas fa-times"></i>Unlimited Sites</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Unlimited Users</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i><span class="mo2fa_tooltip_methodlist">10+ Authentication Methods
+				    <span class="methodlist">
+					<ul class="methods-list-mo2fa" style="margin-left: -43px; ">
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Google Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Security Questions</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Authy Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Microsoft Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>LastPass Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>FreeOTP Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Duo Mobile Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Email Verification</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>OTP Over Email</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>OTP Over SMS</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-mo-size-cross"><i class="fas fa-times  mo2fa_fa-times icon-mo2fa-methods"></i>miniOrange QR Code Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-mo-size-cross"><i class="fas fa-times  mo2fa_fa-times icon-mo2fa-methods"></i>miniOrange Soft Token</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-mo-size-cross"><i class="fas fa-times  mo2fa_fa-times icon-mo2fa-methods"></i>miniOrange Push Notification</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-mo-size-cross"><i class="fas fa-times  mo2fa_fa-times icon-mo2fa-methods"></i>OTP Over SMS and Email</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-mo-size-cross"><i class="fas fa-times  mo2fa_fa-times icon-mo2fa-methods"></i>Hardware Token</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>OTP Over Whatsapp</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>OTP Over Telegram</li>
+					</ul>
+					</span>
+				    </span></li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Force users to set-up 2FA</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i> 3+ Backup Login Methods</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Passwordless Login</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Strong Password</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Custom SMS Gateway </li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Add-Ons (Included)</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Advance Login Settings</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Advance Security Features</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"  id="addon_all_inclusive"><i class="fas fa-check"></i>Multi-Site Support</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Language Translation Support</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Get Online Support Via GoTo/Zoom </li>
+				</ul>
+
+			</div>
+		</div>
+		<div id="pricing_addons_all_inclusive" class="mo2fa_pricing">
+			<div id="purchase_user_limit_all_inclusive">
+				<p class="mo2fa_more_details_p mo2fa_class"><a href="#details" onclick="mo2fa_show_details()">Click here to compare all plans</a></p>
+					<p class="mo2fa_more_details_p1 mo2fa_hide1"><a href="#details" onclick="mo2fa_show_details()">Click here to hide comparison</a></p>
+				<center><h3 class="mo2fa_purchase_user_limit_mo mo2fa_purchase_limit_mo">Choose No. of Sites</h3>
+					<p class="mo2fa_pricing_p">(Yearly Subscription Fees*)</p>
+				<select id="all_inclusive_price_mo" onclick="update_site_limit_all_inclusive()" onchange="update_site_limit_all_inclusive()" class="mo2fa_increase_my_limit">
+					<option value="199">1 Site - free with the plan</option>
+					<option value="299">2 Sites - $299 per year</option>
+					<option value="399">Upto 5 Sites - $399 per year</option>
+					<option value="599">Upto 10 Sites - $599 per year</option>
+					<option value="799">Upto 25 Sites - $799 per year</option>
+					<option value="0">Above 25 - Contact us</option>
+				</select>
+				</center>
+			</div>
+			<div id="purchase_sms_limit_all_inclusive">
+				<center><h3 class="mo2fa_purchase_otp_limit mo2fa_purchase_limit_mo">No. of SMS Transactions  </h3>
+					<p class="mo2fa_country">(For all countries*)</p>
+				<select id="sms_price_all_inclusive_mo" onchange="update_sms_limit_all_inclusive()" class="mo2fa_increase_my_limit">
+					<option value="0">0 Transaction - $0</option>
+					<option value="12">100 Transactions - $12</option>
+					<option value="54">500 Transactions - $54</option>
+					<option value="105">1000 Transactions - $105</option>
+					<option value="510">5000 Transactions - $510</option>
+					<option value="1010">10,000 Transactions - $1010</option>
+					<option value="4945">50,000 Transactions - $4945</option>
+				</select>
+				</center>
+			</div>
+			<div id="purchase_email_limit_all_inclusive">
+				<center><h3 class="mo2fa_purchase_otp_limit mo2fa_purchase_limit_mo">No. of Email Transactions </h3>
+				<select id="email_price_all_inclusive_mo" onchange="update_email_limit_all_inclusive_mo()" class="mo2fa_increase_my_limit">
+					<option value="0">0 Transaction - $0</option>
+					<option value="2">100 Transactions - $2</option>
+					<option value="5">500 Transactions - $5</option>
+					<option value="7">1000 Transactions - $7</option>
+					<option value="20">5000 Transactions - $20</option>
+					<option value="30">10,000 Transactions - $30</option>
+					<option value="45">50,000 Transactions - $45</option>
+				</select>
+				</center>
+			</div>
+			<div class="mo2fa_dollar"> <center><span>$</span><span id="display_my_all_inclusive_pricing"></span></center></div>
+
+			<div id="custom_my_plan_2fa_mo">
+				<center>
+				<?php	if( isset($is_customer_registered) && $is_customer_registered) { ?>
+				<a onclick="mo2f_upgradeform('wp_security_two_factor_all_inclusive_plan','2fa_plan')" target="blank"><button class="mo2fa_upgrade_my_plan">Proceed</button></a>
+				<?php }else{ ?>
+				<a onclick="mo2f_register_and_upgradeform('wp_security_two_factor_all_inclusive_plan','2fa_plan')" target="blank"><button class="mo2fa_upgrade_my_plan">Proceed</button></a>
+				<?php }?>
+				</center>
+			</div>
+		</div>
+	</div>
+	<script>
+
+		var base_price_site_all_inclusive =0;
+		var display_my_all_inclusive_price = parseInt(base_price_site_all_inclusive)+parseInt(0)+parseInt(0)+parseInt(0);
+		document.getElementById("display_my_all_inclusive_pricing").innerHTML = + display_my_all_inclusive_price;
+		jQuery('#all_inclusive_price_mo').click();
+		function update_site_limit_all_inclusive() {
+			var sites_all_inclusive = document.getElementById("all_inclusive_price_mo").value;
+			var sms_user_selection_all_inclusive= document.getElementById("sms_price_all_inclusive_mo").value;
+			var email_user_selection_all_inclusive= document.getElementById("email_price_all_inclusive_mo").value;
+			var total_inclusive = parseInt(base_price_site_all_inclusive)+parseInt(sites_all_inclusive)+parseInt(sms_user_selection_all_inclusive)+parseInt(email_user_selection_all_inclusive);
+
+			document.getElementById("display_my_all_inclusive_pricing").innerHTML = + total_inclusive;
+
+		}
+
+		function update_sms_limit_all_inclusive() {
+			var sms = document.getElementById("sms_price_all_inclusive_mo").value;
+			var sms_site_selection = document.getElementById("all_inclusive_price_mo").value;
+			var email_sms_selection= document.getElementById("email_price_all_inclusive_mo").value;
+
+			var sms_all_inclusive_mo_2fa= parseInt(base_price_site_all_inclusive)+parseInt(sms)+parseInt(sms_site_selection)+parseInt(email_sms_selection);
+
+			document.getElementById("display_my_all_inclusive_pricing").innerHTML = + sms_all_inclusive_mo_2fa;
+
+		}
+
+		function update_email_limit_all_inclusive_mo() {
+			var email_all_inclusive= document.getElementById("email_price_all_inclusive_mo").value;
+			var site_email_selection_all_inclusive = document.getElementById("all_inclusive_price_mo").value;
+			var sms_email_selection_all_inclusive = document.getElementById("sms_price_all_inclusive_mo").value;
+			var email_all_inclusive_mo= parseInt(base_price_site_all_inclusive)+parseInt(email_all_inclusive)+parseInt(site_email_selection_all_inclusive)+parseInt(sms_email_selection_all_inclusive);
+
+			document.getElementById("display_my_all_inclusive_pricing").innerHTML = + email_all_inclusive_mo;
+
+		}
+
+
+	</script>
+</div>
+
+<div class="mo2f_upgrade_main_div">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+	<div id="pricing_tabs_mo" class="mo2fa_pricing_tabs_mo mo2fa_pricing_tabs_mo_enterprise">
+
+		<div id="pricing_head" style="text-align: center;">
+			<h3 class="mo2fa_pricing_head_mo_2fa">Enterprise</h3> 
+			<h5 class="mo2fa_pricing_head_h5">Starting From </h5>
+		</div>
+		<div id="pricing_head_cost" class="mo2fa_pricing_head_supporter">
+			<center><span class="mo2fa_pricing_head_mo_2fa">$59</span>/Year</center>
+		</div>
+
+		<div id="getting_started_2fa_mo">
+			<center>
+			<a href="#addon"><button class="mo2fa_make_my_plan_mo mo2fa_enterprise_getting_started">Getting Started</button></a>
+			</center>
+		</div>
+
+		<div id="pricing_feature_collection_supporter" class="mo2fa_pricing_feature_collection_supporter">
+			<!--<div id="priceing_plan" style="background: #c9dbdbfa;width: 21%;margin-left: 11em;height: 4em;border-radius: 8px;margin-bottom: -30px;padding: 5px 5px 5px 5px;"><center><h3 class="mo2fa_price_mo_2fa">$59</h3>/year</br><p class="mo2fa_starting_from">Starting From</p></center></div>-->
+
+			<div id="pricing_feature_collection" class="mo2fa_pricing_feature_collection">
+				<ul class="mo2fa_ul">
+					<p class="mo2fa_feature"><strong>Features</strong></p>
+
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Unlimited Sites</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_limit_pricing_feature_mo_2fa"><i class="fas fa-times"></i>Unlimited Users</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i><span class="mo2fa_tooltip_methodlist">15+ Authentication Methods
+				    <span class="methodlist">
+					<ul class="methods-list-mo2fa" style="margin-left: -43px; ">
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Google Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Security Questions</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Authy Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Microsoft Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>LastPass Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>FreeOTP Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Duo Mobile Authenticator</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Email Verification</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>OTP Over Email</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>OTP Over SMS</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>miniOrange QR Code Authentication</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>miniOrange Soft Token</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>miniOrange Push Notification</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>OTP Over SMS and Email</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>Hardware Token</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-mo-size-cross"><i class="fas fa-times  mo2fa_fa-times icon-mo2fa-methods"></i>OTP Over Whatsapp</li>
+						<li class="feature_collect_mo-2fa mo2fa_method-list-size"><i class="fas fa-check mo2fa_fa-check icon-mo2fa-methods"></i>OTP Over Telegram</li>
+					</ul>
+					</span>
+				    </span></li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Force users to set-up 2FA</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i> 3+ Backup Login Methods</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Passwordless Login </li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Strong Password</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Custom SMS Gateway </li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Add-Ons (Limited)</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Advance Login Settings</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Advance Security Features</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature" id="addon"><i class="fas fa-check" id="addon"></i>Multi-Site Support</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Language Translation Support</li>
+					<li class="mo2fa_feature_collect_mo-2fa mo2fa_unltimate_feature"><i class="fas fa-check"></i>Get Online Support Via GoTo/Zoom </li>
+				</ul>
+
+			</div>
+		</div>
+		<div id="pricing_addons" class="mo2fa_pricing">
+			<center>
+			<div id="purchase_user_limit">
+				<p class="mo2fa_more_details_p mo2fa_class"><a href="#details" onclick="mo2fa_show_details()">Click here to compare all plans</a></p>
+					<p class="mo2fa_more_details_p1 mo2fa_hide1"><a href="#details" onclick="mo2fa_show_details()">Click here to hide comparison</a></p>
+				<center><h3 class="mo2fa_purchase_user_limit_mo mo2fa_purchase_limit_mo">Choose No. of Users </h3>
+					<p class="mo2fa_pricing_p">(Yearly Subscription Fees*)</p>
+				<select id="user_price" onclick="update_user_limit()" onchange="update_user_limit()" class="mo2fa_increase_my_limit">
+					<option value="59">Upto-5 users -  $59 per year</option>
+					<option value="128">Upto-50 users - $128 per year</option>
+					<option value="228">Upto-100 users - $228 per year</option>
+					<option value="378">Upto-500 users - $378 per year</option>
+					<option value="528">Upto-1000 users - $528 per year</option>
+					<option value="828">Upto-5000 users - $828 per year</option>
+					<option value="1028">Upto-10000 users - $1028 per year</option>
+					<option value="1528">Upto-20000 users - $1528 per year</option>
+					<option value="0">Unlimited Users - Contact Us</option>
+				</select>
+				</center>
+			</div>
+			<div id="purchase_sms_limit">
+				<center><h3 class="mo2fa_purchase_otp_limit mo2fa_purchase_limit_mo">No. of SMS Transactions  </h3>
+					<p  class="mo2fa_country">(For all countries*)</p>
+				<select id="sms_price" onchange="update_sms_limit()" class="mo2fa_increase_my_limit">
+					<option value="0">0 Transaction - $0</option>
+					<option value="12">100 Transactions - $12</option>
+					<option value="54">500 Transactions - $54</option>
+					<option value="105">1000 Transactions - $105</option>
+					<option value="510">5000 Transactions - $510</option>
+					<option value="1010">10,000 Transactions - $1010</option>
+					<option value="4945">50,000 Transactions - $4945</option>
+				</select>
+				</center>
+			</div>
+			<div id="purchase_email_limit">
+				<center><h3 class="mo2fa_purchase_otp_limit mo2fa_purchase_limit_mo">No. of Email Transactions </h3>
+				<select id="email_price" onchange="update_email_limit()" class="mo2fa_increase_my_limit">
+					<option value="0">0 Transaction - $0</option>
+					<option value="2">100 Transactions - $2</option>
+					<option value="5">500 Transactions - $5</option>
+					<option value="7">1000 Transactions - $7</option>
+					<option value="20">5000 Transactions - $20</option>
+					<option value="30">10,000 Transactions - $30</option>
+					<option value="45">50,000 Transactions - $45</option>
+				</select>
+				</center>
+			</div>
+			<div class="mo2fa_dollar"> <center><span>$</span><span id="mo_pricing_adder"></span></center></div>
+
+			<div id="details">
+				<center>
+				<?php	if( isset($is_customer_registered) && $is_customer_registered) { ?>
+				<a onclick="mo2f_upgradeform('wp_2fa_enterprise_plan','2fa_plan')" target="blank"><button class="mo2fa_upgrade_my_plan">Proceed</button></a>
+				<?php }else{ ?>
+				<a onclick="mo2f_register_and_upgradeform('wp_2fa_enterprise_plan','2fa_plan')" target="blank"><button class="mo2fa_upgrade_my_plan">Proceed</button></a>
+				<?php }?>
+				</center>
+			</div>
+		</center>
+		</div>
+	</div>
+
+	<script>
+		var base_price =0;
+		var display_me = parseInt(base_price)+parseInt(30)+parseInt(0)+parseInt(0);
+		document.getElementById("mo_pricing_adder").innerHTML = + display_me;
+		jQuery('#user_price').click();
+		function update_user_limit() {
+			var users = document.getElementById("user_price").value;
+			var sms_user_selection= document.getElementById("sms_price").value;
+			var email_user_selection= document.getElementById("email_price").value;
+			var users_addion = parseInt(base_price)+parseInt(users)+parseInt(sms_user_selection)+parseInt(email_user_selection);
+
+			document.getElementById("mo_pricing_adder").innerHTML = + users_addion;
+
+		}
+
+		function update_sms_limit() {
+			var sms = document.getElementById("sms_price").value;
+			var users_sms_selection = document.getElementById("user_price").value;
+			var email_sms_selection= document.getElementById("email_price").value;
+
+			var sms_addion = parseInt(base_price)+parseInt(sms)+parseInt(users_sms_selection )+parseInt(email_sms_selection);
+
+			document.getElementById("mo_pricing_adder").innerHTML = + sms_addion;
+
+		}
+
+		function update_email_limit() {
+			var email= document.getElementById("email_price").value;
+			var users_email_selection = document.getElementById("user_price").value;
+			var sms_email_selection = document.getElementById("sms_price").value;
+			var email_addion = parseInt(base_price)+parseInt(email)+parseInt(users_email_selection)+parseInt(sms_email_selection);
+
+			document.getElementById("mo_pricing_adder").innerHTML = + email_addion;
+
+		}
+
+
+	</script>
+
+</div>
+</div>
+<div id="mo2fa_compare">
+	<center>
+	<div class=""><a href="#details" onclick="mo2fa_show_details()"><button class="mo2fa_upgrade_my_plan mo2fa_compare1">Click here to Compare Features</button></a></div>
+	<div><a href="#details" onclick="mo2fa_show_details()"><button  style="display: none;" class="mo2fa_upgrade_my_plan mo2fa_compare1">Click here to Hide Comparison</button></a></div>
+	</center>
+</div>
+<div id="mo_ns_features_only" style="display: none;">
+
+	<div class="mo_wpns_upgrade_security_title" >
 		<div class="mo_wpns_upgrade_page_title_name">
 			<h1 style="margin-top: 0%;padding: 10% 0% 0% 0%; color: white;font-size: 200%;">
 		WAF</h1><hr class="mo_wpns_upgrade_page_hr"></div>
@@ -852,18 +702,18 @@ echo '
 	<?php	
 	if(isset($is_customer_registered) && $is_customer_registered) {
 			?>
-                            <button
-                                        class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
-                                        onclick="mo2f_upgradeform('wp_security_waf_plan','2fa_plan')" >Upgrade</button>
-		                <?php }
-		
-						
-		                else{ ?>
-							<button
-                                        class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
-                                        onclick="mo2f_register_and_upgradeform('wp_security_waf_plan','2fa_plan')" >Upgrade</button>
-		                <?php } 
-		                ?>
+	            <button
+	                        class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
+	                        onclick="mo2f_upgradeform('wp_security_waf_plan','2fa_plan')">Upgrade</button>
+	        <?php }
+
+			
+	        else{ ?>
+				<button
+	                        class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
+	                        onclick="mo2f_register_and_upgradeform('wp_security_waf_plan','2fa_plan')">Upgrade</button>
+	        <?php } 
+	        ?>
 	</div>
 			<div><center><b>
 		<ul>
@@ -878,7 +728,7 @@ echo '
 	</div>
 	</div>
 	<div class="mo_wpns_upgrade_page_space_in_div"></div>
-	<div class="mo_wpns_upgrade_security_title"  >
+	<div class="mo_wpns_upgrade_security_title" >
 		<div class="mo_wpns_upgrade_page_title_name">
 			<h1 style="margin-top: 0%;padding: 10% 0% 0% 0%; color: white;font-size: 200%;">
 		Login and Spam</h1><hr class="mo_wpns_upgrade_page_hr"></div>
@@ -895,15 +745,15 @@ echo '
 			
 		<div style="text-align: center;">
 		<?php if( isset($is_customer_registered)&& $is_customer_registered ) {
-						?>
-                            <button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button" 
-                                        onclick="mo2f_upgradeform('wp_security_login_and_spam_plan','2fa_plan')" >Upgrade</button>
-                        <?php }else{ ?>
+			?>
+	            <button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button" 
+	                        onclick="mo2f_upgradeform('wp_security_login_and_spam_plan','2fa_plan')">Upgrade</button>
+	        <?php }else{ ?>
 
-                           <button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
-                                    onclick="mo2f_register_and_upgradeform('wp_security_login_and_spam_plan','2fa_plan')" >Upgrade</button>
-                        <?php } 
-                        ?>
+	           <button class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
+	                    onclick="mo2f_register_and_upgradeform('wp_security_login_and_spam_plan','2fa_plan')">Upgrade</button>
+	        <?php } 
+	        ?>
 		</div>
 			<div><center><b>
 				<ul>
@@ -920,7 +770,7 @@ echo '
 		
 	</div>
 	<div class="mo_wpns_upgrade_page_space_in_div"></div>
-	<div class="mo_wpns_upgrade_security_title"  >
+	<div class="mo_wpns_upgrade_security_title" >
 		<div class="mo_wpns_upgrade_page_title_name">
 			<h1 style="margin-top: 0%;padding: 10% 0% 0% 0%; color: white;font-size: 200%;">
 		Malware Scanner</h1><hr class="mo_wpns_upgrade_page_hr"></div>
@@ -936,17 +786,17 @@ echo '
 			</center>
 			<div style="text-align: center;">
 			<?php if( isset($is_customer_registered) && $is_customer_registered) {
-						?>
-                            <button
-                                        class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
-                                        onclick="mo2f_upgradeform('wp_security_malware_plan','2fa_plan')" >Upgrade</button>
-		                <?php }else{ ?>
+			?>
+                <button
+                            class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
+                            onclick="mo2f_upgradeform('wp_security_malware_plan','2fa_plan')">Upgrade</button>
+            <?php }else{ ?>
 
-                           <button
-                                        class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
-                                        onclick="mo2f_register_and_upgradeform('wp_security_malware_plan','2fa_plan')" >Upgrade</button>
-		                <?php } 
-		                ?>
+               <button
+                            class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
+                            onclick="mo2f_register_and_upgradeform('wp_security_malware_plan','2fa_plan')">Upgrade</button>
+            <?php } 
+            ?>
 		</div>
 			<div><center><b>
 				<ul>
@@ -961,7 +811,7 @@ echo '
 	</div>
 	</div>
 	<div class="mo_wpns_upgrade_page_space_in_div"></div>
-	<div class="mo_wpns_upgrade_security_title"  >
+	<div class="mo_wpns_upgrade_security_title" >
 		<div class="mo_wpns_upgrade_page_title_name">
 			<h1 style="margin-top: 0%;padding: 10% 0% 0% 0%; color: white;font-size: 200%;">
 		Encrypted Backup</h1><hr class="mo_wpns_upgrade_page_hr"></div>
@@ -978,16 +828,16 @@ echo '
 			</center>
 			<div style="text-align: center;">
 	<?php	if( isset($is_customer_registered) && $is_customer_registered) {
-						?>
-                            <button
-                                        class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
-                                        onclick="mo2f_upgradeform('wp_security_backup_plan','2fa_plan')" >Upgrade</button>
-		                <?php }else{ ?>
-							<button
-                                        class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
-                                        onclick="mo2f_register_and_upgradeform('wp_security_backup_plan' ,'2fa_plan')" >Upgrade</button>
-		                <?php } 
-		                ?>
+		?>
+            <button
+                        class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
+                        onclick="mo2f_upgradeform('wp_security_backup_plan','2fa_plan')">Upgrade</button>
+        <?php }else{ ?>
+			<button
+                        class="mo_wpns_button mo_wpns_button1 mo_wpns_upgrade_page_button"
+                        onclick="mo2f_register_and_upgradeform('wp_security_backup_plan' ,'2fa_plan')">Upgrade</button>
+        <?php } 
+        ?>
 		
 		</div>
 			<div><center><b>
@@ -1002,189 +852,509 @@ echo '
 			</b></center></div>
 	</div></div>
 </div>
+<center>
+	<br>
+	<div id="more_details" style="display:none;">
+<div class="mo2fa_table-scrollbar"></br></br>
+<table class="table mo2fa_table_features table-striped">
+	<caption class="pricing_head_mo_2fa"><h1>Feature Details</h1></caption>
+  <thead>
+    <tr class="mo2fa_main_category_header" style="font-size: 20px;">
+      <th scope="col">Features</th>
+      <th scope="col" class="mo2fa_plugins"><center>Premium Lite</center></th>
+      <th scope="col" class="mo2fa_plugins"><center>Premium</center></th>
+      <th scope="col" class="mo2fa_plugins"><center>Enterprise</center></th> 
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Unlimited Sites</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>      
+    </tr>
+   
+    <tr>
+     <th scope="row">Unlimited Users</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
 
-	<div class="mo_wpns_setting_layout" style="width: 93.5%;margin-left: 0%;">
-		<div>
-                <h2>Steps to upgrade to the Premium Plan</h2>
-                <ol class="mo2f_licensing_plans_ol">
-                    <li><?php echo mo2f_lt( 'Click on \'Upgrade\' button of your preferred plan above.' ); ?></li>
-                    <li><?php echo mo2f_lt( ' You will be redirected to the miniOrange Console. Enter your miniOrange username and password, after which you will be redirected to the payment page.' ); ?></li>
+    </tr>
+   <tr class="bg_category_main_mo_2fa">
+     <th scope="row">Authentication Methods</th>
+      <td></td>
+      <td></td>   
+      <td></td>
+    </tr>
+    <tr>
+     <th scope="row" class="category_feature_mo_2fa">Google Authenticator</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+    </tr>
+    <tr>
+     <th scope="row" class="category_feature_mo_2fa">Security Questions</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
 
-                    <li><?php echo mo2f_lt( 'Select the number of users you wish to upgrade for, and any add-ons if you wish to purchase, and make the payment.' ); ?></li>
-                    <li><?php echo mo2f_lt( 'After making the payment, you can find the Standard/Premium plugin to download from the \'License\' tab in the left navigation bar of the miniOrange Console.' ); ?></li>
-                    <li><?php echo mo2f_lt( 'Download the premium plugin from the miniOrange Console.' ); ?></li>
-                    <li><?php echo mo2f_lt( 'In the Wordpress dashboard, uninstall the free plugin and install the premium plugin downloaded.' ); ?></li>
-                    <li><?php echo mo2f_lt( 'Login to the premium plugin with the miniOrange account you used to make the payment, after this your users will be able to set up 2FA.' ); ?></li>
-                </ol>
-            </div>
-           
+    </tr>
+    <tr>
+    <th scope="row" class="category_feature_mo_2fa">TOTP Based Authenticator</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
 
-            <br>
-            <hr>
-            <h2>Multisite</h2>
-            <p><?php echo mo2f_lt( 'For your first license 3 subsites will be activated automatically on the same domain. And if you wish to use it for more please contact support ' ); ?></p>
-            <hr>
-            <br>
-            <h2>SMS Charges</h2>
-            <p><?php echo mo2f_lt( 'If you wish to choose OTP Over SMS / OTP Over SMS and Email as your authentication method,
-                    SMS transaction prices & SMS delivery charges apply and they depend on country. SMS validity is for lifetime.' ); ?></p>
-            <hr>
-            <br>
-            <div>
-                <h2>Note</h2>
-                <ol class="mo2f_licensing_plans_ol">
-                    <li><?php echo mo2f_lt( 'The plugin works with many of the default custom login forms (like Woocommerce / Theme My Login), however if you face any issues with your custom login form, contact us and we will help you with it.' ); ?></li>
-                    <li style="color: red"><?php echo mo2f_lt( 'There is license key required to activate the Standard/Premium Lite Plugins. You will have to login with the miniOrange Account you used to make the purchase then enter license key to activate plugin.' ); ?>
-                    	
-                    </li>
-                </ol>
-            </div>
-            <br>
-            <div>
-                <h2>Refund Policy</h2>
-                <p class="mo2f_licensing_plans_ol"><?php echo mo2f_lt( 'At miniOrange, we want to ensure you are 100% happy with your purchase. If the premium plugin you purchased is not working as advertised and you\'ve attempted to resolve any issues with our support team, which couldn\'t get resolved then we will refund the whole amount within 10 days of the purchase.' ); ?>
-                </p>
-            </div>
-            <br>
-            <hr>
-            <br>
-            <div>
-                <h2>Privacy Policy</h2>
-                <p class="mo2f_licensing_plans_ol"><a
-                            href="https://www.miniorange.com/2-factor-authentication-for-wordpress-gdpr">Click Here</a>
-                    to read our Privacy Policy.
-                </p>
-            </div>
-            <br>
-            <hr>
-            <br>
-            <div>
-                <h2>Contact Us</h2>
-                <p class="mo2f_licensing_plans_ol"><?php echo mo2f_lt( 'If you have any doubts regarding the licensing plans, you can mail us at' ); ?>
-                    <a href="mailto:info@xecurify.com"><i>info@xecurify.com</i></a> <?php echo mo2f_lt( 'or submit a query using the support form.' ); ?>
-                </p>
-            </div>
+    </tr>
+    <tr>
+    <th scope="row" class="category_feature_mo_2fa">Authy Authenticator</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr> 
+   <tr>
+    <th scope="row" class="category_feature_mo_2fa">Email Verification</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr> 
+    <tr>
+    <th scope="row" class="category_feature_mo_2fa">OTP Over Email (Email Charges apply)</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+
+    </tr> 
+    <tr>
+    <th scope="row" class="category_feature_mo_2fa">OTP Over SMS (SMS Charges apply)</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+
+   <tr>
+    <th scope="row" class="category_feature_mo_2fa">miniOrange QR Code Authentication</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+    </tr>
+     <tr>
+    <th scope="row" class="category_feature_mo_2fa">miniOrange Soft Token</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+    </tr>
+    <tr>
+    <th scope="row" class="category_feature_mo_2fa">miniOrange Push Notification</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+    </tr>
+    <tr>
+    <th scope="row" class="category_feature_mo_2fa">OTP Over SMS and Email (SMS and Email Charges apply)</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+    <tr>
+    <th scope="row" class="category_feature_mo_2fa">Hardware Token</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+    <tr>
+    <th scope="row" class="category_feature_mo_2fa">OTP Over Whatsapp (Add-on)</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+    </tr>
+    <tr>
+    <th scope="row" class="category_feature_mo_2fa">OTP Over Telegram</th>
+      <td><center><i class="fas fa-check"></i></center></td>  
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+    </tr>
+     <tr class="bg_category_main_mo_2fa">
+     <th scope="row">Backup Login Methods</th>
+      <td></td>
+      <td></td>   
+      <td></td>   
+    </tr>
+    <tr>
+    <th scope="row" class="category_feature_mo_2fa">Security Questions (KBA)</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+    </tr>
+    <tr>
+    <th scope="row" class="category_feature_mo_2fa">OTP Over Email</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+    </tr>
+    <tr>
+    <th scope="row" class="category_feature_mo_2fa">Backup Codes</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+    </tr>
+    <tr class="bg_category_main_mo_2fa">
+     <th scope="row">Password Policy</th>
+      <td></td>
+      <td></td>   
+      <td></td>   
+
+    </tr>
+   <tr>
+    <th scope="row" class="category_feature_mo_2fa">Passwordless Login</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+    </tr> 
+    <tr>
+    <th scope="row" class="category_feature_mo_2fa">Strong Password</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+
+    </tr>
+    <tr>
+     <th scope="row">Custom Gateway</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+  <tr class="bg_category_main_mo_2fa">
+     <th scope="row">Add-Ons</th>
+      <td></td>
+      <td></td>   
+      <td></td>   
+
+    </tr>
+     <tr>
+     <th scope="row" class="category_feature_mo_2fa">Remember Device Add-on</br><p class="description_mo_2fa">You can save your device using the Remember device addon and you will get a two-factor authentication </br>prompt to check your identity if you try to login from different devices.</p></th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+    </tr>
+    <tr>
+     <th scope="row" class="category_feature_mo_2fa">Personalization Add-on<p class="description_mo_2fa">You'll get many more customization options in Personalization, such as </br>ustom Email and SMS Template, Custom Login Popup, Custom Security Questions, and many more.</p></th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+    </tr>
+     <tr>
+     <th scope="row" class="category_feature_mo_2fa">Short Codes Add-on<p class="description_mo_2fa">Shortcode Add-ons mostly include Allow 2fa shortcode (you can use this this to add 2fa on any page), </br>Reconfigure 2fa add-on (you can use this add-on to reconfigure your 2fa if you have lost your 2fa verification ability), remember device shortcode.</p></th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+    </tr>
+   <tr>
+     <th scope="row" class="category_feature_mo_2fa">Session Management</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+    </tr><tr>
+     <th scope="row" class="category_feature_mo_2fa">Page Restriction Add-On</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+    </tr><tr>
+     <th scope="row" class="category_feature_mo_2fa">Attribute Based Redirection</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+    </tr>
+    <th scope="row" class="category_feature_mo_2fa">SCIM-User Provisioning</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+    </tr>
+ 
+
+    <tr class="bg_category_main_mo_2fa">
+     <th scope="row">Advance Wordpress Login Settings</th>
+      <td></td>
+      <td></td> 
+      <td></td>   
+  
+    </tr>
+     <tr>
+     <th scope="row" class="category_feature_mo_2fa">Force Two Factor for Users</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+    </tr>
+    <tr>
+     <th scope="row" class="category_feature_mo_2fa">Role Based and User Based Authentication settings</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+    </tr>
+    <tr>
+     <th scope="row" class="category_feature_mo_2fa">Email Verififcation during Two-Factor Registration</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+<tr>
+     <th scope="row" class="category_feature_mo_2fa">Custom Redirect URL</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr><tr>
+     <th scope="row" class="category_feature_mo_2fa">Inline Registration</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr><tr>
+     <th scope="row" class="category_feature_mo_2fa">Mobile Support</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr><tr>
+     <th scope="row" class="category_feature_mo_2fa">Privacy Policy Settings</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr><tr>
+     <th scope="row" class="category_feature_mo_2fa">XML-RPC </th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+     <tr class="bg_category_main_mo_2fa">
+     <th scope="row">Advance Security Features</th>
+      <td></td>
+      <td></td>
+      <td></td>   
+   
+    </tr>
+     <tr>
+     <th scope="row" class="category_feature_mo_2fa">Brute Force Protection</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+    <tr>
+     <th scope="row" class="category_feature_mo_2fa">IP Blocking </th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+     <tr>
+     <th scope="row" class="category_feature_mo_2fa">Monitoring</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr> <tr>
+     <th scope="row" class="category_feature_mo_2fa">File Protection</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+   <tr>
+     <th scope="row" class="category_feature_mo_2fa">Country Blocking </th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+    <tr>
+     <th scope="row" class="category_feature_mo_2fa">HTACCESS Level Blocking </th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+    <tr>
+     <th scope="row" class="category_feature_mo_2fa">Browser Blocking </th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+   <tr>
+     <th scope="row" class="category_feature_mo_2fa">Block Global Blacklisted Email Domains</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+ <tr>
+     <th scope="row" class="category_feature_mo_2fa">Manual Block Email Domains</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+   <tr>
+     <th scope="row" class="category_feature_mo_2fa">DB Backup</th>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+<tr>
+     <th scope="row">Multi-Site Support</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+      <td><center><i class="fas fa-times mo2fa_hide"></i></center></td>
+    </tr><tr>
+     <th scope="row">Language Translation Support</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr><tr>
+     <th scope="row">Get online support with GoTo/Zoom meeting</th>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+      <td><center><i class="fas fa-check"></i></center></td>
+
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</center>
+<div class="mo_wpns_setting_layout mo2fa_setting_layout">
+	<div>
+		<h2><?php echo mo2f_lt('Steps to upgrade to the Premium Plan :');?></h2>
+		<ol class="mo2f_licensing_plans_ol">
+			<li><?php echo mo2f_lt( 'Click on <b>Proceed</b>/<b>Upgrade</b> button of your preferred plan above.' ); ?></li>
+			<li><?php echo mo2f_lt( ' You will be redirected to the miniOrange Console. Enter your miniOrange username and password, after which you will be redirected to the payment page.' ); ?></li>
+
+			<li><?php echo mo2f_lt( 'Select the number of users/sites you wish to upgrade for, and any add-ons if you wish to purchase, and make the payment.' ); ?></li>
+			<li><?php echo mo2f_lt( 'After making the payment, you can find the Premium Lite/Premium/Enterprise plugin to download from the <b>License</b> tab in the left navigation bar of the miniOrange Console.' ); ?></li>
+			<li><?php echo mo2f_lt( 'Download the paid plugin from the <b>Releases and Downloads</b> tab through miniOrange Console .' ); ?></li>
+			<li><?php echo mo2f_lt( 'Deactivate and delete the free plugin from <b>WordPress dashboard</b> and install the paid plugin downloaded.' ); ?></li>
+			<li><?php echo mo2f_lt( 'Login to the paid plugin with the miniOrange account you used to make the payment, after this your users will be able to set up 2FA.' ); ?></li>
+		</ol>
+	</div>
+	<hr>
+	<div>
+		<h2><?php echo mo2f_lt('Note :');?></h2>
+		<ol class="mo2f_licensing_plans_ol">
+			<li><?php echo mo2f_lt( 'The plugin works with many of the default custom login forms (like Woocommerce/Theme My Login/Login With Ajax/User Pro/Elementor), however if you face any issues with your custom login form, contact us and we will help you with it.' ); ?></li>
+			<li><?php echo mo2f_lt( 'The <b>license key </b>is required to activate the <b>Premium Lite/Premium</b> Plugins. You will have to login with the miniOrange Account you used to make the purchase then enter license key to activate plugin.' ); ?>
+
+		</li>
+	</ol>
+</div>
+<hr>
+<br>
+<div>
+	<?php echo mo2f_lt( '<b class="mo2fa_note">Refund Policy : </b>At miniOrange, we want to ensure you are 100% happy with your purchase. If the premium plugin you purchased is not working as advertised and you\'ve attempted to resolve any issues with our support team, which couldn\'t get resolved then we will refund the whole amount within 10 days of the purchase. ' ); ?>
+</div>
+<br>
+<hr>
+<br>
+<div><?php echo mo2f_lt( '<b class="mo2fa_note">SMS Charges : </b>If you wish to choose OTP Over SMS/OTP Over SMS and Email as your authentication method,
+	SMS transaction prices & SMS delivery charges apply and they depend on country. SMS validity is for lifetime.' ); ?>
+</div>
+<br>
+<hr>
+<br>
+<div>
+		<?php echo mo2f_lt( '<b class="mo2fa_note">Multisite : </b>For your first license 3 subsites will be activated automatically on the same domain. And if you wish to use it for more please contact support ' ); ?>
+</div>
+<br>
+<hr>
+<br>
+<div>
+	<?php echo mo2f_lt( '<b class="mo2fa_note">Privacy Policy : </b><a		href="https://www.miniorange.com/2-factor-authentication-for-wordpress-gdpr">Click Here</a>
+		to read our Privacy Policy.' ); ?>
+</div>
+<br>
+<hr>
+<br>
+<div>
+	<?php echo mo2f_lt( '<b class="mo2fa_note">Contact Us : </b>If you have any doubts regarding the licensing plans, you can mail us at <a		href="mailto:info@xecurify.com"><i>info@xecurify.com</i></a>
+		or submit a query using the support form.' ); ?>
+</div>
+</div>
+</center>
+<div id="mo2f_payment_option" class="mo_wpns_setting_layout mo2fa_setting_layout">
+	<div>
+		<h3>Supported Payment Methods</h3><hr>
+		<div class="mo_2fa_container">
+			<div class="mo_2fa_card-deck">
+				<div class="mo_2fa_card mo_2fa_animation">
+					<div class="mo_2fa_Card-header">
+						<?php 
+						echo'<img src="'.dirname(plugin_dir_url(__FILE__)).'/includes/images/card.png" class="mo2fa_card">';?>
+					</div>
+					<hr class="mo2fa_hr">
+					<div class="mo_2fa_card-body">
+						<p class="mo2fa_payment_p">If payment is done through Credit Card/Intenational debit card, the license would be created automatically once payment is completed. </p>
+						<p class="mo2fa_payment_p"><i><b>For guide 
+							<?php echo'<a href='.MoWpnsConstants::FAQ_PAYMENT_URL.' target="blank">Click Here.</a>';?></b></i></p>
+
+						</div>
+					</div>
+					<div class="mo_2fa_card mo_2fa_animation">
+						<div class="mo_2fa_Card-header">
+							<?php 
+							echo'<img src="'.dirname(plugin_dir_url(__FILE__)).'/includes/images/paypal.png" class="mo2fa_card">';?>
+						</div>
+						<hr class="mo2fa_hr">
+						<div class="mo_2fa_card-body">
+							<?php echo'<p class="mo2fa_payment_p">Use the following PayPal id for payment via PayPal.</p><p><i><b style="color:#1261d8"><a href="mailto:'.MoWpnsConstants::SUPPORT_EMAIL.'">info@xecurify.com</a></b></i>';?>
+
+						</div>
+					</div>
+					<div class="mo_2fa_card mo_2fa_animation">
+						<div class="mo_2fa_Card-header">
+							<?php 
+							echo'<img src="'.dirname(plugin_dir_url(__FILE__)).'/includes/images/bank-transfer.png" class="mo2fa_card mo2fa_bank_transfer">';?>
+
+						</div>
+						<hr class="mo2fa_hr">
+						<div class="mo_2fa_card-body">
+							<?php echo'<p class="mo2fa_payment_p">If you want to use Bank Transfer for payment then contact us at <i><b style="color:#1261d8"><a href="mailto:'.MoWpnsConstants::SUPPORT_EMAIL.'">info@xecurify.com</a></b></i> so that we can provide you bank details. </i></p>';?>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mo_2fa_mo-supportnote">
+				<p class="mo2fa_payment_p"><b>Note :</b> Once you have paid through PayPal/Bank Transfer, please inform us at <i><b style="color:#1261d8"><a href="mailto:'.MoWpnsConstants::SUPPORT_EMAIL.'">info@xecurify.com</a></b></i>, so that we can confirm and update your License.</p> 
+			</div>
+		</div>
 	</div>
 
-		<div id="mo2f_payment_option" class="mo_wpns_setting_layout" style="margin-top: 1%;width: 93.5%;margin-left: 0%;">
-       <div>
-           <h3>Supported Payment Methods</h3><hr>
-           <div class="mo_2fa_container">
-           <div class="mo_2fa_card-deck">
-           <div class="mo_2fa_card mo_2fa_animation">
-                <div class="mo_2fa_Card-header">
-                 <?php 
-                echo'<img src="'.dirname(plugin_dir_url(__FILE__)).'/includes/images/card.png" style="size: landscape;width: 100px;height: 27px; margin-bottom: 4px;margin-top: 4px;opacity: 1;padding-left: 8px;">';?>
-                </div>
-                <hr style="border-top: 2px solid #143af4;">
-                <div class="mo_2fa_card-body">
-                <p style="font-size: 110%;">If payment is done through Credit Card/Intenational debit card, the license would be made automatically once payment is completed. </p>
-                <p style="font-size: 110%;"><i><b>For guide 
-                	<?php echo'<a href='.MoWpnsConstants::FAQ_PAYMENT_URL.' target="blank">Click Here.</a>';?></b></i></p>
-                
-                </div>
-            </div>
-          <div class="mo_2fa_card mo_2fa_animation">
-                <div class="mo_2fa_Card-header">
-                 <?php 
-                echo'<img src="'.dirname(plugin_dir_url(__FILE__)).'/includes/images/paypal.png" style="size: landscape;width: 100px;height: 27px; margin-bottom: 4px;margin-top: 4px;opacity: 1;padding-left: 8px;">';?>
-                </div>
-                <hr style="border-top: 2px solid #143af4;">
-                <div class="mo_2fa_card-body">
-                <?php echo'<p style="font-size: 110%;">Use the following PayPal id for payment via PayPal.</p><p><i><b style="color:#1261d8">'.MoWpnsConstants::SUPPORT_EMAIL.'</b></i></p>';?>
-                 <p style="font-size: 110%;"><i><b>Note:</b> There is an additional 18% GST applicable via PayPal.</i></p>
 
-                </div>
-            </div>
-          <div class="mo_2fa_card mo_2fa_animation">
-                <div class="mo_2fa_Card-header">
-                <?php 
-                echo'<img src="'.dirname(plugin_dir_url(__FILE__)).'/includes/images/netbanking.png" style="size: landscape;width: 100px;height: 27px; margin-bottom: 4px;margin-top: 4px;opacity: 1;padding-left: 8px;">';?>
-
-                </div>
-                <hr style="border-top: 2px solid #143af4;">
-                <div class="mo_2fa_card-body">
-                <?php echo'<p style="font-size: 110%;">If you want to use net banking for payment then contact us at <i><b style="color:#1261d8">'.MoWpnsConstants::SUPPORT_EMAIL.'</b></i> so that we can provide you bank details. </i></p>';?>
-                <p style="font-size: 110%;"><i><b>Note:</b> There is an additional 18% GST applicable via Bank Transfer.</i></p>
-                </div>
-                </div>
-              </div>
-          </div>
-             <div class="mo_2fa_mo-supportnote">
-                <p style="font-size: 110%;"><b>Note :</b> Once you have paid through PayPal/Net Banking, please inform us so that we can confirm and update your License.</p> 
-                </div>
-     </div>
- </div>
-
-   
-<?php
-function mo2f_sms_cost() {
-	?>
-    <p class="mo2f_pricing_text mo_wpns_upgrade_page_starting_price" style="text-align: center;" id="mo2f_sms_cost"
-       title="<?php echo mo2f_lt( '(Only applicable if OTP over SMS is your preferred authentication method.)' ); ?>"><?php echo mo2f_lt( 'SMS + OTP Cost' ); ?>
-        <b style="color: black;">[optional]</b><br/>
-        <select id="mo2f_sms" class="form-control" style="border-radius:5px;width:70%;">
-            <option><?php echo mo2f_lt( '$1 per 100 OTP + SMS delivery charges' ); ?></option>
-            <option><?php echo mo2f_lt( '$5 per 500 OTP + SMS delivery charges' ); ?></option>
-            <option><?php echo mo2f_lt( '$7 per 1k OTP + SMS delivery charges' ); ?></option>
-            <option><?php echo mo2f_lt( '$24 per 5k OTP + SMS delivery charges' ); ?></option>
-            <option><?php echo mo2f_lt( '$43 per 10k OTP + SMS delivery charges' ); ?></option>
-            <option><?php echo mo2f_lt( '$160 per 50k OTP + SMS delivery charges' ); ?></option>
-        </select>
-    </p>
-    
 	<?php
-}
-function mo2f_yearly_premium_pricing_plan() {
-	?>
-    <p class="mo2f_pricing_text mo_wpns_upgrade_page_starting_price" style="text-align: center;" 
-       id="mo2f_yearly_sub"><?php echo __( 'Yearly Subscription Fees', 'miniorange-2-factor-authentication' ); ?><br>
-
-        <select id="mo2f_yearly" class="form-control" style="border-radius:5px;width:70%;">
-           <option> <?php echo mo2f_lt( 'Upto 5 users - $30 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 50 users - $99 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 100 users - $199 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 500 users - $349 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 1000 users - $499 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 5000 users - $799 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 10000 users - $999 per year ' ); ?></option>
-            <option> <?php echo mo2f_lt( 'Upto 20000 users - $1449 per year' ); ?> </option>
-            
-        </select>
-    </p>
-	<?php
-}
-function mo2f_yearly_all_inclusive_pricing_plan() {
-	?>
-    <p class="mo2f_pricing_text mo_wpns_upgrade_page_starting_price" style="text-align: center;"
-       id="mo2f_yearly_sub"><?php echo __( 'Yearly Subscription Fees', 'miniorange-2-factor-authentication' ); ?><br>
-
-        <select id="mo2f_yearly" class="form-control" style="border-radius:5px;width:70%;">
-           <option> <?php echo mo2f_lt( 'Upto 5 users - $59 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 50 users - $128 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 100 users - $228 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 500 users - $378 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 1000 users - $528 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 5000 users - $828 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 10000 users - $1028 per year ' ); ?></option>
-            <option> <?php echo mo2f_lt( 'Upto 20000 users - $1478 per year' ); ?> </option>
-            
-        </select>
-    </p>
-	<?php
-}
 function mo2f_waf_yearly_standard_pricing() {
 	?>
     <p class="mo2f_pricing_text mo_wpns_upgrade_page_starting_price"
        id="mo2f_yearly_sub"><?php echo __( 'Yearly Subscription Fees', 'miniorange-2-factor-authentication' ); ?><br>
 
-        <select id="mo2f_yearly" class="form-control" style="border-radius:5px;width:70%;">
-            <option> <?php echo mo2f_lt( '1 site - $50 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 5 sites - $100 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 10 sites - $150 per year' ); ?> </option>
-            
-        </select>
-    </p>
+	<select id="mo2f_yearly" class="form-control mo2fa_form_control1">
+		<option> <?php echo mo2f_lt( '1 site - $50 per year' ); ?> </option>
+		<option> <?php echo mo2f_lt( 'Upto 5 sites - $100 per year' ); ?> </option>
+		<option> <?php echo mo2f_lt( 'Upto 10 sites - $150 per year' ); ?> </option>
+
+	</select>
+</p>
 
 	<?php
 }
@@ -1193,13 +1363,13 @@ function mo2f_login_yearly_standard_pricing() {
     <p class="mo2f_pricing_text mo_wpns_upgrade_page_starting_price"
        id="mo2f_yearly_sub"><?php echo __( 'Yearly Subscription Fees', 'miniorange-2-factor-authentication' ); ?><br>
 
-        <select id="mo2f_yearly" class="form-control" style="border-radius:5px;width:70%;">
-            <option> <?php echo mo2f_lt( '1 site - $15 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 5 sites - $35 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 10 sites - $60 per year' ); ?> </option>
-            
-        </select>
-    </p>
+	<select id="mo2f_yearly" class="form-control mo2fa_form_control1">
+		<option> <?php echo mo2f_lt( '1 site - $15 per year' ); ?> </option>
+		<option> <?php echo mo2f_lt( 'Upto 5 sites - $35 per year' ); ?> </option>
+		<option> <?php echo mo2f_lt( 'Upto 10 sites - $60 per year' ); ?> </option>
+
+	</select>
+</p>
 
 	<?php
 }
@@ -1208,13 +1378,13 @@ function mo2f_backup_yearly_standard_pricing() {
     <p class="mo2f_pricing_text mo_wpns_upgrade_page_starting_price"
        id="mo2f_yearly_sub"><?php echo __( 'Yearly Subscription Fees', 'miniorange-2-factor-authentication' ); ?><br>
 
-        <select id="mo2f_yearly" class="form-control" style="border-radius:5px;width:70%;">
-            <option> <?php echo mo2f_lt( '1 site - $30 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 5 sites - $50 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 10 sites - $70 per year' ); ?> </option>
-            
-        </select>
-    </p>
+	<select id="mo2f_yearly" class="form-control mo2fa_form_control1">
+		<option> <?php echo mo2f_lt( '1 site - $30 per year' ); ?> </option>
+		<option> <?php echo mo2f_lt( 'Upto 5 sites - $50 per year' ); ?> </option>
+		<option> <?php echo mo2f_lt( 'Upto 10 sites - $70 per year' ); ?> </option>
+
+	</select>
+</p>
 
 	<?php
 }
@@ -1223,13 +1393,13 @@ function mo2f_scanner_yearly_standard_pricing() {
     <p class="mo2f_pricing_text mo_wpns_upgrade_page_starting_price" 
        id="mo2f_yearly_sub"><?php echo __( 'Yearly Subscription Fees', 'miniorange-2-factor-authentication' ); ?><br>
 
-        <select id="mo2f_yearly" class="form-control" style="border-radius:5px;width:70%;">
-            <option> <?php echo mo2f_lt( '1 site - $15 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 5 sites - $35 per year' ); ?> </option>
-            <option> <?php echo mo2f_lt( 'Upto 10 sites - $60 per year' ); ?> </option>
-            
-        </select>
-    </p>
+	<select id="mo2f_yearly" class="form-control mo2fa_form_control1">
+		<option> <?php echo mo2f_lt( '1 site - $15 per year' ); ?> </option>
+		<option> <?php echo mo2f_lt( 'Upto 5 sites - $35 per year' ); ?> </option>
+		<option> <?php echo mo2f_lt( 'Upto 10 sites - $60 per year' ); ?> </option>
+
+	</select>
+</p>
 
 	<?php
 }
@@ -1237,9 +1407,9 @@ function mo2f_scanner_yearly_standard_pricing() {
 function mo2f_get_binary_equivalent_2fa_lite( $mo2f_var ) {
 	switch ( $mo2f_var ) {
 		case 1:
-			return "<div style='color: #20b2aa;font-size: x-large;float:left;margin:0px 5px;'>🗸</div>";
+			return "<div style='color: #20b2aa;font-size: x-large;float:left;margin:0px 5px;'>Ã°Å¸â€”Â¸</div>";
 		case 0:
-			return "<div style='color: red;font-size: x-large;float:left;margin:0px 5px;'>×</div>";
+			return "<div style='color: red;font-size: x-large;float:left;margin:0px 5px;'>Ãƒâ€”</div>";
 		default:
 			return $mo2f_var;
 	}
@@ -1296,53 +1466,25 @@ function mo2f_feature_on_hover_2fa_upgrade( $mo2f_var ) {
 					jQuery.post(ajaxurl, data, function(response) {
 					});
         }
-    	function mo_2fa_cloud_show_plans()
+    	function show_2fa_plans()
     	{
-    		document.getElementById('mo2f_unlimited_users').style.display = "none";
-
-    		document.getElementById('mo_2fa_cloud_licensing_plans_title').style.display = "none";
-    		document.getElementById('mo_2fa_cloud_licensing_plans_title1').style.display = "block";
-			var tab = '<?php echo get_option("mo_wpns_2fa_with_network_security");?>'; 
-			if(tab == "1")
-			{
-    			document.getElementById('mo_ns_features_only').style.display = "none";
-    			document.getElementById('mo_ns_licensing_plans_title').style.display = "block"; 
-    			document.getElementById('mo_ns_licensing_plans_title1').style.display = "none";
-			}
-   
-    		document.getElementById('mo_2fa_lite_licensing_plans_title').style.display = "block";
-    		document.getElementById('mo_2fa_lite_licensing_plans_title1').style.display = "none"; 
-    	}
-    	
-    	function mo_2fa_onpremise_show_plans()
-    	{
-    		document.getElementById('mo2f_unlimited_sites').style.display = "none";
-    		var tab = '<?php echo get_option("mo_wpns_2fa_with_network_security");?>'; 
-			if(tab == "1")
-			{
-	    		document.getElementById('mo_ns_features_only').style.display = "none";
-	    		document.getElementById('mo_ns_licensing_plans_title1').style.display = "none";
-	    		document.getElementById('mo_ns_licensing_plans_title').style.display = "block";
-	    	}
-    		document.getElementById('mo_2fa_cloud_licensing_plans_title').style.display = "block";
-    		document.getElementById('mo_2fa_cloud_licensing_plans_title1').style.display = "none"; 
+    		document.getElementById('mo_ns_features_only').style.display = "none";
+    		document.getElementById('mo2f_twofa_plans').style.display = "flex";
     		document.getElementById('mo_2fa_lite_licensing_plans_title').style.display = "none";
-    		document.getElementById('mo_2fa_lite_licensing_plans_title1').style.display = "block"; 
-
+    		document.getElementById('mo_2fa_lite_licensing_plans_title1').style.display = "block";
+    		document.getElementById('mo_ns_licensing_plans_title').style.display = "block";
+    		document.getElementById('mo_ns_licensing_plans_title1').style.display = "none";
+    		document.getElementById('mo2fa_compare').style.display = "block";
     	}
-
     	function mo_ns_show_plans()
     	{
     		document.getElementById('mo_ns_features_only').style.display = "block";
-    		document.getElementById('mo2f_unlimited_sites').style.display = "none";
-    		document.getElementById('mo2f_unlimited_users').style.display = "none";
-
-    		document.getElementById('mo_ns_licensing_plans_title1').style.display = "block";
-    		document.getElementById('mo_ns_licensing_plans_title').style.display = "none";
-    		document.getElementById('mo_2fa_cloud_licensing_plans_title').style.display = "block";
-    		document.getElementById('mo_2fa_cloud_licensing_plans_title1').style.display = "none"; 
+    		document.getElementById('mo2f_twofa_plans').style.display = "none";
     		document.getElementById('mo_2fa_lite_licensing_plans_title').style.display = "block";
-    		document.getElementById('mo_2fa_lite_licensing_plans_title1').style.display = "none"; 
+    		document.getElementById('mo_2fa_lite_licensing_plans_title1').style.display = "none";
+    		document.getElementById('mo_ns_licensing_plans_title').style.display = "none";
+    		document.getElementById('mo_ns_licensing_plans_title1').style.display = "block";
+    		document.getElementById('mo2fa_compare').style.display = "none";
     	}
 
     	function wpns_pricing()
@@ -1350,18 +1492,21 @@ function mo2f_feature_on_hover_2fa_upgrade( $mo2f_var ) {
 			window.open("https://security.miniorange.com/pricing/");
 		}
 
+		function mo2fa_show_details()
+		{
+			jQuery('#more_details').toggle();
+			jQuery('.mo2fa_more_details_p1').toggle();
+			jQuery('.mo2fa_more_details_p').toggle();
+			jQuery('.mo2fa_compare1').toggle();
+		}
+
     </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
 
-  $("#regular_plans").click(function(){
-    $("#mo2f_unlimited_sites").fadeIn(2000);
-  });
 
-    $("#mo2f_onpremise_plan").click(function(){
-    $("#mo2f_unlimited_users").fadeIn(2000);
-  });
+
 
 });
 </script>

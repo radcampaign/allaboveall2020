@@ -366,7 +366,7 @@ class MoWpnsUtility
 			}else{
 				$backup_codes_remaining = 0;
 			}
-        $plugin_configuration ="<br><br><I>Plugin Configuration :-</I>".$space."On-premise:".($is_onprem?"Yes":"No"). $space."2FA method:" . ($mo2f_configured_2FA_method==''?"Not selected":$mo2f_configured_2FA_method).$space."No. of 2FA users :".$NoOf2faUsers.($other_methods==''?"NONE":$space."Methods of users:".$other_methods).$space."Email transactions:".$EmailTransactions.$space."SMS Transactions:".$SMSTransactions.$space.(is_multisite()?"Multisite:Yes":"Single-site:Yes").((mo2f_is_customer_registered())?($space."Customer Key:".$key):($space."Customer Registered:'No")).$space."Browser:".$browser;
+        $plugin_configuration ="<br><br><I>Plugin Configuration :-</I>".$space."On-premise:".($is_onprem?"Yes":"No"). $space."2FA method:" . ($mo2f_configured_2FA_method==''?"Not selected":$mo2f_configured_2FA_method).$space."No. of 2FA users :".$NoOf2faUsers.$space."Methods of users:".($other_methods==''?"NONE":$other_methods).$space."Email transactions:".$EmailTransactions.$space."SMS Transactions:".$SMSTransactions.$space.(is_multisite()?"Multisite:Yes":"Single-site:Yes").((mo2f_is_customer_registered())?($space."Customer Key:".$key):($space."Customer Registered:'No")).$space."Browser:".$browser;
         if(get_user_meta($user_object->ID, 'mo_backup_code_generated', true) || get_user_meta($user_object->ID, 'mo_backup_code_downloaded', true))
         	$plugin_configuration=$plugin_configuration.$space."Backup Codes:".$backup_codes_remaining."/5";
         $plugins='';

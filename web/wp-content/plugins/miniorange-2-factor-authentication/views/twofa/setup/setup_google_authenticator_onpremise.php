@@ -1,6 +1,6 @@
 <?php
 
-function mo2f_configure_google_authenticator_onprem( $secret,$url,$otpcode ) {
+function mo2f_configure_google_authenticator_onprem( $secret,$url,$otpcode, $session_id_encrypt ) {
 	$h_size               = 'h3';
 	$gauth_name= get_option('mo2f_google_appname');
 	$gauth_name = $gauth_name ? $gauth_name : 'miniOrangeAu';
@@ -116,6 +116,7 @@ function mo2f_configure_google_authenticator_onprem( $secret,$url,$otpcode ) {
                                style="width:95%;"/></span><br><br>
                         
                         <input type="hidden" name="option" value="mo2f_configure_google_authenticator_validate"/>
+                        <input type="hidden" name="mo2f_session_id" value="<?php echo $session_id_encrypt ?>">
 						<input type="hidden" name="mo2f_configure_google_authenticator_validate_nonce"
 						value="<?php echo wp_create_nonce( "mo2f-configure-google-authenticator-validate-nonce" ) ?>"/>
                         <input type="submit" name="validate" id="SaveOTPGATour" class="mo_wpns_button mo_wpns_button1"

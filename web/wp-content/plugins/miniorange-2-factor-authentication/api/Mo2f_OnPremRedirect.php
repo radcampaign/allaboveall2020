@@ -28,7 +28,7 @@ class Mo2f_OnPremRedirect {
 			$user_id = wp_get_current_user()->ID;
 		}
 		else{
-			$user_id = MO2f_Utility::mo2f_retrieve_user_temp_values( 'mo2f_current_user_id',$session_id_encrypt );
+			$user_id = MO2f_Utility::mo2f_get_transient( $session_id_encrypt, 'mo2f_current_user_id' );
 		}
 			$redirect_to = isset( $_POST['redirect_to'] ) ? $_POST['redirect_to'] : null;
 			$kba_ans_1 = sanitize_text_field( $_POST['mo2f_answer_1'] );
@@ -59,6 +59,7 @@ class Mo2f_OnPremRedirect {
 	}
 			
 	function OnpremSendRedirect($useremail,$authType,$currentuser){
+
 		switch($authType){
 
 			case "Email Verification":
@@ -97,7 +98,7 @@ class Mo2f_OnPremRedirect {
 			$user = wp_get_current_user();
 			$user_id = $user->ID;
 		}else{
-			$user_id    = MO2f_Utility::mo2f_retrieve_user_temp_values( 'mo2f_current_user_id',$session_id_encrypt );
+			$user_id = MO2f_Utility::mo2f_get_transient($session_id_encrypt, 'mo2f_current_user_id');
 		}
 		$secret= $gauth_obj->mo_GAuth_get_secret($user_id);
 		$content=$gauth_obj->verifyCode($secret, $otpToken);
@@ -122,11 +123,11 @@ class Mo2f_OnPremRedirect {
 
 		if(is_null($email) or empty($email) or $email == '' or !isset($email) )
 		{	
-			$email      = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $current_user->ID );
+			$email = get_user_meta($current_user->ID,'tempEmail',true);
+				
 			if($email == '' or empty($email))
 			{
-				$email = get_user_meta($current_user->ID,'tempEmail',true);
-				
+				$email      = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $current_user->ID );
 			}
 
 		}
@@ -257,9 +258,14 @@ class Mo2f_OnPremRedirect {
 
 	function mo2f_pass2login_push_email_onpremise($current_user, $redirect_to=null)
 	{
+		
 		global $Mo2fdbQueries;
 		
-		$email           = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $current_user->ID );
+		$email = get_user_meta($current_user->ID,'tempEmail',true);     
+		
+        
+        if(empty($email))
+        	$email = $Mo2fdbQueries->get_user_detail( 'mo2f_user_email', $current_user->ID );
 
 		$subject 	= "2-Factor Authentication(Email verification)";
 		$headers 	= array('Content-Type: text/html; charset=UTF-8');

@@ -4,6 +4,12 @@ function mo2f_configure_otp_over_sms( $user ) {
 	global $Mo2fdbQueries;
 	$mo2f_user_phone = $Mo2fdbQueries->get_user_detail( 'mo2f_user_phone', $user->ID );
 	$user_phone      = $mo2f_user_phone ? $mo2f_user_phone : get_option( 'user_phone_temp' );
+    if(isset($_POST) && isset($_POST['mo2f_session_id'])){
+        $session_id_encrypt = sanitize_text_field($_POST['mo2f_session_id']);
+    }else{
+        $pass2fa_login_session       = new Miniorange_Password_2Factor_Login();
+        $session_id_encrypt          = $pass2fa_login_session->create_session();
+    }
 
 	?>
 
@@ -13,6 +19,7 @@ function mo2f_configure_otp_over_sms( $user ) {
     <hr>
     <form name="f" method="post" action="" id="mo2f_verifyphone_form">
         <input type="hidden" name="option" value="mo2f_configure_otp_over_sms_send_otp"/>
+        <input type="hidden" name="mo2f_session_id" value="<?php echo $session_id_encrypt ?>"/>
 		<input type="hidden" name="mo2f_configure_otp_over_sms_send_otp_nonce"
 						value="<?php echo wp_create_nonce( "mo2f-configure-otp-over-sms-send-otp-nonce" ) ?>"/>
 
@@ -26,6 +33,7 @@ function mo2f_configure_otp_over_sms( $user ) {
     </form>
     <form name="f" method="post" action="" id="mo2f_validateotp_form">
         <input type="hidden" name="option" value="mo2f_configure_otp_over_sms_validate"/>
+        <input type="hidden" name="mo2f_session_id" value="<?php echo $session_id_encrypt ?>"/>
 		<input type="hidden" name="mo2f_configure_otp_over_sms_validate_nonce"
 						value="<?php echo wp_create_nonce( "mo2f-configure-otp-over-sms-validate-nonce" ) ?>"/>
         <p><?php echo mo2f_lt( 'Enter One Time Passcode' ); ?></p>

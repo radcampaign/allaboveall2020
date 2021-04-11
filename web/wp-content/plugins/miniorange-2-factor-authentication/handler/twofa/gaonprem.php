@@ -11,19 +11,26 @@ class Google_auth_onpremise{
 		
         $user=wp_get_current_user();
         $user_id=$user->ID;
-        if(!isset($_SESSION)){
-            session_start();
+       
+        if(isset($_POST) && isset($_POST['mo2f_session_id'])){
+            $session_id_encrypt = sanitize_text_field($_POST['mo2f_session_id']);
+        }else{
+            $session_id_encrypt             = MO2f_Utility::random_str(20);
         }
-        if(!isset($_SESSION['secret_ga'])){
-            $_SESSION['secret_ga'] = $this->createSecret();
+        $secret_ga =    MO2f_Utility::mo2f_get_transient($session_id_encrypt, 'secret_ga');
+        if(!$secret_ga){
+            $secret_ga = $this->createSecret();
+            MO2f_Utility::mo2f_set_transient($session_id_encrypt, 'secret_ga', $secret_ga);
         }
+
+        
         $issuer=get_option('mo2f_google_appname', 'miniOrangeAu');
         $email=$user->user_email;
-
-        $otpcode=$this->getCode($_SESSION['secret_ga']);
-
-	    $url=$this->geturl($_SESSION['secret_ga'] ,$issuer,$email);
-        mo2f_configure_google_authenticator_onprem( $_SESSION['secret_ga'] ,$url,$otpcode );
+        $otpcode=$this->getCode($secret_ga);
+        $url=$this->geturl($secret_ga ,$issuer,$email);
+        echo '<div class="mo_wpns_setting_layout">';
+        mo2f_configure_google_authenticator_onprem( $secret_ga ,$url,$otpcode, $session_id_encrypt );
+        echo '</div>';
 
     }
 

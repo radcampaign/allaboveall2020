@@ -346,6 +346,7 @@
 {
   text-align: center;
   margin-top: -1%;
+  margin-bottom: 2%;
 }
 .mo_upgrade_toggle_2fa
 {
@@ -423,7 +424,7 @@
   border-radius:2%;
  /* height:463px;
   overflow: hidden;*/
-  width:25%;
+  width:26%;
   border:1px solid #ecebeb;
   box-sizing:border-box;
   text-align:center!important;
@@ -473,6 +474,7 @@
     float: left;
     border: 2px solid black;
     border-top: none; 
+    margin-bottom: 1em;
   }
    .mo_wpns_upgrade_title_2fa_lite
   {
@@ -549,7 +551,7 @@
   }
   .mo_wpns_upgrade_pade_pricing
   {
-    color: #2ca29c;
+    color: #2a80ca;
     font-size: 350%;
   }
   .mo_wpns_upgrade_page_starting_price
@@ -1280,8 +1282,8 @@ h2.mo_wpns_nav-tab-wrapper
   }*/
    .mo_wpns_upgrade_page_button
   {
-    border: 2px solid #4c9b97;
-    background-color: #4c9b97;
+    border: 2px solid ##2a80ca;
+    background-color: #2a80ca;
     color: white;
     padding: 12px 0px;
     width: 50.5%;
@@ -1295,8 +1297,8 @@ h2.mo_wpns_nav-tab-wrapper
   {
     /*border: 2px solid #74a9a7;*/
     /*background-color: #74a9a7;*/
-    border: 2px solid #80acaa;
-    background-color: #80acaa;
+    border: 2px solid #8d86f5;
+    background-color: #8d86f5;
     color: white;
     cursor: pointer;
     /*box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);*/
@@ -3492,7 +3494,7 @@ a.mo2f_thumbnail:hover, a.mo2f_thumbnail:focus, a.mo2f_thumbnail.active {
 }
 .mo2f_active_plan
 {
-  background-color: #7ccbc7;
+  background-color: #7c9fcb;
   border-radius: 50em;
 }
 .mo_wpns_upgrade_page_2fa_ns_styles
@@ -3655,15 +3657,18 @@ input:checked + .slider:before {
 }
 .mo2f_upgrade_main_div
 {
+    background: ffffffad;
     background: white;
     width: 34.33%;
     min-height: 600px;
     margin: 1.5%;
     float: left;
+    width: 25%;
 }
 .mo2f_upgrade_main_div:hover
 {
-  box-shadow:0 1px 34px 0px #c0c0c0;
+  background: ffffffad;
+  box-shadow:0 1px 0px 0px #c0c0c0;
   margin-top: 0%;
   transition: 1s;
 }

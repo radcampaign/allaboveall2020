@@ -137,13 +137,18 @@ class Miniorange_Rba_Attributes {
 		if(MO2F_IS_ONPREM){
 			include_once dirname(dirname( __FILE__ )) . DIRECTORY_SEPARATOR. 'handler'.DIRECTORY_SEPARATOR. 'twofa' . DIRECTORY_SEPARATOR . 'gaonprem.php';
 			$gauth_obj= new Google_auth_onpremise();
-			$secret = isset($_SESSION['secret_ga'])? $_SESSION['secret_ga'] : $secret;
-			$content=$gauth_obj->verifyCode($secret , $otptoken );
+			$session_id_encrypt = isset($_POST['mo2f_session_id']) ? sanitize_text_field($_POST['mo2f_session_id']) : null;
+			if($session_id_encrypt){
+				$secret_ga = MO2f_Utility::mo2f_get_transient($session_id_encrypt, 'secret_ga');
+			}else{
+				$secret_ga = $secret;
+			}
+			$content=$gauth_obj->verifyCode($secret_ga , $otptoken );
 			$value = json_decode($content,true);
 			if($value['status'] == 'SUCCESS'){
 				$user = wp_get_current_user();
 				$user_id = $user->ID;
-				$gauth_obj->mo_GAuth_set_secret($user_id, $secret);
+				$gauth_obj->mo_GAuth_set_secret($user_id, $secret_ga);
 				update_user_meta($user_id,'mo2f_2FA_method_to_configure','Google Authenticator');
 				update_user_meta( $user_id, 'mo2f_external_app_type', "Google Authenticator" );
 				global $Mo2fdbQueries;//might not need this
