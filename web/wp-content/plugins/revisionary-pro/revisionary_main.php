@@ -22,6 +22,7 @@ class Revisionary
 	var $last_autosave_id = [];
 	var $last_revision = [];
 	var $disable_revision_trigger = false;
+	var $internal_meta_update = false;
 
 	var $config_loaded = false;		// configuration related to post types and statuses must be loaded late on the init action
 	var $enabled_post_types = [];	// enabled_post_types property is set (keyed by post type slug) late on the init action. 
@@ -38,6 +39,10 @@ class Revisionary
 	function addFilters() {
 		global $script_name;
 
+		// Prevent PublishPress editorial comment insertion from altering comment_count field
+		add_action('pp_post_insert_editorial_comment', [$this, 'actInsertEditorialCommentPreserveCommentCount']);
+		add_filter('pre_wp_update_comment_count_now', [$this, 'fltUpdateCommentCountBypass'], 10, 3);
+		
 		// Ensure editing access to past revisions is not accidentally filtered. 
 		// @todo: Correct selective application of filtering downstream so Revisors can use a read-only Compare [Past] Revisions screen
 		//
@@ -49,8 +54,10 @@ class Revisionary
 				if ($_post = get_post($revision_id)) {
 					if (!rvy_is_revision_status($_post->post_status)) {
 						if ($parent_post = get_post($_post->post_parent)) {
-							if (!$this->canEditPost($parent_post, ['simple_cap_check' => true])) {
-								return;
+							if (!empty($_POST) || (!empty($_REQUEST['action']) && ('restore' == $_REQUEST['action']))) {
+								if (!$this->canEditPost($parent_post, ['simple_cap_check' => true])) {
+									return;
+								}
 							}
 						}
 					}
@@ -108,6 +115,8 @@ class Revisionary
 		//add_action( 'wp_loaded', array( &$this, 'set_revision_capdefs' ) );
 		
 		add_action( 'deleted_post', [$this, 'actDeletedPost']);
+
+		add_action( 'add_meta_boxes', [$this, 'actClearFlags'], 10, 2 );
 
 		if ( rvy_get_option( 'pending_revisions' ) ) {
 			// special filtering to support Contrib editing of published posts/pages to revision
@@ -177,6 +186,24 @@ class Revisionary
 		$this->enabled_post_types = array_filter($this->enabled_post_types);
 	}
 
+	function actClearFlags($post_type, $post) {
+		global $current_user;
+
+		if (!empty($this->enabled_post_types[$post_type])) {
+			if (rvy_get_transient("_rvy_pending_revision_{$current_user->ID}_{$post->ID}")) {
+				rvy_delete_transient("_rvy_pending_revision_{$current_user->ID}_{$post->ID}");
+			} else {			
+				foreach(['_thumbnail_id', '_wp_page_template'] as $meta_key) {
+					$meta_val = rvy_get_post_meta($post->ID, $meta_key);
+
+					if (!empty($meta_val)) {
+						rvy_set_transient("_archive_{$meta_key}_{$post->ID}", $meta_val);
+					}
+				}
+			}
+		}
+	}
+
 	function canEditPost($post, $args = []) {
 		global $current_user;
 
@@ -225,7 +252,7 @@ class Revisionary
 			}
 		} else {
 			if (!empty($args['skip_revision_allowance'])) {
-				if (!$caps = map_meta_cap('edit_post', $post_id)) {
+				if (!$caps = map_meta_cap('edit_post', $current_user->ID, $post_id)) {
 					$last_result[$post_id] = false;
 					return false;
 				}
@@ -430,7 +457,7 @@ class Revisionary
 
 			// revision was stored without a post_meta entry for this meta key, so copy it from published post
 			if ($published_val = $wpdb->get_var($wpdb->prepare("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key = %s AND post_id = %d", $meta_key, $published_post_id))) {
-				update_post_meta($revision->ID, $meta_key, $published_val);
+				rvy_update_post_meta($revision->ID, $meta_key, $published_val);
 			}
 		}
 	}
@@ -549,7 +576,7 @@ class Revisionary
 	}
 
 	public function handle_template( $template, $post_id, $validate = false ) {
-		update_post_meta( $post_id, '_wp_page_template', $template );
+		rvy_update_post_meta( $post_id, '_wp_page_template', $template );
 	}
 
 	public function handle_featured_media( $featured_media, $post_id ) {
@@ -870,6 +897,7 @@ class Revisionary
 
 		if ( $post = get_post( $post_id ) ) {
 			$object_type = $post->post_type;								// todo: better API?
+
 		} elseif (($post_id == -1) && defined('PRESSPERMIT_PRO_VERSION') && !empty(presspermit()->meta_cap_post)) {  // wp_cache_add(-1) does not work for map_meta_cap call on get-revision-diffs ajax call 
 			$post = presspermit()->meta_cap_post;
 			$object_type = $post->post_type;
@@ -997,7 +1025,7 @@ class Revisionary
 				$use_cap_req = $cap->edit_posts;
 			else
 				$use_cap_req = $edit_published_cap;
-				
+			
 			if ( ! empty( $wp_blogcaps[$use_cap_req] ) )
 				$wp_blogcaps['edit_others_posts'] = true;
 		}
@@ -1071,7 +1099,7 @@ class Revisionary
 
 	function flt_regulate_revision_status($data, $postarr) {
 		// Revisions are not published by wp_update_post() execution; Prevent setting to a non-revision status
-		if (get_post_meta($postarr['ID'], '_rvy_base_post_id', true) && ('trash' != $data['post_status'])) {
+		if (rvy_get_post_meta($postarr['ID'], '_rvy_base_post_id', true) && ('trash' != $data['post_status'])) {
 			if (!$revision = get_post($postarr['ID'])) {
 				return $data;
 			}
@@ -1230,4 +1258,31 @@ class Revisionary
 
 		return $rvy_workflow_ui->get_revision_msg( $revision_id, $args );
 	}
+
+	// Restore comment_count field (main post ID) on PublishPress editorial comment insertion
+	function actInsertEditorialCommentPreserveCommentCount($comment) {
+		global $wpdb;
+
+		if ($comment && !empty($comment->comment_post_ID)) {
+			if ($_post = get_post($comment->comment_post_ID)) {
+				if (rvy_is_revision_status($_post->post_status)) {
+					$wpdb->update(
+						$wpdb->posts, 
+						['comment_count' => rvy_post_id($comment->comment_post_ID)], 
+						['ID' => $comment->comment_post_ID]
+					);
+				}
+			}
+		}
+	}
+
+	// Prevent wp_update_comment_count_now() from modifying Pending Revision comment_count field (main post ID)
+	function fltUpdateCommentCountBypass($count, $old, $post_id) {
+		if (rvy_is_revision_status(get_post_field('post_status', $post_id))) {
+			return rvy_post_id($post_id);
+		}
+
+		return $count;
+	}
+
 } // end Revisionary class

@@ -34,6 +34,17 @@ add_action('post_updated', '_rvy_restore_published_content', 99, 3);
 add_action('update_post_metadata', '_rvy_limit_postmeta_update', 10, 5);
 add_action('delete_post_metadata', '_rvy_limit_postmeta_update', 10, 5);
 
+add_action('init', 
+	function() {
+		global $kinsta_cache;
+
+		if (!empty($kinsta_cache)) {
+			remove_action('init', [$kinsta_cache, 'init_cache'], 20);
+		}
+	}
+);
+
+
 function _rvy_limit_postmeta_update($block_update, $object_id, $meta_key, $meta_value, $prev_value) {
 	global $current_user;
 	
@@ -63,9 +74,9 @@ function _rvy_restore_published_content( $post_ID, $post_after, $post_before ) {
 			update_postmeta_cache($post_ID);
 			
 			if (rvy_get_post_meta($post_ID, "_save_as_revision_{$current_user->ID}", true) || !agp_user_can('edit_post', $post_ID, '', ['skip_revision_allowance' => true])) {
-				if ($post_content = get_transient('rvy_post_content_' . $post_ID)) {
+				if ($post_content = rvy_get_transient('rvy_post_content_' . $post_ID)) {
 					$wpdb->update($wpdb->posts, ['post_content' => $post_content], ['ID' => $post_ID]);
-					delete_transient('rvy_post_content_' . $post_ID);
+					rvy_delete_transient('rvy_post_content_' . $post_ID);
 				}
 			}
 		}
@@ -101,7 +112,7 @@ function _rvy_buffer_post_content($maybe_empty, $postarr) {
 						$postarr['ID']
 					)
 				)) {
-					set_transient('rvy_post_content_' . $postarr['ID'], $raw_content, 60);
+					rvy_set_transient('rvy_post_content_' . $postarr['ID'], $raw_content, 60);
 				}
 			}
 		}
@@ -213,10 +224,12 @@ function rvy_ajax_handler() {
 	global $current_user;
 
 	if (!empty($_REQUEST['rvy_ajax_field']) && !empty($_REQUEST['post_id'])) {
-		if ('save_as_revision' == $_REQUEST['rvy_ajax_field']) {
+		// @todo: make these query args consistent
+		if (in_array($_REQUEST['rvy_ajax_field'], ['save_as_pending', 'save_as_revision'])) {
 			$save_revision = isset($_REQUEST['rvy_ajax_value']) && in_array($_REQUEST['rvy_ajax_value'], ['true', true, 1, '1'], true);
 			rvy_update_post_meta((int) $_REQUEST['post_id'], "_save_as_revision_{$current_user->ID}", $save_revision);
 			update_postmeta_cache($_REQUEST['post_id']);
+
 			exit;
 		}
 	}
@@ -239,13 +252,57 @@ function rvy_get_post_meta($post_id, $meta_key, $unused = false) {
 		);
 }
 
-function rvy_update_post_meta($post_id, $meta_key, $meta_value) {
+function rvy_get_transient($transient) {
 	global $wpdb;
 
+	$option_name = '_transient_' . $transient;
+
+	return $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT option_value FROM $wpdb->options WHERE option_name = %s",
+				$option_name
+			)
+		);
+}
+
+function rvy_set_transient($transient, $option_val, $timeout = 30) {
+	set_transient($transient, $option_val, $timeout);
+}
+
+function rvy_delete_transient($transient) {
+	global $wpdb;
+
+	$option_name = '_transient_timeout_' . $transient;
+
+	$wpdb->query(
+		$wpdb->prepare(
+			"DELETE FROM $wpdb->options WHERE option_name = %s",
+			$option_name
+		)
+	);
+
+	$option_name = '_transient_' . $transient;
+
+	$wpdb->get_var(
+			$wpdb->prepare(
+				"DELETE FROM $wpdb->options WHERE option_name = %s",
+				$option_name
+			)
+		);
+		
+	delete_transient($transient);
+
+}
+
+function rvy_update_post_meta($post_id, $meta_key, $meta_value) {
+	global $wpdb, $revisionary;
+
+	$revisionary->internal_meta_update = true;
 	update_post_meta($post_id, $meta_key, $meta_value);
+	$revisionary->internal_meta_update = true;
 
 	// some extra low-level database operations until the cause of meta sync failure with WP 5.5 can be determined
-	rvy_delete_post_meta($post_id, $meta_key);
+	//rvy_delete_post_meta($post_id, $meta_key);
 
 	if ($meta_value) {
 		$wpdb->insert(
@@ -430,6 +487,9 @@ function rvy_detect_post_id() {
 		require_once( dirname(__FILE__).'/rest_rvy.php' );
 		$post_id = Revisionary_REST::get_id_element($_SERVER['REQUEST_URI'], 1);
 
+	} elseif (defined('DOING_AJAX') && DOING_AJAX) {
+		$post_id = apply_filters('revisionary_detect_id', 0, ['is_ajax' => true]);
+
 	} else {
 		$post_id = 0;
 	}
@@ -500,7 +560,7 @@ function revisionary_refresh_postmeta($post_id, $set_value = null, $args = []) {
 	}
 
 	if ($set_value) {
-		update_post_meta($post_id, '_rvy_has_revisions', $set_value);
+		rvy_update_post_meta($post_id, '_rvy_has_revisions', $set_value);
 	} else {
 		delete_post_meta($post_id, '_rvy_has_revisions');
 	}
@@ -525,7 +585,7 @@ function revisionary_refresh_revision_flags() {
 	
 	if ($posts_missing_flag = array_diff($arr_have_revisions, $have_flag_ids)) {
 		foreach($posts_missing_flag as $post_id) {
-			update_post_meta($post_id, '_rvy_has_revisions', true);
+			rvy_update_post_meta($post_id, '_rvy_has_revisions', true);
 		}
 	}
 }
@@ -890,7 +950,7 @@ function rvy_post_id($revision_id) {
 	}
 
 	$busy = true;
-	$published_id = get_post_meta( $revision_id, '_rvy_base_post_id', true );
+	$published_id = rvy_get_post_meta( $revision_id, '_rvy_base_post_id', true );
 	$busy = false;
 
 	if (empty($published_id)) {
@@ -901,7 +961,7 @@ function rvy_post_id($revision_id) {
 			} elseif('revision' == $_post->post_type) {
 				return $_post->post_parent;
 			} else {
-				update_post_meta( $revision_id, '_rvy_base_post_id', $_post->comment_count );
+				rvy_update_post_meta( $revision_id, '_rvy_base_post_id', $_post->comment_count );
 				return $_post->comment_count;
 			}
 		}
@@ -980,7 +1040,7 @@ function revisionary_copy_meta_field( $meta_key, $from_post_id, $to_post_id, $mi
 				$wpdb->prepare("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key = %s AND post_id = %d", $meta_key, $from_post_id )
 			)
 		) {
-			update_post_meta($to_post_id, $meta_key, $source_meta->meta_value);
+			rvy_update_post_meta($to_post_id, $meta_key, $source_meta->meta_value);
 
 		} elseif ($mirror_empty && in_array($meta_key, apply_filters('revisionary_removable_meta_fields', [], $to_post_id))) {
 			// Disable postmeta deletion until further testing
@@ -1235,14 +1295,15 @@ function rvy_rest_cache_compat() {
 		}
 	}
 
-	/*
 	$rest_cache_active = $rest_cache_active 
-	|| ((!empty($_REQUEST['wp-remove-post-lock']) || strpos($uri, '_locale')) && rvy_is_plugin_active('wp-rest-cache/wp-rest-cache.php'));
-	*/
+	|| (strpos($uri, '_locale=user') && strpos($uri, 'wp-json') && strpos($uri, '/posts/') && rvy_is_plugin_active('wp-rest-cache/wp-rest-cache.php'));
+	//|| ((!empty($_REQUEST['wp-remove-post-lock']) || strpos($uri, '_locale=user')) && rvy_is_plugin_active('wp-rest-cache/wp-rest-cache.php'));
 
 	if ($rest_cache_active) {
 		foreach(array_keys($wp_post_types) as $key) {
-			$wp_post_types[$key]->rest_controller_class = ('attachment' == $key) ? 'WP_REST_Attachments_Controller' : 'WP_REST_Posts_Controller';
+			if ((!empty($wp_post_types[$key]->rest_controller_class) && is_string($wp_post_types[$key]->rest_controller_class)) && false !== strpos('WP_Rest_Cache_Plugin', $wp_post_types[$key]->rest_controller_class)) {
+				$wp_post_types[$key]->rest_controller_class = ('attachment' == $key) ? 'WP_REST_Attachments_Controller' : 'WP_REST_Posts_Controller';
+			}
 		}
 	}
 }

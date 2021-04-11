@@ -79,7 +79,7 @@ class RevisionaryAdminFiltersItemUI {
 						} );
 
 						$('#rvy_save_as_pending_rev').click( function() {
-							var set_for_pending = $('#rvy_save_as_pending_rev').attr('checked') == 'checked' ? 1 : 0;
+							var set_for_pending = $('#rvy_save_as_pending_rev').prop('checked') ? 1 : 0;
 							var data = {'rvy_ajax_field': 'save_as_pending', 'rvy_ajax_value': set_for_pending, 'post_id': <?php echo $object_id;?>};
 							
 							$.ajax({
@@ -151,7 +151,7 @@ jQuery(document).ready( function($) {
 	);
 	*/
 
-	if (!$revisionary->canEditPost($post, ['simple_cap_check' => true])):?>
+	if (!$revisionary->canEditPost($post, ['simple_cap_check' => true]) && defined('RVY_REVISOR_SUPPRESS_REVISIONS_LINK')):?>
 	<style>
 	div.num-revisions, div.misc-pub-revisions {display:none;}
 	</style>

@@ -19,7 +19,7 @@ class RevisionaryProAdmin {
 
     function clear_edd_cache() {
         revisionary()->keyStatus(true);
-        set_transient('revisionary-pro-refresh-update-info', true, 86400);
+        rvy_set_transient('revisionary-pro-refresh-update-info', true, 86400);
 
         delete_site_transient('update_plugins');
         delete_option('_site_transient_update_plugins');

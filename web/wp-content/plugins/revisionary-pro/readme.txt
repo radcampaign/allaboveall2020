@@ -6,8 +6,8 @@ Author URI: https://publishpress.com
 Tags: revision, submit changes, workflow, collaboration, permissions, moderate, posts, schedule revisions
 Requires at least: 4.9.7
 Requires PHP: 5.6.20
-Tested up to: 5.6
-Stable tag: 2.4.9
+Tested up to: 5.7
+Stable tag: 2.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -99,6 +99,35 @@ Follow PublishPress on [Facebook](https://www.facebook.com/publishpress), [Twitt
 12. Scheduled Revisions in Publishing Soon list
 
 == Changelog ==
+
+= 2.5.1 - 30 Mar 2021 =
+* Fixed : Revisors could not preview other users' pending revisions, even if they are listed in Revision Queue (Permissions integration requires 3.5.1)
+* Fixed : Post Title changes were not applied at revision publication
+* Fixed : Database error on revision publication, on some installations
+* Fixed : Compare Revisions - uneven column widths with WordPress 5.7
+* Feature : Option to update modified date on revision publication
+* Compat : PublishPress - Custom Status dropdown was hidden in post editor
+* Compat : Divi + Classic Editor - Revision submission using "Save as Revision" checkbox caused changes to be saved to published post
+* Compat : Kinsta object cache - Revision submission using "Save as Revision" checkbox failed
+* Compat : Kinsta object cache - Revision submission clears Featured Image from published post
+
+= 2.5 - 4 Mar 2021 =
+* Fixed : After a Pending Revision is published, Compare Revisions screen for past revisions did not order it correctly
+* Fixed : Revisors could not access Compare Revisions screen unless PublishPress Permissions was active
+* Fixed : Some attachment fields implemented by third party plugins were not saved to Pending Revisions
+* Fixed : Revision submission - "submit another revision" link (following future date selection) led to submission failure on some sites
+* Fixed : Custom fields saved by custom REST were cleared from submitted pending revision
+* Compat : Elementor - Revisors can submit Pending Revisions
+* Compat : Divi editor reloaded itself after initial loading
+* Compat : Divi - First-time edit of an existing revision triggered another "revision created" screen
+* Compat : Advanced Custom Fields - attachment image fields were cleared out of new revision
+* Compat : REST API Cache - "Save as Revision" checkbox ineffective on some installations
+* Compat : PublishPress - Editing a revision caused it to be converted to a non-revision draft
+* Compat : PublishPress - Custom Status module interfered with Revisions scripts on Edit Revision screen
+* Compat : PublishPress - Adding an Editorial Comment on the Edit Revision screen, then updating, caused revision to become inaccessible 
+* Compat : Some third party plugin interactions could cause Revision publication to fail, leaving published page unreadable
+* Change : Display a Revisions link (for past revisions) in Classic Editor for Revisor
+* Lang : Add Swedish translation
 
 = 2.4.9 - 14 Jan 2021 =
 * Compat : REST API Cache - REST caching failed for attachments

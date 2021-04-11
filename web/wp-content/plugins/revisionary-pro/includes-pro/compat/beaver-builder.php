@@ -112,11 +112,11 @@ class RevisionaryBeaverBuilder
             $this->bb_data_settings = get_post_meta( $published_post->ID, '_fl_builder_data_settings', true );
 
             if ( ! empty( $this->beaver_builder_entry['data'] ) ) {
-                update_post_meta( $published_post->ID, '_fl_builder_data', $this->beaver_builder_entry['data'] );
+                rvy_update_post_meta( $published_post->ID, '_fl_builder_data', $this->beaver_builder_entry['data'] );
             }
 
             if ( ! empty( $this->beaver_builder_entry['data_settings'] ) ) {
-                update_post_meta( $published_post->ID, '_fl_builder_data_settings', $this->beaver_builder_entry['data_settings'] );
+                rvy_update_post_meta( $published_post->ID, '_fl_builder_data_settings', $this->beaver_builder_entry['data_settings'] );
             }
 
             add_action('revisionary_created_revision', [$this, 'act_created_revision']);
@@ -132,8 +132,8 @@ class RevisionaryBeaverBuilder
     function act_created_revision($revision) {
         if ( ! empty( $this->bb_data ) && ! $this->revisionary->doing_rest ) {
 			// If this is a Beaver Builder post update, store edited data, settings to revision
-			update_post_meta( $revision->ID, '_fl_builder_data', $this->bb_data );
-			update_post_meta( $revision->ID, '_fl_builder_data_settings', $this->bb_data_settings );
+			rvy_update_post_meta( $revision->ID, '_fl_builder_data', $this->bb_data );
+			rvy_update_post_meta( $revision->ID, '_fl_builder_data_settings', $this->bb_data_settings );
 		}
     }
 

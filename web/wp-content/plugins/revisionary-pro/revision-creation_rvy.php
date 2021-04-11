@@ -76,8 +76,8 @@ class RevisionCreation {
 			$post_id = (int) $_POST['post_ID'];
 		} else {
 			$post_id = rvy_detect_post_id();
-		} 
-		
+		}
+
 		if ( empty( $post_id ) || !is_scalar($post_id) ) {
 			return $status;
 		}
@@ -176,7 +176,7 @@ class RevisionCreation {
         if ( $revisionary->isBlockEditorActive() && !$revisionary->doing_rest ) {
             if (!empty($_REQUEST['meta-box-loader']) && !empty($_REQUEST['action']) && ('editpost' == $_REQUEST['action'])) {
                 // Use logged revision ID from preceding REST query
-                if (!$revision_id = get_transient("_rvy_pending_revision_{$current_user->ID}_{$postarr['ID']}")) {
+                if (!$revision_id = rvy_get_transient("_rvy_pending_revision_{$current_user->ID}_{$postarr['ID']}")) {
                     return $data;
                 }
             } else {
@@ -187,17 +187,36 @@ class RevisionCreation {
 		// sanity check: don't create revision if same user created another pending revision for this post less than 5 seconds ago
 		$min_seconds = (!empty($this->options['min_seconds'])) ? $this->options['min_seconds'] : 5;
 
-		$last_revision = $wpdb->get_row($wpdb->prepare("SELECT ID, post_modified_gmt FROM $wpdb->posts WHERE comment_count = %d AND post_author = %d ORDER BY post_modified_gmt DESC LIMIT 1", $published_post->ID, $current_user->ID));	
+		$last_revision = $wpdb->get_row($wpdb->prepare("SELECT ID, post_modified_gmt FROM $wpdb->posts WHERE post_status IN ('pending-revision', 'future-revision') AND comment_count = %d AND post_author = %d ORDER BY post_modified_gmt DESC LIMIT 1", $published_post->ID, $current_user->ID));	
 
 		if ($last_revision && (strtotime(current_time('mysql', 1)) - strtotime($last_revision->post_modified_gmt) < $min_seconds )) {
 			// return currently stored published post data
-			$data = array_intersect_key((array) get_post($published_post->ID), $data);
+			$data = array_merge($data, (array) get_post($published_post->ID));
 			return $data;
 		}
 
         if (!empty($_POST)) {
             $_POST['skip_sitepress_actions'] = true;
         }
+
+		// ACF: prevent this filter application, called by ACF after wp_update_post(), from stripping attachment field postmeta out of revision
+		add_filter('attachment_fields_to_save', 
+			function($fields) {
+				add_filter('update_post_metadata', ['\PublishPress\Revisions\RevisionCreation', 'fltInterruptPostMetaOperation']);
+				add_filter('delete_post_metadata', ['\PublishPress\Revisions\RevisionCreation', 'fltInterruptPostMetaOperation']);
+				return $fields;
+			},
+			1
+		);
+
+		add_filter('attachment_fields_to_save', 
+			function($fields) {
+				remove_filter('update_post_metadata', ['\PublishPress\Revisions\RevisionCreation', 'fltInterruptPostMetaOperation']);
+				remove_filter('delete_post_metadata', ['\PublishPress\Revisions\RevisionCreation', 'fltInterruptPostMetaOperation']);
+				return $fields;
+			},
+			999
+		);
 
         if (!empty($revision_id) && $post = get_post($revision_id)) {
             $post_ID = $revision_id;
@@ -279,6 +298,7 @@ class RevisionCreation {
 			}
 
 			$revision_id = $this->create_revision($data, $postarr);
+
 			if (!is_scalar($revision_id)) { // update_post_data() returns array or object on update abandon / failure
 				$data['ID'] = $revision_id;
 				return $data;
@@ -294,10 +314,10 @@ class RevisionCreation {
         
         if ( $revision_id ) {
 			$revisionary->last_revision[$published_post->ID] = $revision_id;
-            set_transient("_rvy_pending_revision_{$current_user->ID}_{$published_post->ID}", $revision_id, 30);
+            rvy_set_transient("_rvy_pending_revision_{$current_user->ID}_{$published_post->ID}", $revision_id, 30);
 
-            update_post_meta($revision_id, '_rvy_base_post_id', $published_post->ID);
-            update_post_meta($published_post->ID, '_rvy_has_revisions', true);
+            rvy_update_post_meta($revision_id, '_rvy_base_post_id', $published_post->ID);
+            rvy_update_post_meta($published_post->ID, '_rvy_has_revisions', true);
 
 			if (!empty($requested_slug)) {
 				add_post_meta($revision_id, '_requested_slug', $requested_slug);
@@ -306,7 +326,22 @@ class RevisionCreation {
             $post_id = $published_post->ID;						  // passing args ensures back compat by using variables directly rather than retrieving revision, post data
             $object_type = isset($postarr['post_type']) ? $postarr['post_type'] : '';
             $msg = $revisionary->get_revision_msg( $revision_id, compact( 'data', 'post_id', 'object_type', 'future_date' ) );
-        } else {
+        
+			foreach(['_thumbnail_id', '_wp_page_template'] as $meta_key) {
+				if ($archived_val = rvy_get_transient("_archive_{$meta_key}_{$published_post->ID}")) {
+					switch ($meta_key) {
+						case '_thumbnail_id':
+							set_post_thumbnail($published_post->ID, $archived_val);
+							rvy_update_post_meta($published_post->ID, '_thumbnail_id', $archived_val);
+							break;
+	
+						case '_wp_page_template':
+							rvy_update_post_meta($published_post->ID, '_wp_page_template', $archived_val);
+							break;
+					}
+				}
+			}
+		} else {
             $msg = __('Sorry, an error occurred while attempting to submit your revision!', 'revisionary') . ' ';
             rvy_halt( $msg, __('Revision Submission Error', 'revisionary') );
         }
@@ -315,7 +350,7 @@ class RevisionCreation {
 		if ($revisionary->isBlockEditorActive()) {
 			if ($published_template = get_post_meta($published_post->ID, '_wp_page_template', true)) {
 				if (!get_post_meta($revision_id, '_wp_page_template', true)) {
-					update_post_meta($revision_id, '_wp_page_template', $published_template);
+					rvy_update_post_meta($revision_id, '_wp_page_template', $published_template);
 				}
 			}
 		}
@@ -329,8 +364,8 @@ class RevisionCreation {
 			do_action( 'save_post', $revision_id, $post, false );
 			do_action( 'wp_insert_post', $revision_id, $post, false );
             do_action( 'revisionary_saved_revision', $post );
-        }
-
+		}
+		
         if (defined('PUBLISHPRESS_MULTIPLE_AUTHORS_VERSION')) {
             // Make sure Multiple Authors plugin does not change post_author value for revisor. Authors taxonomy terms can be revisioned for published post.
             $wpdb->update($wpdb->posts, ['post_author' => $current_user->ID], ['ID' => $revision_id]);
@@ -398,26 +433,32 @@ class RevisionCreation {
             $data = array_intersect_key( (array) $published_post, $keys );
         }
 
-        do_action('revisionary_created_revision', $post);
+		if (!rvy_is_revision_status($published_post->post_status)) {
+			do_action('revisionary_created_revision', $post);
 
-        if (apply_filters('revisionary_do_revision_notice', !$revisionary->doing_rest, $post, $published_post)) {
-            $object_type = isset($postarr['post_type']) ? $postarr['post_type'] : '';
-            $args = compact( 'revision_id', 'published_post', 'object_type' );
-            if ( ! empty( $_REQUEST['prev_cc_user'] ) ) {
-                $args['selected_recipients'] = array_map('intval', $_REQUEST['prev_cc_user']);
-            }
-			$revisionary->do_notifications( 'pending-revision', 'pending-revision', $postarr, $args );
+			if (apply_filters('revisionary_do_revision_notice', !$revisionary->doing_rest, $post, $published_post)) {
+				$object_type = isset($postarr['post_type']) ? $postarr['post_type'] : '';
+				$args = compact( 'revision_id', 'published_post', 'object_type' );
+				if ( ! empty( $_REQUEST['prev_cc_user'] ) ) {
+					$args['selected_recipients'] = array_map('intval', $_REQUEST['prev_cc_user']);
+				}
+				$revisionary->do_notifications( 'pending-revision', 'pending-revision', $postarr, $args );
 
-			if (apply_filters('revisionary_do_submission_redirect', true)) {
-				rvy_halt($msg, __('Pending Revision Created', 'revisionary'));
+				if (apply_filters('revisionary_do_submission_redirect', true)) {
+					rvy_halt($msg, __('Pending Revision Created', 'revisionary'));
+				}
+			} else {
+				// return currently stored published post data
+				$data = array_intersect_key((array) get_post($published_post->ID), $data);
 			}
-        } else {
-        	// return currently stored published post data
-			$data = array_intersect_key((array) get_post($published_post->ID), $data);
 		}
 
         return $data;
     }
+
+	static function fltInterruptPostMetaOperation($interrupt) {
+		return true;
+	}
 
     function flt_create_scheduled_rev( $data, $post_arr ) {
 		global $current_user, $wpdb;
@@ -475,7 +516,7 @@ class RevisionCreation {
 		if ( $revisionary->isBlockEditorActive() && !$revisionary->doing_rest ) {
 			if (!empty($_REQUEST['meta-box-loader']) && !empty($_REQUEST['action']) && ('editpost' == $_REQUEST['action'])) {
 				// Use logged revision ID from preceding REST query
-				if (!$revision_id = get_transient("_rvy_scheduled_revision_{$current_user->ID}_{$post_arr['ID']}")) {
+				if (!$revision_id = rvy_get_transient("_rvy_scheduled_revision_{$current_user->ID}_{$post_arr['ID']}")) {
 					return $data;
 				}
 			} else {
@@ -560,10 +601,15 @@ class RevisionCreation {
 			}
 
 			if ($revision_id) {
-				set_transient("_rvy_scheduled_revision_{$current_user->ID}_{$post_arr['ID']}", $revision_id, 30);
+				rvy_set_transient("_rvy_scheduled_revision_{$current_user->ID}_{$post_arr['ID']}", $revision_id, 30);
 
-				update_post_meta($revision_id, '_rvy_base_post_id', $published_post->ID);
-				update_post_meta($published_post->ID, '_rvy_has_revisions', true);
+				rvy_update_post_meta($revision_id, '_rvy_base_post_id', $published_post->ID);
+				rvy_update_post_meta($published_post->ID, '_rvy_has_revisions', true);
+
+				foreach(['_thumbnail_id', '_wp_page_template'] as $meta_key) {
+					$published_meta_val = get_post_meta($published_post->ID, $meta_key, true);
+					rvy_set_transient("_archive_{$meta_key}_{$published_post->ID}", $published_meta_val, 30);
+				}
 			} else {
 				$msg = __('Sorry, an error occurred while attempting to schedule your revision!', 'revisionary') . ' ';
 				rvy_halt( $msg, __('Revision Scheduling Error', 'revisionary') );
@@ -642,8 +688,11 @@ class RevisionCreation {
 		// Workaround for Gutenberg stripping post thumbnail, page template on revision creation
 		$archived_meta = [];
 		foreach(['_thumbnail_id', '_wp_page_template'] as $meta_key) {
-			$archived_meta[$meta_key] = get_post_meta($published_post_id, $meta_key, true);
+			if (!$archived_meta[$meta_key] = rvy_get_transient("_archive_{$meta_key}_{$published_post_id}")) {
+				$archived_meta[$meta_key] = get_post_meta($published_post_id, $meta_key, true);
+			}
 		}
+
 
 		// Use the newly generated $post_ID.
 		$where = array( 'ID' => $post_ID );
@@ -704,7 +753,7 @@ class RevisionCreation {
 	
 		if ( ! empty( $postarr['meta_input'] ) ) {
 			foreach ( $postarr['meta_input'] as $field => $value ) {
-				update_post_meta( $post_ID, $field, $value );
+				rvy_update_post_meta( $post_ID, $field, $value );
 			}
 		}
 	
@@ -722,7 +771,7 @@ class RevisionCreation {
 			}
 	
 			if ( ! empty( $postarr['context'] ) ) {
-				update_post_meta( $post_ID, '_wp_attachment_context', $postarr['context'], true );
+				rvy_update_post_meta( $post_ID, '_wp_attachment_context', $postarr['context'], true );
 			}
 		}
 	
@@ -758,17 +807,16 @@ class RevisionCreation {
 				if ( $wp_error ) {
 					return new WP_Error( 'invalid_page_template', __( 'Invalid page template.', 'revisionary' ) );
 				}
-				update_post_meta( $post_ID, '_wp_page_template', 'default' );
+				rvy_update_post_meta( $post_ID, '_wp_page_template', 'default' );
 			} else {
-				update_post_meta( $post_ID, '_wp_page_template', $postarr['page_template'] );
+				rvy_update_post_meta( $post_ID, '_wp_page_template', $postarr['page_template'] );
 			}
 		}
 	
 		// Workaround for Gutenberg stripping post thumbnail, page template on revision creation
 		foreach(['_thumbnail_id', '_wp_page_template'] as $meta_key) {
 			if (!empty($archived_meta[$meta_key])) {
-				update_post_meta($published_post_id, $meta_key, $archived_meta[$meta_key]);
-				update_post_meta($published_post_id, "_archive_{$meta_key}", $archived_meta[$meta_key]);
+				rvy_update_post_meta($published_post_id, $meta_key, $archived_meta[$meta_key]);
 			}
 		}
 

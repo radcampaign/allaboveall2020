@@ -33,7 +33,9 @@ function rvy_default_options_sitewide() {
 		'require_edit_others_drafts' => true,
 		'diff_display_strip_tags' => false,
 		'scheduled_revision_update_post_date' => true,
+		'scheduled_revision_update_modified_date' => true,
 		'pending_revision_update_post_date' => true,
+		'pending_revision_update_modified_date' => true,
 		'edd_key' => true,
 		'revision_preview_links' => true,
 		'preview_link_type' => true,
@@ -41,6 +43,7 @@ function rvy_default_options_sitewide() {
 		'display_pp_branding' => true,
 		'trigger_post_update_actions' => true,
 		'copy_revision_comments_to_post' => true,
+		'past_revisions_order_by' => true,
 	);
 
 	if ( $other_options = array_diff_key( rvy_default_options(), $def ) ) {
@@ -74,6 +77,8 @@ function rvy_default_options() {
 		'diff_display_strip_tags' => 0,
 		'scheduled_revision_update_post_date' => 1,
 		'pending_revision_update_post_date' => 0,
+		'scheduled_revision_update_modified_date' => 1,
+		'pending_revision_update_modified_date' => 0,
 		'edd_key' => '',
 		'revision_preview_links' => 1,
 		'preview_link_type' => 'published_slug',
@@ -81,6 +86,7 @@ function rvy_default_options() {
 		'display_pp_branding' => 1,
 		'trigger_post_update_actions' => 0,
 		'copy_revision_comments_to_post' => 0,
+		'past_revisions_order_by' => '',
 	);
 
 	return $def;

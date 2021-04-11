@@ -35,6 +35,13 @@ class RevisionaryDivi
 			add_action('post_submitbox_misc_actions', [$this, 'actClearFlags']);
 		}
 
+		// prevent Divi reload
+		if (!defined('REVISIONARY_LEGACY_DIVI_REDIRECT')) {
+			add_action('init', function() {
+				remove_action( 'template_redirect', 'et_fb_auto_activate_builder' );
+			});
+		}
+
 		add_filter('revisionary_creation_options', [$this, 'fltRevisionCreationOptions']);
 
 		add_filter('revisionary_bypass_revision_creation', [$this, 'fltBypassRevisionCreation'], 10, 3);
@@ -54,8 +61,8 @@ class RevisionaryDivi
 	public function fltBypassRevisionCreation($bypass_data, $data, $published_post) {
 		global $current_user;
 
-		if (get_post_meta($published_post->ID, '_rvy_skip_revision_save', true)
-		|| get_transient("_rvy_skip_revision_save_front_{$current_user->ID}_{$published_post->ID}")
+		if (rvy_get_post_meta($published_post->ID, '_rvy_skip_revision_save', true)
+		|| rvy_get_transient("_rvy_skip_revision_save_front_{$current_user->ID}_{$published_post->ID}")
 		) {
 			delete_post_meta($published_post->ID, '_rvy_skip_revision_save');
 
@@ -69,6 +76,9 @@ class RevisionaryDivi
 	public function actRevisionCreatedMessage($revision_id, $args) {
 		global $current_user;
 		rvy_delete_post_meta(rvy_post_id($revision_id), "_pending_revision_saved_{$current_user->ID}");
+
+		$post_id = rvy_post_id($revision_id);
+		rvy_delete_transient("_rvy_pending_revision_{$current_user->ID}_{$post_id}");
 	}
 
 	public function fltScheduledRevisionEntryData($data, $published_post) {
@@ -77,12 +87,12 @@ class RevisionaryDivi
 		if (rvy_get_post_meta($published_post->ID, "_new_scheduled_revision_{$current_user->ID}", true)
 		|| rvy_get_post_meta($published_post->ID, "_save_as_revision_{$current_user->ID}", true)
 		) {
-			set_transient("_rvy_scheduled_revision_submission_{$current_user->ID}_{$published_post->ID}", $data['post_content'], 10);
+			rvy_set_transient("_rvy_scheduled_revision_submission_{$current_user->ID}_{$published_post->ID}", $data['post_content'], 10);
 
-			if ($restore_content = get_transient("_rvy_scheduled_revision_bypass_{$current_user->ID}_{$published_post->ID}")) {
+			if ($restore_content = rvy_get_transient("_rvy_scheduled_revision_bypass_{$current_user->ID}_{$published_post->ID}")) {
 				$data['post_content'] = $restore_content;
 			} else {
-				set_transient("_rvy_scheduled_revision_bypass_{$current_user->ID}_{$published_post->ID}", $published_post->post_content, 10);
+				rvy_set_transient("_rvy_scheduled_revision_bypass_{$current_user->ID}_{$published_post->ID}", $published_post->post_content, 10);
 			}
 		}
 
@@ -93,7 +103,7 @@ class RevisionaryDivi
 		global $current_user;
 
 		// Retrieve archived new post_content submission for scheduled revision
-		if ($submission_content = get_transient("_rvy_scheduled_revision_submission_{$current_user->ID}_{$published_post->ID}")) {
+		if ($submission_content = rvy_get_transient("_rvy_scheduled_revision_submission_{$current_user->ID}_{$published_post->ID}")) {
 			$data = array_merge($data, ['post_content' => $submission_content]);
 		}
 
@@ -166,19 +176,22 @@ class RevisionaryDivi
 
 		$post_id = rvy_detect_post_id();
 
-		if ($post_id && empty($_REQUEST['published_post'])) {
+		if ($post_id && empty($_REQUEST['published_post']) && empty($_REQUEST['et_pb_use_builder'])) {
 			if (!$revision_id = rvy_get_post_meta($post_id, "_pending_revision_saved_{$current_user->ID}", true)) {
-				$revision_id = get_transient("_pending_revision_detected_{$current_user->ID}_{$post_id}");
+				$revision_id = rvy_get_transient("_pending_revision_detected_{$current_user->ID}_{$post_id}");
 			}
 		
 			if ($revision_id && empty($_REQUEST['published_post'])) {
 				rvy_delete_post_meta($post_id, "_pending_revision_saved_{$current_user->ID}");
-				delete_transient("_pending_revision_detected_{$current_user->ID}_{$post_id}");
+				rvy_delete_transient("_pending_revision_detected_{$current_user->ID}_{$post_id}");
+				rvy_delete_transient("_rvy_pending_revision_{$current_user->ID}_{$post_id}");
 
-				if (!defined('REVISIONARY_DISABLE_SUBMISSION_REDIRECT') && apply_filters('revisionary_do_submission_redirect', true)) {
-					global $revisionary;
-					$msg = $revisionary->get_revision_msg( $revision_id, compact( 'data', 'post_id', 'object_type', 'future_date' ) );
-					rvy_halt( $msg, __('Pending Revision Created', 'revisionary') );
+				if (!rvy_is_revision_status(get_post_field('post_status', $post_id))) {
+					if (!defined('REVISIONARY_DISABLE_SUBMISSION_REDIRECT') && apply_filters('revisionary_do_submission_redirect', true)) {
+						global $revisionary;
+						$msg = $revisionary->get_revision_msg( $revision_id, compact( 'data', 'post_id', 'object_type', 'future_date' ) );
+						rvy_halt( $msg, __('Pending Revision Created', 'revisionary') );
+					}
 				}
 			}
 		}
@@ -188,7 +201,7 @@ class RevisionaryDivi
 		//global $current_user;
 
 		// Short circuit Divi verification only for revision submissions
-		//return ($this->revision_id  || ($this->post_id && get_transient("_rvy_scheduled_revision_bypass_{$current_user->ID}_{$this->post_id}")))
+		//return ($this->revision_id  || ($this->post_id && rvy_get_transient("_rvy_scheduled_revision_bypass_{$current_user->ID}_{$this->post_id}")))
 		//(!agp_user_can('edit_post', rvy_post_id($this->revision_id), '', ['skip_revision_allowance' => true]) || ('future-revision' == get_post_field('post_status', $this->revision_id))))
 		//? true : $verified;
 
@@ -267,7 +280,7 @@ class RevisionaryDivi
 		}
 
 		if (!empty($_REQUEST['rvy_ajax_field']) && ('skip_revision_save_front' == $_REQUEST['rvy_ajax_field']) && !empty($_REQUEST['post_id'])) {
-			set_transient("_rvy_skip_revision_save_front_{$current_user->ID}_{" . intval($_REQUEST['post_id']), true, 10);
+			rvy_set_transient("_rvy_skip_revision_save_front_{$current_user->ID}_{" . intval($_REQUEST['post_id']), true, 10);
 			exit;
 		}
 
@@ -277,7 +290,7 @@ class RevisionaryDivi
 					if ($redirect = rvy_preview_url($revision)) {
 						rvy_delete_post_meta(rvy_post_id($revision_id), "_pending_revision_saved_{$current_user->ID}");
 
-						set_transient("_pending_revision_detected_{$current_user->ID}_" . intval($_REQUEST['post_id']), $revision_id, 10);
+						rvy_set_transient("_pending_revision_detected_{$current_user->ID}_" . intval($_REQUEST['post_id']), $revision_id, 10);
 
 						echo $redirect;
 					}
@@ -289,12 +302,12 @@ class RevisionaryDivi
 
 	function fltDiviAssetHelpers($content, $post_type) {
 		if (!empty($_REQUEST['et_post_id'])) {
-			if (!agp_user_can('edit_post', (int) $_REQUEST['et_post_id'], '', ['skip_revision_allowance' => true])) {
-				$content = str_replace('saveButtonText":"' . __('Save') . '"', 'saveButtonText":"' . __('Submit Revision', 'revisionary') . '"', $content);
-			}
-
 			if (rvy_is_revision_status(get_post_field('post_status', (int) $_REQUEST['et_post_id']))) {
-				$content = str_replace('publishButtonText":"' . __('Submit') . '"', 'publishButtonText":"' . '' . '"', $content);
+				$content = str_replace('publishButtonText":"' . __('Publish') . '"', 'publishButtonText":"' . __('Update Revision', 'revisionary') . '"', $content);
+				$content = str_replace('"publish":"' . __('Publish') . '"', '"publish":"' . __('Update Revision', 'revisionary') . '"', $content);
+
+			} elseif (!agp_user_can('edit_post', (int) $_REQUEST['et_post_id'], '', ['skip_revision_allowance' => true])) {
+				$content = str_replace('saveButtonText":"' . __('Save') . '"', 'saveButtonText":"' . __('Submit Revision', 'revisionary') . '"', $content);
 			}
 		}
 
