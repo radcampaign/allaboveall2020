@@ -8,7 +8,7 @@ iframe {
 }
 
 body {
-  font-family: "Aaux-Regular", sans-serif;
+  font-family: "SharpSans-Regular", sans-serif;
 }
 
 .text-white {
@@ -17,6 +17,10 @@ body {
 
 .text-green {
   color: $primary-color;
+}
+
+.text-blue {
+  color: $secondary-color;
 }
 
 .text-black {
@@ -33,6 +37,19 @@ body {
       color: black;
     }
   }
+}
+
+$font-primary: "SharpSans-Regular", sans-serif;
+$font-primary-bold: "SharpSans-Bold", sans-serif;
+
+.font-primary {
+  font-family: "SharpSans-Regular", sans-serif;
+}
+
+.font-bold,
+strong {
+  font-family: $font-primary-bold;
+  font-weight: 800;
 }
 
 .hide {
@@ -54,7 +71,7 @@ body {
 }
 
 .bold {
-  font-family: "Aaux-Bold", sans-serif;
+  font-family: "SharpSans-Bold", sans-serif;
 }
 
 .text-larger {
@@ -106,8 +123,10 @@ nav a {
   margin-top: 1rem;
 
   &::after {
-    content: url("../images/green-asterisk-xs.png");
+    content: url("../images/all-logo-icon-tiny.png");
     position: relative;
+    bottom: -0.25rem;
+    margin-left: 0.5rem;
   }
 }
 

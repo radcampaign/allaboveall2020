@@ -51,11 +51,17 @@
   border: 2px solid black;
   z-index: 3;
   padding: 0.375rem 0 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  height: 50px;
 }
 
 .resource-filter-form {
   display: flex;
   align-items: center;
+
+  .btn {
+    padding: 0.65rem 2rem;
+  }
 
   @include media-breakpoint-down(md) {
     display: block;
@@ -73,7 +79,7 @@
 }
 
 .content-filters {
-  padding: 1rem 0;
+  padding: 2rem 0;
   margin-bottom: 1rem;
   background: $beige;
 

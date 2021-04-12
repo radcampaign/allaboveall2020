@@ -1,4 +1,6 @@
-a.navbar-brand {
+.navbar-brand {
+  padding-top: 3rem;
+
   &:hover {
     background: transparent;
   }
@@ -22,7 +24,7 @@ a.navbar-brand {
       background: transparent;
       text-decoration: none;
       text-transform: uppercase;
-      font-family: "Aaux-Bold", sans-serif;
+      font-family: $font-primary-bold;
       font-size: 1rem;
 
       &:hover {
@@ -44,11 +46,12 @@ a.navbar-brand {
     }
 
     .nav-link {
-      font-size: 1rem;
+      font-size: 1.25rem;
       text-transform: uppercase;
       font-weight: 700;
       color: black;
-      font-family: "Aaux-Black", sans-serif;
+      font-family: $font-primary-bold;
+      letter-spacing: 1px;
 
       &:hover {
         background: black;
@@ -159,7 +162,7 @@ a.navbar-brand {
       background: black;
       color: white;
       padding: 0.5rem 1rem;
-      font-family: "Aaux-Bold", sans-serif;
+      font-family: $font-primary-bold;
       text-decoration: none;
       width: 43px;
       text-align: center;

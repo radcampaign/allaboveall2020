@@ -23,7 +23,6 @@
       </div>
     </div>
   </div>
-  <img src="/wp-content/uploads/2020/05/asterisk-white.png" alt="white asterisk" class="header-asterisk" />
 </div>
 @if(!empty($tag_content))
 <div class="tag-des background-image">

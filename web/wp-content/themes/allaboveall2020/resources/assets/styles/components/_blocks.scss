@@ -1,37 +1,57 @@
 .arrow-border {
-  border: 20px solid black;
+  border: 22px solid black;
   position: relative;
   padding: 2rem;
-  margin: 3rem 0;
+  margin: 4rem 0;
 
   .col-lg-6 {
     padding: 0 2.3rem;
   }
 
+  h3 {
+    margin-top: 0.5rem;
+    line-height: 1.1;
+  }
+
   .arrow {
-    color: black;
     background: white;
     position: absolute;
-    top: -2rem;
-    right: -2rem;
-    font-size: 5rem;
-    padding-left: 1rem;
-    padding-bottom: 1rem;
+    top: -1.35rem;
+    right: -1.45rem;
+    padding-left: 1.5rem;
+    padding-bottom: 1.5rem;
 
     @include media-breakpoint-down(md) {
       overflow: hidden;
       right: -1.25rem;
     }
+  }
+}
 
-    .icon {
-      transform: rotate(45deg);
+.join-embed {
+  h2 {
+    margin: 0;
+
+    @include media-breakpoint-down(md) {
+      padding: 0 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .advocacy-actionwidget {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    border: none !important;
+
+    iframe {
+      min-height: 280px !important;
+      height: 280px;
     }
   }
 }
 
 .full-width-two-col {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  padding: 4rem 0;
 
   .container-inner {
     .row {
@@ -40,9 +60,18 @@
   }
 }
 
+.partner-organizations {
+  .full-width-two-col {
+    .container-inner {
+      .row {
+        align-items: flex-start;
+      }
+    }
+  }
+}
+
 .full-width-one-col {
-  margin: 1rem 0;
-  padding-top: 1rem;
+  padding: 4rem 0;
 }
 
 .bg-img-upload .full-width-text-inner {
@@ -101,19 +130,19 @@
     .asterisk-container {
       position: absolute;
       right: 0;
-      top: 5rem;
+      top: -16rem;
       z-index: 5;
-      max-width: 350px;
       overflow-x: hidden;
-
-      img {
-        max-width: 500px;
-      }
     }
 
     .container-inner {
       position: relative;
       z-index: 6;
+
+      .join-embed {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+      }
     }
 
     &.join-asterisk {
@@ -124,12 +153,6 @@
       @include media-breakpoint-down(md) {
         display: block;
       }
-    }
-  }
-
-  &.join-block-template {
-    .asterisk-container {
-      top: 0;
     }
   }
 
@@ -165,7 +188,7 @@
   margin-top: 1rem;
 
   label {
-    font-family: "Aaux-Bold", sans-serif;
+    font-family: $font-primary-bold;
     margin: 0;
   }
 
@@ -183,7 +206,7 @@
         padding: 0.35rem;
         font-size: 0.75rem;
         background: $gray-200;
-        font-family: "Aaux-Bold", sans-serif;
+        font-family: $font-primary-bold;
         text-decoration: none;
 
         &:hover {
@@ -195,9 +218,8 @@
 }
 
 .bold-block {
-  padding: 8rem 0;
-  background: black;
-  color: white;
+  padding: 5rem 0;
+  background: $primary-color;
 
   @include media-breakpoint-down(md) {
     display: relative;
@@ -207,6 +229,7 @@
 
   h2 {
     margin-top: 0;
+    font-family: $font-primary-bold;
   }
 
   .top-text {
@@ -221,9 +244,9 @@
     position: relative;
 
     .letter {
-      background: $primary-color;
-      font-family: "Aaux-Black", sans-serif;
-      color: black;
+      background: black;
+      color: white;
+      font-family: $font-primary-bold;
       font-weight: 600;
       font-size: 5rem;
       line-height: 7rem;
@@ -234,7 +257,6 @@
       top: 0;
       left: 0;
       z-index: 4;
-      box-shadow: -5px -5px 30px black;
 
       @include media-breakpoint-down(md) {
         right: 0;
@@ -243,6 +265,11 @@
 
       .letter-link {
         text-decoration: none;
+        color: white;
+
+        &:hover {
+          background: black;
+        }
       }
     }
 
@@ -266,6 +293,11 @@
       }
 
       a {
+        text-decoration: none;
+        border-bottom: 2px solid $primary-color;
+        font-family: $font-primary-bold;
+        letter-spacing: 0.5px;
+
         &:hover {
           color: black;
         }
@@ -350,7 +382,7 @@
     margin-top: 1rem;
 
     &::before {
-      content: url("../images/green-asterisk-xs.png");
+      content: url("../images/all-logo-icon-small.png");
       position: absolute;
       top: 0;
       left: 0;
@@ -470,7 +502,7 @@
   font-size: 2rem;
   text-transform: uppercase;
   justify-content: center;
-  font-family: "Aaux-Black", sans-serif;
+  font-family: $font-primary-bold;
 
   .num-large {
     font-size: 4rem;
@@ -485,7 +517,7 @@
   text-align: center;
   font-size: 4rem;
   margin-bottom: 1rem;
-  font-family: "Aaux-Black", sans-serif;
+  font-family: $font-primary-bold;
 }
 
 .document-download {
@@ -493,7 +525,7 @@
   padding: 1rem 2rem;
   text-transform: uppercase;
   text-decoration: none;
-  font-family: "Aaux-Bold", sans-serif;
+  font-family: $font-primary-bold;
   display: inline-block;
 }
 
@@ -502,14 +534,30 @@
 }
 
 .homepage-hero {
-  margin-top: 1rem;
+  .hero-bottom {
+    font-family: $font-primary-bold;
+  }
 
-  h5 {
-    margin-top: 0;
+  .right-body {
+    font-family: $font-primary-bold;
+    font-size: 2.15rem;
+
+    h5 {
+      margin-top: 0;
+      font-family: $font-primary-bold;
+      font-size: 2.15rem;
+      margin-bottom: 3rem;
+    }
+  }
+
+  .btn {
+    margin-top: 3rem;
+    font-family: $font-primary-bold;
+    letter-spacing: 1px;
   }
 
   .full-width-text-inner {
-    padding-top: 5rem;
+    padding-top: 8rem;
     padding-bottom: 15rem;
 
     @include media-breakpoint-down(md) {
@@ -521,31 +569,6 @@
 .state-box {
   .select-page {
     margin: 2rem 0;
-  }
-}
-
-.join-embed {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-
-  h2 {
-    margin: 0;
-
-    @include media-breakpoint-down(md) {
-      padding: 0 1rem;
-      margin-bottom: 1rem;
-    }
-  }
-
-  .advocacy-actionwidget {
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    border: none !important;
-
-    iframe {
-      min-height: 280px !important;
-      height: 280px;
-    }
   }
 }
 

@@ -19,7 +19,9 @@
     <div class="row">
       <div class="col-lg-12 arrow-border">
         <div class="arrow">
-          <div class="icon"><i class="fas fa-arrow-up"></i></div>
+          <div class="icon">
+            <img src="/wp-content/themes/allaboveall2020/dist/images/corner-arrow.png">
+          </div>
         </div>
         <div class="row">
           <div class="col-lg-6">
