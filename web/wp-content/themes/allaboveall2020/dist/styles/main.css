@@ -17280,6 +17280,9 @@ blockquote {
   position: relative;
   padding-left: 0.5rem;
   margin-bottom: 3rem;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 @media (max-width: 991.98px) {
@@ -17290,7 +17293,7 @@ blockquote {
   }
 }
 
-/* line 27, resources/assets/styles/layouts/_header.scss */
+/* line 28, resources/assets/styles/layouts/_header.scss */
 
 .header-top .head-title {
   margin-top: 0;
@@ -17302,7 +17305,7 @@ blockquote {
   color: black;
 }
 
-/* line 35, resources/assets/styles/layouts/_header.scss */
+/* line 36, resources/assets/styles/layouts/_header.scss */
 
 .header-top .advocacy-actionwidget {
   -webkit-box-flex: 0;
@@ -17311,7 +17314,7 @@ blockquote {
   z-index: 99;
 }
 
-/* line 39, resources/assets/styles/layouts/_header.scss */
+/* line 40, resources/assets/styles/layouts/_header.scss */
 
 .header-top .advocacy-actionwidget iframe {
   min-height: 50px !important;
@@ -17320,7 +17323,7 @@ blockquote {
 }
 
 @media (max-width: 991.98px) {
-  /* line 35, resources/assets/styles/layouts/_header.scss */
+  /* line 36, resources/assets/styles/layouts/_header.scss */
 
   .header-top .advocacy-actionwidget {
     -webkit-box-flex: 0;
@@ -17329,15 +17332,14 @@ blockquote {
   }
 }
 
-/* line 51, resources/assets/styles/layouts/_header.scss */
+/* line 52, resources/assets/styles/layouts/_header.scss */
 
 .desktop-logo {
   display: block;
-  padding-right: 3rem;
 }
 
 @media (max-width: 991.98px) {
-  /* line 51, resources/assets/styles/layouts/_header.scss */
+  /* line 52, resources/assets/styles/layouts/_header.scss */
 
   .desktop-logo {
     display: none;
@@ -17376,6 +17378,10 @@ blockquote {
   height: 90%;
   max-height: 50px;
   margin-top: 45px;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding-right: 0.5rem;
 }
 
 @media (max-width: 991.98px) {
@@ -17385,10 +17391,14 @@ blockquote {
     max-height: unset;
     display: block;
     margin-top: 0;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    padding-right: 0;
   }
 }
 
-/* line 84, resources/assets/styles/layouts/_header.scss */
+/* line 88, resources/assets/styles/layouts/_header.scss */
 
 .page-header {
   padding: 1.5rem;
@@ -17397,7 +17407,7 @@ blockquote {
   position: relative;
 }
 
-/* line 90, resources/assets/styles/layouts/_header.scss */
+/* line 94, resources/assets/styles/layouts/_header.scss */
 
 .page-header h1 {
   text-transform: unset;
@@ -17406,7 +17416,7 @@ blockquote {
   margin-top: 0;
 }
 
-/* line 97, resources/assets/styles/layouts/_header.scss */
+/* line 101, resources/assets/styles/layouts/_header.scss */
 
 .page-header .header-asterisk {
   position: absolute;
@@ -17419,20 +17429,20 @@ blockquote {
 }
 
 @media (max-width: 991.98px) {
-  /* line 97, resources/assets/styles/layouts/_header.scss */
+  /* line 101, resources/assets/styles/layouts/_header.scss */
 
   .page-header .header-asterisk {
     display: none;
   }
 }
 
-/* line 112, resources/assets/styles/layouts/_header.scss */
+/* line 116, resources/assets/styles/layouts/_header.scss */
 
 .home .page-header {
   display: none;
 }
 
-/* line 117, resources/assets/styles/layouts/_header.scss */
+/* line 121, resources/assets/styles/layouts/_header.scss */
 
 .header-social {
   display: -webkit-box;
@@ -17443,21 +17453,21 @@ blockquote {
 }
 
 @media (max-width: 991.98px) {
-  /* line 122, resources/assets/styles/layouts/_header.scss */
+  /* line 126, resources/assets/styles/layouts/_header.scss */
 
   .header-social.social-desktop {
     display: none;
   }
 }
 
-/* line 128, resources/assets/styles/layouts/_header.scss */
+/* line 132, resources/assets/styles/layouts/_header.scss */
 
 .header-social.social-mobile {
   display: none;
 }
 
 @media (max-width: 991.98px) {
-  /* line 128, resources/assets/styles/layouts/_header.scss */
+  /* line 132, resources/assets/styles/layouts/_header.scss */
 
   .header-social.social-mobile {
     display: -webkit-box;
@@ -17466,7 +17476,7 @@ blockquote {
   }
 }
 
-/* line 136, resources/assets/styles/layouts/_header.scss */
+/* line 140, resources/assets/styles/layouts/_header.scss */
 
 .header-social li {
   list-style: none;
@@ -17474,38 +17484,38 @@ blockquote {
   padding-right: 1rem;
 }
 
-/* line 141, resources/assets/styles/layouts/_header.scss */
+/* line 145, resources/assets/styles/layouts/_header.scss */
 
 .header-social li:first-child {
   padding: 0;
 }
 
-/* line 145, resources/assets/styles/layouts/_header.scss */
+/* line 149, resources/assets/styles/layouts/_header.scss */
 
 .header-social li:nth-child(3) {
   padding: 0 1rem 0 0;
 }
 
-/* line 149, resources/assets/styles/layouts/_header.scss */
+/* line 153, resources/assets/styles/layouts/_header.scss */
 
 .header-social li:last-child {
   border-left: 1px solid #ccc;
 }
 
-/* line 153, resources/assets/styles/layouts/_header.scss */
+/* line 157, resources/assets/styles/layouts/_header.scss */
 
 .header-social li a {
   color: black;
 }
 
-/* line 156, resources/assets/styles/layouts/_header.scss */
+/* line 160, resources/assets/styles/layouts/_header.scss */
 
 .header-social li a:hover {
   color: #00c214;
   background: transparent;
 }
 
-/* line 164, resources/assets/styles/layouts/_header.scss */
+/* line 168, resources/assets/styles/layouts/_header.scss */
 
 .headline-asterisk {
   position: absolute;
