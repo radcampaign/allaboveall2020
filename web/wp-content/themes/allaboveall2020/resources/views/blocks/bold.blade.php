@@ -20,50 +20,52 @@
       </div>
     </div>
       <div class="row">
-        <div class="col-lg-8 offset-lg-2">
+        <div class="col-lg-12">
           <div class="letter-block" id="letterB">
             <div class="letter">B</div>
             <div class="content">
               <h3 class="text-uppercase font-bold headline-smaller">{!! $block['data']['b_info_b_title'] !!}</h3>
-              <p>{!! $block['data']['b_info_b_text'] !!}</p>
+              <p>{!! $block['data']['b_info_b_text'] !!}
               @if(!empty($block['data']['b_info_b_link']['url']))
-                <a href="{!! $block['data']['b_info_b_link']['url'] !!}" class="btn btn-white-outline">Learn More</a>
-              @endif
+                <a href="{!! $block['data']['b_info_b_link']['url'] !!}" class="learn-more"> Learn more</a>
+              @endif</p>
             </div>
           </div>
         </div>
-        <div class="col-lg-8 offset-lg-2">
+        <div class="col-lg-12">
           <div class="letter-block" id="letterO">
             <div class="letter">O</div>
             <div class="content">
               <h3 class="text-uppercase font-bold headline-smaller">{!! $block['data']['o_info_o_title'] !!}</h3>
-              <p>{!! $block['data']['o_info_o_text'] !!}</p>
+              <p>{!! $block['data']['o_info_o_text'] !!}
               @if(!empty($block['data']['o_info_o_link']['url']))
-                <a href="{!! $block['data']['o_info_o_link']['url'] !!}" class="btn btn-white-outline">Learn More</a>
-              @endif
+                <a href="{!! $block['data']['o_info_o_link']['url'] !!}" class="learn-more">Learn More</a>
+              @endif</p>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-8 offset-lg-2">
+        <div class="col-lg-12">
           <div class="letter-block" id="letterL">
             <div class="letter">L</div>
             <div class="content">
               <h3 class="text-uppercase font-bold headline-smaller">{!! $block['data']['l_info_l_title'] !!}</h3>
-              <p>{!! $block['data']['l_info_l_text'] !!}</p>
+              <p>{!! $block['data']['l_info_l_text'] !!}
               @if(!empty($block['data']['l_info_l_link']['url']))
-                <a href="{!! $block['data']['l_info_l_link']['url'] !!}" class="btn btn-white-outline">Learn More</a>
-              @endif
+                <a href="{!! $block['data']['l_info_l_link']['url'] !!}" class="learn-more">Learn More</a>
+              @endif</p>
             </div>
           </div>
         </div>
-        <div class="col-lg-8 offset-lg-2">
+        <div class="col-lg-12">
           <div class="letter-block" id="letterD">
             <div class="letter">D</div>
             <div class="content">
               <h3 class="text-uppercase font-bold headline-smaller">{!! $block['data']['d_info_d_title'] !!}</h3>
-              <p>{!! $block['data']['d_info_d_text'] !!}</p>
+              <p>{!! $block['data']['d_info_d_text'] !!}@if(!empty($block['data']['d_info_d_link']['url']))
+                <a href="{!! $block['data']['d_info_d_link']['url'] !!}" class="learn-more">Learn More</a>
+              @endif</p>
               @if(!empty($block['data']['click_to_tweek_link']))
                 @if(!empty($block['data']['click_to_tweet_button_text']))
                   @php($text = $block['data']['click_to_tweet_button_text'])
@@ -83,9 +85,6 @@
                     </div>
                   </div>
                 </div>
-              @endif
-              @if(!empty($block['data']['d_info_d_link']['url']))
-                <a href="{!! $block['data']['d_info_d_link']['url'] !!}" class="btn btn-white-outline">Learn More</a>
               @endif
             </div>
           </div>

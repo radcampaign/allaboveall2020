@@ -526,7 +526,12 @@ class App extends Controller
             else {
               $link = '<a href="'.get_the_permalink().'">'.get_the_title().'</a>';
             }
-            $img = get_the_post_thumbnail_url(get_the_ID(),'square_image_500');
+            if(!empty(get_the_post_thumbnail_url(get_the_ID(),'square_image_500'))) {
+              $img = get_the_post_thumbnail_url(get_the_ID(),'square_image_500');
+            }
+            else {
+              $img = '/wp-content/themes/allaboveall2020/dist/images/all-icon-resource.png';
+            }
             $exc = '';
             if(!empty(get_the_excerpt())) {
               $exc = wp_trim_words(strip_shortcodes(get_the_excerpt()),'35');

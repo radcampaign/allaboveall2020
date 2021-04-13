@@ -31,7 +31,7 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.75);
     z-index: 2;
   }
 
@@ -52,8 +52,8 @@
       color: white;
 
       h3 {
-        font-size: 2.25rem;
-        line-height: 2.75rem;
+        font-size: 1.75rem;
+        line-height: 2.5rem;
 
         @include media-breakpoint-down(lg) {
           font-size: 1.75rem;
@@ -65,7 +65,7 @@
     .text-exc {
       display: none;
       color: black;
-      font-size: 1.35rem;
+      font-size: 1.25rem;
 
       @include media-breakpoint-down(lg) {
         font-size: 1rem;
