@@ -18293,7 +18293,7 @@ body#tinymce {
 
 .navbar .navbar-nav .dropdown-menu .dropdown-item:hover {
   color: black;
-  background: #00c214;
+  background: #42e8c8;
 }
 
 @media (min-width: 992px) {
@@ -18502,7 +18502,7 @@ body#tinymce {
 .arrow-border .arrow {
   background: white;
   position: absolute;
-  top: -1.35rem;
+  top: -1.4rem;
   right: -1.45rem;
   padding-left: 1.5rem;
   padding-bottom: 1.5rem;
