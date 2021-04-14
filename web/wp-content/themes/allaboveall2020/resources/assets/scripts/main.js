@@ -46,6 +46,9 @@ $(document).ready(function() {
   /*var headerTopHeight = ''; 
   headerTopHeight = $('.header-top').height();
   $('.header-background-bar').height(headerTopHeight);*/
+  if( $('.state-taxonomy-listing .row').is(':empty') ) {
+    $('.state-taxonomy-listing').addClass('hide');
+  }
 
   $('#dynamic_select').on('change', function () {
     var url = $(this).val(); // get selected value

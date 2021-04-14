@@ -11,7 +11,7 @@ h6 {
   margin-bottom: 1rem;
   margin-top: 2rem;
   font-weight: 600;
-  font-family: "SharpSans-Regular", sans-serif;
+  font-family: $font-primary;
   letter-spacing: 1px;
 }
 
@@ -36,7 +36,7 @@ h2 {
 
 h3 {
   font-size: 2rem;
-  line-height: 2.1rem;
+  line-height: 2.75rem;
 }
 
 h4 {
@@ -56,7 +56,7 @@ h5 {
 
 .post-headline {
   font-size: 3rem;
-  font-family: "SharpSans-Bold", sans-serif;
+  font-family: $font-primary-bold;
 }
 
 .headline-smaller {
@@ -94,7 +94,7 @@ a {
 
   &:hover {
     text-decoration: none;
-    background: $primary-color;
+    background: $secondary-color;
   }
 
   &.image-hover {
@@ -106,7 +106,7 @@ a {
 
 .single {
   .entry-title {
-    background: $primary-color;
+    background: $secondary-color;
     color: black;
     font-weight: 600;
     padding: 1rem;
@@ -137,7 +137,7 @@ a {
 }
 
 .text-font-black {
-  font-family: "SharpSans-Bold", sans-serif;
+  font-family: $font-primary-bold;
   font-weight: 800;
 }
 

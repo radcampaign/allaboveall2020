@@ -123,6 +123,8 @@
     .dropdown-menu {
       border: none;
       padding-bottom: 0;
+      top: 40px;
+      border-radius: 0;
 
       @include media-breakpoint-down(md) {
         padding-left: 2rem;

@@ -16908,7 +16908,7 @@ h2 {
 
 h3 {
   font-size: 2rem;
-  line-height: 2.1rem;
+  line-height: 2.75rem;
 }
 
 /* line 42, resources/assets/styles/custom/_typography.scss */
@@ -16995,7 +16995,7 @@ a {
 
 a:hover {
   text-decoration: none;
-  background: #00c214;
+  background: #42e8c8;
 }
 
 /* line 101, resources/assets/styles/custom/_typography.scss */
@@ -17007,7 +17007,7 @@ a.image-hover:hover {
 /* line 108, resources/assets/styles/custom/_typography.scss */
 
 .single .entry-title {
-  background: #00c214;
+  background: #42e8c8;
   color: black;
   font-weight: 600;
   padding: 1rem;
@@ -17412,11 +17412,12 @@ blockquote {
 .page-header h1 {
   text-transform: unset;
   color: black;
-  font-weight: 600;
+  font-weight: 800;
   margin-top: 0;
+  font-family: "SharpSans-Bold", sans-serif;
 }
 
-/* line 101, resources/assets/styles/layouts/_header.scss */
+/* line 102, resources/assets/styles/layouts/_header.scss */
 
 .page-header .header-asterisk {
   position: absolute;
@@ -17429,20 +17430,20 @@ blockquote {
 }
 
 @media (max-width: 991.98px) {
-  /* line 101, resources/assets/styles/layouts/_header.scss */
+  /* line 102, resources/assets/styles/layouts/_header.scss */
 
   .page-header .header-asterisk {
     display: none;
   }
 }
 
-/* line 116, resources/assets/styles/layouts/_header.scss */
+/* line 117, resources/assets/styles/layouts/_header.scss */
 
 .home .page-header {
   display: none;
 }
 
-/* line 121, resources/assets/styles/layouts/_header.scss */
+/* line 122, resources/assets/styles/layouts/_header.scss */
 
 .header-social {
   display: -webkit-box;
@@ -17453,21 +17454,21 @@ blockquote {
 }
 
 @media (max-width: 991.98px) {
-  /* line 126, resources/assets/styles/layouts/_header.scss */
+  /* line 127, resources/assets/styles/layouts/_header.scss */
 
   .header-social.social-desktop {
     display: none;
   }
 }
 
-/* line 132, resources/assets/styles/layouts/_header.scss */
+/* line 133, resources/assets/styles/layouts/_header.scss */
 
 .header-social.social-mobile {
   display: none;
 }
 
 @media (max-width: 991.98px) {
-  /* line 132, resources/assets/styles/layouts/_header.scss */
+  /* line 133, resources/assets/styles/layouts/_header.scss */
 
   .header-social.social-mobile {
     display: -webkit-box;
@@ -17476,7 +17477,7 @@ blockquote {
   }
 }
 
-/* line 140, resources/assets/styles/layouts/_header.scss */
+/* line 141, resources/assets/styles/layouts/_header.scss */
 
 .header-social li {
   list-style: none;
@@ -17484,38 +17485,38 @@ blockquote {
   padding-right: 1rem;
 }
 
-/* line 145, resources/assets/styles/layouts/_header.scss */
+/* line 146, resources/assets/styles/layouts/_header.scss */
 
 .header-social li:first-child {
   padding: 0;
 }
 
-/* line 149, resources/assets/styles/layouts/_header.scss */
+/* line 150, resources/assets/styles/layouts/_header.scss */
 
 .header-social li:nth-child(3) {
   padding: 0 1rem 0 0;
 }
 
-/* line 153, resources/assets/styles/layouts/_header.scss */
+/* line 154, resources/assets/styles/layouts/_header.scss */
 
 .header-social li:last-child {
   border-left: 1px solid #ccc;
 }
 
-/* line 157, resources/assets/styles/layouts/_header.scss */
+/* line 158, resources/assets/styles/layouts/_header.scss */
 
 .header-social li a {
   color: black;
 }
 
-/* line 160, resources/assets/styles/layouts/_header.scss */
+/* line 161, resources/assets/styles/layouts/_header.scss */
 
 .header-social li a:hover {
   color: #00c214;
   background: transparent;
 }
 
-/* line 168, resources/assets/styles/layouts/_header.scss */
+/* line 169, resources/assets/styles/layouts/_header.scss */
 
 .headline-asterisk {
   position: absolute;
@@ -18281,6 +18282,8 @@ body#tinymce {
 .navbar .navbar-nav .dropdown-menu {
   border: none;
   padding-bottom: 0;
+  top: 40px;
+  border-radius: 0;
 }
 
 @media (max-width: 991.98px) {
@@ -18291,7 +18294,7 @@ body#tinymce {
   }
 }
 
-/* line 131, resources/assets/styles/custom/_navigation.scss */
+/* line 133, resources/assets/styles/custom/_navigation.scss */
 
 .navbar .navbar-nav .dropdown-menu .dropdown-item {
   padding: 0.5rem 1.5rem;
@@ -18299,7 +18302,7 @@ body#tinymce {
   color: white;
 }
 
-/* line 136, resources/assets/styles/custom/_navigation.scss */
+/* line 138, resources/assets/styles/custom/_navigation.scss */
 
 .navbar .navbar-nav .dropdown-menu .dropdown-item:hover {
   color: black;
@@ -18307,14 +18310,14 @@ body#tinymce {
 }
 
 @media (min-width: 992px) {
-  /* line 145, resources/assets/styles/custom/_navigation.scss */
+  /* line 147, resources/assets/styles/custom/_navigation.scss */
 
   .dropdown:hover > .dropdown-menu {
     display: block;
   }
 }
 
-/* line 151, resources/assets/styles/custom/_navigation.scss */
+/* line 153, resources/assets/styles/custom/_navigation.scss */
 
 .page-numbers {
   padding: 0;
@@ -18327,14 +18330,14 @@ body#tinymce {
           justify-content: center;
 }
 
-/* line 157, resources/assets/styles/custom/_navigation.scss */
+/* line 159, resources/assets/styles/custom/_navigation.scss */
 
 .page-numbers li {
   list-style: none;
   margin: 0 1rem;
 }
 
-/* line 161, resources/assets/styles/custom/_navigation.scss */
+/* line 163, resources/assets/styles/custom/_navigation.scss */
 
 .page-numbers li .page-numbers {
   background: black;
@@ -18346,21 +18349,21 @@ body#tinymce {
   text-align: center;
 }
 
-/* line 170, resources/assets/styles/custom/_navigation.scss */
+/* line 172, resources/assets/styles/custom/_navigation.scss */
 
 .page-numbers li .page-numbers:hover {
   background: #00c214;
   color: black;
 }
 
-/* line 178, resources/assets/styles/custom/_navigation.scss */
+/* line 180, resources/assets/styles/custom/_navigation.scss */
 
 .page-numbers li.dots-no-hover .page-numbers:hover {
   background: black;
   color: white;
 }
 
-/* line 185, resources/assets/styles/custom/_navigation.scss */
+/* line 187, resources/assets/styles/custom/_navigation.scss */
 
 .page-numbers li .current {
   background: #00c214;
@@ -18660,39 +18663,51 @@ body#tinymce {
   padding: 3rem 0 10rem;
 }
 
-@media (max-width: 991.98px) {
-  /* line 158, resources/assets/styles/components/_blocks.scss */
-
-  .asterisk-yes.asterisk-right {
-    display: none;
-  }
-}
-
-/* line 165, resources/assets/styles/components/_blocks.scss */
+/* line 161, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right .asterisk-container {
   position: absolute;
   right: 0;
-  top: -16rem;
+  top: -16.05rem;
   z-index: 5;
   overflow-x: hidden;
 }
 
-/* line 173, resources/assets/styles/components/_blocks.scss */
+@media (max-width: 991.98px) {
+  /* line 161, resources/assets/styles/components/_blocks.scss */
+
+  .asterisk-yes.asterisk-right .asterisk-container {
+    display: none;
+  }
+}
+
+/* line 172, resources/assets/styles/components/_blocks.scss */
+
+.asterisk-yes.asterisk-right .asterisk-container.asterisk-container-right {
+  display: block;
+}
+
+/* line 176, resources/assets/styles/components/_blocks.scss */
+
+.asterisk-yes.asterisk-right .asterisk-container.asterisk-container-top {
+  display: none;
+}
+
+/* line 181, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right .container-inner {
   position: relative;
   z-index: 6;
 }
 
-/* line 177, resources/assets/styles/components/_blocks.scss */
+/* line 185, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right .container-inner .join-embed {
   padding-top: 6rem;
   padding-bottom: 6rem;
 }
 
-/* line 183, resources/assets/styles/components/_blocks.scss */
+/* line 191, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right.join-asterisk {
   margin-bottom: 0;
@@ -18701,28 +18716,28 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 183, resources/assets/styles/components/_blocks.scss */
+  /* line 191, resources/assets/styles/components/_blocks.scss */
 
   .asterisk-yes.asterisk-right.join-asterisk {
     display: block;
   }
 }
 
-/* line 194, resources/assets/styles/components/_blocks.scss */
+/* line 202, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top {
   margin-top: 10rem;
 }
 
 @media (max-width: 991.98px) {
-  /* line 194, resources/assets/styles/components/_blocks.scss */
+  /* line 202, resources/assets/styles/components/_blocks.scss */
 
   .asterisk-yes.asterisk-top {
     margin-top: 5rem;
   }
 }
 
-/* line 201, resources/assets/styles/components/_blocks.scss */
+/* line 209, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top .asterisk-container {
   position: absolute;
@@ -18733,25 +18748,31 @@ body#tinymce {
   text-align: center;
 }
 
-/* line 209, resources/assets/styles/components/_blocks.scss */
+/* line 217, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top .asterisk-container img {
-  max-width: 150px;
+  max-width: 200px;
 }
 
-/* line 214, resources/assets/styles/components/_blocks.scss */
+/* line 221, resources/assets/styles/components/_blocks.scss */
+
+.asterisk-yes.asterisk-top .asterisk-container.asterisk-container-right {
+  display: none;
+}
+
+/* line 225, resources/assets/styles/components/_blocks.scss */
+
+.asterisk-yes.asterisk-top .asterisk-container.asterisk-container-top {
+  display: block;
+}
+
+/* line 230, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top .container-inner {
   margin-top: 4rem;
 }
 
-/* line 220, resources/assets/styles/components/_blocks.scss */
-
-.home .asterisk-yes.asterisk-right .asterisk-container {
-  top: -16.05rem;
-}
-
-/* line 224, resources/assets/styles/components/_blocks.scss */
+/* line 236, resources/assets/styles/components/_blocks.scss */
 
 .post-state,
 .post-campaign {
@@ -18759,7 +18780,7 @@ body#tinymce {
   margin-top: 1rem;
 }
 
-/* line 229, resources/assets/styles/components/_blocks.scss */
+/* line 241, resources/assets/styles/components/_blocks.scss */
 
 .post-state label,
 .post-campaign label {
@@ -18767,7 +18788,7 @@ body#tinymce {
   margin: 0;
 }
 
-/* line 234, resources/assets/styles/components/_blocks.scss */
+/* line 246, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul,
 .post-campaign ul {
@@ -18778,7 +18799,7 @@ body#tinymce {
   margin: 0;
 }
 
-/* line 239, resources/assets/styles/components/_blocks.scss */
+/* line 251, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul li,
 .post-campaign ul li {
@@ -18787,7 +18808,7 @@ body#tinymce {
   padding-bottom: 3px;
 }
 
-/* line 244, resources/assets/styles/components/_blocks.scss */
+/* line 256, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul li a,
 .post-campaign ul li a {
@@ -18798,14 +18819,14 @@ body#tinymce {
   text-decoration: none;
 }
 
-/* line 251, resources/assets/styles/components/_blocks.scss */
+/* line 263, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul li a:hover,
 .post-campaign ul li a:hover {
   background: #00c214;
 }
 
-/* line 259, resources/assets/styles/components/_blocks.scss */
+/* line 271, resources/assets/styles/components/_blocks.scss */
 
 .bold-block {
   padding: 5rem 0;
@@ -18813,7 +18834,7 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 259, resources/assets/styles/components/_blocks.scss */
+  /* line 271, resources/assets/styles/components/_blocks.scss */
 
   .bold-block {
     display: relative;
@@ -18822,7 +18843,7 @@ body#tinymce {
   }
 }
 
-/* line 269, resources/assets/styles/components/_blocks.scss */
+/* line 281, resources/assets/styles/components/_blocks.scss */
 
 .bold-block h2 {
   margin-top: 0;
@@ -18830,14 +18851,14 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 274, resources/assets/styles/components/_blocks.scss */
+  /* line 286, resources/assets/styles/components/_blocks.scss */
 
   .bold-block .top-text {
     padding: 0 1rem;
   }
 }
 
-/* line 280, resources/assets/styles/components/_blocks.scss */
+/* line 292, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block {
   margin: 2rem 0;
@@ -18847,7 +18868,7 @@ body#tinymce {
   position: relative;
 }
 
-/* line 285, resources/assets/styles/components/_blocks.scss */
+/* line 297, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .letter {
   background: black;
@@ -18866,7 +18887,7 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 285, resources/assets/styles/components/_blocks.scss */
+  /* line 297, resources/assets/styles/components/_blocks.scss */
 
   .bold-block .letter-block .letter {
     right: 0;
@@ -18874,20 +18895,20 @@ body#tinymce {
   }
 }
 
-/* line 305, resources/assets/styles/components/_blocks.scss */
+/* line 317, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .letter .letter-link {
   text-decoration: none;
   color: white;
 }
 
-/* line 309, resources/assets/styles/components/_blocks.scss */
+/* line 321, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .letter .letter-link:hover {
   background: black;
 }
 
-/* line 315, resources/assets/styles/components/_blocks.scss */
+/* line 327, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content {
   width: 90%;
@@ -18900,7 +18921,7 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 315, resources/assets/styles/components/_blocks.scss */
+  /* line 327, resources/assets/styles/components/_blocks.scss */
 
   .bold-block .letter-block .content {
     margin-left: 5%;
@@ -18908,14 +18929,14 @@ body#tinymce {
     margin-top: 4rem;
   }
 
-  /* line 329, resources/assets/styles/components/_blocks.scss */
+  /* line 341, resources/assets/styles/components/_blocks.scss */
 
   .bold-block .letter-block .content h3 {
     margin-top: 0;
   }
 }
 
-/* line 334, resources/assets/styles/components/_blocks.scss */
+/* line 346, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a {
   text-decoration: none;
@@ -18924,31 +18945,31 @@ body#tinymce {
   letter-spacing: 0.5px;
 }
 
-/* line 340, resources/assets/styles/components/_blocks.scss */
+/* line 352, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a:hover {
   color: black;
 }
 
-/* line 345, resources/assets/styles/components/_blocks.scss */
+/* line 357, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a.btn-black-outline:hover {
   color: white;
 }
 
-/* line 350, resources/assets/styles/components/_blocks.scss */
+/* line 362, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a.btn-white-outline {
   color: white;
 }
 
-/* line 353, resources/assets/styles/components/_blocks.scss */
+/* line 365, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a.btn-white-outline:hover {
   color: black;
 }
 
-/* line 361, resources/assets/styles/components/_blocks.scss */
+/* line 373, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall {
   background: #00c214;
@@ -18956,7 +18977,7 @@ body#tinymce {
   width: 100%;
 }
 
-/* line 366, resources/assets/styles/components/_blocks.scss */
+/* line 378, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter {
   position: relative;
@@ -18966,7 +18987,7 @@ body#tinymce {
   font-size: 7rem;
 }
 
-/* line 374, resources/assets/styles/components/_blocks.scss */
+/* line 386, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block {
   display: -webkit-box;
@@ -18979,7 +19000,7 @@ body#tinymce {
   background: white;
 }
 
-/* line 380, resources/assets/styles/components/_blocks.scss */
+/* line 392, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block .content {
   color: black;
@@ -18989,13 +19010,13 @@ body#tinymce {
   min-height: unset;
 }
 
-/* line 387, resources/assets/styles/components/_blocks.scss */
+/* line 399, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block .content .font-bold {
   margin-top: 0;
 }
 
-/* line 391, resources/assets/styles/components/_blocks.scss */
+/* line 403, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block .content a {
   color: black;
@@ -19003,14 +19024,14 @@ body#tinymce {
   border-bottom: 2px solid #00c214;
 }
 
-/* line 396, resources/assets/styles/components/_blocks.scss */
+/* line 408, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block .content a:hover {
   color: #00c214;
   background-color: transparent;
 }
 
-/* line 406, resources/assets/styles/components/_blocks.scss */
+/* line 418, resources/assets/styles/components/_blocks.scss */
 
 .background-image {
   background-image: url(/wp-content/themes/allaboveall2020/dist/images/bg-image.jpg);
@@ -19019,14 +19040,14 @@ body#tinymce {
   padding: 2rem;
 }
 
-/* line 413, resources/assets/styles/components/_blocks.scss */
+/* line 425, resources/assets/styles/components/_blocks.scss */
 
 .box-shadow {
   -webkit-box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.75);
 }
 
-/* line 419, resources/assets/styles/components/_blocks.scss */
+/* line 431, resources/assets/styles/components/_blocks.scss */
 
 .black-box {
   padding: 2rem;
@@ -19037,13 +19058,13 @@ body#tinymce {
   text-align: left;
 }
 
-/* line 427, resources/assets/styles/components/_blocks.scss */
+/* line 439, resources/assets/styles/components/_blocks.scss */
 
 .black-box h3 {
   margin-bottom: 2rem;
 }
 
-/* line 432, resources/assets/styles/components/_blocks.scss */
+/* line 444, resources/assets/styles/components/_blocks.scss */
 
 .list-asterisk-green ul {
   list-style: none;
@@ -19051,43 +19072,43 @@ body#tinymce {
   font-size: 1.15rem;
 }
 
-/* line 437, resources/assets/styles/components/_blocks.scss */
+/* line 449, resources/assets/styles/components/_blocks.scss */
 
 .list-asterisk-green ul li {
   position: relative;
-  padding-left: 2rem;
+  padding-left: 3rem;
   margin-top: 1rem;
 }
 
-/* line 442, resources/assets/styles/components/_blocks.scss */
+/* line 454, resources/assets/styles/components/_blocks.scss */
 
 .list-asterisk-green ul li::before {
-  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADYAAAA2CAYAAACMRWrdAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDAyIDc5LjE2NDQ4OCwgMjAyMC8wNy8xMC0yMjowNjo1MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDYzMDgzQTI5MzFEMTFFQkI5OTlEMzM3RUY2REM4RDkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDYzMDgzQTM5MzFEMTFFQkI5OTlEMzM3RUY2REM4RDkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NjMwODNBMDkzMUQxMUVCQjk5OUQzMzdFRjZEQzhEOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NjMwODNBMTkzMUQxMUVCQjk5OUQzMzdFRjZEQzhEOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PvVomesAAAYMSURBVHja7Jpb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);
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDAyIDc5LjE2NDQ4OCwgMjAyMC8wNy8xMC0yMjowNjo1MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDUzRTlGQjk5Mzk4MTFFQkI5OTlEMzM3RUY2REM4RDkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDUzRTlGQkE5Mzk4MTFFQkI5OTlEMzM3RUY2REM4RDkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NjMwODNBNDkzMUQxMUVCQjk5OUQzMzdFRjZEQzhEOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowNTNFOUZCODkzOTgxMUVCQjk5OUQzMzdFRjZEQzhEOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrmVDD4AAATwSURBVHjavFZ7bBRFGP/2dXfttbTpg5c10McVEarGP6SNIq2NgVwMRoom1viopsUroVBMSypa8QittBEiCRRrogkxEoOamKgJaMQY36DBRCVWIDEhPmitpPTa3u7tjt83t3u9u929tmCYy+zN7M58v5lvfvP7PoA5ltyqZbfXD58y6kdO83rPpe+MnBWBqtnMbW5uBsYYrzJcTRH4z2rPfpowPfjqgDmaANdSRJtJRVZuOdL/XmVvxwG4xrKsb8ehqjf2HhNkSUr/lrJjUVE8Kw6H31zcuP4BphtgRKNT53Yd6HTar1vPKoHd7fuWbn0iJIgiMC125KeWnY+zmB6zAYtej3fl4J63FzWuv1+7PEYHAuVdT3fQt3RwltJmjqBlnS3tsfEIDmBQ8uTGxisTEa/wy0gjflZTXM0Mw4j+PfIHGAYHxT7o45McvGJXW18KsTKwxgLVxye4DW4Lvaeibewz2xmjO7RfO/e2Xugb3C/n+IG7iBkQQwPlXaEEOBqJCUn0onVYLkzeKc0lG2TrfO9A/5+9g204RHNl9W/P799O9tHAdlq1YehAhmjnxlR08q93jx+lnQgmX6jNVE0t39nakwDFd6IogZSTxUGto6KFWEVyIsboyW9O4JnPK6yrrkFPxF2m6VBQe8ca340Ly3wlC0sRmFthqqr6A0tvKmna2IQL42PjO81G0MP9yfyorq6GYDDoDpwEnldYV8PBiSRkNGd5RQDdKzIwOLUkWZH8y8sDhqbyMdPuTQWlkp+fD7m5uTA0NDSzCgSe27anbMemZ5mmcamz+GWxmdo6U4EWIgoi6QCc7xkIX3jp1RcyS1ClfKvrV1NYy7u39M0P1q3T0ZUWiROLwHaWcgNIopeuJAx/+OkH53Yf7BL4KgT7xnCaIssI/GURs+kBS2rTDUDygA+tMnNmYgy1RVi15BDk+SpxqAZ6NKoKHsVDuMleSdx3RowWdNnmbCGtLeLD60FQI105zAdLERPRh2NtWm4DEeS5BYa5vJ8pSLCkhTtVg4ucCqmqkVqTRM2YUlV+/YgD7pXJ0HT5Nndymb9Wfx+s9qwDlU17ljnsHWnw7ydfnJiRXMh8GYZiP2b0ySZ/D9yFoBpzBEuxqapQHKy9b+zM2R8yXScpk4DwssW/D1qyOyBqgtL6vQKY2mEelgBLFmwAj5iPrNaRgwyK1969BmOwf/Szbz92MisrSgZgAn0qux0mWByIRsoI+nn0I5gvlYIC5EqASVX1fp9/vGDlqgAz4vJKSldUX3OnGzgGQhfgdFBS5WwEGYiE4ejky/BgVht/x8klSqOhk0ExoowX3luzOlnbC9PAa2trIRwOQ0NDgwvomWIGX6GwkLjQP/U3++MxuQKVjt59bVYaUyrebIXFtdGzrP6f06x+5BT/p74VUjeHQg5ZpozO25rzCjyaFUpxbxZu67WJfjgY6TQvoGwTElmUaYIZUsFKBKZDaqgjEp3yqcPaM1ZMng6QRP8icTFXKmZ+SQd1u0hJ+Q+BUzIhYVjk8ZciFkZQz4KiRdgX7FmmyqLQPfYQvD95DHLF+JnaQVOzW5cs1wKn8KjkzYOLr7/z1u/beh7GTEV1zkA0VKgXrzyC7JXhknHREdSe7TkWAsdo5fMUFxT/3Nr9GL7SkWgZEvoYwneNbYD/oVAON+uE/nqV6wpsJQ9U/hNgAIneegCPl8u0AAAAAElFTkSuQmCC);
   position: absolute;
   top: 0;
   left: 0;
 }
 
-/* line 451, resources/assets/styles/components/_blocks.scss */
+/* line 463, resources/assets/styles/components/_blocks.scss */
 
 .tax-list {
   margin-top: 2rem;
 }
 
-/* line 455, resources/assets/styles/components/_blocks.scss */
+/* line 467, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item {
   margin-bottom: 2rem;
 }
 
-/* line 458, resources/assets/styles/components/_blocks.scss */
+/* line 470, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item .excerpt {
   color: #666;
   font-size: 1.15rem;
 }
 
-/* line 463, resources/assets/styles/components/_blocks.scss */
+/* line 475, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item .meta {
   display: -webkit-box;
@@ -19098,7 +19119,7 @@ body#tinymce {
   font-size: 1rem;
 }
 
-/* line 469, resources/assets/styles/components/_blocks.scss */
+/* line 481, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item .meta .name {
   margin-left: 1rem;
@@ -19106,20 +19127,20 @@ body#tinymce {
   border-left: 1px solid #999;
 }
 
-/* line 476, resources/assets/styles/components/_blocks.scss */
+/* line 488, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item h4 {
   font-size: 1.25rem;
 }
 
-/* line 479, resources/assets/styles/components/_blocks.scss */
+/* line 491, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item h4 svg {
   margin-left: 0.5rem;
   max-width: 0.875rem;
 }
 
-/* line 486, resources/assets/styles/components/_blocks.scss */
+/* line 498, resources/assets/styles/components/_blocks.scss */
 
 .two-col-flex {
   display: -webkit-box;
@@ -19130,7 +19151,7 @@ body#tinymce {
           align-items: center;
 }
 
-/* line 490, resources/assets/styles/components/_blocks.scss */
+/* line 502, resources/assets/styles/components/_blocks.scss */
 
 .two-col-flex .left,
 .two-col-flex .right {
@@ -19139,14 +19160,14 @@ body#tinymce {
           flex: 1;
 }
 
-/* line 495, resources/assets/styles/components/_blocks.scss */
+/* line 507, resources/assets/styles/components/_blocks.scss */
 
 .two-col-flex .text {
   padding: 0 5rem;
 }
 
 @media (max-width: 991.98px) {
-  /* line 495, resources/assets/styles/components/_blocks.scss */
+  /* line 507, resources/assets/styles/components/_blocks.scss */
 
   .two-col-flex .text {
     padding: 2rem 2rem 0;
@@ -19154,40 +19175,40 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 486, resources/assets/styles/components/_blocks.scss */
+  /* line 498, resources/assets/styles/components/_blocks.scss */
 
   .two-col-flex {
     display: block;
   }
 
-  /* line 506, resources/assets/styles/components/_blocks.scss */
+  /* line 518, resources/assets/styles/components/_blocks.scss */
 
   .two-col-flex .text {
     padding-bottom: 2rem;
   }
 }
 
-/* line 512, resources/assets/styles/components/_blocks.scss */
+/* line 524, resources/assets/styles/components/_blocks.scss */
 
 .map-left {
   padding-right: 5rem;
 }
 
-/* line 515, resources/assets/styles/components/_blocks.scss */
+/* line 527, resources/assets/styles/components/_blocks.scss */
 
 .map-left h3 {
   margin-top: 0;
 }
 
 @media (max-width: 991.98px) {
-  /* line 512, resources/assets/styles/components/_blocks.scss */
+  /* line 524, resources/assets/styles/components/_blocks.scss */
 
   .map-left {
     padding: 0 2rem 2rem;
   }
 }
 
-/* line 523, resources/assets/styles/components/_blocks.scss */
+/* line 535, resources/assets/styles/components/_blocks.scss */
 
 .map-left .select {
   margin-top: 1rem;
@@ -19196,7 +19217,7 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 523, resources/assets/styles/components/_blocks.scss */
+  /* line 535, resources/assets/styles/components/_blocks.scss */
 
   .map-left .select {
     max-width: 80%;
@@ -19204,7 +19225,7 @@ body#tinymce {
   }
 }
 
-/* line 534, resources/assets/styles/components/_blocks.scss */
+/* line 546, resources/assets/styles/components/_blocks.scss */
 
 .map-left .state-map {
   margin-top: 1rem;
@@ -19212,14 +19233,14 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 534, resources/assets/styles/components/_blocks.scss */
+  /* line 546, resources/assets/styles/components/_blocks.scss */
 
   .map-left .state-map {
     max-width: 100%;
   }
 }
 
-/* line 544, resources/assets/styles/components/_blocks.scss */
+/* line 556, resources/assets/styles/components/_blocks.scss */
 
 .select-page {
   width: 50%;
@@ -19227,20 +19248,20 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 544, resources/assets/styles/components/_blocks.scss */
+  /* line 556, resources/assets/styles/components/_blocks.scss */
 
   .select-page {
     width: 100%;
   }
 }
 
-/* line 553, resources/assets/styles/components/_blocks.scss */
+/* line 565, resources/assets/styles/components/_blocks.scss */
 
 #mapbase {
   margin-bottom: 2rem;
 }
 
-/* line 557, resources/assets/styles/components/_blocks.scss */
+/* line 569, resources/assets/styles/components/_blocks.scss */
 
 .stats-trio {
   display: -webkit-box;
@@ -19257,19 +19278,19 @@ body#tinymce {
   font-family: "SharpSans-Bold", sans-serif;
 }
 
-/* line 565, resources/assets/styles/components/_blocks.scss */
+/* line 577, resources/assets/styles/components/_blocks.scss */
 
 .stats-trio .num-large {
   font-size: 4rem;
 }
 
-/* line 569, resources/assets/styles/components/_blocks.scss */
+/* line 581, resources/assets/styles/components/_blocks.scss */
 
 .stats-trio .text-mid {
   margin: 0 1rem;
 }
 
-/* line 574, resources/assets/styles/components/_blocks.scss */
+/* line 586, resources/assets/styles/components/_blocks.scss */
 
 .stats-large-num {
   text-align: center;
@@ -19278,7 +19299,7 @@ body#tinymce {
   font-family: "SharpSans-Bold", sans-serif;
 }
 
-/* line 581, resources/assets/styles/components/_blocks.scss */
+/* line 593, resources/assets/styles/components/_blocks.scss */
 
 .document-download {
   border: 2px solid black;
@@ -19289,19 +19310,19 @@ body#tinymce {
   display: inline-block;
 }
 
-/* line 590, resources/assets/styles/components/_blocks.scss */
+/* line 602, resources/assets/styles/components/_blocks.scss */
 
 .post-state {
   margin-top: 2rem;
 }
 
-/* line 595, resources/assets/styles/components/_blocks.scss */
+/* line 607, resources/assets/styles/components/_blocks.scss */
 
 .state-box .select-page {
   margin: 2rem 0;
 }
 
-/* line 601, resources/assets/styles/components/_blocks.scss */
+/* line 613, resources/assets/styles/components/_blocks.scss */
 
 .action-embed .advocacy-actionwidget {
   -webkit-box-shadow: none !important;
@@ -19310,62 +19331,62 @@ body#tinymce {
   border: none !important;
 }
 
-/* line 608, resources/assets/styles/components/_blocks.scss */
+/* line 620, resources/assets/styles/components/_blocks.scss */
 
 .action-item {
   padding: 0 15px 0 0;
 }
 
-/* line 611, resources/assets/styles/components/_blocks.scss */
+/* line 623, resources/assets/styles/components/_blocks.scss */
 
 .action-item .img {
   padding: 0;
 }
 
-/* line 615, resources/assets/styles/components/_blocks.scss */
+/* line 627, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text {
   padding: 0;
 }
 
-/* line 618, resources/assets/styles/components/_blocks.scss */
+/* line 630, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text .text-inner {
   padding: 3rem 5rem;
   color: white;
 }
 
-/* line 623, resources/assets/styles/components/_blocks.scss */
+/* line 635, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text .text-inner h2 .action-h2-link {
   color: white;
 }
 
-/* line 626, resources/assets/styles/components/_blocks.scss */
+/* line 638, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text .text-inner h2 .action-h2-link:hover {
   color: black;
 }
 
-/* line 635, resources/assets/styles/components/_blocks.scss */
+/* line 647, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block {
   padding: 1rem;
 }
 
-/* line 636, resources/assets/styles/components/_blocks.scss */
+/* line 648, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block.tweet-block-white {
   border: 2px solid white;
 }
 
-/* line 640, resources/assets/styles/components/_blocks.scss */
+/* line 652, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block.tweet-block-black {
   border: 2px solid black;
 }
 
-/* line 646, resources/assets/styles/components/_blocks.scss */
+/* line 658, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .tweet-row {
   -webkit-box-align: center;
@@ -19373,27 +19394,27 @@ body#tinymce {
           align-items: center;
 }
 
-/* line 650, resources/assets/styles/components/_blocks.scss */
+/* line 662, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .col-lg-3 {
   text-align: center;
 }
 
-/* line 653, resources/assets/styles/components/_blocks.scss */
+/* line 665, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .col-lg-3 .fa-twitter {
   font-size: 3rem;
   color: #00c214;
 }
 
-/* line 659, resources/assets/styles/components/_blocks.scss */
+/* line 671, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .col-lg-9 {
   padding-left: 0;
 }
 
 @media (max-width: 991.98px) {
-  /* line 659, resources/assets/styles/components/_blocks.scss */
+  /* line 671, resources/assets/styles/components/_blocks.scss */
 
   .tweet-block .col-lg-9 {
     padding-left: 15px;
