@@ -138,6 +138,8 @@
 
   .display-2 {
     margin-top: 0;
+    font-size: 2rem;
+    line-height: 2.75rem;
   }
 
   .image {
@@ -448,7 +450,7 @@
 
   li {
     position: relative;
-    padding-left: 3rem;
+    padding-left: 2.5rem;
     margin-top: 1rem;
 
     &::before {
