@@ -17312,9 +17312,12 @@ blockquote {
       -ms-flex: 0 0 60%;
           flex: 0 0 60%;
   z-index: 99;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+  border: none !important;
 }
 
-/* line 40, resources/assets/styles/layouts/_header.scss */
+/* line 42, resources/assets/styles/layouts/_header.scss */
 
 .header-top .advocacy-actionwidget iframe {
   min-height: 50px !important;
@@ -17332,28 +17335,28 @@ blockquote {
   }
 }
 
-/* line 52, resources/assets/styles/layouts/_header.scss */
+/* line 54, resources/assets/styles/layouts/_header.scss */
 
 .desktop-logo {
   display: block;
 }
 
 @media (max-width: 991.98px) {
-  /* line 52, resources/assets/styles/layouts/_header.scss */
+  /* line 54, resources/assets/styles/layouts/_header.scss */
 
   .desktop-logo {
     display: none;
   }
 }
 
-/* line 60, resources/assets/styles/layouts/_header.scss */
+/* line 62, resources/assets/styles/layouts/_header.scss */
 
 .mobile-logo {
   display: none;
 }
 
 @media (max-width: 991.98px) {
-  /* line 60, resources/assets/styles/layouts/_header.scss */
+  /* line 62, resources/assets/styles/layouts/_header.scss */
 
   .mobile-logo {
     display: -webkit-box;
@@ -17366,7 +17369,7 @@ blockquote {
   }
 }
 
-/* line 70, resources/assets/styles/layouts/_header.scss */
+/* line 72, resources/assets/styles/layouts/_header.scss */
 
 .header-bottom {
   display: -webkit-box;
@@ -17385,7 +17388,7 @@ blockquote {
 }
 
 @media (max-width: 991.98px) {
-  /* line 70, resources/assets/styles/layouts/_header.scss */
+  /* line 72, resources/assets/styles/layouts/_header.scss */
 
   .header-bottom {
     max-height: unset;
@@ -17398,7 +17401,7 @@ blockquote {
   }
 }
 
-/* line 88, resources/assets/styles/layouts/_header.scss */
+/* line 90, resources/assets/styles/layouts/_header.scss */
 
 .page-header {
   padding: 1.5rem;
@@ -17407,7 +17410,7 @@ blockquote {
   position: relative;
 }
 
-/* line 94, resources/assets/styles/layouts/_header.scss */
+/* line 96, resources/assets/styles/layouts/_header.scss */
 
 .page-header h1 {
   text-transform: unset;
@@ -17417,7 +17420,7 @@ blockquote {
   font-family: "SharpSans-Bold", sans-serif;
 }
 
-/* line 102, resources/assets/styles/layouts/_header.scss */
+/* line 104, resources/assets/styles/layouts/_header.scss */
 
 .page-header .header-asterisk {
   position: absolute;
@@ -17430,20 +17433,20 @@ blockquote {
 }
 
 @media (max-width: 991.98px) {
-  /* line 102, resources/assets/styles/layouts/_header.scss */
+  /* line 104, resources/assets/styles/layouts/_header.scss */
 
   .page-header .header-asterisk {
     display: none;
   }
 }
 
-/* line 117, resources/assets/styles/layouts/_header.scss */
+/* line 119, resources/assets/styles/layouts/_header.scss */
 
 .home .page-header {
   display: none;
 }
 
-/* line 122, resources/assets/styles/layouts/_header.scss */
+/* line 124, resources/assets/styles/layouts/_header.scss */
 
 .header-social {
   display: -webkit-box;
@@ -17454,21 +17457,21 @@ blockquote {
 }
 
 @media (max-width: 991.98px) {
-  /* line 127, resources/assets/styles/layouts/_header.scss */
+  /* line 129, resources/assets/styles/layouts/_header.scss */
 
   .header-social.social-desktop {
     display: none;
   }
 }
 
-/* line 133, resources/assets/styles/layouts/_header.scss */
+/* line 135, resources/assets/styles/layouts/_header.scss */
 
 .header-social.social-mobile {
   display: none;
 }
 
 @media (max-width: 991.98px) {
-  /* line 133, resources/assets/styles/layouts/_header.scss */
+  /* line 135, resources/assets/styles/layouts/_header.scss */
 
   .header-social.social-mobile {
     display: -webkit-box;
@@ -17477,7 +17480,7 @@ blockquote {
   }
 }
 
-/* line 141, resources/assets/styles/layouts/_header.scss */
+/* line 143, resources/assets/styles/layouts/_header.scss */
 
 .header-social li {
   list-style: none;
@@ -17485,38 +17488,38 @@ blockquote {
   padding-right: 1rem;
 }
 
-/* line 146, resources/assets/styles/layouts/_header.scss */
+/* line 148, resources/assets/styles/layouts/_header.scss */
 
 .header-social li:first-child {
   padding: 0;
 }
 
-/* line 150, resources/assets/styles/layouts/_header.scss */
+/* line 152, resources/assets/styles/layouts/_header.scss */
 
 .header-social li:nth-child(3) {
   padding: 0 1rem 0 0;
 }
 
-/* line 154, resources/assets/styles/layouts/_header.scss */
+/* line 156, resources/assets/styles/layouts/_header.scss */
 
 .header-social li:last-child {
   border-left: 1px solid #ccc;
 }
 
-/* line 158, resources/assets/styles/layouts/_header.scss */
+/* line 160, resources/assets/styles/layouts/_header.scss */
 
 .header-social li a {
   color: black;
 }
 
-/* line 161, resources/assets/styles/layouts/_header.scss */
+/* line 163, resources/assets/styles/layouts/_header.scss */
 
 .header-social li a:hover {
   color: #00c214;
   background: transparent;
 }
 
-/* line 169, resources/assets/styles/layouts/_header.scss */
+/* line 171, resources/assets/styles/layouts/_header.scss */
 
 .headline-asterisk {
   position: absolute;
@@ -18743,7 +18746,7 @@ body#tinymce {
 
 .asterisk-yes.asterisk-top .asterisk-container {
   position: absolute;
-  top: -50px;
+  top: 0;
   left: 0;
   width: 100%;
   max-width: 100%;

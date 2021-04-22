@@ -36,6 +36,8 @@
   .advocacy-actionwidget {
     flex: 0 0 60%;
     z-index: 99;
+    box-shadow: none !important;
+    border: none !important;
 
     iframe {
       min-height: 50px !important;

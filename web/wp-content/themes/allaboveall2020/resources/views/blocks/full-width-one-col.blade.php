@@ -35,7 +35,7 @@
   <div class="full-width-text-inner">
   @if($block['data']['asterisk'][0] == 'yes')
     <div class="asterisk-container asterisk-container-right"><img src="/wp-content/themes/allaboveall2020/dist/images/asterisk-new.png"></div>
-    <div class="asterisk-container asterisk-container-top"><img src="/wp-content/themes/allaboveall2020/dist/images/all-icon-resource.png"></div>
+    <div class="asterisk-container asterisk-container-top"><img src="/wp-content/themes/allaboveall2020/dist/images/aaa.gif"></div>
   @endif
      {{-- start container --}}
      <div class="container container-inner">

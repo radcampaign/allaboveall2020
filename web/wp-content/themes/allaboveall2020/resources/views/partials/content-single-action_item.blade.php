@@ -10,7 +10,7 @@
       </div>
     </div>
   </div>
-  <div class="container">
+  <div class="container mt-3">
     <div class="row">
       <div class="col-lg-6">
           <div class="entry-content">
