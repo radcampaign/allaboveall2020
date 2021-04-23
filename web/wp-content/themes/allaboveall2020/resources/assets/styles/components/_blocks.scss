@@ -145,7 +145,7 @@
   .image {
     img {
       object-fit: cover;
-      height: 450px;
+      height: 500px;
 
       @include media-breakpoint-down(md) {
         height: auto;
@@ -185,8 +185,8 @@
       z-index: 6;
 
       .join-embed {
-        padding-top: 6rem;
-        padding-bottom: 6rem;
+        padding-top: 5rem;
+        padding-bottom: 2rem;
       }
     }
 
@@ -210,14 +210,14 @@
 
     .asterisk-container {
       position: absolute;
-      top: 0;
+      top: -120px;
       left: 0;
       width: 100%;
       max-width: 100%;
       text-align: center;
 
       img {
-        max-width: 200px;
+        max-width: 500px;
       }
 
       &.asterisk-container-right {
@@ -507,7 +507,7 @@
   }
 
   .text {
-    padding: 0 5rem;
+    padding: 2rem 5rem;
 
     @include media-breakpoint-down(md) {
       padding: 2rem 2rem 0;

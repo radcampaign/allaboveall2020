@@ -16904,21 +16904,28 @@ h2 {
   line-height: 3.25rem;
 }
 
-/* line 37, resources/assets/styles/custom/_typography.scss */
+/* line 36, resources/assets/styles/custom/_typography.scss */
+
+h2.smallerh2 {
+  font-size: 2rem;
+  line-height: 3rem;
+}
+
+/* line 42, resources/assets/styles/custom/_typography.scss */
 
 h3 {
   font-size: 2rem;
   line-height: 2.75rem;
 }
 
-/* line 42, resources/assets/styles/custom/_typography.scss */
+/* line 47, resources/assets/styles/custom/_typography.scss */
 
 h4 {
   font-size: 1.75rem;
   line-height: 2rem;
 }
 
-/* line 47, resources/assets/styles/custom/_typography.scss */
+/* line 52, resources/assets/styles/custom/_typography.scss */
 
 h5 {
   font-size: 1.5rem;
@@ -16926,26 +16933,26 @@ h5 {
   text-transform: uppercase;
 }
 
-/* line 53, resources/assets/styles/custom/_typography.scss */
+/* line 58, resources/assets/styles/custom/_typography.scss */
 
 .aauxreg {
   font-family: "Aaux-Regular", sans-serif;
 }
 
-/* line 57, resources/assets/styles/custom/_typography.scss */
+/* line 62, resources/assets/styles/custom/_typography.scss */
 
 .post-headline {
   font-size: 3rem;
   font-family: "SharpSans-Bold", sans-serif;
 }
 
-/* line 62, resources/assets/styles/custom/_typography.scss */
+/* line 67, resources/assets/styles/custom/_typography.scss */
 
 .headline-smaller {
   font-size: 1.75rem;
 }
 
-/* line 66, resources/assets/styles/custom/_typography.scss */
+/* line 71, resources/assets/styles/custom/_typography.scss */
 
 .display-1 {
   line-height: 1.15;
@@ -16955,7 +16962,7 @@ h5 {
 }
 
 @media (max-width: 991.98px) {
-  /* line 66, resources/assets/styles/custom/_typography.scss */
+  /* line 71, resources/assets/styles/custom/_typography.scss */
 
   .display-1 {
     font-size: 3rem;
@@ -16963,7 +16970,7 @@ h5 {
   }
 }
 
-/* line 78, resources/assets/styles/custom/_typography.scss */
+/* line 83, resources/assets/styles/custom/_typography.scss */
 
 .display-2 {
   font-size: 2.5rem;
@@ -16971,40 +16978,40 @@ h5 {
 }
 
 @media (max-width: 991.98px) {
-  /* line 78, resources/assets/styles/custom/_typography.scss */
+  /* line 83, resources/assets/styles/custom/_typography.scss */
 
   .display-2 {
     font-size: 2rem;
   }
 }
 
-/* line 87, resources/assets/styles/custom/_typography.scss */
+/* line 92, resources/assets/styles/custom/_typography.scss */
 
 .tooltip {
   width: 500px;
 }
 
-/* line 91, resources/assets/styles/custom/_typography.scss */
+/* line 96, resources/assets/styles/custom/_typography.scss */
 
 a {
   text-decoration: underline;
   color: black;
 }
 
-/* line 95, resources/assets/styles/custom/_typography.scss */
+/* line 100, resources/assets/styles/custom/_typography.scss */
 
 a:hover {
   text-decoration: none;
   background: #42e8c8;
 }
 
-/* line 101, resources/assets/styles/custom/_typography.scss */
+/* line 106, resources/assets/styles/custom/_typography.scss */
 
 a.image-hover:hover {
   background: transparent;
 }
 
-/* line 108, resources/assets/styles/custom/_typography.scss */
+/* line 113, resources/assets/styles/custom/_typography.scss */
 
 .single .entry-title {
   background: #42e8c8;
@@ -17015,52 +17022,52 @@ a.image-hover:hover {
   margin-bottom: 2rem;
 }
 
-/* line 118, resources/assets/styles/custom/_typography.scss */
+/* line 123, resources/assets/styles/custom/_typography.scss */
 
 .head-title {
   font-size: 1rem;
   font-weight: 600;
 }
 
-/* line 123, resources/assets/styles/custom/_typography.scss */
+/* line 128, resources/assets/styles/custom/_typography.scss */
 
 .text-uppercase {
   text-transform: uppercase;
 }
 
-/* line 127, resources/assets/styles/custom/_typography.scss */
+/* line 132, resources/assets/styles/custom/_typography.scss */
 
 .text-large {
   font-size: 1.45rem;
 }
 
-/* line 131, resources/assets/styles/custom/_typography.scss */
+/* line 136, resources/assets/styles/custom/_typography.scss */
 
 .text-small {
   font-size: 0.875rem;
 }
 
-/* line 135, resources/assets/styles/custom/_typography.scss */
+/* line 140, resources/assets/styles/custom/_typography.scss */
 
 .text-green {
   color: #00c214;
 }
 
-/* line 139, resources/assets/styles/custom/_typography.scss */
+/* line 144, resources/assets/styles/custom/_typography.scss */
 
 .text-font-black {
   font-family: "SharpSans-Bold", sans-serif;
   font-weight: 800;
 }
 
-/* line 144, resources/assets/styles/custom/_typography.scss */
+/* line 149, resources/assets/styles/custom/_typography.scss */
 
 ul li,
 ol li {
   margin-bottom: 0.5rem;
 }
 
-/* line 149, resources/assets/styles/custom/_typography.scss */
+/* line 154, resources/assets/styles/custom/_typography.scss */
 
 blockquote {
   border-left: #00c214 5px solid;
@@ -18174,7 +18181,7 @@ body#tinymce {
 /* line 48, resources/assets/styles/custom/_navigation.scss */
 
 .navbar .navbar-nav .nav-link {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   text-transform: uppercase;
   font-weight: 700;
   color: black;
@@ -18645,7 +18652,7 @@ body#tinymce {
 .featured-action .image img {
   -o-object-fit: cover;
      object-fit: cover;
-  height: 450px;
+  height: 500px;
 }
 
 @media (max-width: 991.98px) {
@@ -18708,8 +18715,8 @@ body#tinymce {
 /* line 187, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right .container-inner .join-embed {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+  padding-top: 5rem;
+  padding-bottom: 2rem;
 }
 
 /* line 193, resources/assets/styles/components/_blocks.scss */
@@ -18746,7 +18753,7 @@ body#tinymce {
 
 .asterisk-yes.asterisk-top .asterisk-container {
   position: absolute;
-  top: 0;
+  top: -120px;
   left: 0;
   width: 100%;
   max-width: 100%;
@@ -18756,7 +18763,7 @@ body#tinymce {
 /* line 219, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top .asterisk-container img {
-  max-width: 200px;
+  max-width: 500px;
 }
 
 /* line 223, resources/assets/styles/components/_blocks.scss */
@@ -19168,7 +19175,7 @@ body#tinymce {
 /* line 509, resources/assets/styles/components/_blocks.scss */
 
 .two-col-flex .text {
-  padding: 0 5rem;
+  padding: 2rem 5rem;
 }
 
 @media (max-width: 991.98px) {
