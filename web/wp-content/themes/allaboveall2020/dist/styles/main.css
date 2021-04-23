@@ -18753,7 +18753,7 @@ body#tinymce {
 
 .asterisk-yes.asterisk-top .asterisk-container {
   position: absolute;
-  top: -120px;
+  top: -200px;
   left: 0;
   width: 100%;
   max-width: 100%;
@@ -18763,7 +18763,7 @@ body#tinymce {
 /* line 219, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top .asterisk-container img {
-  max-width: 500px;
+  max-width: 400px;
 }
 
 /* line 223, resources/assets/styles/components/_blocks.scss */
