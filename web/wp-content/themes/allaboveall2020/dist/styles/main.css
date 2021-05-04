@@ -16828,28 +16828,28 @@ a[href^=tel] {
 
 @font-face {
   font-family: "SharpSans-Bold";
-  src: url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSans-Bold.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSans-Bold.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSans-Bold.otf) format("opentype");
+  src: url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-Bold.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-Bold.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-Bold.otf) format("opentype");
   font-weight: 800;
   font-style: normal;
 }
 
 @font-face {
   font-family: "SharpSans-Regular";
-  src: url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSans-Medium.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSans-Medium.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSans-Medium.otf) format("opentype");
+  src: url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-Medium.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-Medium.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-Medium.otf) format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "SharpSans-Regular-Italic";
-  src: url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSans-MediumItalic.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSans-MediumItalic.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSans-MediumItalic.otf) format("opentype");
+  src: url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-MediumIt.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-MediumIt.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-MediumIt.otf) format("opentype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "SharpSans-Bold-Italic";
-  src: url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSans-BoldItalic.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSans-BoldItalic.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSans-BoldItalic.otf) format("opentype");
+  src: url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-BoldIt.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-BoldIt.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-BoldIt.otf) format("opentype");
   font-weight: 800;
   font-style: normal;
 }
