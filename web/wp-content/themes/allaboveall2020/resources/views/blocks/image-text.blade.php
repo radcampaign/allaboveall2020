@@ -17,11 +17,13 @@
      {{-- start container --}}
      <div class="container container-inner">
        <div class="row">
-          @if($block['data']['cols'][0] == 'yes')
+          @if($block['data']['columns'] == 'one')
             <div class="col-lg-12">
           @else
             <div class="col-lg-6">
           @endif
+              <div class="col-lg-3 text-right">{{ $block['data']['image'] }}</div>
+              <div class="col-lg-9">{{ $block['data']['text'] }}</div>
             </div>
        </div>
      </div>
