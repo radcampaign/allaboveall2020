@@ -678,3 +678,16 @@
     }
   }
 }
+
+.full-news-resources {
+  .two-col {
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+
+      li {
+        flex: 50%;
+      }
+    }
+  }
+}

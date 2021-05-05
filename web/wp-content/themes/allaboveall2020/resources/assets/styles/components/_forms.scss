@@ -53,6 +53,11 @@
   padding: 0.375rem 0 0.375rem 0.75rem;
   font-size: 0.875rem;
   height: 50px;
+  box-shadow: none;
+
+  &:focus {
+    border-color: $primary-color;
+  }
 }
 
 .resource-filter-form {

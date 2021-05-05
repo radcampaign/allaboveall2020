@@ -12830,7 +12830,6 @@ button.bg-dark:focus {
 /* line 5, node_modules/bootstrap/scss/utilities/_position.scss */
 
 .position-sticky {
-  position: -webkit-sticky !important;
   position: sticky !important;
 }
 
@@ -12854,11 +12853,10 @@ button.bg-dark:focus {
   z-index: 1030;
 }
 
-@supports ((position: -webkit-sticky) or (position: sticky)) {
+@supports (position: sticky) {
   /* line 26, node_modules/bootstrap/scss/utilities/_position.scss */
 
   .sticky-top {
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1020;
@@ -16872,10 +16870,9 @@ h6 {
   margin-top: 2rem;
   font-weight: 600;
   font-family: "SharpSans-Regular", sans-serif;
-  letter-spacing: 1px;
 }
 
-/* line 18, resources/assets/styles/custom/_typography.scss */
+/* line 17, resources/assets/styles/custom/_typography.scss */
 
 h1 {
   font-size: 3rem;
@@ -16883,49 +16880,49 @@ h1 {
   margin-bottom: 0;
 }
 
-/* line 23, resources/assets/styles/custom/_typography.scss */
+/* line 22, resources/assets/styles/custom/_typography.scss */
 
 h1.pageh1 {
   margin-bottom: 2rem;
 }
 
 @media (max-width: 991.98px) {
-  /* line 18, resources/assets/styles/custom/_typography.scss */
+  /* line 17, resources/assets/styles/custom/_typography.scss */
 
   h1 {
     font-size: 2rem;
   }
 }
 
-/* line 32, resources/assets/styles/custom/_typography.scss */
+/* line 31, resources/assets/styles/custom/_typography.scss */
 
 h2 {
   font-size: 2.5rem;
   line-height: 3.25rem;
 }
 
-/* line 36, resources/assets/styles/custom/_typography.scss */
+/* line 35, resources/assets/styles/custom/_typography.scss */
 
 h2.smallerh2 {
   font-size: 2rem;
   line-height: 3rem;
 }
 
-/* line 42, resources/assets/styles/custom/_typography.scss */
+/* line 41, resources/assets/styles/custom/_typography.scss */
 
 h3 {
   font-size: 2rem;
   line-height: 2.75rem;
 }
 
-/* line 47, resources/assets/styles/custom/_typography.scss */
+/* line 46, resources/assets/styles/custom/_typography.scss */
 
 h4 {
   font-size: 1.75rem;
   line-height: 2rem;
 }
 
-/* line 52, resources/assets/styles/custom/_typography.scss */
+/* line 51, resources/assets/styles/custom/_typography.scss */
 
 h5 {
   font-size: 1.5rem;
@@ -16933,26 +16930,26 @@ h5 {
   text-transform: uppercase;
 }
 
-/* line 58, resources/assets/styles/custom/_typography.scss */
+/* line 57, resources/assets/styles/custom/_typography.scss */
 
 .aauxreg {
   font-family: "Aaux-Regular", sans-serif;
 }
 
-/* line 62, resources/assets/styles/custom/_typography.scss */
+/* line 61, resources/assets/styles/custom/_typography.scss */
 
 .post-headline {
   font-size: 3rem;
   font-family: "SharpSans-Bold", sans-serif;
 }
 
-/* line 67, resources/assets/styles/custom/_typography.scss */
+/* line 66, resources/assets/styles/custom/_typography.scss */
 
 .headline-smaller {
   font-size: 1.75rem;
 }
 
-/* line 71, resources/assets/styles/custom/_typography.scss */
+/* line 70, resources/assets/styles/custom/_typography.scss */
 
 .display-1 {
   line-height: 1.15;
@@ -16962,7 +16959,7 @@ h5 {
 }
 
 @media (max-width: 991.98px) {
-  /* line 71, resources/assets/styles/custom/_typography.scss */
+  /* line 70, resources/assets/styles/custom/_typography.scss */
 
   .display-1 {
     font-size: 3rem;
@@ -16970,7 +16967,7 @@ h5 {
   }
 }
 
-/* line 83, resources/assets/styles/custom/_typography.scss */
+/* line 82, resources/assets/styles/custom/_typography.scss */
 
 .display-2 {
   font-size: 2.5rem;
@@ -16978,40 +16975,40 @@ h5 {
 }
 
 @media (max-width: 991.98px) {
-  /* line 83, resources/assets/styles/custom/_typography.scss */
+  /* line 82, resources/assets/styles/custom/_typography.scss */
 
   .display-2 {
     font-size: 2rem;
   }
 }
 
-/* line 92, resources/assets/styles/custom/_typography.scss */
+/* line 91, resources/assets/styles/custom/_typography.scss */
 
 .tooltip {
   width: 500px;
 }
 
-/* line 96, resources/assets/styles/custom/_typography.scss */
+/* line 95, resources/assets/styles/custom/_typography.scss */
 
 a {
   text-decoration: underline;
   color: black;
 }
 
-/* line 100, resources/assets/styles/custom/_typography.scss */
+/* line 99, resources/assets/styles/custom/_typography.scss */
 
 a:hover {
   text-decoration: none;
   background: #42e8c8;
 }
 
-/* line 106, resources/assets/styles/custom/_typography.scss */
+/* line 105, resources/assets/styles/custom/_typography.scss */
 
 a.image-hover:hover {
   background: transparent;
 }
 
-/* line 113, resources/assets/styles/custom/_typography.scss */
+/* line 112, resources/assets/styles/custom/_typography.scss */
 
 .single .entry-title {
   background: #42e8c8;
@@ -17022,52 +17019,52 @@ a.image-hover:hover {
   margin-bottom: 2rem;
 }
 
-/* line 123, resources/assets/styles/custom/_typography.scss */
+/* line 122, resources/assets/styles/custom/_typography.scss */
 
 .head-title {
   font-size: 1rem;
   font-weight: 600;
 }
 
-/* line 128, resources/assets/styles/custom/_typography.scss */
+/* line 127, resources/assets/styles/custom/_typography.scss */
 
 .text-uppercase {
   text-transform: uppercase;
 }
 
-/* line 132, resources/assets/styles/custom/_typography.scss */
+/* line 131, resources/assets/styles/custom/_typography.scss */
 
 .text-large {
   font-size: 1.45rem;
 }
 
-/* line 136, resources/assets/styles/custom/_typography.scss */
+/* line 135, resources/assets/styles/custom/_typography.scss */
 
 .text-small {
   font-size: 0.875rem;
 }
 
-/* line 140, resources/assets/styles/custom/_typography.scss */
+/* line 139, resources/assets/styles/custom/_typography.scss */
 
 .text-green {
   color: #00c214;
 }
 
-/* line 144, resources/assets/styles/custom/_typography.scss */
+/* line 143, resources/assets/styles/custom/_typography.scss */
 
 .text-font-black {
   font-family: "SharpSans-Bold", sans-serif;
   font-weight: 800;
 }
 
-/* line 149, resources/assets/styles/custom/_typography.scss */
+/* line 148, resources/assets/styles/custom/_typography.scss */
 
 ul li,
 ol li {
   margin-bottom: 0.5rem;
 }
 
-/* line 154, resources/assets/styles/custom/_typography.scss */
+/* line 153, resources/assets/styles/custom/_typography.scss */
 
 blockquote {
   border-left: #00c214 5px solid;
@@ -17137,9 +17134,22 @@ blockquote {
   padding: 0.375rem 0 0.375rem 0.75rem;
   font-size: 0.875rem;
   height: 50px;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 /* line 58, resources/assets/styles/components/_forms.scss */
+
+.form-control:focus,
+.comment-form input:focus[type="text"],
+.comment-form input:focus[type="email"],
+.comment-form input:focus[type="url"],
+.comment-form textarea:focus,
+.search-form .search-field:focus {
+  border-color: #00c214;
+}
+
+/* line 63, resources/assets/styles/components/_forms.scss */
 
 .resource-filter-form {
   display: -webkit-box;
@@ -17150,7 +17160,7 @@ blockquote {
           align-items: center;
 }
 
-/* line 62, resources/assets/styles/components/_forms.scss */
+/* line 67, resources/assets/styles/components/_forms.scss */
 
 .resource-filter-form .btn,
 .resource-filter-form .comment-form input[type="submit"],
@@ -17167,14 +17177,14 @@ blockquote {
 }
 
 @media (max-width: 991.98px) {
-  /* line 58, resources/assets/styles/components/_forms.scss */
+  /* line 63, resources/assets/styles/components/_forms.scss */
 
   .resource-filter-form {
     display: block;
   }
 }
 
-/* line 70, resources/assets/styles/components/_forms.scss */
+/* line 75, resources/assets/styles/components/_forms.scss */
 
 .resource-filter-form .filter-control {
   max-width: 20%;
@@ -17182,7 +17192,7 @@ blockquote {
 }
 
 @media (max-width: 991.98px) {
-  /* line 70, resources/assets/styles/components/_forms.scss */
+  /* line 75, resources/assets/styles/components/_forms.scss */
 
   .resource-filter-form .filter-control {
     max-width: 100%;
@@ -17190,7 +17200,7 @@ blockquote {
   }
 }
 
-/* line 81, resources/assets/styles/components/_forms.scss */
+/* line 86, resources/assets/styles/components/_forms.scss */
 
 .content-filters {
   padding: 2rem 0;
@@ -17198,7 +17208,7 @@ blockquote {
   background: #f7f7f7;
 }
 
-/* line 86, resources/assets/styles/components/_forms.scss */
+/* line 91, resources/assets/styles/components/_forms.scss */
 
 .content-filters form {
   margin-bottom: 0;
@@ -19431,6 +19441,24 @@ body#tinymce {
   .tweet-block .col-lg-9 {
     padding-left: 15px;
   }
+}
+
+/* line 684, resources/assets/styles/components/_blocks.scss */
+
+.full-news-resources .two-col ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+/* line 688, resources/assets/styles/components/_blocks.scss */
+
+.full-news-resources .two-col ul li {
+  -webkit-box-flex: 50%;
+      -ms-flex: 50%;
+          flex: 50%;
 }
 
 /* line 1, resources/assets/styles/components/_cards.scss */
