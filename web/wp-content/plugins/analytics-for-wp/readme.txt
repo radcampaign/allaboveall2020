@@ -1,19 +1,19 @@
-=== Google Analytics for WordPress===
+===Analytics for WP===
 Contributors: efficientninja
 Donate link: https://amanvermaa.wordpress.com/?ref=analytics
 Tags: google analytics plugin, analytics for website, universal analytics of website, google analytics, website google analytics wordpress plugin, google analytics for wordpress, GA code, google analytics script, google analytics for woocommerce, googleanalytics
 Requires at least: 3.8
-Tested up to: 5.7
-Stable tag: 1.5
-Version: 1.5
+Tested up to: 5.7.1
+Stable tag: 1.5.1
+Version: 1.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Google Analytics for WordPress plugin allows you to track your website by entering your google analytics tracking code.
+Analytics for WP plugin allows you to track your website by entering your google analytics tracking code.
 
 == Description ==
 
-Google Analytics for WordPress plugin allows you to track your website by entering your google analytics tracking code. It Adds latest version of Google Analytics (Universal Analytics) javascript to every page, post, products(in eCommerce site). Also comes with option to temporaily disable tracking.
+Analytics for WP plugin allows you to track your website by entering your google analytics tracking code. It Adds latest version of Google Analytics (Universal Analytics) javascript to every page, post, products(in eCommerce site). Also comes with option to temporaily disable tracking.
 
 
 
