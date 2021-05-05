@@ -53,9 +53,20 @@
       font-family: $font-primary-bold;
       letter-spacing: 1px;
 
+      @include media-breakpoint-down(md) {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        border-bottom: 2px solid black;
+      }
+
       &:hover {
         background: black;
         color: white;
+
+        @include media-breakpoint-down(md) {
+          color: black;
+          background: $secondary-color;
+        }
       }
 
       &.desktop-toggle {
@@ -98,9 +109,8 @@
       }
 
       @include media-breakpoint-down(md) {
-        .nav-link {
-          padding-left: 1rem;
-        }
+        padding-right: 0;
+        margin-bottom: 0;
 
         &.dropdown {
           position: relative;
@@ -111,6 +121,7 @@
             top: 0;
             right: 0;
             padding: 0.2rem;
+            max-width: 25px;
           }
         }
       }
@@ -127,7 +138,9 @@
       border-radius: 0;
 
       @include media-breakpoint-down(md) {
-        padding-left: 2rem;
+        padding-left: 0;
+        margin-top: 0;
+        padding-top: 0;
       }
 
       .dropdown-item {

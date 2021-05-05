@@ -9,7 +9,7 @@
           <a class="nav-link mobile-link" href="{{ $nav_item['url'] }}">
             {{ $nav_item['title'] }}
           </a>
-          <a class="mobile-toggle dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">+</a>
+          <a class="mobile-toggle dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="/wp-content/themes/allaboveall2020/dist/images/all-icon-black.png"></a>
           <div class="dropdown-menu">
             @foreach($nav_item['child'] as $child)
               <a href="{{ $child['url'] }}" class="dropdown-item child-{{ $child['active'] }}">{{ $child['title'] }}</a>
