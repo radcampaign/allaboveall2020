@@ -17,14 +17,22 @@
      {{-- start container --}}
      <div class="container container-inner">
        <div class="row">
-          @if($block['data']['columns'] == 'one')
-            <div class="col-lg-12">
-          @else
-            <div class="col-lg-6">
-          @endif
-              <div class="col-lg-3 text-right">{{ $block['data']['image'] }}</div>
-              <div class="col-lg-9">{{ $block['data']['text'] }}</div>
-            </div>
+          @php
+            $rows = get_field('row');
+            if( $rows ) {
+              foreach( $rows as $row ) {
+                if($block['data']['columns'] == 'one') {
+                  echo '<div class="col-lg-12 mb-5 mt-5">';
+                }
+                else {
+                  echo '<div class="col-lg-6">';
+                }
+                $image = $row['image'];
+                echo '<div class="row"><div class="col-lg-4 text-center"><img src="'.$image.'"></div>
+                <div class="col-lg-8">'.$row['text'].'</div></div></div>';
+              }
+            }
+          @endphp
        </div>
      </div>
    </div>
