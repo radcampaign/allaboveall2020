@@ -18517,20 +18517,28 @@ body#tinymce {
   margin: 4rem 0;
 }
 
-/* line 42, resources/assets/styles/components/_blocks.scss */
+@media (max-width: 991.98px) {
+  /* line 36, resources/assets/styles/components/_blocks.scss */
+
+  .arrow-border {
+    border: none;
+  }
+}
+
+/* line 46, resources/assets/styles/components/_blocks.scss */
 
 .arrow-border .col-lg-6 {
   padding: 0 2.3rem;
 }
 
-/* line 46, resources/assets/styles/components/_blocks.scss */
+/* line 50, resources/assets/styles/components/_blocks.scss */
 
 .arrow-border h3 {
   margin-top: 0.5rem;
   line-height: 1.1;
 }
 
-/* line 51, resources/assets/styles/components/_blocks.scss */
+/* line 55, resources/assets/styles/components/_blocks.scss */
 
 .arrow-border .arrow {
   background: white;
@@ -18542,22 +18550,21 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 51, resources/assets/styles/components/_blocks.scss */
+  /* line 55, resources/assets/styles/components/_blocks.scss */
 
   .arrow-border .arrow {
-    overflow: hidden;
-    right: -1.25rem;
+    display: none;
   }
 }
 
-/* line 67, resources/assets/styles/components/_blocks.scss */
+/* line 70, resources/assets/styles/components/_blocks.scss */
 
 .join-embed h2 {
   margin: 0;
 }
 
 @media (max-width: 991.98px) {
-  /* line 67, resources/assets/styles/components/_blocks.scss */
+  /* line 70, resources/assets/styles/components/_blocks.scss */
 
   .join-embed h2 {
     padding: 0 1rem;
@@ -18565,7 +18572,7 @@ body#tinymce {
   }
 }
 
-/* line 76, resources/assets/styles/components/_blocks.scss */
+/* line 79, resources/assets/styles/components/_blocks.scss */
 
 .join-embed .advocacy-actionwidget {
   -webkit-box-shadow: none !important;
@@ -18574,20 +18581,20 @@ body#tinymce {
   border: none !important;
 }
 
-/* line 81, resources/assets/styles/components/_blocks.scss */
+/* line 84, resources/assets/styles/components/_blocks.scss */
 
 .join-embed .advocacy-actionwidget iframe {
   min-height: 280px !important;
   height: 280px;
 }
 
-/* line 88, resources/assets/styles/components/_blocks.scss */
+/* line 91, resources/assets/styles/components/_blocks.scss */
 
 .full-width-two-col {
   padding: 4rem 0;
 }
 
-/* line 92, resources/assets/styles/components/_blocks.scss */
+/* line 95, resources/assets/styles/components/_blocks.scss */
 
 .full-width-two-col .container-inner .row {
   -webkit-box-align: center;
@@ -18595,7 +18602,7 @@ body#tinymce {
           align-items: center;
 }
 
-/* line 101, resources/assets/styles/components/_blocks.scss */
+/* line 104, resources/assets/styles/components/_blocks.scss */
 
 .partner-organizations .full-width-two-col .container-inner .row {
   -webkit-box-align: start;
@@ -18603,19 +18610,19 @@ body#tinymce {
           align-items: flex-start;
 }
 
-/* line 108, resources/assets/styles/components/_blocks.scss */
+/* line 111, resources/assets/styles/components/_blocks.scss */
 
 .full-width-one-col {
   padding: 4rem 0;
 }
 
-/* line 111, resources/assets/styles/components/_blocks.scss */
+/* line 114, resources/assets/styles/components/_blocks.scss */
 
 .full-width-one-col.bg-img-upload {
   padding: 0;
 }
 
-/* line 114, resources/assets/styles/components/_blocks.scss */
+/* line 117, resources/assets/styles/components/_blocks.scss */
 
 .full-width-one-col.bg-img-upload .full-width-text-inner {
   padding: 4rem 3rem;
@@ -18623,7 +18630,7 @@ body#tinymce {
   color: white;
 }
 
-/* line 122, resources/assets/styles/components/_blocks.scss */
+/* line 125, resources/assets/styles/components/_blocks.scss */
 
 .bg-black {
   background: black;
@@ -18631,25 +18638,25 @@ body#tinymce {
   padding: 2rem 0;
 }
 
-/* line 128, resources/assets/styles/components/_blocks.scss */
+/* line 131, resources/assets/styles/components/_blocks.scss */
 
 .full-width {
   position: relative;
 }
 
-/* line 132, resources/assets/styles/components/_blocks.scss */
+/* line 135, resources/assets/styles/components/_blocks.scss */
 
 .featured-action {
   padding: 0;
 }
 
-/* line 135, resources/assets/styles/components/_blocks.scss */
+/* line 138, resources/assets/styles/components/_blocks.scss */
 
 .featured-action .right {
   text-align: right;
 }
 
-/* line 139, resources/assets/styles/components/_blocks.scss */
+/* line 142, resources/assets/styles/components/_blocks.scss */
 
 .featured-action .display-2 {
   margin-top: 0;
@@ -18657,7 +18664,7 @@ body#tinymce {
   line-height: 2.75rem;
 }
 
-/* line 146, resources/assets/styles/components/_blocks.scss */
+/* line 149, resources/assets/styles/components/_blocks.scss */
 
 .featured-action .image img {
   -o-object-fit: cover;
@@ -18666,26 +18673,44 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 146, resources/assets/styles/components/_blocks.scss */
+  /* line 149, resources/assets/styles/components/_blocks.scss */
 
   .featured-action .image img {
     height: auto;
   }
 }
 
-/* line 157, resources/assets/styles/components/_blocks.scss */
+/* line 161, resources/assets/styles/components/_blocks.scss */
+
+.full-image-text .col-lg-6 img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 160px;
+  width: 160px;
+}
+
+/* line 167, resources/assets/styles/components/_blocks.scss */
+
+.full-image-text .col-lg-12 img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 255px;
+  width: 255px;
+}
+
+/* line 174, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes {
   position: relative;
 }
 
-/* line 160, resources/assets/styles/components/_blocks.scss */
+/* line 177, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right {
   padding: 3rem 0 10rem;
 }
 
-/* line 163, resources/assets/styles/components/_blocks.scss */
+/* line 180, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right .asterisk-container {
   position: absolute;
@@ -18696,40 +18721,40 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 163, resources/assets/styles/components/_blocks.scss */
+  /* line 180, resources/assets/styles/components/_blocks.scss */
 
   .asterisk-yes.asterisk-right .asterisk-container {
     display: none;
   }
 }
 
-/* line 174, resources/assets/styles/components/_blocks.scss */
+/* line 191, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right .asterisk-container.asterisk-container-right {
   display: block;
 }
 
-/* line 178, resources/assets/styles/components/_blocks.scss */
+/* line 195, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right .asterisk-container.asterisk-container-top {
   display: none;
 }
 
-/* line 183, resources/assets/styles/components/_blocks.scss */
+/* line 200, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right .container-inner {
   position: relative;
   z-index: 6;
 }
 
-/* line 187, resources/assets/styles/components/_blocks.scss */
+/* line 204, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right .container-inner .join-embed {
   padding-top: 5rem;
   padding-bottom: 2rem;
 }
 
-/* line 193, resources/assets/styles/components/_blocks.scss */
+/* line 210, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-right.join-asterisk {
   margin-bottom: 0;
@@ -18738,28 +18763,28 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 193, resources/assets/styles/components/_blocks.scss */
+  /* line 210, resources/assets/styles/components/_blocks.scss */
 
   .asterisk-yes.asterisk-right.join-asterisk {
     display: block;
   }
 }
 
-/* line 204, resources/assets/styles/components/_blocks.scss */
+/* line 221, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top {
   margin-top: 10rem;
 }
 
 @media (max-width: 991.98px) {
-  /* line 204, resources/assets/styles/components/_blocks.scss */
+  /* line 221, resources/assets/styles/components/_blocks.scss */
 
   .asterisk-yes.asterisk-top {
     margin-top: 5rem;
   }
 }
 
-/* line 211, resources/assets/styles/components/_blocks.scss */
+/* line 228, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top .asterisk-container {
   position: absolute;
@@ -18770,31 +18795,31 @@ body#tinymce {
   text-align: center;
 }
 
-/* line 219, resources/assets/styles/components/_blocks.scss */
+/* line 236, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top .asterisk-container img {
   max-width: 400px;
 }
 
-/* line 223, resources/assets/styles/components/_blocks.scss */
+/* line 240, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top .asterisk-container.asterisk-container-right {
   display: none;
 }
 
-/* line 227, resources/assets/styles/components/_blocks.scss */
+/* line 244, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top .asterisk-container.asterisk-container-top {
   display: block;
 }
 
-/* line 232, resources/assets/styles/components/_blocks.scss */
+/* line 249, resources/assets/styles/components/_blocks.scss */
 
 .asterisk-yes.asterisk-top .container-inner {
   margin-top: 4rem;
 }
 
-/* line 238, resources/assets/styles/components/_blocks.scss */
+/* line 255, resources/assets/styles/components/_blocks.scss */
 
 .post-state,
 .post-campaign {
@@ -18802,7 +18827,7 @@ body#tinymce {
   margin-top: 1rem;
 }
 
-/* line 243, resources/assets/styles/components/_blocks.scss */
+/* line 260, resources/assets/styles/components/_blocks.scss */
 
 .post-state label,
 .post-campaign label {
@@ -18810,7 +18835,7 @@ body#tinymce {
   margin: 0;
 }
 
-/* line 248, resources/assets/styles/components/_blocks.scss */
+/* line 265, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul,
 .post-campaign ul {
@@ -18821,7 +18846,7 @@ body#tinymce {
   margin: 0;
 }
 
-/* line 253, resources/assets/styles/components/_blocks.scss */
+/* line 270, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul li,
 .post-campaign ul li {
@@ -18830,7 +18855,7 @@ body#tinymce {
   padding-bottom: 3px;
 }
 
-/* line 258, resources/assets/styles/components/_blocks.scss */
+/* line 275, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul li a,
 .post-campaign ul li a {
@@ -18841,14 +18866,14 @@ body#tinymce {
   text-decoration: none;
 }
 
-/* line 265, resources/assets/styles/components/_blocks.scss */
+/* line 282, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul li a:hover,
 .post-campaign ul li a:hover {
   background: #00c214;
 }
 
-/* line 273, resources/assets/styles/components/_blocks.scss */
+/* line 290, resources/assets/styles/components/_blocks.scss */
 
 .bold-block {
   padding: 5rem 0;
@@ -18856,7 +18881,7 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 273, resources/assets/styles/components/_blocks.scss */
+  /* line 290, resources/assets/styles/components/_blocks.scss */
 
   .bold-block {
     display: relative;
@@ -18865,7 +18890,7 @@ body#tinymce {
   }
 }
 
-/* line 283, resources/assets/styles/components/_blocks.scss */
+/* line 300, resources/assets/styles/components/_blocks.scss */
 
 .bold-block h2 {
   margin-top: 0;
@@ -18873,14 +18898,14 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 288, resources/assets/styles/components/_blocks.scss */
+  /* line 305, resources/assets/styles/components/_blocks.scss */
 
   .bold-block .top-text {
     padding: 0 1rem;
   }
 }
 
-/* line 294, resources/assets/styles/components/_blocks.scss */
+/* line 311, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block {
   margin: 2rem 0;
@@ -18890,7 +18915,7 @@ body#tinymce {
   position: relative;
 }
 
-/* line 299, resources/assets/styles/components/_blocks.scss */
+/* line 316, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .letter {
   background: black;
@@ -18909,7 +18934,7 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 299, resources/assets/styles/components/_blocks.scss */
+  /* line 316, resources/assets/styles/components/_blocks.scss */
 
   .bold-block .letter-block .letter {
     right: 0;
@@ -18917,20 +18942,20 @@ body#tinymce {
   }
 }
 
-/* line 319, resources/assets/styles/components/_blocks.scss */
+/* line 336, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .letter .letter-link {
   text-decoration: none;
   color: white;
 }
 
-/* line 323, resources/assets/styles/components/_blocks.scss */
+/* line 340, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .letter .letter-link:hover {
   background: black;
 }
 
-/* line 329, resources/assets/styles/components/_blocks.scss */
+/* line 346, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content {
   width: 90%;
@@ -18943,7 +18968,7 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 329, resources/assets/styles/components/_blocks.scss */
+  /* line 346, resources/assets/styles/components/_blocks.scss */
 
   .bold-block .letter-block .content {
     margin-left: 5%;
@@ -18951,14 +18976,14 @@ body#tinymce {
     margin-top: 4rem;
   }
 
-  /* line 343, resources/assets/styles/components/_blocks.scss */
+  /* line 360, resources/assets/styles/components/_blocks.scss */
 
   .bold-block .letter-block .content h3 {
     margin-top: 0;
   }
 }
 
-/* line 348, resources/assets/styles/components/_blocks.scss */
+/* line 365, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a {
   text-decoration: none;
@@ -18967,31 +18992,31 @@ body#tinymce {
   letter-spacing: 0.5px;
 }
 
-/* line 354, resources/assets/styles/components/_blocks.scss */
+/* line 371, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a:hover {
   color: black;
 }
 
-/* line 359, resources/assets/styles/components/_blocks.scss */
+/* line 376, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a.btn-black-outline:hover {
   color: white;
 }
 
-/* line 364, resources/assets/styles/components/_blocks.scss */
+/* line 381, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a.btn-white-outline {
   color: white;
 }
 
-/* line 367, resources/assets/styles/components/_blocks.scss */
+/* line 384, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a.btn-white-outline:hover {
   color: black;
 }
 
-/* line 375, resources/assets/styles/components/_blocks.scss */
+/* line 392, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall {
   background: #00c214;
@@ -18999,7 +19024,7 @@ body#tinymce {
   width: 100%;
 }
 
-/* line 380, resources/assets/styles/components/_blocks.scss */
+/* line 397, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter {
   position: relative;
@@ -19009,7 +19034,7 @@ body#tinymce {
   font-size: 7rem;
 }
 
-/* line 388, resources/assets/styles/components/_blocks.scss */
+/* line 405, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block {
   display: -webkit-box;
@@ -19022,7 +19047,7 @@ body#tinymce {
   background: white;
 }
 
-/* line 394, resources/assets/styles/components/_blocks.scss */
+/* line 411, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block .content {
   color: black;
@@ -19032,13 +19057,13 @@ body#tinymce {
   min-height: unset;
 }
 
-/* line 401, resources/assets/styles/components/_blocks.scss */
+/* line 418, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block .content .font-bold {
   margin-top: 0;
 }
 
-/* line 405, resources/assets/styles/components/_blocks.scss */
+/* line 422, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block .content a {
   color: black;
@@ -19046,14 +19071,14 @@ body#tinymce {
   border-bottom: 2px solid #00c214;
 }
 
-/* line 410, resources/assets/styles/components/_blocks.scss */
+/* line 427, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block .content a:hover {
   color: #00c214;
   background-color: transparent;
 }
 
-/* line 420, resources/assets/styles/components/_blocks.scss */
+/* line 437, resources/assets/styles/components/_blocks.scss */
 
 .background-image {
   background-image: url(/wp-content/themes/allaboveall2020/dist/images/bg-image.jpg);
@@ -19062,14 +19087,14 @@ body#tinymce {
   padding: 2rem;
 }
 
-/* line 427, resources/assets/styles/components/_blocks.scss */
+/* line 444, resources/assets/styles/components/_blocks.scss */
 
 .box-shadow {
   -webkit-box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.75);
 }
 
-/* line 433, resources/assets/styles/components/_blocks.scss */
+/* line 450, resources/assets/styles/components/_blocks.scss */
 
 .black-box {
   padding: 2rem;
@@ -19080,13 +19105,13 @@ body#tinymce {
   text-align: left;
 }
 
-/* line 441, resources/assets/styles/components/_blocks.scss */
+/* line 458, resources/assets/styles/components/_blocks.scss */
 
 .black-box h3 {
   margin-bottom: 2rem;
 }
 
-/* line 446, resources/assets/styles/components/_blocks.scss */
+/* line 463, resources/assets/styles/components/_blocks.scss */
 
 .list-asterisk-green ul {
   list-style: none;
@@ -19094,7 +19119,7 @@ body#tinymce {
   font-size: 1.15rem;
 }
 
-/* line 451, resources/assets/styles/components/_blocks.scss */
+/* line 468, resources/assets/styles/components/_blocks.scss */
 
 .list-asterisk-green ul li {
   position: relative;
@@ -19102,7 +19127,7 @@ body#tinymce {
   margin-top: 1rem;
 }
 
-/* line 456, resources/assets/styles/components/_blocks.scss */
+/* line 473, resources/assets/styles/components/_blocks.scss */
 
 .list-asterisk-green ul li::before {
   content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDAyIDc5LjE2NDQ4OCwgMjAyMC8wNy8xMC0yMjowNjo1MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDUzRTlGQjk5Mzk4MTFFQkI5OTlEMzM3RUY2REM4RDkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDUzRTlGQkE5Mzk4MTFFQkI5OTlEMzM3RUY2REM4RDkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NjMwODNBNDkzMUQxMUVCQjk5OUQzMzdFRjZEQzhEOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowNTNFOUZCODkzOTgxMUVCQjk5OUQzMzdFRjZEQzhEOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrmVDD4AAATwSURBVHjavFZ7bBRFGP/2dXfttbTpg5c10McVEarGP6SNIq2NgVwMRoom1viopsUroVBMSypa8QittBEiCRRrogkxEoOamKgJaMQY36DBRCVWIDEhPmitpPTa3u7tjt83t3u9u929tmCYy+zN7M58v5lvfvP7PoA5ltyqZbfXD58y6kdO83rPpe+MnBWBqtnMbW5uBsYYrzJcTRH4z2rPfpowPfjqgDmaANdSRJtJRVZuOdL/XmVvxwG4xrKsb8ehqjf2HhNkSUr/lrJjUVE8Kw6H31zcuP4BphtgRKNT53Yd6HTar1vPKoHd7fuWbn0iJIgiMC125KeWnY+zmB6zAYtej3fl4J63FzWuv1+7PEYHAuVdT3fQt3RwltJmjqBlnS3tsfEIDmBQ8uTGxisTEa/wy0gjflZTXM0Mw4j+PfIHGAYHxT7o45McvGJXW18KsTKwxgLVxye4DW4Lvaeibewz2xmjO7RfO/e2Xugb3C/n+IG7iBkQQwPlXaEEOBqJCUn0onVYLkzeKc0lG2TrfO9A/5+9g204RHNl9W/P799O9tHAdlq1YehAhmjnxlR08q93jx+lnQgmX6jNVE0t39nakwDFd6IogZSTxUGto6KFWEVyIsboyW9O4JnPK6yrrkFPxF2m6VBQe8ca340Ly3wlC0sRmFthqqr6A0tvKmna2IQL42PjO81G0MP9yfyorq6GYDDoDpwEnldYV8PBiSRkNGd5RQDdKzIwOLUkWZH8y8sDhqbyMdPuTQWlkp+fD7m5uTA0NDSzCgSe27anbMemZ5mmcamz+GWxmdo6U4EWIgoi6QCc7xkIX3jp1RcyS1ClfKvrV1NYy7u39M0P1q3T0ZUWiROLwHaWcgNIopeuJAx/+OkH53Yf7BL4KgT7xnCaIssI/GURs+kBS2rTDUDygA+tMnNmYgy1RVi15BDk+SpxqAZ6NKoKHsVDuMleSdx3RowWdNnmbCGtLeLD60FQI105zAdLERPRh2NtWm4DEeS5BYa5vJ8pSLCkhTtVg4ucCqmqkVqTRM2YUlV+/YgD7pXJ0HT5Nndymb9Wfx+s9qwDlU17ljnsHWnw7ydfnJiRXMh8GYZiP2b0ySZ/D9yFoBpzBEuxqapQHKy9b+zM2R8yXScpk4DwssW/D1qyOyBqgtL6vQKY2mEelgBLFmwAj5iPrNaRgwyK1969BmOwf/Szbz92MisrSgZgAn0qux0mWByIRsoI+nn0I5gvlYIC5EqASVX1fp9/vGDlqgAz4vJKSldUX3OnGzgGQhfgdFBS5WwEGYiE4ejky/BgVht/x8klSqOhk0ExoowX3luzOlnbC9PAa2trIRwOQ0NDgwvomWIGX6GwkLjQP/U3++MxuQKVjt59bVYaUyrebIXFtdGzrP6f06x+5BT/p74VUjeHQg5ZpozO25rzCjyaFUpxbxZu67WJfjgY6TQvoGwTElmUaYIZUsFKBKZDaqgjEp3yqcPaM1ZMng6QRP8icTFXKmZ+SQd1u0hJ+Q+BUzIhYVjk8ZciFkZQz4KiRdgX7FmmyqLQPfYQvD95DHLF+JnaQVOzW5cs1wKn8KjkzYOLr7/z1u/beh7GTEV1zkA0VKgXrzyC7JXhknHREdSe7TkWAsdo5fMUFxT/3Nr9GL7SkWgZEvoYwneNbYD/oVAON+uE/nqV6wpsJQ9U/hNgAIneegCPl8u0AAAAAElFTkSuQmCC);
@@ -19111,26 +19136,26 @@ body#tinymce {
   left: 0;
 }
 
-/* line 465, resources/assets/styles/components/_blocks.scss */
+/* line 482, resources/assets/styles/components/_blocks.scss */
 
 .tax-list {
   margin-top: 2rem;
 }
 
-/* line 469, resources/assets/styles/components/_blocks.scss */
+/* line 486, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item {
   margin-bottom: 2rem;
 }
 
-/* line 472, resources/assets/styles/components/_blocks.scss */
+/* line 489, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item .excerpt {
   color: #666;
   font-size: 1.15rem;
 }
 
-/* line 477, resources/assets/styles/components/_blocks.scss */
+/* line 494, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item .meta {
   display: -webkit-box;
@@ -19141,7 +19166,7 @@ body#tinymce {
   font-size: 1rem;
 }
 
-/* line 483, resources/assets/styles/components/_blocks.scss */
+/* line 500, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item .meta .name {
   margin-left: 1rem;
@@ -19149,20 +19174,20 @@ body#tinymce {
   border-left: 1px solid #999;
 }
 
-/* line 490, resources/assets/styles/components/_blocks.scss */
+/* line 507, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item h4 {
   font-size: 1.25rem;
 }
 
-/* line 493, resources/assets/styles/components/_blocks.scss */
+/* line 510, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item h4 svg {
   margin-left: 0.5rem;
   max-width: 0.875rem;
 }
 
-/* line 500, resources/assets/styles/components/_blocks.scss */
+/* line 517, resources/assets/styles/components/_blocks.scss */
 
 .two-col-flex {
   display: -webkit-box;
@@ -19173,7 +19198,7 @@ body#tinymce {
           align-items: center;
 }
 
-/* line 504, resources/assets/styles/components/_blocks.scss */
+/* line 521, resources/assets/styles/components/_blocks.scss */
 
 .two-col-flex .left,
 .two-col-flex .right {
@@ -19182,14 +19207,14 @@ body#tinymce {
           flex: 1;
 }
 
-/* line 509, resources/assets/styles/components/_blocks.scss */
+/* line 526, resources/assets/styles/components/_blocks.scss */
 
 .two-col-flex .text {
   padding: 2rem 5rem;
 }
 
 @media (max-width: 991.98px) {
-  /* line 509, resources/assets/styles/components/_blocks.scss */
+  /* line 526, resources/assets/styles/components/_blocks.scss */
 
   .two-col-flex .text {
     padding: 2rem 2rem 0;
@@ -19197,40 +19222,40 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 500, resources/assets/styles/components/_blocks.scss */
+  /* line 517, resources/assets/styles/components/_blocks.scss */
 
   .two-col-flex {
     display: block;
   }
 
-  /* line 520, resources/assets/styles/components/_blocks.scss */
+  /* line 537, resources/assets/styles/components/_blocks.scss */
 
   .two-col-flex .text {
     padding-bottom: 2rem;
   }
 }
 
-/* line 526, resources/assets/styles/components/_blocks.scss */
+/* line 543, resources/assets/styles/components/_blocks.scss */
 
 .map-left {
   padding-right: 5rem;
 }
 
-/* line 529, resources/assets/styles/components/_blocks.scss */
+/* line 546, resources/assets/styles/components/_blocks.scss */
 
 .map-left h3 {
   margin-top: 0;
 }
 
 @media (max-width: 991.98px) {
-  /* line 526, resources/assets/styles/components/_blocks.scss */
+  /* line 543, resources/assets/styles/components/_blocks.scss */
 
   .map-left {
     padding: 0 2rem 2rem;
   }
 }
 
-/* line 537, resources/assets/styles/components/_blocks.scss */
+/* line 554, resources/assets/styles/components/_blocks.scss */
 
 .map-left .select {
   margin-top: 1rem;
@@ -19239,7 +19264,7 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 537, resources/assets/styles/components/_blocks.scss */
+  /* line 554, resources/assets/styles/components/_blocks.scss */
 
   .map-left .select {
     max-width: 80%;
@@ -19247,7 +19272,7 @@ body#tinymce {
   }
 }
 
-/* line 548, resources/assets/styles/components/_blocks.scss */
+/* line 565, resources/assets/styles/components/_blocks.scss */
 
 .map-left .state-map {
   margin-top: 1rem;
@@ -19255,14 +19280,14 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 548, resources/assets/styles/components/_blocks.scss */
+  /* line 565, resources/assets/styles/components/_blocks.scss */
 
   .map-left .state-map {
     max-width: 100%;
   }
 }
 
-/* line 558, resources/assets/styles/components/_blocks.scss */
+/* line 575, resources/assets/styles/components/_blocks.scss */
 
 .select-page {
   width: 50%;
@@ -19270,20 +19295,20 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 558, resources/assets/styles/components/_blocks.scss */
+  /* line 575, resources/assets/styles/components/_blocks.scss */
 
   .select-page {
     width: 100%;
   }
 }
 
-/* line 567, resources/assets/styles/components/_blocks.scss */
+/* line 584, resources/assets/styles/components/_blocks.scss */
 
 #mapbase {
   margin-bottom: 2rem;
 }
 
-/* line 571, resources/assets/styles/components/_blocks.scss */
+/* line 588, resources/assets/styles/components/_blocks.scss */
 
 .stats-trio {
   display: -webkit-box;
@@ -19300,19 +19325,19 @@ body#tinymce {
   font-family: "SharpSans-Bold", sans-serif;
 }
 
-/* line 579, resources/assets/styles/components/_blocks.scss */
+/* line 596, resources/assets/styles/components/_blocks.scss */
 
 .stats-trio .num-large {
   font-size: 4rem;
 }
 
-/* line 583, resources/assets/styles/components/_blocks.scss */
+/* line 600, resources/assets/styles/components/_blocks.scss */
 
 .stats-trio .text-mid {
   margin: 0 1rem;
 }
 
-/* line 588, resources/assets/styles/components/_blocks.scss */
+/* line 605, resources/assets/styles/components/_blocks.scss */
 
 .stats-large-num {
   text-align: center;
@@ -19321,7 +19346,7 @@ body#tinymce {
   font-family: "SharpSans-Bold", sans-serif;
 }
 
-/* line 595, resources/assets/styles/components/_blocks.scss */
+/* line 612, resources/assets/styles/components/_blocks.scss */
 
 .document-download {
   border: 2px solid black;
@@ -19332,19 +19357,19 @@ body#tinymce {
   display: inline-block;
 }
 
-/* line 604, resources/assets/styles/components/_blocks.scss */
+/* line 621, resources/assets/styles/components/_blocks.scss */
 
 .post-state {
   margin-top: 2rem;
 }
 
-/* line 609, resources/assets/styles/components/_blocks.scss */
+/* line 626, resources/assets/styles/components/_blocks.scss */
 
 .state-box .select-page {
   margin: 2rem 0;
 }
 
-/* line 615, resources/assets/styles/components/_blocks.scss */
+/* line 632, resources/assets/styles/components/_blocks.scss */
 
 .action-embed .advocacy-actionwidget {
   -webkit-box-shadow: none !important;
@@ -19353,62 +19378,62 @@ body#tinymce {
   border: none !important;
 }
 
-/* line 622, resources/assets/styles/components/_blocks.scss */
+/* line 639, resources/assets/styles/components/_blocks.scss */
 
 .action-item {
   padding: 0 15px 0 0;
 }
 
-/* line 625, resources/assets/styles/components/_blocks.scss */
+/* line 642, resources/assets/styles/components/_blocks.scss */
 
 .action-item .img {
   padding: 0;
 }
 
-/* line 629, resources/assets/styles/components/_blocks.scss */
+/* line 646, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text {
   padding: 0;
 }
 
-/* line 632, resources/assets/styles/components/_blocks.scss */
+/* line 649, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text .text-inner {
   padding: 3rem 5rem;
   color: white;
 }
 
-/* line 637, resources/assets/styles/components/_blocks.scss */
+/* line 654, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text .text-inner h2 .action-h2-link {
   color: white;
 }
 
-/* line 640, resources/assets/styles/components/_blocks.scss */
+/* line 657, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text .text-inner h2 .action-h2-link:hover {
   color: black;
 }
 
-/* line 649, resources/assets/styles/components/_blocks.scss */
+/* line 666, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block {
   padding: 1rem;
 }
 
-/* line 650, resources/assets/styles/components/_blocks.scss */
+/* line 667, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block.tweet-block-white {
   border: 2px solid white;
 }
 
-/* line 654, resources/assets/styles/components/_blocks.scss */
+/* line 671, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block.tweet-block-black {
   border: 2px solid black;
 }
 
-/* line 660, resources/assets/styles/components/_blocks.scss */
+/* line 677, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .tweet-row {
   -webkit-box-align: center;
@@ -19416,34 +19441,34 @@ body#tinymce {
           align-items: center;
 }
 
-/* line 664, resources/assets/styles/components/_blocks.scss */
+/* line 681, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .col-lg-3 {
   text-align: center;
 }
 
-/* line 667, resources/assets/styles/components/_blocks.scss */
+/* line 684, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .col-lg-3 .fa-twitter {
   font-size: 3rem;
   color: #00c214;
 }
 
-/* line 673, resources/assets/styles/components/_blocks.scss */
+/* line 690, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .col-lg-9 {
   padding-left: 0;
 }
 
 @media (max-width: 991.98px) {
-  /* line 673, resources/assets/styles/components/_blocks.scss */
+  /* line 690, resources/assets/styles/components/_blocks.scss */
 
   .tweet-block .col-lg-9 {
     padding-left: 15px;
   }
 }
 
-/* line 684, resources/assets/styles/components/_blocks.scss */
+/* line 701, resources/assets/styles/components/_blocks.scss */
 
 .full-news-resources .two-col ul {
   display: -webkit-box;
@@ -19453,7 +19478,7 @@ body#tinymce {
       flex-wrap: wrap;
 }
 
-/* line 688, resources/assets/styles/components/_blocks.scss */
+/* line 705, resources/assets/styles/components/_blocks.scss */
 
 .full-news-resources .two-col ul li {
   -webkit-box-flex: 50%;

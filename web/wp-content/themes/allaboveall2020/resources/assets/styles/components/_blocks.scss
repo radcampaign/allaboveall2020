@@ -39,6 +39,10 @@
   padding: 2rem 4rem 2rem 2rem;
   margin: 4rem 0;
 
+  @include media-breakpoint-down(md) {
+    border: none;
+  }
+
   .col-lg-6 {
     padding: 0 2.3rem;
   }
@@ -57,8 +61,7 @@
     padding-bottom: 1.5rem;
 
     @include media-breakpoint-down(md) {
-      overflow: hidden;
-      right: -1.25rem;
+      display: none;
     }
   }
 }
@@ -151,6 +154,20 @@
         height: auto;
       }
     }
+  }
+}
+
+.full-image-text {
+  .col-lg-6 img {
+    object-fit: cover;
+    height: 160px;
+    width: 160px;
+  }
+
+  .col-lg-12 img {
+    object-fit: cover;
+    height: 255px;
+    width: 255px;
   }
 }
 
