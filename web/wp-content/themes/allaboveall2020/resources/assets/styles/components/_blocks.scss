@@ -222,7 +222,7 @@
     margin-top: 10rem;
 
     @include media-breakpoint-down(md) {
-      margin-top: 5rem;
+      margin-top: 1rem;
     }
 
     .asterisk-container {
@@ -233,8 +233,16 @@
       max-width: 100%;
       text-align: center;
 
+      @include media-breakpoint-down(md) {
+        top: -50px;
+      }
+
       img {
         max-width: 400px;
+
+        @include media-breakpoint-down(md) {
+          max-width: 200px;
+        }
       }
 
       &.asterisk-container-right {
