@@ -34,13 +34,13 @@
                 else {
                   echo '<div class="col-lg-6 mb-5">';
                 }
-                echo '<div class="row">';
+                echo '<div class="row"><div class="col-lg-4 text-center">';
                 if(!empty($row['image'])) {
                   $image = $row['image'];
-                  echo '<div class="col-lg-4 text-center"><img src="'.$image.'"></div>';
+                  echo '<img src="'.$image.'">';
                 }
                 
-                echo '<div class="col-lg-8">'.$row['text'].'</div></div></div>';
+                echo '</div><div class="col-lg-8">'.$row['text'].'</div></div></div>';
               }
             }
           @endphp
