@@ -18,7 +18,7 @@
      <div class="container container-inner">
       @if(!empty($block['data']['section_title']))
         <div class="row">
-          <div class="col-lg-12">
+          <div class="col-sm-12">
             <h2>{!! $block['data']['section_title'] !!}</h2>
           </div>
         </div>
@@ -29,14 +29,14 @@
             if( $rows ) {
               foreach( $rows as $row ) {
                 if($block['data']['columns'] == 'one') {
-                  echo '<div class="col-lg-12 mb-5 mt-3">';
+                  echo '<div class="col-sm-12 mb-5 mt-3">';
                 }
                 else {
-                  echo '<div class="col-lg-6 mb-5">';
+                  echo '<div class="col-sm-6 mb-5">';
                 }
                 $image = $row['image'];
-                echo '<div class="row"><div class="col-lg-4 text-center"><img src="'.$image.'"></div>
-                <div class="col-lg-8">'.$row['text'].'</div></div></div>';
+                echo '<div class="row"><div class="col-sm-4 text-center"><img src="'.$image.'"></div>
+                <div class="col-sm-8">'.$row['text'].'</div></div></div>';
               }
             }
           @endphp
