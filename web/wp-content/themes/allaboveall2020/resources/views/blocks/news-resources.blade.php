@@ -109,10 +109,11 @@
                       @php($post = get_post($n))
                       @php($link = get_permalink($n))
                       @php($name = get_field( "publication_name", $n))
+                      @php($date = $post->post_date)
                       <h4><a href="{{ $link }}">{!! $post->post_title !!}</a></h4>
                       @if((!empty($post->post_date)))
                         <div class="meta">
-                          <div class="date">{{ $post->post_date }}</div>
+                          <div class="date">{{ date('F j, Y', strtotime($date)) }}</div>
                         </div>
                       @endif
                       @if(!empty($post->post_content))
@@ -139,10 +140,11 @@
                       @php($post = get_post( $n ))
                       @php($link = get_field( "publication_link", $n ))
                       @php($name = get_field( "publication_name", $n ))
+                      @php($date = $post->post_date)
                       <h4><a href="{{ $link }}" target="_blank">{!! $post->post_title !!}</a><i class="far fa-external-link-alt"></i></h4>
                       @if((!empty($post->post_date)))
                         <div class="meta">
-                          <div class="date">{{ $post->post_date }}</div>
+                          <div class="date">{{ date('F j, Y', strtotime($date)) }}</div>
                           <div class="name">{{ $name }}</div>
                         </div>
                       @endif
