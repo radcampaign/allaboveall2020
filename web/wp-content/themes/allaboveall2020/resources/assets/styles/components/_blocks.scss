@@ -45,6 +45,10 @@
 
   .col-lg-6 {
     padding: 0 2.3rem;
+
+    @include media-breakpoint-down(md) {
+      padding: 0 0.5rem;
+    }
   }
 
   h3 {

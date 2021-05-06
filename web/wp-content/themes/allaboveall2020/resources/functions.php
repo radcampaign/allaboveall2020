@@ -113,6 +113,10 @@ if ( ! function_exists( 'pagination' ) ) :
   }
 endif;
 
+function search_distinct() { 
+  return "DISTINCT"; 
+}
+
 // remove comments
 add_action( 'init', 'comments_init' );
 function comments_init() {

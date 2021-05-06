@@ -33,12 +33,25 @@
     $rec = ' two-col';
   }
 
+  $campaign = $block['data']['campaign'];
+  $camp = '';
+
+  if(!empty($block['data']['campaign'])) {
+    $camp = array(
+            'taxonomy' => 'campaign',
+            'terms' => $campaign,
+            'field' => 'term_id',
+    );
+  }
+
+
   $args_news = array(
     'post_type' => 'news',
     'posts_per_page' => $numposts,
     'orderby' => 'date',
     'order'   => 'DESC',
     'post_status' => 'publish',
+    'tax_query' => array($camp),
   );
   $args_re = array(
     'post_type' => 'resource',
@@ -46,10 +59,12 @@
     'orderby' => 'date',
     'order'   => 'DESC',
     'post_status' => 'publish',
+    'tax_query' => array($camp),
   );
-
-  $query_news = new WP_Query( $args_news );
-  $query_re = new WP_Query( $args_re );
+  add_filter('posts_distinct', 'search_distinct');
+    $query_news = new WP_Query( $args_news );
+    $query_re = new WP_Query( $args_re );
+  remove_filter('posts_distinct', 'search_distinct');
 
   $newslisting = array();
   $relisting = array();
@@ -61,18 +76,18 @@
       $name = get_field('publication_name');
       $id = get_the_ID();
     
-      $newslisting[] = array('id' => $id);
+      $newslisting[] = $id;
 
     endwhile;
     wp_reset_postdata();       
   }
   if ($query_re->have_posts()) {
     while ( $query_re->have_posts() ) : $query_re->the_post();
-    
-      $relisting[] = array('id' => $id);
+      $id = get_the_ID();
+      $relisting[] = $id;
 
     endwhile;
-    wp_reset_postdata();       
+    wp_reset_postdata(); 
   }
 @endphp
 
@@ -91,9 +106,9 @@
                 <ul class="pl-0 list-style-none tax-list">
                   @foreach($relisting as $n)
                     <li class="tax-list-item pr-5">
-                      @php($post = get_post( $n['id'] ))
-                      @php($link = get_permalink($n['id']))
-                      @php($name = get_field( "publication_name", $n['id'] ))
+                      @php($post = get_post($n))
+                      @php($link = get_permalink($n))
+                      @php($name = get_field( "publication_name", $n))
                       <h4><a href="{{ $link }}">{!! $post->post_title !!}</a></h4>
                       @if((!empty($post->post_date)))
                         <div class="meta">
@@ -102,7 +117,7 @@
                       @endif
                       @if(!empty($post->post_content))
                         <div class="excerpt">
-                          {!! $post->post_content !!}
+                          {!! $post->post_excerpt !!}
                         </div>
                       @endif
                     </li>
@@ -121,9 +136,9 @@
                 <ul class="pl-0 list-style-none tax-list">
                   @foreach($newslisting as $n)
                     <li class="tax-list-item pr-5">
-                      @php($post = get_post( $n['id'] ))
-                      @php($link = get_field( "publication_link", $n['id'] ))
-                      @php($name = get_field( "publication_name", $n['id'] ))
+                      @php($post = get_post( $n ))
+                      @php($link = get_field( "publication_link", $n ))
+                      @php($name = get_field( "publication_name", $n ))
                       <h4><a href="{{ $link }}" target="_blank">{!! $post->post_title !!}</a><i class="far fa-external-link-alt"></i></h4>
                       @if((!empty($post->post_date)))
                         <div class="meta">
@@ -133,7 +148,7 @@
                       @endif
                       @if(!empty($post->post_content))
                         <div class="excerpt">
-                          {!! $post->post_content !!}
+                          {!! $post->post_excerpt !!}
                         </div>
                       @endif
                     </li>
