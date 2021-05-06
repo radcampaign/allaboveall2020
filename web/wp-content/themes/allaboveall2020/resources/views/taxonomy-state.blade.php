@@ -22,7 +22,6 @@
       </div>
     </div>
   </div>
-  <img src="/wp-content/uploads/2020/05/asterisk-white.png" alt="white asterisk" class="header-asterisk" />
 </div>
 <div class="tag-des background-image">
   <div class="container">
@@ -45,12 +44,9 @@
   </div>
 </div>
 @include('components.featuredaction', ['featuredaction' => App::actionapp($tag_id, 'action_item')])
-<div class="bg-gray">
+<div class="bg-gray state-taxonomy-listing">
   <div class="container pt-3 pb-5">
-    <div class="row">
-      @include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'resource', '3')])
-      @include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'update', '3')])
-    </div>
+    <div class="row">@include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'resource', '3')])@include('components.taxlist', ['taxlisting' => App::taxlist($tag_id, 'update', '3')])</div>
   </div>
 </div>
   @include('partials.joinblock')

@@ -9,9 +9,8 @@
         </div>
       </div>
     </div>
-    <img src="/wp-content/uploads/2020/05/asterisk-white.png" alt="white asterisk" class="header-asterisk" />
   </div>
-  <div class="container">
+  <div class="container mt-3">
     <div class="row">
       <div class="col-lg-6">
           <div class="entry-content">

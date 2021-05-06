@@ -90,14 +90,16 @@
     "axios": "0.21.1",
     "bl": "^4.0.3",
     "bootstrap": "v4.3.1",
+    "is-svg": "4.2.2",
     "jquery": "^3.5.0",
     "js-yaml": "^3.13.1",
     "lodash.template": "4.5.0",
     "mem": "4.0.0",
     "object-path": "0.11.5",
     "popper.js": "^1.14.7",
-    "ssri": "8.0.1",
+    "ssri": "6.0.2",
     "xmldom": "0.5.0",
+    "xmlhttprequest-ssl": "1.6.2",
     "y18n": "4.0.1"
   }
 }

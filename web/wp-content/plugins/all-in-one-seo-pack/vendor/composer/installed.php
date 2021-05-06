@@ -1,24 +1,24 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => 'dev-develop',
-    'version' => 'dev-develop',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => 'd153b1c26131048642936e21d85d27ae85bdd503',
+    'reference' => '1f875efe678ce01a64128a8ac02bc265d33e195e',
     'name' => 'awesomemotive/all-in-one-seo-pack-pro',
   ),
   'versions' => 
   array (
     'awesomemotive/all-in-one-seo-pack-pro' => 
     array (
-      'pretty_version' => 'dev-develop',
-      'version' => 'dev-develop',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => 'd153b1c26131048642936e21d85d27ae85bdd503',
+      'reference' => '1f875efe678ce01a64128a8ac02bc265d33e195e',
     ),
     'monolog/monolog' => 
     array (

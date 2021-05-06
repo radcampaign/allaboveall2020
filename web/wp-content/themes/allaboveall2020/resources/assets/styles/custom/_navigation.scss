@@ -1,4 +1,6 @@
-a.navbar-brand {
+.navbar-brand {
+  padding-top: 3rem;
+
   &:hover {
     background: transparent;
   }
@@ -22,7 +24,7 @@ a.navbar-brand {
       background: transparent;
       text-decoration: none;
       text-transform: uppercase;
-      font-family: "Aaux-Bold", sans-serif;
+      font-family: $font-primary-bold;
       font-size: 1rem;
 
       &:hover {
@@ -44,15 +46,27 @@ a.navbar-brand {
     }
 
     .nav-link {
-      font-size: 1rem;
+      font-size: 1.15rem;
       text-transform: uppercase;
       font-weight: 700;
       color: black;
-      font-family: "Aaux-Black", sans-serif;
+      font-family: $font-primary-bold;
+      letter-spacing: 1px;
+
+      @include media-breakpoint-down(md) {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        border-bottom: 2px solid black;
+      }
 
       &:hover {
         background: black;
         color: white;
+
+        @include media-breakpoint-down(md) {
+          color: black;
+          background: $secondary-color;
+        }
       }
 
       &.desktop-toggle {
@@ -95,9 +109,8 @@ a.navbar-brand {
       }
 
       @include media-breakpoint-down(md) {
-        .nav-link {
-          padding-left: 1rem;
-        }
+        padding-right: 0;
+        margin-bottom: 0;
 
         &.dropdown {
           position: relative;
@@ -108,6 +121,7 @@ a.navbar-brand {
             top: 0;
             right: 0;
             padding: 0.2rem;
+            max-width: 25px;
           }
         }
       }
@@ -120,9 +134,13 @@ a.navbar-brand {
     .dropdown-menu {
       border: none;
       padding-bottom: 0;
+      top: 40px;
+      border-radius: 0;
 
       @include media-breakpoint-down(md) {
-        padding-left: 2rem;
+        padding-left: 0;
+        margin-top: 0;
+        padding-top: 0;
       }
 
       .dropdown-item {
@@ -132,7 +150,7 @@ a.navbar-brand {
 
         &:hover {
           color: black;
-          background: $primary-color;
+          background: $secondary-color;
         }
       }
     }
@@ -159,7 +177,7 @@ a.navbar-brand {
       background: black;
       color: white;
       padding: 0.5rem 1rem;
-      font-family: "Aaux-Bold", sans-serif;
+      font-family: $font-primary-bold;
       text-decoration: none;
       width: 43px;
       text-align: center;

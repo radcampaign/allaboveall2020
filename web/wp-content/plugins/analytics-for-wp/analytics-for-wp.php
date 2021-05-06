@@ -1,12 +1,12 @@
 <?php
 /**
-  * Plugin Name: Google Analytics for WordPress
+  * Plugin Name: Analytics for WP
   * Plugin URI: https://everythingwoocommerce.com/how-to-add-google-analytics-tracking-code-in-wordpress-website/?ref=analytics
   * Author: Aman Verma
   * Author URI: https://twitter.com/amanverma217
-  * Description: Google Analytics for WordPress plugin allows you to track your website by entering your google analytics tracking code.
+  * Description: Analytics for WP plugin allows you to track your website by entering your google analytics tracking code.
   * Tags: google analytics plugin, google analytics for wordpress, analytics for website, universal analytics for website, google analytics, website google analytics plugin wordpress, GA code, google analytics script, google analytics for woocommerce, googleanalytics
-  * Version: 1.5
+  * Version: 1.5.1
   * License: GPLv2 or later
   * License URI: http://www.gnu.org/licenses/gpl-2.0.html 
  **/

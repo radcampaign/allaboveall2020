@@ -1,31 +1,14 @@
 .banner {
   position: relative;
-
-  .header-background-bar {
-    z-index: 2;
-    width: 50%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: black;
-    height: 50px;
-
-    @include media-breakpoint-down(md) {
-      display: none;
-    }
-  }
+  margin-bottom: 3rem;
 
   .container {
     z-index: 3;
   }
 
-  .navbar-brand {
-    img {
-      max-width: 130px;
-    }
-  }
-
   @include media-breakpoint-down(md) {
+    margin-bottom: 1rem;
+
     .container {
       max-width: 100%;
     }
@@ -33,12 +16,12 @@
 }
 
 .header-top {
-  background: black;
-  color: white;
   text-transform: uppercase;
   display: flex;
   position: relative;
   padding-left: 0.5rem;
+  margin-bottom: 3rem;
+  justify-content: flex-end;
 
   @include media-breakpoint-down(md) {
     display: none;
@@ -46,12 +29,17 @@
 
   .head-title {
     margin-top: 0;
-    flex: 0 0 23%;
+    flex: 0 0 37.5%;
+    font-family: $font-primary-bold;
+    font-size: 1.5rem;
+    color: black;
   }
 
   .advocacy-actionwidget {
-    flex: 0 0 77%;
+    flex: 0 0 60%;
     z-index: 99;
+    box-shadow: none !important;
+    border: none !important;
 
     iframe {
       min-height: 50px !important;
@@ -89,25 +77,30 @@
   height: 90%;
   max-height: 50px;
   margin-top: 45px;
+  justify-content: flex-end;
+  padding-right: 0.5rem;
 
   @include media-breakpoint-down(md) {
     max-height: unset;
     display: block;
     margin-top: 0;
+    justify-content: flex-start;
+    padding-right: 0;
   }
 }
 
 .page-header {
   padding: 1.5rem;
   background: $primary-color;
-  margin: 1rem 0;
+  margin: 1rem 0 0;
   position: relative;
 
   h1 {
     text-transform: unset;
     color: black;
-    font-weight: 600;
+    font-weight: 800;
     margin-top: 0;
+    font-family: $font-primary-bold;
   }
 
   .header-asterisk {
@@ -145,7 +138,9 @@
     display: none;
 
     @include media-breakpoint-down(md) {
+      margin-top: 1rem;
       display: flex;
+      justify-content: center;
     }
   }
 

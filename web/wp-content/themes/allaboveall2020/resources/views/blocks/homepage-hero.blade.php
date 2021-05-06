@@ -20,10 +20,13 @@
   <div class="full-width-text-inner">
     <div class="container container-inner">
       <div class="row">
-        <div class="col-lg-5 mx-auto">
-          <h1 class="display-1">{!! $block['data']['left_headline'] !!}<span class="headline-asterisk"><img src="/wp-content/uploads/2020/04/asterisk-green.png" alt="green asterisk" style="max-width: 50px;" /></span></h1>
+        <div class="col-lg-5">
+          <h1 class="display-1">
+            <div class="hero-top">{!! $block['data']['left_headline_top'] !!}</div>
+            <div class="hero-bottom">{!! $block['data']['left_headline_bottom'] !!}</div>
+          </h1>
         </div>
-        <div class="col-lg-6 mx-auto">
+        <div class="col-lg-5 offset-lg-1">
           <div class="right-body mb-3">{!! $block['data']['right_text'] !!}</div>
           <a href="{!! $block['data']['button_url'] !!}" class="btn btn-green">{{ $block['data']['button_text'] }}</a>
         </div>

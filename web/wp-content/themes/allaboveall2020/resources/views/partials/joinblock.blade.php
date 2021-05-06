@@ -1,6 +1,6 @@
 <div class="asterisk-yes asterisk-right join-asterisk join-block-template">
   <div class="full-width-text-inner">
-    <div class="asterisk-container"><img src="/wp-content/uploads/2020/04/asterisk-green.png"></div>
+    <div class="asterisk-container"><img src="/wp-content/themes/allaboveall2020/dist/images/asterisk-new.png"></div>
     <div class="container container-inner">
       <div class="row join-embed">
         <div class="col-lg-3 offset-lg-1">

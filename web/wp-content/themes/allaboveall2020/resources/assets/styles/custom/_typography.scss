@@ -10,8 +10,8 @@ h5,
 h6 {
   margin-bottom: 1rem;
   margin-top: 2rem;
-  font-weight: 800;
-  font-family: "Aaux-Black", sans-serif;
+  font-weight: 600;
+  font-family: $font-primary;
 }
 
 h1 {
@@ -29,35 +29,49 @@ h1 {
 }
 
 h2 {
-  font-size: 2.375rem;
-  line-height: 3rem;
-  text-transform: uppercase;
+  font-size: 2.5rem;
+  line-height: 3.25rem;
+
+  &.smallerh2 {
+    font-size: 2rem;
+    line-height: 3rem;
+  }
 }
 
 h3 {
-  font-size: 1.625rem;
-  line-height: 2.1rem;
+  font-size: 2rem;
+  line-height: 2.75rem;
 }
 
 h4 {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   line-height: 2rem;
 }
 
 h5 {
-  font-size: 1.375rem;
+  font-size: 1.5rem;
   font-weight: normal;
   text-transform: uppercase;
 }
 
+.aauxreg {
+  font-family: "Aaux-Regular", sans-serif;
+}
+
 .post-headline {
   font-size: 3rem;
-  font-family: "Aaux-Black", sans-serif;
+  font-family: $font-primary-bold;
+}
+
+.headline-smaller {
+  font-size: 1.75rem;
 }
 
 .display-1 {
-  line-height: 1.1;
+  line-height: 1.15;
   margin-top: 0;
+  font-size: 4.75rem;
+  letter-spacing: 2px;
 
   @include media-breakpoint-down(md) {
     font-size: 3rem;
@@ -84,7 +98,7 @@ a {
 
   &:hover {
     text-decoration: none;
-    background: $primary-color;
+    background: $secondary-color;
   }
 
   &.image-hover {
@@ -96,7 +110,7 @@ a {
 
 .single {
   .entry-title {
-    background: $primary-color;
+    background: $secondary-color;
     color: black;
     font-weight: 600;
     padding: 1rem;
@@ -115,16 +129,25 @@ a {
 }
 
 .text-large {
-  font-size: 1.5rem;
+  font-size: 1.45rem;
 }
 
 .text-small {
   font-size: 0.875rem;
 }
 
+.text-green {
+  color: $primary-color;
+}
+
 .text-font-black {
-  font-family: "Aaux-Black", sans-serif;
+  font-family: $font-primary-bold;
   font-weight: 800;
+}
+
+ul li,
+ol li {
+  margin-bottom: 0.5rem;
 }
 
 blockquote {

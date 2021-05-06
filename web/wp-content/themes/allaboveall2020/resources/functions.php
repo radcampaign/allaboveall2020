@@ -113,6 +113,10 @@ if ( ! function_exists( 'pagination' ) ) :
   }
 endif;
 
+function search_distinct() { 
+  return "DISTINCT"; 
+}
+
 // remove comments
 add_action( 'init', 'comments_init' );
 function comments_init() {
@@ -456,6 +460,12 @@ function my_mce_before_init_insert_formats( $init_array ) {
           'wrapper' => true,
       ),
       array(  
+          'title' => 'Blue Button',  
+          'block' => 'div',  
+          'classes' => 'blue-button',
+          'wrapper' => true,
+      ),
+      array(  
           'title' => 'Black Button',  
           'block' => 'div',  
           'classes' => 'black-button',
@@ -465,6 +475,18 @@ function my_mce_before_init_insert_formats( $init_array ) {
           'title' => 'Headline Uppercase',  
           'block' => 'div',  
           'classes' => 'text-uppercase',
+          'wrapper' => true,
+      ),
+      array(  
+          'title' => 'Bold Text',  
+          'block' => 'span',  
+          'classes' => 'font-bold',
+          'wrapper' => true,
+      ),
+      array(  
+          'title' => 'Green Text',  
+          'block' => 'div',  
+          'classes' => 'text-green',
           'wrapper' => true,
       ),
       array(

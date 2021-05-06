@@ -1,16 +1,15 @@
 <header class="banner">
-  <div class="header-background-bar"></div>
   <div class="container">
     <div class="row">
-      <div class="col-lg-2 desktop-logo">
+      <div class="col-lg-4 desktop-logo">
         <a class="navbar-brand" href="{{ home_url('/') }}">
-          <img src="@asset('images/aaa-logo.png')">
+          <img src="@asset('images/all-logo-h.png')">
         </a>
       </div>
-      <div class="col-lg-9 offset-lg-1">
+      <div class="col-lg-8">
         <div class="header-top">
           <h2 class="head-title pl-2 mb-0">Be Bold. Join Us.</h2>
-            <div class="advocacy-actionwidget" data-domain="p2a.co" data-shorturl="0jDkAtu"  style=" width: 500px; height: 50px;"></div>
+            <div class="advocacy-actionwidget" data-domain="p2a.co" data-shorturl="cny9w10"  style=" width: 500px; height: 50px;"></div>
               <script>
               (function(d, s, id) {
               var js, fjs = d.getElementsByTagName(s)[0];
@@ -23,7 +22,7 @@
         </div>
         <div class="mobile-logo">
           <a class="navbar-brand" href="{{ home_url('/') }}">
-            <img src="@asset('images/aaa-logo.png')">
+            <img src="@asset('images/all-logo-h.png')">
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headerCollapse" aria-controls="headerCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>

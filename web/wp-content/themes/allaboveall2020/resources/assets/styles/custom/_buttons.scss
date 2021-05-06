@@ -1,21 +1,33 @@
 .btn {
-  @include button-variant($primary-color, $primary-color, $black, $black);
+  @include button-variant($secondary-color, $secondary-color, $black, $black);
 
   color: black;
   border-radius: 0;
   text-transform: uppercase;
-  font-family: "Aaux-Bold", sans-serif;
+  font-family: "SharpSans-Regular", sans-serif;
   font-weight: 800;
-  padding: 0.5rem 1rem;
+  font-size: 1.15rem;
+  padding: 1rem 2rem;
 
   &.btn-black {
-    @include button-variant($black, $black, $primary-color, $primary-color);
+    @include button-variant($black, $black, $secondary-color, $secondary-color);
 
     color: $white;
 
     &:hover {
       color: black;
-      background: $primary-color;
+      background: $secondary-color;
+    }
+  }
+
+  &.btn-blue {
+    @include button-variant($secondary-color, $secondary-color, $black, $black);
+
+    color: black;
+
+    &:hover {
+      color: white;
+      background: black;
     }
   }
 
@@ -45,7 +57,7 @@
   }
 
   &.btn-primary {
-    background: $primary-color;
+    background: $secondary-color;
     color: black;
 
     &:hover {
