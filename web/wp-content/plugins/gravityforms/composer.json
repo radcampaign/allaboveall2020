@@ -1,0 +1,14 @@
+{
+    "name": "radcampaign/gravityforms",
+    "description": "Rad Campaign's Composer-enabled mirror of Gravity Forms",
+    "type": "wordpress-plugin",
+    "require": {
+        "composer/installers": "^1.7"
+    },
+    "authors": [
+        {
+            "name": "Xaq Rothman",
+            "email": "xaq@radcampaign.com"
+        }
+    ]
+}

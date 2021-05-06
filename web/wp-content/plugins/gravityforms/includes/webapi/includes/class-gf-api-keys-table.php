@@ -13,19 +13,12 @@ class GF_API_Keys_Table extends WP_List_Table {
 		return array( 'widefat', 'striped', 'feeds',  'api_key_table' );
 	}
 
-	/**
-	 * Returns an array of columns to be included in the list table.
-	 *
-	 * @since 2.4
-	 * @since 2.4.22 Removed the key column.
-	 *
-	 * @return array
-	 */
 	function get_columns() {
 
 		return array(
-			'description' => esc_html__( 'Description', 'gravityforms' ),
-			'user'        => esc_html__( 'User', 'gravityforms' ),
+			'description'  => esc_html__( 'Description', 'gravityforms' ),
+			'key'      => esc_html__( 'Key', 'gravityforms' ),
+			'user'         => esc_html__( 'User', 'gravityforms' ),
 			'permissions' => esc_html__( 'Permissions', 'gravityforms' ),
 			'last_access' => esc_html__( 'Last Access', 'gravityforms' ),
 		);
@@ -65,7 +58,7 @@ class GF_API_Keys_Table extends WP_List_Table {
 		$nonce_url = wp_nonce_url( '?page=gf_settings&subview=gravityformswebapi', 'gf_revoke_key' );
 
 		$actions = array(
-			'edit' => '<a href="javascript:editKey( ' . $item['key_id'] . ' );">' . esc_html__( 'Edit', 'gravityforms' ) . '</a>',
+			'edit' => '<a href="' . $this->get_edit_url( $item['key_id'] ) . '">' . esc_html__( 'Edit', 'gravityforms' ) . '</a>',
 			'delete' => sprintf( '<a data-wp-lists="delete:the-list:key_row_%d::status=delete&action=delete_key&key=%d" onclick="%s" href="%s" class="submitdelete">Revoke</a>', absint( $item['key_id'] ), absint( $item['key_id'] ), $confirm, $nonce_url ),
 		);
 
@@ -91,8 +84,9 @@ class GF_API_Keys_Table extends WP_List_Table {
 	}
 
 	function no_items() {
-		echo '<div style="padding:10px;">' . sprintf( esc_html__( 'You don\'t have any API keys. Let\'s go %1$screate one%2$s!', 'gravityforms' ), '<a href="javascript:editKey( 0 );">', '</a>' ) . '</div>';
+		echo '<div style="padding:10px;">' . sprintf( esc_html__( 'You don\'t have any API keys. Let\'s go %1$screate one%2$s!', 'gravityforms' ), '<a href="' . $this->get_edit_url( 0 ) . '">', '</a>' ) . '</div>';
 	}
+
 
 	/**
 	 * Display the table
@@ -122,7 +116,7 @@ class GF_API_Keys_Table extends WP_List_Table {
 
 		</table>
 		<div>
-			<a class="button" id="add_setting_button" href="javascript:editKey( 0 );">Add Key</a>
+			<a class="button-secondary gfbutton gaddon-setting" id="add_setting_button" href="<?php echo $this->get_edit_url( 0 )?>">Add Key</a>
 		</div>
 		<?php
 

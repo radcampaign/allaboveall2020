@@ -1,7 +1,5 @@
 //Props: https://github.com/fusioneng/Shortcake/
 var GformShortcodeUI;
-var __;
-__  = wp.i18n.__;
 
 ( function (gfShortCodeUI, $) {
 
@@ -734,7 +732,7 @@ __  = wp.i18n.__;
 
                 $('#gform-insert-shortcode').hide();
                 $('#gform-update-shortcode').show();
-                tb_show( __( "Edit Form", "gravityforms" ), "#TB_inline?inlineId=select_gravity_form&width=753&height=686", "");
+                tb_show("Edit Gravity Form", "#TB_inline?inlineId=select_gravity_form&width=753&height=686", "");
 
             }
         },
@@ -755,7 +753,7 @@ __  = wp.i18n.__;
             var shortcode = sui.shortcodes.findWhere({shortcode_tag: 'gravityform', action_tag: ''});
             GformShortcodeUI = new sui.views.editShortcodeForm({model: shortcode, viewMode: 'insert'});
             GformShortcodeUI.render();
-            tb_show( __( "Insert Form", "gravityforms" ), "#TB_inline?inlineId=select_gravity_form&width=753&height=686", "" );
+            tb_show("Insert Gravity Form", "#TB_inline?inlineId=select_gravity_form&width=753&height=686", "");
         });
 
     });

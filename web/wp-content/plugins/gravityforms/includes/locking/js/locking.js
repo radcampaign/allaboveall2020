@@ -67,7 +67,7 @@
 
         wp.heartbeat.interval( 30 );
 
-        $( "#wpwrap" ).append( lockUI );
+        $("#wpfooter").append(lockUI);
 
         // todo: refresh nonces
 
