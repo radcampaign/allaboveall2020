@@ -566,11 +566,11 @@ class GF_Results_Cache {
 	 * @param $form
 	 * @param array $search_criteria
 	 * @param array $state_array
-	 * @param array $args
+	 * @param $args
 	 *
 	 * @return array|mixed
 	 */
-	public function calculate( $form, $search_criteria = array(), $state_array = array(), $args = array() ) {
+	public function calculate( $form, $search_criteria = array(), $state_array = array(), $args ) {
 
 		$args = wp_parse_args( $args, $this->get_default_args() );
 

@@ -86,11 +86,9 @@ class GF_Installation_Wizard {
 		}
 
 		// Print admin styles
-		wp_print_styles( array( 'jquery-ui-styles', 'gform_admin', 'gform_settings' ) );
+		wp_print_styles( array( 'jquery-ui-styles', 'gform_admin' ) );
 
 		?>
-
-		<?php GFCommon::gf_header(); ?>
 
 		<div class="wrap about-wrap gform_installation_progress_step_wrap">
 
