@@ -92,3 +92,21 @@
     margin-bottom: 0;
   }
 }
+
+.wpcf7-form {
+  label {
+    width: 100%;
+  }
+
+  input {
+    max-width: 100%;
+  }
+
+  .wpcf7-form-control-wrap.your-message {
+    width: 100%;
+
+    textarea {
+      width: 100%;
+    }
+  }
+}

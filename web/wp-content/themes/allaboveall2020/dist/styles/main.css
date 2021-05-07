@@ -17214,6 +17214,30 @@ blockquote {
   margin-bottom: 0;
 }
 
+/* line 97, resources/assets/styles/components/_forms.scss */
+
+.wpcf7-form label {
+  width: 100%;
+}
+
+/* line 101, resources/assets/styles/components/_forms.scss */
+
+.wpcf7-form input {
+  max-width: 100%;
+}
+
+/* line 105, resources/assets/styles/components/_forms.scss */
+
+.wpcf7-form .wpcf7-form-control-wrap.your-message {
+  width: 100%;
+}
+
+/* line 108, resources/assets/styles/components/_forms.scss */
+
+.wpcf7-form .wpcf7-form-control-wrap.your-message textarea {
+  width: 100%;
+}
+
 /**
  * WordPress Generated Classes
  * @see http://codex.wordpress.org/CSS#WordPress_Generated_Classes
