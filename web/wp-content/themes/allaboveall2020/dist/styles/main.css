@@ -16623,49 +16623,55 @@ body {
 
 /* line 14, resources/assets/styles/common/_global.scss */
 
+.grecaptcha-badge {
+  display: none !important;
+}
+
+/* line 18, resources/assets/styles/common/_global.scss */
+
 .text-white {
   color: white;
 }
 
-/* line 18, resources/assets/styles/common/_global.scss */
+/* line 22, resources/assets/styles/common/_global.scss */
 
 .text-green {
   color: #00c214;
 }
 
-/* line 22, resources/assets/styles/common/_global.scss */
+/* line 26, resources/assets/styles/common/_global.scss */
 
 .text-blue {
   color: #42e8c8;
 }
 
-/* line 26, resources/assets/styles/common/_global.scss */
+/* line 30, resources/assets/styles/common/_global.scss */
 
 .text-black {
   color: black;
 }
 
-/* line 30, resources/assets/styles/common/_global.scss */
+/* line 34, resources/assets/styles/common/_global.scss */
 
 .bg-black {
   background: black;
   color: white;
 }
 
-/* line 35, resources/assets/styles/common/_global.scss */
+/* line 39, resources/assets/styles/common/_global.scss */
 
 .bg-black .btn-green:hover {
   background: white;
   color: black;
 }
 
-/* line 45, resources/assets/styles/common/_global.scss */
+/* line 49, resources/assets/styles/common/_global.scss */
 
 .font-primary {
   font-family: "SharpSans-Regular", sans-serif;
 }
 
-/* line 49, resources/assets/styles/common/_global.scss */
+/* line 53, resources/assets/styles/common/_global.scss */
 
 .font-bold,
 strong {
@@ -16673,19 +16679,19 @@ strong {
   font-weight: 800;
 }
 
-/* line 55, resources/assets/styles/common/_global.scss */
+/* line 59, resources/assets/styles/common/_global.scss */
 
 .hide {
   display: none;
 }
 
-/* line 59, resources/assets/styles/common/_global.scss */
+/* line 63, resources/assets/styles/common/_global.scss */
 
 .bg-gray {
   background: #f7f7f7;
 }
 
-/* line 63, resources/assets/styles/common/_global.scss */
+/* line 67, resources/assets/styles/common/_global.scss */
 
 .footnote {
   border-top: 1px solid #999;
@@ -16693,7 +16699,7 @@ strong {
   color: #999;
 }
 
-/* line 69, resources/assets/styles/common/_global.scss */
+/* line 73, resources/assets/styles/common/_global.scss */
 
 .reverse {
   -webkit-box-orient: horizontal;
@@ -16702,25 +16708,25 @@ strong {
           flex-direction: row-reverse;
 }
 
-/* line 73, resources/assets/styles/common/_global.scss */
+/* line 77, resources/assets/styles/common/_global.scss */
 
 .bold {
   font-family: "SharpSans-Bold", sans-serif;
 }
 
-/* line 77, resources/assets/styles/common/_global.scss */
+/* line 81, resources/assets/styles/common/_global.scss */
 
 .text-larger {
   font-size: 1.25rem;
 }
 
-/* line 81, resources/assets/styles/common/_global.scss */
+/* line 85, resources/assets/styles/common/_global.scss */
 
 a {
   text-decoration: underline;
 }
 
-/* line 84, resources/assets/styles/common/_global.scss */
+/* line 88, resources/assets/styles/common/_global.scss */
 
 a.btn,
 .search-form a.search-submit,
@@ -16730,19 +16736,19 @@ a.btn,
   text-decoration: none;
 }
 
-/* line 89, resources/assets/styles/common/_global.scss */
+/* line 93, resources/assets/styles/common/_global.scss */
 
 nav a {
   text-decoration: none;
 }
 
-/* line 93, resources/assets/styles/common/_global.scss */
+/* line 97, resources/assets/styles/common/_global.scss */
 
 .list-style-none {
   list-style: none;
 }
 
-/* line 97, resources/assets/styles/common/_global.scss */
+/* line 101, resources/assets/styles/common/_global.scss */
 
 .flex {
   display: -webkit-box;
@@ -16753,7 +16759,7 @@ nav a {
           align-items: center;
 }
 
-/* line 102, resources/assets/styles/common/_global.scss */
+/* line 106, resources/assets/styles/common/_global.scss */
 
 .img-sq img {
   height: 255px;
@@ -16762,7 +16768,7 @@ nav a {
      object-fit: cover;
 }
 
-/* line 108, resources/assets/styles/common/_global.scss */
+/* line 112, resources/assets/styles/common/_global.scss */
 
 .meta {
   display: -webkit-box;
@@ -16772,7 +16778,7 @@ nav a {
   margin-bottom: 1rem;
 }
 
-/* line 113, resources/assets/styles/common/_global.scss */
+/* line 117, resources/assets/styles/common/_global.scss */
 
 .meta .author {
   margin-left: 1rem;
@@ -16780,14 +16786,14 @@ nav a {
   border-left: 1px solid #999;
 }
 
-/* line 120, resources/assets/styles/common/_global.scss */
+/* line 124, resources/assets/styles/common/_global.scss */
 
 .list-asterisk a {
   position: relative;
   margin-top: 1rem;
 }
 
-/* line 124, resources/assets/styles/common/_global.scss */
+/* line 128, resources/assets/styles/common/_global.scss */
 
 .list-asterisk a::after {
   content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDAyIDc5LjE2NDQ4OCwgMjAyMC8wNy8xMC0yMjowNjo1MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDUzRTlGQjk5Mzk4MTFFQkI5OTlEMzM3RUY2REM4RDkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDUzRTlGQkE5Mzk4MTFFQkI5OTlEMzM3RUY2REM4RDkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NjMwODNBNDkzMUQxMUVCQjk5OUQzMzdFRjZEQzhEOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowNTNFOUZCODkzOTgxMUVCQjk5OUQzMzdFRjZEQzhEOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrmVDD4AAATwSURBVHjavFZ7bBRFGP/2dXfttbTpg5c10McVEarGP6SNIq2NgVwMRoom1viopsUroVBMSypa8QittBEiCRRrogkxEoOamKgJaMQY36DBRCVWIDEhPmitpPTa3u7tjt83t3u9u929tmCYy+zN7M58v5lvfvP7PoA5ltyqZbfXD58y6kdO83rPpe+MnBWBqtnMbW5uBsYYrzJcTRH4z2rPfpowPfjqgDmaANdSRJtJRVZuOdL/XmVvxwG4xrKsb8ehqjf2HhNkSUr/lrJjUVE8Kw6H31zcuP4BphtgRKNT53Yd6HTar1vPKoHd7fuWbn0iJIgiMC125KeWnY+zmB6zAYtej3fl4J63FzWuv1+7PEYHAuVdT3fQt3RwltJmjqBlnS3tsfEIDmBQ8uTGxisTEa/wy0gjflZTXM0Mw4j+PfIHGAYHxT7o45McvGJXW18KsTKwxgLVxye4DW4Lvaeibewz2xmjO7RfO/e2Xugb3C/n+IG7iBkQQwPlXaEEOBqJCUn0onVYLkzeKc0lG2TrfO9A/5+9g204RHNl9W/P799O9tHAdlq1YehAhmjnxlR08q93jx+lnQgmX6jNVE0t39nakwDFd6IogZSTxUGto6KFWEVyIsboyW9O4JnPK6yrrkFPxF2m6VBQe8ca340Ly3wlC0sRmFthqqr6A0tvKmna2IQL42PjO81G0MP9yfyorq6GYDDoDpwEnldYV8PBiSRkNGd5RQDdKzIwOLUkWZH8y8sDhqbyMdPuTQWlkp+fD7m5uTA0NDSzCgSe27anbMemZ5mmcamz+GWxmdo6U4EWIgoi6QCc7xkIX3jp1RcyS1ClfKvrV1NYy7u39M0P1q3T0ZUWiROLwHaWcgNIopeuJAx/+OkH53Yf7BL4KgT7xnCaIssI/GURs+kBS2rTDUDygA+tMnNmYgy1RVi15BDk+SpxqAZ6NKoKHsVDuMleSdx3RowWdNnmbCGtLeLD60FQI105zAdLERPRh2NtWm4DEeS5BYa5vJ8pSLCkhTtVg4ucCqmqkVqTRM2YUlV+/YgD7pXJ0HT5Nndymb9Wfx+s9qwDlU17ljnsHWnw7ydfnJiRXMh8GYZiP2b0ySZ/D9yFoBpzBEuxqapQHKy9b+zM2R8yXScpk4DwssW/D1qyOyBqgtL6vQKY2mEelgBLFmwAj5iPrNaRgwyK1969BmOwf/Szbz92MisrSgZgAn0qux0mWByIRsoI+nn0I5gvlYIC5EqASVX1fp9/vGDlqgAz4vJKSldUX3OnGzgGQhfgdFBS5WwEGYiE4ejky/BgVht/x8klSqOhk0ExoowX3luzOlnbC9PAa2trIRwOQ0NDgwvomWIGX6GwkLjQP/U3++MxuQKVjt59bVYaUyrebIXFtdGzrP6f06x+5BT/p74VUjeHQg5ZpozO25rzCjyaFUpxbxZu67WJfjgY6TQvoGwTElmUaYIZUsFKBKZDaqgjEp3yqcPaM1ZMng6QRP8icTFXKmZ+SQd1u0hJ+Q+BUzIhYVjk8ZciFkZQz4KiRdgX7FmmyqLQPfYQvD95DHLF+JnaQVOzW5cs1wKn8KjkzYOLr7/z1u/beh7GTEV1zkA0VKgXrzyC7JXhknHREdSe7TkWAsdo5fMUFxT/3Nr9GL7SkWgZEvoYwneNbYD/oVAON+uE/nqV6wpsJQ9U/hNgAIneegCPl8u0AAAAAElFTkSuQmCC);
@@ -16796,7 +16802,7 @@ nav a {
   margin-left: 0.5rem;
 }
 
-/* line 132, resources/assets/styles/common/_global.scss */
+/* line 136, resources/assets/styles/common/_global.scss */
 
 a[href^=tel] {
   color: inherit;

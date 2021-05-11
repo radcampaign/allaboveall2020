@@ -11,6 +11,10 @@ body {
   font-family: "SharpSans-Regular", sans-serif;
 }
 
+.grecaptcha-badge {
+  display: none !important;
+}
+
 .text-white {
   color: white;
 }
