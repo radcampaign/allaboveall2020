@@ -16810,31 +16810,11 @@ a[href^=tel] {
 }
 
 @font-face {
-  font-family: "Aaux-Bold";
-  src: url(/wp-content/themes/allaboveall2020/dist/fonts/AAUXPROBASIC/AauxProOT-Bold.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/AAUXPROBASIC/AauxProOT-Bold.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/AAUXPROBASIC/AauxProOTBold.otf) format("opentype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Aaux-Regular";
-  src: url(/wp-content/themes/allaboveall2020/dist/fonts/AAUXPROBASIC/AauxProOT-Regular.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/AAUXPROBASIC/AauxProOT-Regular.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/AAUXPROBASIC/AauxProOTRegular.otf) format("opentype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Aaux-Black";
-  src: url(/wp-content/themes/allaboveall2020/dist/fonts/AAUXPROBASIC/AauxProOT-Black.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/AAUXPROBASIC/AauxProOT-Black.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/AAUXPROBASIC/AauxProOTBlack.otf) format("opentype");
-  font-weight: 800;
-  font-style: normal;
-}
-
-@font-face {
   font-family: "SharpSans-Bold";
   src: url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-Bold.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-Bold.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-Bold.otf) format("opentype");
   font-weight: 800;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -16842,6 +16822,7 @@ a[href^=tel] {
   src: url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-Medium.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-Medium.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-Medium.otf) format("opentype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -16849,6 +16830,7 @@ a[href^=tel] {
   src: url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-MediumIt.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-MediumIt.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-MediumIt.otf) format("opentype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -16856,6 +16838,7 @@ a[href^=tel] {
   src: url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-BoldIt.ttf) format("truetype"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-BoldIt.woff) format("woff"), url(/wp-content/themes/allaboveall2020/dist/fonts/SharpSans/SharpSansDispNo1-BoldIt.otf) format("opentype");
   font-weight: 800;
   font-style: normal;
+  font-display: swap;
 }
 
 /* line 1, resources/assets/styles/custom/_typography.scss */

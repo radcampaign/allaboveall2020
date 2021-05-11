@@ -1,34 +1,4 @@
 @font-face {
-  font-family: "Aaux-Bold";
-  src:
-    url("../fonts/AAUXPROBASIC/AauxProOT-Bold.ttf") format("truetype"),
-    url("../fonts/AAUXPROBASIC/AauxProOT-Bold.woff") format("woff"),
-    url("../fonts/AAUXPROBASIC/AauxProOTBold.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Aaux-Regular";
-  src:
-    url("../fonts/AAUXPROBASIC/AauxProOT-Regular.ttf") format("truetype"),
-    url("../fonts/AAUXPROBASIC/AauxProOT-Regular.woff") format("woff"),
-    url("../fonts/AAUXPROBASIC/AauxProOTRegular.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Aaux-Black";
-  src:
-    url("../fonts/AAUXPROBASIC/AauxProOT-Black.ttf") format("truetype"),
-    url("../fonts/AAUXPROBASIC/AauxProOT-Black.woff") format("woff"),
-    url("../fonts/AAUXPROBASIC/AauxProOTBlack.otf") format("opentype");
-  font-weight: 800;
-  font-style: normal;
-}
-
-@font-face {
   font-family: "SharpSans-Bold";
   src:
     url("../fonts/SharpSans/SharpSansDispNo1-Bold.ttf") format("truetype"),
@@ -36,6 +6,7 @@
     url("../fonts/SharpSans/SharpSansDispNo1-Bold.otf") format("opentype");
   font-weight: 800;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -46,6 +17,7 @@
     url("../fonts/SharpSans/SharpSansDispNo1-Medium.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -56,6 +28,7 @@
     url("../fonts/SharpSans/SharpSansDispNo1-MediumIt.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -66,4 +39,5 @@
     url("../fonts/SharpSans/SharpSansDispNo1-BoldIt.otf") format("opentype");
   font-weight: 800;
   font-style: normal;
+  font-display: swap;
 }
