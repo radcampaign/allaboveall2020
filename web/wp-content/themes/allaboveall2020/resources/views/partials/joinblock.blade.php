@@ -7,16 +7,14 @@
           <h2>Will you join us to ensure abortion coverage for all?</h2>
         </div>
         <div class="col-lg-5 offset-lg-1">
-          <div class="advocacy-actionwidget" data-domain="p2a.co" data-shorturl="TDvPll3" data-responsive="true" style=""></div>
-            <script>
-            (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = '//p2a.co/js/embed/widget/advocacywidget.min.js';
-            fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'advocacy-actionwidget-code'));
-            </script>
+          <div class="ngp-form"
+             data-form-url="https://secure.everyaction.com/v1/Forms/EaU4-RZGGkqjD9XGZBWK5Q2"
+             data-fastaction-endpoint="https://fastaction.ngpvan.com"
+             data-inline-errors="true"
+             data-fastaction-nologin="true"
+             data-databag="everybody"
+                  data-mobile-autofocus="false">
+          </div>
         </div>
       </div>
     </div>

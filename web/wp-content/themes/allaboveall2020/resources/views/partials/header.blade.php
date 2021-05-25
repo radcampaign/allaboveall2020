@@ -9,17 +9,18 @@
       <div class="col-lg-8">
         <div class="header-top">
           <h2 class="head-title pl-2 mb-0">Be Bold. Join Us.</h2>
-            <div class="advocacy-actionwidget" data-domain="p2a.co" data-shorturl="0jDkAtu"  style=" width: 500px; height: 50px;"></div>
-              <script>
-              (function(d, s, id) {
-              var js, fjs = d.getElementsByTagName(s)[0];
-              if (d.getElementById(id)) return;
-              js = d.createElement(s); js.id = id;
-              js.src = '//p2a.co/js/embed/widget/advocacywidget.min.js';
-              fjs.parentNode.insertBefore(js, fjs);
-              }(document, 'script', 'advocacy-actionwidget-code'));
-              </script>
-
+            <link rel='preload' href='https://d3rse9xjbp8270.cloudfront.net/at.js' as='script' crossorigin='anonymous'>
+             <link rel='preload' href='https://d3rse9xjbp8270.cloudfront.net/at.min.css' as='style'>
+             <script type='text/javascript' src='https://d3rse9xjbp8270.cloudfront.net/at.js' crossorigin='anonymous'></script>
+             <div class="ngp-form"
+                 data-form-url="https://secure.everyaction.com/v1/Forms/VUnYfh_G60a98wum7ljGMg2"
+                 data-fastaction-endpoint="https://fastaction.ngpvan.com"
+                 data-inline-errors="true"
+                 data-fastaction-nologin="true"
+                 data-databag-endpoint="https://profile.ngpvan.com"
+                 data-databag="everybody"
+                      data-mobile-autofocus="false">
+            </div>
         </div>
         <div class="mobile-logo">
           <a class="navbar-brand" href="{{ home_url('/') }}">

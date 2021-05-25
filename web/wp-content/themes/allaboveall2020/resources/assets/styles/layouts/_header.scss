@@ -21,7 +21,6 @@
   position: relative;
   padding-left: 0.5rem;
   margin-bottom: 3rem;
-  justify-content: flex-end;
 
   @include media-breakpoint-down(md) {
     display: none;
@@ -29,14 +28,14 @@
 
   .head-title {
     margin-top: 0;
-    flex: 0 0 37.5%;
+    flex: 0 0 30%;
     font-family: $font-primary-bold;
     font-size: 1.5rem;
     color: black;
   }
 
   .advocacy-actionwidget {
-    flex: 0 0 60%;
+    flex: 0 0 70%;
     z-index: 99;
     box-shadow: none !important;
     border: none !important;

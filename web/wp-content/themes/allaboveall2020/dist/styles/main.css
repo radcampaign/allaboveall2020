@@ -17227,6 +17227,159 @@ blockquote {
   width: 100%;
 }
 
+/* line 114, resources/assets/styles/components/_forms.scss */
+
+.header-top .ngp-form {
+  margin: 0 !important;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 70%;
+          flex: 0 0 70%;
+  z-index: 99;
+}
+
+/* line 121, resources/assets/styles/components/_forms.scss */
+
+.at-form .at-title {
+  display: none;
+}
+
+/* line 125, resources/assets/styles/components/_forms.scss */
+
+.at-form h1 {
+  margin-top: 0;
+  font-size: 2rem;
+}
+
+/* line 130, resources/assets/styles/components/_forms.scss */
+
+.at-form .at-form-submit .at-submit {
+  float: none;
+}
+
+/* line 134, resources/assets/styles/components/_forms.scss */
+
+.at-form .at-legend {
+  display: none;
+}
+
+/* line 138, resources/assets/styles/components/_forms.scss */
+
+.at-form input,
+.at-form select {
+  border-radius: 0 !important;
+}
+
+/* line 143, resources/assets/styles/components/_forms.scss */
+
+.at-form .btn-at-primary {
+  background: #00c214 !important;
+  color: black !important;
+  border-radius: 0;
+  padding: 1rem 2rem;
+  margin: 0;
+}
+
+/* line 150, resources/assets/styles/components/_forms.scss */
+
+.at-form .btn-at-primary:hover {
+  color: white !important;
+  background: black !important;
+}
+
+/* line 158, resources/assets/styles/components/_forms.scss */
+
+.header-top .at-form form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+/* line 161, resources/assets/styles/components/_forms.scss */
+
+.header-top .at-form form .at-fields {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+/* line 164, resources/assets/styles/components/_forms.scss */
+
+.header-top .at-form form .at-fields .at-text {
+  min-width: 0;
+  color: white;
+  margin-top: -17px;
+  max-width: 85%;
+}
+
+/* line 170, resources/assets/styles/components/_forms.scss */
+
+.header-top .at-form form .at-fields .at-text input {
+  border: none;
+  border-bottom: 3px solid black;
+}
+
+/* line 177, resources/assets/styles/components/_forms.scss */
+
+.header-top .at-form form .UpdateMyProfile {
+  display: none;
+}
+
+/* line 181, resources/assets/styles/components/_forms.scss */
+
+.header-top .at-form form .at-form-submit {
+  position: absolute;
+  top: 0;
+  right: 65px;
+}
+
+/* line 186, resources/assets/styles/components/_forms.scss */
+
+.header-top .at-form form .at-form-submit .btn-at-primary {
+  background: #42e8c8;
+  color: black;
+  padding: 0;
+  height: 40px;
+  width: 40px;
+}
+
+/* line 193, resources/assets/styles/components/_forms.scss */
+
+.header-top .at-form form .at-form-submit .btn-at-primary:hover {
+  color: black;
+  background: #00c214;
+}
+
+/* line 203, resources/assets/styles/components/_forms.scss */
+
+.join-embed h1 {
+  display: none;
+}
+
+/* line 207, resources/assets/styles/components/_forms.scss */
+
+.join-embed .at-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+}
+
+/* line 211, resources/assets/styles/components/_forms.scss */
+
+.join-embed .at-row label {
+  min-width: 0;
+  -webkit-box-flex: 50%;
+      -ms-flex: 50%;
+          flex: 50%;
+}
+
+/* line 216, resources/assets/styles/components/_forms.scss */
+
+.join-embed .at-row .at-text small {
+  display: none;
+}
+
 /**
  * WordPress Generated Classes
  * @see http://codex.wordpress.org/CSS#WordPress_Generated_Classes
@@ -17316,9 +17469,6 @@ blockquote {
   position: relative;
   padding-left: 0.5rem;
   margin-bottom: 3rem;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
 }
 
 @media (max-width: 991.98px) {
@@ -17329,31 +17479,31 @@ blockquote {
   }
 }
 
-/* line 30, resources/assets/styles/layouts/_header.scss */
+/* line 29, resources/assets/styles/layouts/_header.scss */
 
 .header-top .head-title {
   margin-top: 0;
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 37.5%;
-          flex: 0 0 37.5%;
+      -ms-flex: 0 0 30%;
+          flex: 0 0 30%;
   font-family: "SharpSans-Bold", sans-serif;
   font-size: 1.5rem;
   color: black;
 }
 
-/* line 38, resources/assets/styles/layouts/_header.scss */
+/* line 37, resources/assets/styles/layouts/_header.scss */
 
 .header-top .advocacy-actionwidget {
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 60%;
-          flex: 0 0 60%;
+      -ms-flex: 0 0 70%;
+          flex: 0 0 70%;
   z-index: 99;
   -webkit-box-shadow: none !important;
           box-shadow: none !important;
   border: none !important;
 }
 
-/* line 44, resources/assets/styles/layouts/_header.scss */
+/* line 43, resources/assets/styles/layouts/_header.scss */
 
 .header-top .advocacy-actionwidget iframe {
   min-height: 50px !important;
@@ -17362,7 +17512,7 @@ blockquote {
 }
 
 @media (max-width: 991.98px) {
-  /* line 38, resources/assets/styles/layouts/_header.scss */
+  /* line 37, resources/assets/styles/layouts/_header.scss */
 
   .header-top .advocacy-actionwidget {
     -webkit-box-flex: 0;
@@ -17371,28 +17521,28 @@ blockquote {
   }
 }
 
-/* line 56, resources/assets/styles/layouts/_header.scss */
+/* line 55, resources/assets/styles/layouts/_header.scss */
 
 .desktop-logo {
   display: block;
 }
 
 @media (max-width: 991.98px) {
-  /* line 56, resources/assets/styles/layouts/_header.scss */
+  /* line 55, resources/assets/styles/layouts/_header.scss */
 
   .desktop-logo {
     display: none;
   }
 }
 
-/* line 64, resources/assets/styles/layouts/_header.scss */
+/* line 63, resources/assets/styles/layouts/_header.scss */
 
 .mobile-logo {
   display: none;
 }
 
 @media (max-width: 991.98px) {
-  /* line 64, resources/assets/styles/layouts/_header.scss */
+  /* line 63, resources/assets/styles/layouts/_header.scss */
 
   .mobile-logo {
     display: -webkit-box;
@@ -17405,7 +17555,7 @@ blockquote {
   }
 }
 
-/* line 74, resources/assets/styles/layouts/_header.scss */
+/* line 73, resources/assets/styles/layouts/_header.scss */
 
 .header-bottom {
   display: -webkit-box;
@@ -17424,7 +17574,7 @@ blockquote {
 }
 
 @media (max-width: 991.98px) {
-  /* line 74, resources/assets/styles/layouts/_header.scss */
+  /* line 73, resources/assets/styles/layouts/_header.scss */
 
   .header-bottom {
     max-height: unset;
@@ -17437,7 +17587,7 @@ blockquote {
   }
 }
 
-/* line 92, resources/assets/styles/layouts/_header.scss */
+/* line 91, resources/assets/styles/layouts/_header.scss */
 
 .page-header {
   padding: 1.5rem;
@@ -17446,7 +17596,7 @@ blockquote {
   position: relative;
 }
 
-/* line 98, resources/assets/styles/layouts/_header.scss */
+/* line 97, resources/assets/styles/layouts/_header.scss */
 
 .page-header h1 {
   text-transform: unset;
@@ -17456,7 +17606,7 @@ blockquote {
   font-family: "SharpSans-Bold", sans-serif;
 }
 
-/* line 106, resources/assets/styles/layouts/_header.scss */
+/* line 105, resources/assets/styles/layouts/_header.scss */
 
 .page-header .header-asterisk {
   position: absolute;
@@ -17469,20 +17619,20 @@ blockquote {
 }
 
 @media (max-width: 991.98px) {
-  /* line 106, resources/assets/styles/layouts/_header.scss */
+  /* line 105, resources/assets/styles/layouts/_header.scss */
 
   .page-header .header-asterisk {
     display: none;
   }
 }
 
-/* line 121, resources/assets/styles/layouts/_header.scss */
+/* line 120, resources/assets/styles/layouts/_header.scss */
 
 .home .page-header {
   display: none;
 }
 
-/* line 126, resources/assets/styles/layouts/_header.scss */
+/* line 125, resources/assets/styles/layouts/_header.scss */
 
 .header-social {
   display: -webkit-box;
@@ -17493,21 +17643,21 @@ blockquote {
 }
 
 @media (max-width: 991.98px) {
-  /* line 131, resources/assets/styles/layouts/_header.scss */
+  /* line 130, resources/assets/styles/layouts/_header.scss */
 
   .header-social.social-desktop {
     display: none;
   }
 }
 
-/* line 137, resources/assets/styles/layouts/_header.scss */
+/* line 136, resources/assets/styles/layouts/_header.scss */
 
 .header-social.social-mobile {
   display: none;
 }
 
 @media (max-width: 991.98px) {
-  /* line 137, resources/assets/styles/layouts/_header.scss */
+  /* line 136, resources/assets/styles/layouts/_header.scss */
 
   .header-social.social-mobile {
     margin-top: 1rem;
@@ -17520,7 +17670,7 @@ blockquote {
   }
 }
 
-/* line 147, resources/assets/styles/layouts/_header.scss */
+/* line 146, resources/assets/styles/layouts/_header.scss */
 
 .header-social li {
   list-style: none;
@@ -17528,38 +17678,38 @@ blockquote {
   padding-right: 1rem;
 }
 
-/* line 152, resources/assets/styles/layouts/_header.scss */
+/* line 151, resources/assets/styles/layouts/_header.scss */
 
 .header-social li:first-child {
   padding: 0;
 }
 
-/* line 156, resources/assets/styles/layouts/_header.scss */
+/* line 155, resources/assets/styles/layouts/_header.scss */
 
 .header-social li:nth-child(3) {
   padding: 0 1rem 0 0;
 }
 
-/* line 160, resources/assets/styles/layouts/_header.scss */
+/* line 159, resources/assets/styles/layouts/_header.scss */
 
 .header-social li:last-child {
   border-left: 1px solid #ccc;
 }
 
-/* line 164, resources/assets/styles/layouts/_header.scss */
+/* line 163, resources/assets/styles/layouts/_header.scss */
 
 .header-social li a {
   color: black;
 }
 
-/* line 167, resources/assets/styles/layouts/_header.scss */
+/* line 166, resources/assets/styles/layouts/_header.scss */
 
 .header-social li a:hover {
   color: #00c214;
   background: transparent;
 }
 
-/* line 175, resources/assets/styles/layouts/_header.scss */
+/* line 174, resources/assets/styles/layouts/_header.scss */
 
 .headline-asterisk {
   position: absolute;

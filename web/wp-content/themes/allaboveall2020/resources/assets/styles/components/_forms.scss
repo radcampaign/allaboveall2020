@@ -110,3 +110,111 @@
     }
   }
 }
+
+.header-top .ngp-form {
+  margin: 0 !important;
+  flex: 0 0 70%;
+  z-index: 99;
+}
+
+.at-form {
+  .at-title {
+    display: none;
+  }
+
+  h1 {
+    margin-top: 0;
+    font-size: 2rem;
+  }
+
+  .at-form-submit .at-submit {
+    float: none;
+  }
+
+  .at-legend {
+    display: none;
+  }
+
+  input,
+  select {
+    border-radius: 0 !important;
+  }
+
+  .btn-at-primary {
+    background: $primary-color !important;
+    color: black !important;
+    border-radius: 0;
+    padding: 1rem 2rem;
+    margin: 0;
+
+    &:hover {
+      color: white !important;
+      background: black !important;
+    }
+  }
+}
+
+.header-top .at-form {
+  form {
+    display: flex;
+
+    .at-fields {
+      display: flex;
+
+      .at-text {
+        min-width: 0;
+        color: white;
+        margin-top: -17px;
+        max-width: 85%;
+
+        input {
+          border: none;
+          border-bottom: 3px solid black;
+        }
+      }
+    }
+
+    .UpdateMyProfile {
+      display: none;
+    }
+
+    .at-form-submit {
+      position: absolute;
+      top: 0;
+      right: 65px;
+
+      .btn-at-primary {
+        background: $secondary-color;
+        color: black;
+        padding: 0;
+        height: 40px;
+        width: 40px;
+
+        &:hover {
+          color: black;
+          background: $primary-color;
+        }
+      }
+    }
+  }
+}
+
+.join-embed {
+  h1 {
+    display: none;
+  }
+
+  .at-row {
+    display: flex;
+    flex-wrap: nowrap;
+
+    label {
+      min-width: 0;
+      flex: 50%;
+    }
+
+    .at-text small {
+      display: none;
+    }
+  }
+}

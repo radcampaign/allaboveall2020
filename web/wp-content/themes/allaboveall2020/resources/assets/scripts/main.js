@@ -60,6 +60,8 @@ $(document).ready(function() {
   if(! $('#campaignResourceUpdateRow').children().length > 0 ) {
     $('#campaignResourceUpdateRow').parents('.bg-gray').addClass('hide');
   }
+
+  $('.PostalCode input').attr('placeholder', 'zipcode');
 });
 
 // Load Events
