@@ -154,6 +154,15 @@
       background: black !important;
     }
   }
+
+  .at-fieldset.ContactInformation {
+    padding-bottom: 0;
+  }
+
+  .FooterHtml.at-markup {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .header-top .at-form {
@@ -186,7 +195,7 @@
       right: 65px;
 
       .btn-at-primary {
-        background: $secondary-color;
+        background: $secondary-color !important;
         color: black;
         padding: 0;
         height: 37px;
@@ -194,8 +203,8 @@
         margin-top: 4px !important;
 
         &:hover {
-          color: black;
-          background: $primary-color;
+          color: $secondary-color !important;
+          background: black !important;
         }
       }
     }
