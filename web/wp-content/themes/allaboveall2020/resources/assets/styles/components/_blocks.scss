@@ -266,6 +266,10 @@
 
 .post-state,
 .post-campaign {
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+
   text-transform: uppercase;
   margin-top: 1rem;
 

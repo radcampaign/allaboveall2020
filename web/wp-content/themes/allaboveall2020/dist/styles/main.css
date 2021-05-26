@@ -17320,9 +17320,10 @@ blockquote {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  font-family: "SharpSans-Regular", sans-serif !important;
 }
 
-/* line 181, resources/assets/styles/components/_forms.scss */
+/* line 182, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form form .at-fields {
   display: -webkit-box;
@@ -17330,7 +17331,7 @@ blockquote {
   display: flex;
 }
 
-/* line 184, resources/assets/styles/components/_forms.scss */
+/* line 185, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form form .at-fields .at-text {
   min-width: 0;
@@ -17339,20 +17340,20 @@ blockquote {
   max-width: 85%;
 }
 
-/* line 190, resources/assets/styles/components/_forms.scss */
+/* line 191, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form form .at-fields .at-text input {
   border: none !important;
   border-bottom: 2px solid black !important;
 }
 
-/* line 197, resources/assets/styles/components/_forms.scss */
+/* line 198, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form form .UpdateMyProfile {
   display: none;
 }
 
-/* line 201, resources/assets/styles/components/_forms.scss */
+/* line 202, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form form .at-form-submit {
   position: absolute;
@@ -17360,7 +17361,7 @@ blockquote {
   right: 65px;
 }
 
-/* line 206, resources/assets/styles/components/_forms.scss */
+/* line 207, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form form .at-form-submit .btn-at-primary {
   background: #42e8c8 !important;
@@ -17371,28 +17372,28 @@ blockquote {
   margin-top: 4px !important;
 }
 
-/* line 214, resources/assets/styles/components/_forms.scss */
+/* line 215, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form form .at-form-submit .btn-at-primary:hover {
   color: #42e8c8 !important;
   background: black !important;
 }
 
-/* line 225, resources/assets/styles/components/_forms.scss */
+/* line 226, resources/assets/styles/components/_forms.scss */
 
 .join-embed h1,
 .action-embed h1 {
   display: none;
 }
 
-/* line 229, resources/assets/styles/components/_forms.scss */
+/* line 230, resources/assets/styles/components/_forms.scss */
 
 .join-embed header.HeaderHtml,
 .action-embed header.HeaderHtml {
   display: none;
 }
 
-/* line 233, resources/assets/styles/components/_forms.scss */
+/* line 234, resources/assets/styles/components/_forms.scss */
 
 .join-embed .at-row,
 .action-embed .at-row {
@@ -17403,7 +17404,7 @@ blockquote {
       flex-wrap: nowrap;
 }
 
-/* line 237, resources/assets/styles/components/_forms.scss */
+/* line 238, resources/assets/styles/components/_forms.scss */
 
 .join-embed .at-row label,
 .action-embed .at-row label {
@@ -17413,7 +17414,7 @@ blockquote {
           flex: 50%;
 }
 
-/* line 242, resources/assets/styles/components/_forms.scss */
+/* line 243, resources/assets/styles/components/_forms.scss */
 
 .join-embed .at-row .at-text small,
 .action-embed .at-row .at-text small {
@@ -19087,7 +19088,16 @@ body#tinymce {
   margin-top: 1rem;
 }
 
-/* line 272, resources/assets/styles/components/_blocks.scss */
+@media (max-width: 991.98px) {
+  /* line 267, resources/assets/styles/components/_blocks.scss */
+
+  .post-state,
+  .post-campaign {
+    display: none;
+  }
+}
+
+/* line 276, resources/assets/styles/components/_blocks.scss */
 
 .post-state label,
 .post-campaign label {
@@ -19095,7 +19105,7 @@ body#tinymce {
   margin: 0;
 }
 
-/* line 277, resources/assets/styles/components/_blocks.scss */
+/* line 281, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul,
 .post-campaign ul {
@@ -19106,7 +19116,7 @@ body#tinymce {
   margin: 0;
 }
 
-/* line 282, resources/assets/styles/components/_blocks.scss */
+/* line 286, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul li,
 .post-campaign ul li {
@@ -19115,7 +19125,7 @@ body#tinymce {
   padding-bottom: 3px;
 }
 
-/* line 287, resources/assets/styles/components/_blocks.scss */
+/* line 291, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul li a,
 .post-campaign ul li a {
@@ -19126,14 +19136,14 @@ body#tinymce {
   text-decoration: none;
 }
 
-/* line 294, resources/assets/styles/components/_blocks.scss */
+/* line 298, resources/assets/styles/components/_blocks.scss */
 
 .post-state ul li a:hover,
 .post-campaign ul li a:hover {
   background: #00c214;
 }
 
-/* line 302, resources/assets/styles/components/_blocks.scss */
+/* line 306, resources/assets/styles/components/_blocks.scss */
 
 .bold-block {
   padding: 5rem 0;
@@ -19141,7 +19151,7 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 302, resources/assets/styles/components/_blocks.scss */
+  /* line 306, resources/assets/styles/components/_blocks.scss */
 
   .bold-block {
     display: relative;
@@ -19150,7 +19160,7 @@ body#tinymce {
   }
 }
 
-/* line 312, resources/assets/styles/components/_blocks.scss */
+/* line 316, resources/assets/styles/components/_blocks.scss */
 
 .bold-block h2 {
   margin-top: 0;
@@ -19158,14 +19168,14 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 317, resources/assets/styles/components/_blocks.scss */
+  /* line 321, resources/assets/styles/components/_blocks.scss */
 
   .bold-block .top-text {
     padding: 0 1rem;
   }
 }
 
-/* line 323, resources/assets/styles/components/_blocks.scss */
+/* line 327, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block {
   margin: 2rem 0;
@@ -19175,7 +19185,7 @@ body#tinymce {
   position: relative;
 }
 
-/* line 328, resources/assets/styles/components/_blocks.scss */
+/* line 332, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .letter {
   background: black;
@@ -19194,7 +19204,7 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 328, resources/assets/styles/components/_blocks.scss */
+  /* line 332, resources/assets/styles/components/_blocks.scss */
 
   .bold-block .letter-block .letter {
     right: 0;
@@ -19202,20 +19212,20 @@ body#tinymce {
   }
 }
 
-/* line 348, resources/assets/styles/components/_blocks.scss */
+/* line 352, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .letter .letter-link {
   text-decoration: none;
   color: white;
 }
 
-/* line 352, resources/assets/styles/components/_blocks.scss */
+/* line 356, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .letter .letter-link:hover {
   background: black;
 }
 
-/* line 358, resources/assets/styles/components/_blocks.scss */
+/* line 362, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content {
   width: 90%;
@@ -19228,7 +19238,7 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 358, resources/assets/styles/components/_blocks.scss */
+  /* line 362, resources/assets/styles/components/_blocks.scss */
 
   .bold-block .letter-block .content {
     margin-left: 5%;
@@ -19236,14 +19246,14 @@ body#tinymce {
     margin-top: 4rem;
   }
 
-  /* line 372, resources/assets/styles/components/_blocks.scss */
+  /* line 376, resources/assets/styles/components/_blocks.scss */
 
   .bold-block .letter-block .content h3 {
     margin-top: 0;
   }
 }
 
-/* line 377, resources/assets/styles/components/_blocks.scss */
+/* line 381, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a {
   text-decoration: none;
@@ -19252,31 +19262,31 @@ body#tinymce {
   letter-spacing: 0.5px;
 }
 
-/* line 383, resources/assets/styles/components/_blocks.scss */
+/* line 387, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a:hover {
   color: black;
 }
 
-/* line 388, resources/assets/styles/components/_blocks.scss */
+/* line 392, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a.btn-black-outline:hover {
   color: white;
 }
 
-/* line 393, resources/assets/styles/components/_blocks.scss */
+/* line 397, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a.btn-white-outline {
   color: white;
 }
 
-/* line 396, resources/assets/styles/components/_blocks.scss */
+/* line 400, resources/assets/styles/components/_blocks.scss */
 
 .bold-block .letter-block .content a.btn-white-outline:hover {
   color: black;
 }
 
-/* line 404, resources/assets/styles/components/_blocks.scss */
+/* line 408, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall {
   background: #00c214;
@@ -19284,7 +19294,7 @@ body#tinymce {
   width: 100%;
 }
 
-/* line 409, resources/assets/styles/components/_blocks.scss */
+/* line 413, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter {
   position: relative;
@@ -19294,7 +19304,7 @@ body#tinymce {
   font-size: 7rem;
 }
 
-/* line 417, resources/assets/styles/components/_blocks.scss */
+/* line 421, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block {
   display: -webkit-box;
@@ -19307,7 +19317,7 @@ body#tinymce {
   background: white;
 }
 
-/* line 423, resources/assets/styles/components/_blocks.scss */
+/* line 427, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block .content {
   color: black;
@@ -19317,13 +19327,13 @@ body#tinymce {
   min-height: unset;
 }
 
-/* line 430, resources/assets/styles/components/_blocks.scss */
+/* line 434, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block .content .font-bold {
   margin-top: 0;
 }
 
-/* line 434, resources/assets/styles/components/_blocks.scss */
+/* line 438, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block .content a {
   color: black;
@@ -19331,14 +19341,14 @@ body#tinymce {
   border-bottom: 2px solid #00c214;
 }
 
-/* line 439, resources/assets/styles/components/_blocks.scss */
+/* line 443, resources/assets/styles/components/_blocks.scss */
 
 .bold-block.bold-tall .letter-block .content a:hover {
   color: #00c214;
   background-color: transparent;
 }
 
-/* line 449, resources/assets/styles/components/_blocks.scss */
+/* line 453, resources/assets/styles/components/_blocks.scss */
 
 .background-image {
   background-image: url(/wp-content/themes/allaboveall2020/dist/images/bg-image.jpg);
@@ -19347,14 +19357,14 @@ body#tinymce {
   padding: 2rem;
 }
 
-/* line 456, resources/assets/styles/components/_blocks.scss */
+/* line 460, resources/assets/styles/components/_blocks.scss */
 
 .box-shadow {
   -webkit-box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.75);
   box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.75);
 }
 
-/* line 462, resources/assets/styles/components/_blocks.scss */
+/* line 466, resources/assets/styles/components/_blocks.scss */
 
 .black-box {
   padding: 2rem;
@@ -19365,13 +19375,13 @@ body#tinymce {
   text-align: left;
 }
 
-/* line 470, resources/assets/styles/components/_blocks.scss */
+/* line 474, resources/assets/styles/components/_blocks.scss */
 
 .black-box h3 {
   margin-bottom: 2rem;
 }
 
-/* line 475, resources/assets/styles/components/_blocks.scss */
+/* line 479, resources/assets/styles/components/_blocks.scss */
 
 .list-asterisk-green ul {
   list-style: none;
@@ -19379,7 +19389,7 @@ body#tinymce {
   font-size: 1.15rem;
 }
 
-/* line 480, resources/assets/styles/components/_blocks.scss */
+/* line 484, resources/assets/styles/components/_blocks.scss */
 
 .list-asterisk-green ul li {
   position: relative;
@@ -19387,7 +19397,7 @@ body#tinymce {
   margin-top: 1rem;
 }
 
-/* line 485, resources/assets/styles/components/_blocks.scss */
+/* line 489, resources/assets/styles/components/_blocks.scss */
 
 .list-asterisk-green ul li::before {
   content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDAyIDc5LjE2NDQ4OCwgMjAyMC8wNy8xMC0yMjowNjo1MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDUzRTlGQjk5Mzk4MTFFQkI5OTlEMzM3RUY2REM4RDkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDUzRTlGQkE5Mzk4MTFFQkI5OTlEMzM3RUY2REM4RDkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NjMwODNBNDkzMUQxMUVCQjk5OUQzMzdFRjZEQzhEOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowNTNFOUZCODkzOTgxMUVCQjk5OUQzMzdFRjZEQzhEOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrmVDD4AAATwSURBVHjavFZ7bBRFGP/2dXfttbTpg5c10McVEarGP6SNIq2NgVwMRoom1viopsUroVBMSypa8QittBEiCRRrogkxEoOamKgJaMQY36DBRCVWIDEhPmitpPTa3u7tjt83t3u9u929tmCYy+zN7M58v5lvfvP7PoA5ltyqZbfXD58y6kdO83rPpe+MnBWBqtnMbW5uBsYYrzJcTRH4z2rPfpowPfjqgDmaANdSRJtJRVZuOdL/XmVvxwG4xrKsb8ehqjf2HhNkSUr/lrJjUVE8Kw6H31zcuP4BphtgRKNT53Yd6HTar1vPKoHd7fuWbn0iJIgiMC125KeWnY+zmB6zAYtej3fl4J63FzWuv1+7PEYHAuVdT3fQt3RwltJmjqBlnS3tsfEIDmBQ8uTGxisTEa/wy0gjflZTXM0Mw4j+PfIHGAYHxT7o45McvGJXW18KsTKwxgLVxye4DW4Lvaeibewz2xmjO7RfO/e2Xugb3C/n+IG7iBkQQwPlXaEEOBqJCUn0onVYLkzeKc0lG2TrfO9A/5+9g204RHNl9W/P799O9tHAdlq1YehAhmjnxlR08q93jx+lnQgmX6jNVE0t39nakwDFd6IogZSTxUGto6KFWEVyIsboyW9O4JnPK6yrrkFPxF2m6VBQe8ca340Ly3wlC0sRmFthqqr6A0tvKmna2IQL42PjO81G0MP9yfyorq6GYDDoDpwEnldYV8PBiSRkNGd5RQDdKzIwOLUkWZH8y8sDhqbyMdPuTQWlkp+fD7m5uTA0NDSzCgSe27anbMemZ5mmcamz+GWxmdo6U4EWIgoi6QCc7xkIX3jp1RcyS1ClfKvrV1NYy7u39M0P1q3T0ZUWiROLwHaWcgNIopeuJAx/+OkH53Yf7BL4KgT7xnCaIssI/GURs+kBS2rTDUDygA+tMnNmYgy1RVi15BDk+SpxqAZ6NKoKHsVDuMleSdx3RowWdNnmbCGtLeLD60FQI105zAdLERPRh2NtWm4DEeS5BYa5vJ8pSLCkhTtVg4ucCqmqkVqTRM2YUlV+/YgD7pXJ0HT5Nndymb9Wfx+s9qwDlU17ljnsHWnw7ydfnJiRXMh8GYZiP2b0ySZ/D9yFoBpzBEuxqapQHKy9b+zM2R8yXScpk4DwssW/D1qyOyBqgtL6vQKY2mEelgBLFmwAj5iPrNaRgwyK1969BmOwf/Szbz92MisrSgZgAn0qux0mWByIRsoI+nn0I5gvlYIC5EqASVX1fp9/vGDlqgAz4vJKSldUX3OnGzgGQhfgdFBS5WwEGYiE4ejky/BgVht/x8klSqOhk0ExoowX3luzOlnbC9PAa2trIRwOQ0NDgwvomWIGX6GwkLjQP/U3++MxuQKVjt59bVYaUyrebIXFtdGzrP6f06x+5BT/p74VUjeHQg5ZpozO25rzCjyaFUpxbxZu67WJfjgY6TQvoGwTElmUaYIZUsFKBKZDaqgjEp3yqcPaM1ZMng6QRP8icTFXKmZ+SQd1u0hJ+Q+BUzIhYVjk8ZciFkZQz4KiRdgX7FmmyqLQPfYQvD95DHLF+JnaQVOzW5cs1wKn8KjkzYOLr7/z1u/beh7GTEV1zkA0VKgXrzyC7JXhknHREdSe7TkWAsdo5fMUFxT/3Nr9GL7SkWgZEvoYwneNbYD/oVAON+uE/nqV6wpsJQ9U/hNgAIneegCPl8u0AAAAAElFTkSuQmCC);
@@ -19396,26 +19406,26 @@ body#tinymce {
   left: 0;
 }
 
-/* line 494, resources/assets/styles/components/_blocks.scss */
+/* line 498, resources/assets/styles/components/_blocks.scss */
 
 .tax-list {
   margin-top: 2rem;
 }
 
-/* line 498, resources/assets/styles/components/_blocks.scss */
+/* line 502, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item {
   margin-bottom: 2rem;
 }
 
-/* line 501, resources/assets/styles/components/_blocks.scss */
+/* line 505, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item .excerpt {
   color: #666;
   font-size: 1.15rem;
 }
 
-/* line 506, resources/assets/styles/components/_blocks.scss */
+/* line 510, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item .meta {
   display: -webkit-box;
@@ -19426,7 +19436,7 @@ body#tinymce {
   font-size: 1rem;
 }
 
-/* line 512, resources/assets/styles/components/_blocks.scss */
+/* line 516, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item .meta .name {
   margin-left: 1rem;
@@ -19434,20 +19444,20 @@ body#tinymce {
   border-left: 1px solid #999;
 }
 
-/* line 519, resources/assets/styles/components/_blocks.scss */
+/* line 523, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item h4 {
   font-size: 1.25rem;
 }
 
-/* line 522, resources/assets/styles/components/_blocks.scss */
+/* line 526, resources/assets/styles/components/_blocks.scss */
 
 .tax-list-item h4 svg {
   margin-left: 0.5rem;
   max-width: 0.875rem;
 }
 
-/* line 529, resources/assets/styles/components/_blocks.scss */
+/* line 533, resources/assets/styles/components/_blocks.scss */
 
 .two-col-flex {
   display: -webkit-box;
@@ -19458,7 +19468,7 @@ body#tinymce {
           align-items: center;
 }
 
-/* line 533, resources/assets/styles/components/_blocks.scss */
+/* line 537, resources/assets/styles/components/_blocks.scss */
 
 .two-col-flex .left,
 .two-col-flex .right {
@@ -19467,14 +19477,14 @@ body#tinymce {
           flex: 1;
 }
 
-/* line 538, resources/assets/styles/components/_blocks.scss */
+/* line 542, resources/assets/styles/components/_blocks.scss */
 
 .two-col-flex .text {
   padding: 2rem 5rem;
 }
 
 @media (max-width: 991.98px) {
-  /* line 538, resources/assets/styles/components/_blocks.scss */
+  /* line 542, resources/assets/styles/components/_blocks.scss */
 
   .two-col-flex .text {
     padding: 2rem 2rem 0;
@@ -19482,40 +19492,40 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 529, resources/assets/styles/components/_blocks.scss */
+  /* line 533, resources/assets/styles/components/_blocks.scss */
 
   .two-col-flex {
     display: block;
   }
 
-  /* line 549, resources/assets/styles/components/_blocks.scss */
+  /* line 553, resources/assets/styles/components/_blocks.scss */
 
   .two-col-flex .text {
     padding-bottom: 2rem;
   }
 }
 
-/* line 555, resources/assets/styles/components/_blocks.scss */
+/* line 559, resources/assets/styles/components/_blocks.scss */
 
 .map-left {
   padding-right: 5rem;
 }
 
-/* line 558, resources/assets/styles/components/_blocks.scss */
+/* line 562, resources/assets/styles/components/_blocks.scss */
 
 .map-left h3 {
   margin-top: 0;
 }
 
 @media (max-width: 991.98px) {
-  /* line 555, resources/assets/styles/components/_blocks.scss */
+  /* line 559, resources/assets/styles/components/_blocks.scss */
 
   .map-left {
     padding: 0 2rem 2rem;
   }
 }
 
-/* line 566, resources/assets/styles/components/_blocks.scss */
+/* line 570, resources/assets/styles/components/_blocks.scss */
 
 .map-left .select {
   margin-top: 1rem;
@@ -19524,7 +19534,7 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 566, resources/assets/styles/components/_blocks.scss */
+  /* line 570, resources/assets/styles/components/_blocks.scss */
 
   .map-left .select {
     max-width: 80%;
@@ -19532,7 +19542,7 @@ body#tinymce {
   }
 }
 
-/* line 577, resources/assets/styles/components/_blocks.scss */
+/* line 581, resources/assets/styles/components/_blocks.scss */
 
 .map-left .state-map {
   margin-top: 1rem;
@@ -19540,14 +19550,14 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 577, resources/assets/styles/components/_blocks.scss */
+  /* line 581, resources/assets/styles/components/_blocks.scss */
 
   .map-left .state-map {
     max-width: 100%;
   }
 }
 
-/* line 587, resources/assets/styles/components/_blocks.scss */
+/* line 591, resources/assets/styles/components/_blocks.scss */
 
 .select-page {
   width: 50%;
@@ -19555,20 +19565,20 @@ body#tinymce {
 }
 
 @media (max-width: 991.98px) {
-  /* line 587, resources/assets/styles/components/_blocks.scss */
+  /* line 591, resources/assets/styles/components/_blocks.scss */
 
   .select-page {
     width: 100%;
   }
 }
 
-/* line 596, resources/assets/styles/components/_blocks.scss */
+/* line 600, resources/assets/styles/components/_blocks.scss */
 
 #mapbase {
   margin-bottom: 2rem;
 }
 
-/* line 600, resources/assets/styles/components/_blocks.scss */
+/* line 604, resources/assets/styles/components/_blocks.scss */
 
 .stats-trio {
   display: -webkit-box;
@@ -19585,19 +19595,19 @@ body#tinymce {
   font-family: "SharpSans-Bold", sans-serif;
 }
 
-/* line 608, resources/assets/styles/components/_blocks.scss */
+/* line 612, resources/assets/styles/components/_blocks.scss */
 
 .stats-trio .num-large {
   font-size: 4rem;
 }
 
-/* line 612, resources/assets/styles/components/_blocks.scss */
+/* line 616, resources/assets/styles/components/_blocks.scss */
 
 .stats-trio .text-mid {
   margin: 0 1rem;
 }
 
-/* line 617, resources/assets/styles/components/_blocks.scss */
+/* line 621, resources/assets/styles/components/_blocks.scss */
 
 .stats-large-num {
   text-align: center;
@@ -19606,7 +19616,7 @@ body#tinymce {
   font-family: "SharpSans-Bold", sans-serif;
 }
 
-/* line 624, resources/assets/styles/components/_blocks.scss */
+/* line 628, resources/assets/styles/components/_blocks.scss */
 
 .document-download {
   border: 2px solid black;
@@ -19617,19 +19627,19 @@ body#tinymce {
   display: inline-block;
 }
 
-/* line 633, resources/assets/styles/components/_blocks.scss */
+/* line 637, resources/assets/styles/components/_blocks.scss */
 
 .post-state {
   margin-top: 2rem;
 }
 
-/* line 638, resources/assets/styles/components/_blocks.scss */
+/* line 642, resources/assets/styles/components/_blocks.scss */
 
 .state-box .select-page {
   margin: 2rem 0;
 }
 
-/* line 644, resources/assets/styles/components/_blocks.scss */
+/* line 648, resources/assets/styles/components/_blocks.scss */
 
 .action-embed .advocacy-actionwidget {
   -webkit-box-shadow: none !important;
@@ -19638,62 +19648,62 @@ body#tinymce {
   border: none !important;
 }
 
-/* line 651, resources/assets/styles/components/_blocks.scss */
+/* line 655, resources/assets/styles/components/_blocks.scss */
 
 .action-item {
   padding: 0 15px 0 0;
 }
 
-/* line 654, resources/assets/styles/components/_blocks.scss */
+/* line 658, resources/assets/styles/components/_blocks.scss */
 
 .action-item .img {
   padding: 0;
 }
 
-/* line 658, resources/assets/styles/components/_blocks.scss */
+/* line 662, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text {
   padding: 0;
 }
 
-/* line 661, resources/assets/styles/components/_blocks.scss */
+/* line 665, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text .text-inner {
   padding: 3rem 5rem;
   color: white;
 }
 
-/* line 666, resources/assets/styles/components/_blocks.scss */
+/* line 670, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text .text-inner h2 .action-h2-link {
   color: white;
 }
 
-/* line 669, resources/assets/styles/components/_blocks.scss */
+/* line 673, resources/assets/styles/components/_blocks.scss */
 
 .action-item .text .text-inner h2 .action-h2-link:hover {
   color: black;
 }
 
-/* line 678, resources/assets/styles/components/_blocks.scss */
+/* line 682, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block {
   padding: 1rem;
 }
 
-/* line 679, resources/assets/styles/components/_blocks.scss */
+/* line 683, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block.tweet-block-white {
   border: 2px solid white;
 }
 
-/* line 683, resources/assets/styles/components/_blocks.scss */
+/* line 687, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block.tweet-block-black {
   border: 2px solid black;
 }
 
-/* line 689, resources/assets/styles/components/_blocks.scss */
+/* line 693, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .tweet-row {
   -webkit-box-align: center;
@@ -19701,34 +19711,34 @@ body#tinymce {
           align-items: center;
 }
 
-/* line 693, resources/assets/styles/components/_blocks.scss */
+/* line 697, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .col-lg-3 {
   text-align: center;
 }
 
-/* line 696, resources/assets/styles/components/_blocks.scss */
+/* line 700, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .col-lg-3 .fa-twitter {
   font-size: 3rem;
   color: #00c214;
 }
 
-/* line 702, resources/assets/styles/components/_blocks.scss */
+/* line 706, resources/assets/styles/components/_blocks.scss */
 
 .tweet-block .col-lg-9 {
   padding-left: 0;
 }
 
 @media (max-width: 991.98px) {
-  /* line 702, resources/assets/styles/components/_blocks.scss */
+  /* line 706, resources/assets/styles/components/_blocks.scss */
 
   .tweet-block .col-lg-9 {
     padding-left: 15px;
   }
 }
 
-/* line 713, resources/assets/styles/components/_blocks.scss */
+/* line 717, resources/assets/styles/components/_blocks.scss */
 
 .full-news-resources .two-col ul {
   display: -webkit-box;
@@ -19738,7 +19748,7 @@ body#tinymce {
       flex-wrap: wrap;
 }
 
-/* line 717, resources/assets/styles/components/_blocks.scss */
+/* line 721, resources/assets/styles/components/_blocks.scss */
 
 .full-news-resources .two-col ul li {
   -webkit-box-flex: 50%;
