@@ -166,6 +166,15 @@
 }
 
 .header-top .at-form {
+  .thankYou {
+    text-transform: capitalize;
+    padding-top: 10px;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
   form {
     display: flex;
 
@@ -211,8 +220,13 @@
   }
 }
 
-.join-embed {
+.join-embed,
+.action-embed {
   h1 {
+    display: none;
+  }
+
+  header.HeaderHtml {
     display: none;
   }
 
