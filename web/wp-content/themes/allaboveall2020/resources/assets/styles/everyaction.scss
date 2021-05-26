@@ -1,0 +1,16 @@
+@import "common/variables";
+
+/** Import everything from autoload */
+@import "./autoload/**/*";
+
+/** Import theme styles */
+@import "common/global";
+@import "common/fonts";
+@import "custom/typography";
+@import "components/forms";
+@import "components/wp-classes";
+@import "layouts/header";
+@import "layouts/footer";
+@import "layouts/pages";
+@import "custom/buttons";
+@import "custom/navigation";

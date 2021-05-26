@@ -626,8 +626,7 @@ mark,
 
 /* line 84, node_modules/bootstrap/scss/_type.scss */
 
-.list-unstyled,
-.comment-list {
+.list-unstyled {
   padding-left: 0;
   list-style: none;
 }
@@ -3016,10 +3015,6 @@ pre code {
 /* line 7, node_modules/bootstrap/scss/_forms.scss */
 
 .form-control,
-.comment-form input[type="text"],
-.comment-form input[type="email"],
-.comment-form input[type="url"],
-.comment-form textarea,
 .search-form .search-field {
   display: block;
   width: 100%;
@@ -3044,10 +3039,6 @@ pre code {
   /* line 7, node_modules/bootstrap/scss/_forms.scss */
 
   .form-control,
-  .comment-form input[type="text"],
-  .comment-form input[type="email"],
-  .comment-form input[type="url"],
-  .comment-form textarea,
   .search-form .search-field {
     -webkit-transition: none;
     -o-transition: none;
@@ -3058,10 +3049,6 @@ pre code {
 /* line 28, node_modules/bootstrap/scss/_forms.scss */
 
 .form-control::-ms-expand,
-.comment-form input[type="text"]::-ms-expand,
-.comment-form input[type="email"]::-ms-expand,
-.comment-form input[type="url"]::-ms-expand,
-.comment-form textarea::-ms-expand,
 .search-form .search-field::-ms-expand {
   background-color: transparent;
   border: 0;
@@ -3070,10 +3057,6 @@ pre code {
 /* line 14, node_modules/bootstrap/scss/mixins/_forms.scss */
 
 .form-control:focus,
-.comment-form input:focus[type="text"],
-.comment-form input:focus[type="email"],
-.comment-form input:focus[type="url"],
-.comment-form textarea:focus,
 .search-form .search-field:focus {
   color: #484848;
   background-color: #fff;
@@ -3086,40 +3069,24 @@ pre code {
 /* line 37, node_modules/bootstrap/scss/_forms.scss */
 
 .form-control::-webkit-input-placeholder,
-.comment-form input[type="text"]::-webkit-input-placeholder,
-.comment-form input[type="email"]::-webkit-input-placeholder,
-.comment-form input[type="url"]::-webkit-input-placeholder,
-.comment-form textarea::-webkit-input-placeholder,
 .search-form .search-field::-webkit-input-placeholder {
   color: #666;
   opacity: 1;
 }
 
 .form-control::-moz-placeholder,
-.comment-form input[type="text"]::-moz-placeholder,
-.comment-form input[type="email"]::-moz-placeholder,
-.comment-form input[type="url"]::-moz-placeholder,
-.comment-form textarea::-moz-placeholder,
 .search-form .search-field::-moz-placeholder {
   color: #666;
   opacity: 1;
 }
 
 .form-control::-ms-input-placeholder,
-.comment-form input[type="text"]::-ms-input-placeholder,
-.comment-form input[type="email"]::-ms-input-placeholder,
-.comment-form input[type="url"]::-ms-input-placeholder,
-.comment-form textarea::-ms-input-placeholder,
 .search-form .search-field::-ms-input-placeholder {
   color: #666;
   opacity: 1;
 }
 
 .form-control::placeholder,
-.comment-form input[type="text"]::placeholder,
-.comment-form input[type="email"]::placeholder,
-.comment-form input[type="url"]::placeholder,
-.comment-form textarea::placeholder,
 .search-form .search-field::placeholder {
   color: #666;
   opacity: 1;
@@ -3128,16 +3095,8 @@ pre code {
 /* line 48, node_modules/bootstrap/scss/_forms.scss */
 
 .form-control:disabled,
-.comment-form input:disabled[type="text"],
-.comment-form input:disabled[type="email"],
-.comment-form input:disabled[type="url"],
-.comment-form textarea:disabled,
 .search-form .search-field:disabled,
 .form-control[readonly],
-.comment-form input[readonly][type="text"],
-.comment-form input[readonly][type="email"],
-.comment-form input[readonly][type="url"],
-.comment-form textarea[readonly],
 .search-form .search-field[readonly] {
   background-color: #eaeff2;
   opacity: 1;
@@ -3242,7 +3201,6 @@ select.form-control[multiple],
 /* line 161, node_modules/bootstrap/scss/_forms.scss */
 
 textarea.form-control,
-.comment-form textarea,
 .search-form textarea.search-field {
   height: auto;
 }
@@ -3250,7 +3208,6 @@ textarea.form-control,
 /* line 170, node_modules/bootstrap/scss/_forms.scss */
 
 .form-group,
-.comment-form p,
 .search-form label {
   margin-bottom: 1rem;
 }
@@ -3362,21 +3319,9 @@ textarea.form-control,
 /* line 54, node_modules/bootstrap/scss/mixins/_forms.scss */
 
 .was-validated .form-control:valid,
-.was-validated .comment-form input:valid[type="text"],
-.comment-form .was-validated input:valid[type="text"],
-.was-validated .comment-form input:valid[type="email"],
-.comment-form .was-validated input:valid[type="email"],
-.was-validated .comment-form input:valid[type="url"],
-.comment-form .was-validated input:valid[type="url"],
-.was-validated .comment-form textarea:valid,
-.comment-form .was-validated textarea:valid,
 .was-validated .search-form .search-field:valid,
 .search-form .was-validated .search-field:valid,
 .form-control.is-valid,
-.comment-form input.is-valid[type="text"],
-.comment-form input.is-valid[type="email"],
-.comment-form input.is-valid[type="url"],
-.comment-form textarea.is-valid,
 .search-form .is-valid.search-field {
   border-color: #28a745;
   padding-right: calc(1.5em + 0.75rem);
@@ -3389,21 +3334,9 @@ textarea.form-control,
 /* line 66, node_modules/bootstrap/scss/mixins/_forms.scss */
 
 .was-validated .form-control:valid:focus,
-.was-validated .comment-form input:valid:focus[type="text"],
-.comment-form .was-validated input:valid:focus[type="text"],
-.was-validated .comment-form input:valid:focus[type="email"],
-.comment-form .was-validated input:valid:focus[type="email"],
-.was-validated .comment-form input:valid:focus[type="url"],
-.comment-form .was-validated input:valid:focus[type="url"],
-.was-validated .comment-form textarea:valid:focus,
-.comment-form .was-validated textarea:valid:focus,
 .was-validated .search-form .search-field:valid:focus,
 .search-form .was-validated .search-field:valid:focus,
 .form-control.is-valid:focus,
-.comment-form input.is-valid:focus[type="text"],
-.comment-form input.is-valid:focus[type="email"],
-.comment-form input.is-valid:focus[type="url"],
-.comment-form textarea.is-valid:focus,
 .search-form .is-valid.search-field:focus {
   border-color: #28a745;
   -webkit-box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
@@ -3413,38 +3346,14 @@ textarea.form-control,
 /* line 71, node_modules/bootstrap/scss/mixins/_forms.scss */
 
 .was-validated .form-control:valid ~ .valid-feedback,
-.was-validated .comment-form input:valid[type="text"] ~ .valid-feedback,
-.comment-form .was-validated input:valid[type="text"] ~ .valid-feedback,
-.was-validated .comment-form input:valid[type="email"] ~ .valid-feedback,
-.comment-form .was-validated input:valid[type="email"] ~ .valid-feedback,
-.was-validated .comment-form input:valid[type="url"] ~ .valid-feedback,
-.comment-form .was-validated input:valid[type="url"] ~ .valid-feedback,
-.was-validated .comment-form textarea:valid ~ .valid-feedback,
-.comment-form .was-validated textarea:valid ~ .valid-feedback,
 .was-validated .search-form .search-field:valid ~ .valid-feedback,
 .search-form .was-validated .search-field:valid ~ .valid-feedback,
 .was-validated .form-control:valid ~ .valid-tooltip,
-.was-validated .comment-form input:valid[type="text"] ~ .valid-tooltip,
-.comment-form .was-validated input:valid[type="text"] ~ .valid-tooltip,
-.was-validated .comment-form input:valid[type="email"] ~ .valid-tooltip,
-.comment-form .was-validated input:valid[type="email"] ~ .valid-tooltip,
-.was-validated .comment-form input:valid[type="url"] ~ .valid-tooltip,
-.comment-form .was-validated input:valid[type="url"] ~ .valid-tooltip,
-.was-validated .comment-form textarea:valid ~ .valid-tooltip,
-.comment-form .was-validated textarea:valid ~ .valid-tooltip,
 .was-validated .search-form .search-field:valid ~ .valid-tooltip,
 .search-form .was-validated .search-field:valid ~ .valid-tooltip,
 .form-control.is-valid ~ .valid-feedback,
-.comment-form input.is-valid[type="text"] ~ .valid-feedback,
-.comment-form input.is-valid[type="email"] ~ .valid-feedback,
-.comment-form input.is-valid[type="url"] ~ .valid-feedback,
-.comment-form textarea.is-valid ~ .valid-feedback,
 .search-form .is-valid.search-field ~ .valid-feedback,
 .form-control.is-valid ~ .valid-tooltip,
-.comment-form input.is-valid[type="text"] ~ .valid-tooltip,
-.comment-form input.is-valid[type="email"] ~ .valid-tooltip,
-.comment-form input.is-valid[type="url"] ~ .valid-tooltip,
-.comment-form textarea.is-valid ~ .valid-tooltip,
 .search-form .is-valid.search-field ~ .valid-tooltip {
   display: block;
 }
@@ -3452,12 +3361,9 @@ textarea.form-control,
 /* line 80, node_modules/bootstrap/scss/mixins/_forms.scss */
 
 .was-validated textarea.form-control:valid,
-.was-validated .comment-form textarea:valid,
-.comment-form .was-validated textarea:valid,
 .was-validated .search-form textarea.search-field:valid,
 .search-form .was-validated textarea.search-field:valid,
 textarea.form-control.is-valid,
-.comment-form textarea.is-valid,
 .search-form textarea.is-valid.search-field {
   padding-right: calc(1.5em + 0.75rem);
   background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
@@ -3616,21 +3522,9 @@ textarea.form-control.is-valid,
 /* line 54, node_modules/bootstrap/scss/mixins/_forms.scss */
 
 .was-validated .form-control:invalid,
-.was-validated .comment-form input:invalid[type="text"],
-.comment-form .was-validated input:invalid[type="text"],
-.was-validated .comment-form input:invalid[type="email"],
-.comment-form .was-validated input:invalid[type="email"],
-.was-validated .comment-form input:invalid[type="url"],
-.comment-form .was-validated input:invalid[type="url"],
-.was-validated .comment-form textarea:invalid,
-.comment-form .was-validated textarea:invalid,
 .was-validated .search-form .search-field:invalid,
 .search-form .was-validated .search-field:invalid,
 .form-control.is-invalid,
-.comment-form input.is-invalid[type="text"],
-.comment-form input.is-invalid[type="email"],
-.comment-form input.is-invalid[type="url"],
-.comment-form textarea.is-invalid,
 .search-form .is-invalid.search-field {
   border-color: #dc3545;
   padding-right: calc(1.5em + 0.75rem);
@@ -3643,21 +3537,9 @@ textarea.form-control.is-valid,
 /* line 66, node_modules/bootstrap/scss/mixins/_forms.scss */
 
 .was-validated .form-control:invalid:focus,
-.was-validated .comment-form input:invalid:focus[type="text"],
-.comment-form .was-validated input:invalid:focus[type="text"],
-.was-validated .comment-form input:invalid:focus[type="email"],
-.comment-form .was-validated input:invalid:focus[type="email"],
-.was-validated .comment-form input:invalid:focus[type="url"],
-.comment-form .was-validated input:invalid:focus[type="url"],
-.was-validated .comment-form textarea:invalid:focus,
-.comment-form .was-validated textarea:invalid:focus,
 .was-validated .search-form .search-field:invalid:focus,
 .search-form .was-validated .search-field:invalid:focus,
 .form-control.is-invalid:focus,
-.comment-form input.is-invalid:focus[type="text"],
-.comment-form input.is-invalid:focus[type="email"],
-.comment-form input.is-invalid:focus[type="url"],
-.comment-form textarea.is-invalid:focus,
 .search-form .is-invalid.search-field:focus {
   border-color: #dc3545;
   -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
@@ -3667,38 +3549,14 @@ textarea.form-control.is-valid,
 /* line 71, node_modules/bootstrap/scss/mixins/_forms.scss */
 
 .was-validated .form-control:invalid ~ .invalid-feedback,
-.was-validated .comment-form input:invalid[type="text"] ~ .invalid-feedback,
-.comment-form .was-validated input:invalid[type="text"] ~ .invalid-feedback,
-.was-validated .comment-form input:invalid[type="email"] ~ .invalid-feedback,
-.comment-form .was-validated input:invalid[type="email"] ~ .invalid-feedback,
-.was-validated .comment-form input:invalid[type="url"] ~ .invalid-feedback,
-.comment-form .was-validated input:invalid[type="url"] ~ .invalid-feedback,
-.was-validated .comment-form textarea:invalid ~ .invalid-feedback,
-.comment-form .was-validated textarea:invalid ~ .invalid-feedback,
 .was-validated .search-form .search-field:invalid ~ .invalid-feedback,
 .search-form .was-validated .search-field:invalid ~ .invalid-feedback,
 .was-validated .form-control:invalid ~ .invalid-tooltip,
-.was-validated .comment-form input:invalid[type="text"] ~ .invalid-tooltip,
-.comment-form .was-validated input:invalid[type="text"] ~ .invalid-tooltip,
-.was-validated .comment-form input:invalid[type="email"] ~ .invalid-tooltip,
-.comment-form .was-validated input:invalid[type="email"] ~ .invalid-tooltip,
-.was-validated .comment-form input:invalid[type="url"] ~ .invalid-tooltip,
-.comment-form .was-validated input:invalid[type="url"] ~ .invalid-tooltip,
-.was-validated .comment-form textarea:invalid ~ .invalid-tooltip,
-.comment-form .was-validated textarea:invalid ~ .invalid-tooltip,
 .was-validated .search-form .search-field:invalid ~ .invalid-tooltip,
 .search-form .was-validated .search-field:invalid ~ .invalid-tooltip,
 .form-control.is-invalid ~ .invalid-feedback,
-.comment-form input.is-invalid[type="text"] ~ .invalid-feedback,
-.comment-form input.is-invalid[type="email"] ~ .invalid-feedback,
-.comment-form input.is-invalid[type="url"] ~ .invalid-feedback,
-.comment-form textarea.is-invalid ~ .invalid-feedback,
 .search-form .is-invalid.search-field ~ .invalid-feedback,
 .form-control.is-invalid ~ .invalid-tooltip,
-.comment-form input.is-invalid[type="text"] ~ .invalid-tooltip,
-.comment-form input.is-invalid[type="email"] ~ .invalid-tooltip,
-.comment-form input.is-invalid[type="url"] ~ .invalid-tooltip,
-.comment-form textarea.is-invalid ~ .invalid-tooltip,
 .search-form .is-invalid.search-field ~ .invalid-tooltip {
   display: block;
 }
@@ -3706,12 +3564,9 @@ textarea.form-control.is-valid,
 /* line 80, node_modules/bootstrap/scss/mixins/_forms.scss */
 
 .was-validated textarea.form-control:invalid,
-.was-validated .comment-form textarea:invalid,
-.comment-form .was-validated textarea:invalid,
 .was-validated .search-form textarea.search-field:invalid,
 .search-form .was-validated textarea.search-field:invalid,
 textarea.form-control.is-invalid,
-.comment-form textarea.is-invalid,
 .search-form textarea.is-invalid.search-field {
   padding-right: calc(1.5em + 0.75rem);
   background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
@@ -3884,10 +3739,6 @@ textarea.form-control.is-invalid,
 
   .form-inline .form-group,
   .search-form .form-group,
-  .form-inline .comment-form p,
-  .comment-form .form-inline p,
-  .search-form .comment-form p,
-  .comment-form .search-form p,
   .form-inline .search-form label,
   .search-form .form-inline label,
   .search-form label {
@@ -3911,22 +3762,6 @@ textarea.form-control.is-invalid,
 
   .form-inline .form-control,
   .search-form .form-control,
-  .form-inline .comment-form input[type="text"],
-  .comment-form .form-inline input[type="text"],
-  .search-form .comment-form input[type="text"],
-  .comment-form .search-form input[type="text"],
-  .form-inline .comment-form input[type="email"],
-  .comment-form .form-inline input[type="email"],
-  .search-form .comment-form input[type="email"],
-  .comment-form .search-form input[type="email"],
-  .form-inline .comment-form input[type="url"],
-  .comment-form .form-inline input[type="url"],
-  .search-form .comment-form input[type="url"],
-  .comment-form .search-form input[type="url"],
-  .form-inline .comment-form textarea,
-  .comment-form .form-inline textarea,
-  .search-form .comment-form textarea,
-  .comment-form .search-form textarea,
   .search-form .search-field {
     display: inline-block;
     width: auto;
@@ -4001,7 +3836,6 @@ textarea.form-control.is-invalid,
 /* line 7, node_modules/bootstrap/scss/_buttons.scss */
 
 .btn,
-.comment-form input[type="submit"],
 .search-form .search-submit,
 .posts-navigation a,
 .black-button a,
@@ -4032,7 +3866,6 @@ textarea.form-control.is-invalid,
   /* line 7, node_modules/bootstrap/scss/_buttons.scss */
 
   .btn,
-  .comment-form input[type="submit"],
   .search-form .search-submit,
   .posts-navigation a,
   .black-button a,
@@ -4046,7 +3879,6 @@ textarea.form-control.is-invalid,
 /* line 13, node_modules/bootstrap/scss/mixins/_hover.scss */
 
 .btn:hover,
-.comment-form input:hover[type="submit"],
 .search-form .search-submit:hover,
 .posts-navigation a:hover,
 .black-button a:hover,
@@ -4058,13 +3890,11 @@ textarea.form-control.is-invalid,
 /* line 25, node_modules/bootstrap/scss/_buttons.scss */
 
 .btn:focus,
-.comment-form input:focus[type="submit"],
 .search-form .search-submit:focus,
 .posts-navigation a:focus,
 .black-button a:focus,
 .green-button a:focus,
 .btn.focus,
-.comment-form input.focus[type="submit"],
 .search-form .focus.search-submit,
 .posts-navigation a.focus,
 .black-button a.focus,
@@ -4077,13 +3907,11 @@ textarea.form-control.is-invalid,
 /* line 32, node_modules/bootstrap/scss/_buttons.scss */
 
 .btn.disabled,
-.comment-form input.disabled[type="submit"],
 .search-form .disabled.search-submit,
 .posts-navigation a.disabled,
 .black-button a.disabled,
 .green-button a.disabled,
 .btn:disabled,
-.comment-form input:disabled[type="submit"],
 .search-form .search-submit:disabled,
 .posts-navigation a:disabled,
 .black-button a:disabled,
@@ -4165,7 +3993,6 @@ fieldset:disabled .green-button a,
 /* line 60, node_modules/bootstrap/scss/_buttons.scss */
 
 .btn-secondary,
-.comment-form input[type="submit"],
 .search-form .search-submit {
   color: #212529;
   background-color: #42e8c8;
@@ -4175,7 +4002,6 @@ fieldset:disabled .green-button a,
 /* line 13, node_modules/bootstrap/scss/mixins/_hover.scss */
 
 .btn-secondary:hover,
-.comment-form input:hover[type="submit"],
 .search-form .search-submit:hover {
   color: #212529;
   background-color: #20e4be;
@@ -4185,10 +4011,8 @@ fieldset:disabled .green-button a,
 /* line 18, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn-secondary:focus,
-.comment-form input:focus[type="submit"],
 .search-form .search-submit:focus,
 .btn-secondary.focus,
-.comment-form input.focus[type="submit"],
 .search-form .focus.search-submit {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(61, 203, 176, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(61, 203, 176, 0.5);
@@ -4197,10 +4021,8 @@ fieldset:disabled .green-button a,
 /* line 29, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn-secondary.disabled,
-.comment-form input.disabled[type="submit"],
 .search-form .disabled.search-submit,
 .btn-secondary:disabled,
-.comment-form input:disabled[type="submit"],
 .search-form .search-submit:disabled {
   color: #212529;
   background-color: #42e8c8;
@@ -4210,13 +4032,10 @@ fieldset:disabled .green-button a,
 /* line 40, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn-secondary:not(:disabled):not(.disabled):active,
-.comment-form input:not(:disabled):not(.disabled):active[type="submit"],
 .search-form .search-submit:not(:disabled):not(.disabled):active,
 .btn-secondary:not(:disabled):not(.disabled).active,
-.comment-form input:not(:disabled):not(.disabled).active[type="submit"],
 .search-form .search-submit:not(:disabled):not(.disabled).active,
 .show > .btn-secondary.dropdown-toggle,
-.comment-form .show > input.dropdown-toggle[type="submit"],
 .search-form .show > .dropdown-toggle.search-submit {
   color: #212529;
   background-color: #1bdcb7;
@@ -4226,13 +4045,10 @@ fieldset:disabled .green-button a,
 /* line 50, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn-secondary:not(:disabled):not(.disabled):active:focus,
-.comment-form input:not(:disabled):not(.disabled):active:focus[type="submit"],
 .search-form .search-submit:not(:disabled):not(.disabled):active:focus,
 .btn-secondary:not(:disabled):not(.disabled).active:focus,
-.comment-form input:not(:disabled):not(.disabled).active:focus[type="submit"],
 .search-form .search-submit:not(:disabled):not(.disabled).active:focus,
 .show > .btn-secondary.dropdown-toggle:focus,
-.comment-form .show > input.dropdown-toggle:focus[type="submit"],
 .search-form .show > .dropdown-toggle.search-submit:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(61, 203, 176, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(61, 203, 176, 0.5);
@@ -4986,7 +4802,6 @@ fieldset:disabled .green-button a,
 
 .btn-lg,
 .btn-group-lg > .btn,
-.comment-form .btn-group-lg > input[type="submit"],
 .search-form .btn-group-lg > .search-submit,
 .posts-navigation .btn-group-lg > a,
 .black-button .btn-group-lg > a,
@@ -5001,7 +4816,6 @@ fieldset:disabled .green-button a,
 
 .btn-sm,
 .btn-group-sm > .btn,
-.comment-form .btn-group-sm > input[type="submit"],
 .search-form .btn-group-sm > .search-submit,
 .posts-navigation .btn-group-sm > a,
 .black-button .btn-group-sm > a,
@@ -5430,13 +5244,11 @@ input[type="button"].btn-block {
 /* line 10, node_modules/bootstrap/scss/_button-group.scss */
 
 .btn-group > .btn,
-.comment-form .btn-group > input[type="submit"],
 .search-form .btn-group > .search-submit,
 .posts-navigation .btn-group > a,
 .black-button .btn-group > a,
 .green-button .btn-group > a,
 .btn-group-vertical > .btn,
-.comment-form .btn-group-vertical > input[type="submit"],
 .search-form .btn-group-vertical > .search-submit,
 .posts-navigation .btn-group-vertical > a,
 .black-button .btn-group-vertical > a,
@@ -5450,13 +5262,11 @@ input[type="button"].btn-block {
 /* line 13, node_modules/bootstrap/scss/mixins/_hover.scss */
 
 .btn-group > .btn:hover,
-.comment-form .btn-group > input:hover[type="submit"],
 .search-form .btn-group > .search-submit:hover,
 .posts-navigation .btn-group > a:hover,
 .black-button .btn-group > a:hover,
 .green-button .btn-group > a:hover,
 .btn-group-vertical > .btn:hover,
-.comment-form .btn-group-vertical > input:hover[type="submit"],
 .search-form .btn-group-vertical > .search-submit:hover,
 .posts-navigation .btn-group-vertical > a:hover,
 .black-button .btn-group-vertical > a:hover,
@@ -5467,37 +5277,31 @@ input[type="button"].btn-block {
 /* line 19, node_modules/bootstrap/scss/_button-group.scss */
 
 .btn-group > .btn:focus,
-.comment-form .btn-group > input:focus[type="submit"],
 .search-form .btn-group > .search-submit:focus,
 .posts-navigation .btn-group > a:focus,
 .black-button .btn-group > a:focus,
 .green-button .btn-group > a:focus,
 .btn-group > .btn:active,
-.comment-form .btn-group > input:active[type="submit"],
 .search-form .btn-group > .search-submit:active,
 .posts-navigation .btn-group > a:active,
 .black-button .btn-group > a:active,
 .green-button .btn-group > a:active,
 .btn-group > .btn.active,
-.comment-form .btn-group > input.active[type="submit"],
 .search-form .btn-group > .active.search-submit,
 .posts-navigation .btn-group > a.active,
 .black-button .btn-group > a.active,
 .green-button .btn-group > a.active,
 .btn-group-vertical > .btn:focus,
-.comment-form .btn-group-vertical > input:focus[type="submit"],
 .search-form .btn-group-vertical > .search-submit:focus,
 .posts-navigation .btn-group-vertical > a:focus,
 .black-button .btn-group-vertical > a:focus,
 .green-button .btn-group-vertical > a:focus,
 .btn-group-vertical > .btn:active,
-.comment-form .btn-group-vertical > input:active[type="submit"],
 .search-form .btn-group-vertical > .search-submit:active,
 .posts-navigation .btn-group-vertical > a:active,
 .black-button .btn-group-vertical > a:active,
 .green-button .btn-group-vertical > a:active,
 .btn-group-vertical > .btn.active,
-.comment-form .btn-group-vertical > input.active[type="submit"],
 .search-form .btn-group-vertical > .active.search-submit,
 .posts-navigation .btn-group-vertical > a.active,
 .black-button .btn-group-vertical > a.active,
@@ -5527,7 +5331,6 @@ input[type="button"].btn-block {
 /* line 40, node_modules/bootstrap/scss/_button-group.scss */
 
 .btn-group > .btn:not(:first-child),
-.comment-form .btn-group > input:not(:first-child)[type="submit"],
 .search-form .btn-group > .search-submit:not(:first-child),
 .posts-navigation .btn-group > a:not(:first-child),
 .black-button .btn-group > a:not(:first-child),
@@ -5539,13 +5342,11 @@ input[type="button"].btn-block {
 /* line 46, node_modules/bootstrap/scss/_button-group.scss */
 
 .btn-group > .btn:not(:last-child):not(.dropdown-toggle),
-.comment-form .btn-group > input:not(:last-child):not(.dropdown-toggle)[type="submit"],
 .search-form .btn-group > .search-submit:not(:last-child):not(.dropdown-toggle),
 .posts-navigation .btn-group > a:not(:last-child):not(.dropdown-toggle),
 .black-button .btn-group > a:not(:last-child):not(.dropdown-toggle),
 .green-button .btn-group > a:not(:last-child):not(.dropdown-toggle),
 .btn-group > .btn-group:not(:last-child) > .btn,
-.comment-form .btn-group > .btn-group:not(:last-child) > input[type="submit"],
 .search-form .btn-group > .btn-group:not(:last-child) > .search-submit,
 .posts-navigation .btn-group > .btn-group:not(:last-child) > a,
 .black-button .btn-group > .btn-group:not(:last-child) > a,
@@ -5557,13 +5358,11 @@ input[type="button"].btn-block {
 /* line 51, node_modules/bootstrap/scss/_button-group.scss */
 
 .btn-group > .btn:not(:first-child),
-.comment-form .btn-group > input:not(:first-child)[type="submit"],
 .search-form .btn-group > .search-submit:not(:first-child),
 .posts-navigation .btn-group > a:not(:first-child),
 .black-button .btn-group > a:not(:first-child),
 .green-button .btn-group > a:not(:first-child),
 .btn-group > .btn-group:not(:first-child) > .btn,
-.comment-form .btn-group > .btn-group:not(:first-child) > input[type="submit"],
 .search-form .btn-group > .btn-group:not(:first-child) > .search-submit,
 .posts-navigation .btn-group > .btn-group:not(:first-child) > a,
 .black-button .btn-group > .btn-group:not(:first-child) > a,
@@ -5597,7 +5396,6 @@ input[type="button"].btn-block {
 
 .btn-sm + .dropdown-toggle-split,
 .btn-group-sm > .btn + .dropdown-toggle-split,
-.comment-form .btn-group-sm > input[type="submit"] + .dropdown-toggle-split,
 .search-form .btn-group-sm > .search-submit + .dropdown-toggle-split,
 .posts-navigation .btn-group-sm > a + .dropdown-toggle-split,
 .black-button .btn-group-sm > a + .dropdown-toggle-split,
@@ -5610,7 +5408,6 @@ input[type="button"].btn-block {
 
 .btn-lg + .dropdown-toggle-split,
 .btn-group-lg > .btn + .dropdown-toggle-split,
-.comment-form .btn-group-lg > input[type="submit"] + .dropdown-toggle-split,
 .search-form .btn-group-lg > .search-submit + .dropdown-toggle-split,
 .posts-navigation .btn-group-lg > a + .dropdown-toggle-split,
 .black-button .btn-group-lg > a + .dropdown-toggle-split,
@@ -5637,7 +5434,6 @@ input[type="button"].btn-block {
 /* line 116, node_modules/bootstrap/scss/_button-group.scss */
 
 .btn-group-vertical > .btn,
-.comment-form .btn-group-vertical > input[type="submit"],
 .search-form .btn-group-vertical > .search-submit,
 .posts-navigation .btn-group-vertical > a,
 .black-button .btn-group-vertical > a,
@@ -5649,7 +5445,6 @@ input[type="button"].btn-block {
 /* line 121, node_modules/bootstrap/scss/_button-group.scss */
 
 .btn-group-vertical > .btn:not(:first-child),
-.comment-form .btn-group-vertical > input:not(:first-child)[type="submit"],
 .search-form .btn-group-vertical > .search-submit:not(:first-child),
 .posts-navigation .btn-group-vertical > a:not(:first-child),
 .black-button .btn-group-vertical > a:not(:first-child),
@@ -5661,13 +5456,11 @@ input[type="button"].btn-block {
 /* line 127, node_modules/bootstrap/scss/_button-group.scss */
 
 .btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle),
-.comment-form .btn-group-vertical > input:not(:last-child):not(.dropdown-toggle)[type="submit"],
 .search-form .btn-group-vertical > .search-submit:not(:last-child):not(.dropdown-toggle),
 .posts-navigation .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle),
 .black-button .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle),
 .green-button .btn-group-vertical > a:not(:last-child):not(.dropdown-toggle),
 .btn-group-vertical > .btn-group:not(:last-child) > .btn,
-.comment-form .btn-group-vertical > .btn-group:not(:last-child) > input[type="submit"],
 .search-form .btn-group-vertical > .btn-group:not(:last-child) > .search-submit,
 .posts-navigation .btn-group-vertical > .btn-group:not(:last-child) > a,
 .black-button .btn-group-vertical > .btn-group:not(:last-child) > a,
@@ -5679,13 +5472,11 @@ input[type="button"].btn-block {
 /* line 132, node_modules/bootstrap/scss/_button-group.scss */
 
 .btn-group-vertical > .btn:not(:first-child),
-.comment-form .btn-group-vertical > input:not(:first-child)[type="submit"],
 .search-form .btn-group-vertical > .search-submit:not(:first-child),
 .posts-navigation .btn-group-vertical > a:not(:first-child),
 .black-button .btn-group-vertical > a:not(:first-child),
 .green-button .btn-group-vertical > a:not(:first-child),
 .btn-group-vertical > .btn-group:not(:first-child) > .btn,
-.comment-form .btn-group-vertical > .btn-group:not(:first-child) > input[type="submit"],
 .search-form .btn-group-vertical > .btn-group:not(:first-child) > .search-submit,
 .posts-navigation .btn-group-vertical > .btn-group:not(:first-child) > a,
 .black-button .btn-group-vertical > .btn-group:not(:first-child) > a,
@@ -5697,13 +5488,11 @@ input[type="button"].btn-block {
 /* line 152, node_modules/bootstrap/scss/_button-group.scss */
 
 .btn-group-toggle > .btn,
-.comment-form .btn-group-toggle > input[type="submit"],
 .search-form .btn-group-toggle > .search-submit,
 .posts-navigation .btn-group-toggle > a,
 .black-button .btn-group-toggle > a,
 .green-button .btn-group-toggle > a,
 .btn-group-toggle > .btn-group > .btn,
-.comment-form .btn-group-toggle > .btn-group > input[type="submit"],
 .search-form .btn-group-toggle > .btn-group > .search-submit,
 .posts-navigation .btn-group-toggle > .btn-group > a,
 .black-button .btn-group-toggle > .btn-group > a,
@@ -5714,25 +5503,21 @@ input[type="button"].btn-block {
 /* line 156, node_modules/bootstrap/scss/_button-group.scss */
 
 .btn-group-toggle > .btn input[type="radio"],
-.comment-form .btn-group-toggle > input[type="submit"] input[type="radio"],
 .search-form .btn-group-toggle > .search-submit input[type="radio"],
 .posts-navigation .btn-group-toggle > a input[type="radio"],
 .black-button .btn-group-toggle > a input[type="radio"],
 .green-button .btn-group-toggle > a input[type="radio"],
 .btn-group-toggle > .btn input[type="checkbox"],
-.comment-form .btn-group-toggle > input[type="submit"] input[type="checkbox"],
 .search-form .btn-group-toggle > .search-submit input[type="checkbox"],
 .posts-navigation .btn-group-toggle > a input[type="checkbox"],
 .black-button .btn-group-toggle > a input[type="checkbox"],
 .green-button .btn-group-toggle > a input[type="checkbox"],
 .btn-group-toggle > .btn-group > .btn input[type="radio"],
-.comment-form .btn-group-toggle > .btn-group > input[type="submit"] input[type="radio"],
 .search-form .btn-group-toggle > .btn-group > .search-submit input[type="radio"],
 .posts-navigation .btn-group-toggle > .btn-group > a input[type="radio"],
 .black-button .btn-group-toggle > .btn-group > a input[type="radio"],
 .green-button .btn-group-toggle > .btn-group > a input[type="radio"],
 .btn-group-toggle > .btn-group > .btn input[type="checkbox"],
-.comment-form .btn-group-toggle > .btn-group > input[type="submit"] input[type="checkbox"],
 .search-form .btn-group-toggle > .btn-group > .search-submit input[type="checkbox"],
 .posts-navigation .btn-group-toggle > .btn-group > a input[type="checkbox"],
 .black-button .btn-group-toggle > .btn-group > a input[type="checkbox"],
@@ -5760,10 +5545,6 @@ input[type="button"].btn-block {
 /* line 14, node_modules/bootstrap/scss/_input-group.scss */
 
 .input-group > .form-control,
-.comment-form .input-group > input[type="text"],
-.comment-form .input-group > input[type="email"],
-.comment-form .input-group > input[type="url"],
-.comment-form .input-group > textarea,
 .search-form .input-group > .search-field,
 .input-group > .form-control-plaintext,
 .input-group > .custom-select,
@@ -5779,82 +5560,22 @@ input[type="button"].btn-block {
 /* line 25, node_modules/bootstrap/scss/_input-group.scss */
 
 .input-group > .form-control + .form-control,
-.comment-form .input-group > input[type="text"] + .form-control,
-.comment-form .input-group > input[type="email"] + .form-control,
-.comment-form .input-group > input[type="url"] + .form-control,
-.comment-form .input-group > textarea + .form-control,
 .search-form .input-group > .search-field + .form-control,
-.comment-form .input-group > .form-control + input[type="text"],
-.comment-form .input-group > input[type="text"] + input[type="text"],
-.comment-form .input-group > input[type="email"] + input[type="text"],
-.comment-form .input-group > input[type="url"] + input[type="text"],
-.comment-form .input-group > textarea + input[type="text"],
-.search-form .comment-form .input-group > .search-field + input[type="text"],
-.comment-form .search-form .input-group > .search-field + input[type="text"],
-.comment-form .input-group > .form-control + input[type="email"],
-.comment-form .input-group > input[type="text"] + input[type="email"],
-.comment-form .input-group > input[type="email"] + input[type="email"],
-.comment-form .input-group > input[type="url"] + input[type="email"],
-.comment-form .input-group > textarea + input[type="email"],
-.search-form .comment-form .input-group > .search-field + input[type="email"],
-.comment-form .search-form .input-group > .search-field + input[type="email"],
-.comment-form .input-group > .form-control + input[type="url"],
-.comment-form .input-group > input[type="text"] + input[type="url"],
-.comment-form .input-group > input[type="email"] + input[type="url"],
-.comment-form .input-group > input[type="url"] + input[type="url"],
-.comment-form .input-group > textarea + input[type="url"],
-.search-form .comment-form .input-group > .search-field + input[type="url"],
-.comment-form .search-form .input-group > .search-field + input[type="url"],
-.comment-form .input-group > .form-control + textarea,
-.comment-form .input-group > input[type="text"] + textarea,
-.comment-form .input-group > input[type="email"] + textarea,
-.comment-form .input-group > input[type="url"] + textarea,
-.comment-form .input-group > textarea + textarea,
-.search-form .comment-form .input-group > .search-field + textarea,
-.comment-form .search-form .input-group > .search-field + textarea,
 .search-form .input-group > .form-control + .search-field,
-.comment-form .search-form .input-group > input[type="text"] + .search-field,
-.search-form .comment-form .input-group > input[type="text"] + .search-field,
-.comment-form .search-form .input-group > input[type="email"] + .search-field,
-.search-form .comment-form .input-group > input[type="email"] + .search-field,
-.comment-form .search-form .input-group > input[type="url"] + .search-field,
-.search-form .comment-form .input-group > input[type="url"] + .search-field,
-.comment-form .search-form .input-group > textarea + .search-field,
-.search-form .comment-form .input-group > textarea + .search-field,
 .search-form .input-group > .search-field + .search-field,
 .input-group > .form-control + .custom-select,
-.comment-form .input-group > input[type="text"] + .custom-select,
-.comment-form .input-group > input[type="email"] + .custom-select,
-.comment-form .input-group > input[type="url"] + .custom-select,
-.comment-form .input-group > textarea + .custom-select,
 .search-form .input-group > .search-field + .custom-select,
 .input-group > .form-control + .custom-file,
-.comment-form .input-group > input[type="text"] + .custom-file,
-.comment-form .input-group > input[type="email"] + .custom-file,
-.comment-form .input-group > input[type="url"] + .custom-file,
-.comment-form .input-group > textarea + .custom-file,
 .search-form .input-group > .search-field + .custom-file,
 .input-group > .form-control-plaintext + .form-control,
-.comment-form .input-group > .form-control-plaintext + input[type="text"],
-.comment-form .input-group > .form-control-plaintext + input[type="email"],
-.comment-form .input-group > .form-control-plaintext + input[type="url"],
-.comment-form .input-group > .form-control-plaintext + textarea,
 .search-form .input-group > .form-control-plaintext + .search-field,
 .input-group > .form-control-plaintext + .custom-select,
 .input-group > .form-control-plaintext + .custom-file,
 .input-group > .custom-select + .form-control,
-.comment-form .input-group > .custom-select + input[type="text"],
-.comment-form .input-group > .custom-select + input[type="email"],
-.comment-form .input-group > .custom-select + input[type="url"],
-.comment-form .input-group > .custom-select + textarea,
 .search-form .input-group > .custom-select + .search-field,
 .input-group > .custom-select + .custom-select,
 .input-group > .custom-select + .custom-file,
 .input-group > .custom-file + .form-control,
-.comment-form .input-group > .custom-file + input[type="text"],
-.comment-form .input-group > .custom-file + input[type="email"],
-.comment-form .input-group > .custom-file + input[type="url"],
-.comment-form .input-group > .custom-file + textarea,
 .search-form .input-group > .custom-file + .search-field,
 .input-group > .custom-file + .custom-select,
 .input-group > .custom-file + .custom-file {
@@ -5864,10 +5585,6 @@ input[type="button"].btn-block {
 /* line 33, node_modules/bootstrap/scss/_input-group.scss */
 
 .input-group > .form-control:focus,
-.comment-form .input-group > input:focus[type="text"],
-.comment-form .input-group > input:focus[type="email"],
-.comment-form .input-group > input:focus[type="url"],
-.comment-form .input-group > textarea:focus,
 .search-form .input-group > .search-field:focus,
 .input-group > .custom-select:focus,
 .input-group > .custom-file .custom-file-input:focus ~ .custom-file-label {
@@ -5883,10 +5600,6 @@ input[type="button"].btn-block {
 /* line 46, node_modules/bootstrap/scss/_input-group.scss */
 
 .input-group > .form-control:not(:last-child),
-.comment-form .input-group > input:not(:last-child)[type="text"],
-.comment-form .input-group > input:not(:last-child)[type="email"],
-.comment-form .input-group > input:not(:last-child)[type="url"],
-.comment-form .input-group > textarea:not(:last-child),
 .search-form .input-group > .search-field:not(:last-child),
 .input-group > .custom-select:not(:last-child) {
   border-top-right-radius: 0;
@@ -5896,10 +5609,6 @@ input[type="button"].btn-block {
 /* line 47, node_modules/bootstrap/scss/_input-group.scss */
 
 .input-group > .form-control:not(:first-child),
-.comment-form .input-group > input:not(:first-child)[type="text"],
-.comment-form .input-group > input:not(:first-child)[type="email"],
-.comment-form .input-group > input:not(:first-child)[type="url"],
-.comment-form .input-group > textarea:not(:first-child),
 .search-form .input-group > .search-field:not(:first-child),
 .input-group > .custom-select:not(:first-child) {
   border-top-left-radius: 0;
@@ -5944,8 +5653,6 @@ input[type="button"].btn-block {
 /* line 76, node_modules/bootstrap/scss/_input-group.scss */
 
 .input-group-prepend .btn,
-.input-group-prepend .comment-form input[type="submit"],
-.comment-form .input-group-prepend input[type="submit"],
 .input-group-prepend .search-form .search-submit,
 .search-form .input-group-prepend .search-submit,
 .input-group-prepend .posts-navigation a,
@@ -5955,8 +5662,6 @@ input[type="button"].btn-block {
 .input-group-prepend .green-button a,
 .green-button .input-group-prepend a,
 .input-group-append .btn,
-.input-group-append .comment-form input[type="submit"],
-.comment-form .input-group-append input[type="submit"],
 .input-group-append .search-form .search-submit,
 .search-form .input-group-append .search-submit,
 .input-group-append .posts-navigation a,
@@ -5972,8 +5677,6 @@ input[type="button"].btn-block {
 /* line 80, node_modules/bootstrap/scss/_input-group.scss */
 
 .input-group-prepend .btn:focus,
-.input-group-prepend .comment-form input:focus[type="submit"],
-.comment-form .input-group-prepend input:focus[type="submit"],
 .input-group-prepend .search-form .search-submit:focus,
 .search-form .input-group-prepend .search-submit:focus,
 .input-group-prepend .posts-navigation a:focus,
@@ -5983,8 +5686,6 @@ input[type="button"].btn-block {
 .input-group-prepend .green-button a:focus,
 .green-button .input-group-prepend a:focus,
 .input-group-append .btn:focus,
-.input-group-append .comment-form input:focus[type="submit"],
-.comment-form .input-group-append input:focus[type="submit"],
 .input-group-append .search-form .search-submit:focus,
 .search-form .input-group-append .search-submit:focus,
 .input-group-append .posts-navigation a:focus,
@@ -5999,8 +5700,6 @@ input[type="button"].btn-block {
 /* line 85, node_modules/bootstrap/scss/_input-group.scss */
 
 .input-group-prepend .btn + .btn,
-.input-group-prepend .comment-form input[type="submit"] + .btn,
-.comment-form .input-group-prepend input[type="submit"] + .btn,
 .input-group-prepend .search-form .search-submit + .btn,
 .search-form .input-group-prepend .search-submit + .btn,
 .input-group-prepend .posts-navigation a + .btn,
@@ -6009,32 +5708,8 @@ input[type="button"].btn-block {
 .black-button .input-group-prepend a + .btn,
 .input-group-prepend .green-button a + .btn,
 .green-button .input-group-prepend a + .btn,
-.input-group-prepend .comment-form .btn + input[type="submit"],
-.comment-form .input-group-prepend .btn + input[type="submit"],
-.input-group-prepend .comment-form input[type="submit"] + input[type="submit"],
-.comment-form .input-group-prepend input[type="submit"] + input[type="submit"],
-.input-group-prepend .search-form .comment-form .search-submit + input[type="submit"],
-.comment-form .input-group-prepend .search-form .search-submit + input[type="submit"],
-.search-form .input-group-prepend .comment-form .search-submit + input[type="submit"],
-.comment-form .search-form .input-group-prepend .search-submit + input[type="submit"],
-.input-group-prepend .posts-navigation .comment-form a + input[type="submit"],
-.comment-form .input-group-prepend .posts-navigation a + input[type="submit"],
-.posts-navigation .input-group-prepend .comment-form a + input[type="submit"],
-.comment-form .posts-navigation .input-group-prepend a + input[type="submit"],
-.input-group-prepend .black-button .comment-form a + input[type="submit"],
-.comment-form .input-group-prepend .black-button a + input[type="submit"],
-.black-button .input-group-prepend .comment-form a + input[type="submit"],
-.comment-form .black-button .input-group-prepend a + input[type="submit"],
-.input-group-prepend .green-button .comment-form a + input[type="submit"],
-.comment-form .input-group-prepend .green-button a + input[type="submit"],
-.green-button .input-group-prepend .comment-form a + input[type="submit"],
-.comment-form .green-button .input-group-prepend a + input[type="submit"],
 .input-group-prepend .search-form .btn + .search-submit,
 .search-form .input-group-prepend .btn + .search-submit,
-.input-group-prepend .comment-form .search-form input[type="submit"] + .search-submit,
-.search-form .input-group-prepend .comment-form input[type="submit"] + .search-submit,
-.comment-form .input-group-prepend .search-form input[type="submit"] + .search-submit,
-.search-form .comment-form .input-group-prepend input[type="submit"] + .search-submit,
 .input-group-prepend .search-form .search-submit + .search-submit,
 .search-form .input-group-prepend .search-submit + .search-submit,
 .input-group-prepend .posts-navigation .search-form a + .search-submit,
@@ -6051,10 +5726,6 @@ input[type="button"].btn-block {
 .search-form .green-button .input-group-prepend a + .search-submit,
 .input-group-prepend .posts-navigation .btn + a,
 .posts-navigation .input-group-prepend .btn + a,
-.input-group-prepend .comment-form .posts-navigation input[type="submit"] + a,
-.posts-navigation .input-group-prepend .comment-form input[type="submit"] + a,
-.comment-form .input-group-prepend .posts-navigation input[type="submit"] + a,
-.posts-navigation .comment-form .input-group-prepend input[type="submit"] + a,
 .input-group-prepend .search-form .posts-navigation .search-submit + a,
 .posts-navigation .input-group-prepend .search-form .search-submit + a,
 .search-form .input-group-prepend .posts-navigation .search-submit + a,
@@ -6067,10 +5738,6 @@ input[type="button"].btn-block {
 .posts-navigation .green-button .input-group-prepend a + a,
 .input-group-prepend .black-button .btn + a,
 .black-button .input-group-prepend .btn + a,
-.input-group-prepend .comment-form .black-button input[type="submit"] + a,
-.black-button .input-group-prepend .comment-form input[type="submit"] + a,
-.comment-form .input-group-prepend .black-button input[type="submit"] + a,
-.black-button .comment-form .input-group-prepend input[type="submit"] + a,
 .input-group-prepend .search-form .black-button .search-submit + a,
 .black-button .input-group-prepend .search-form .search-submit + a,
 .search-form .input-group-prepend .black-button .search-submit + a,
@@ -6085,10 +5752,6 @@ input[type="button"].btn-block {
 .black-button .green-button .input-group-prepend a + a,
 .input-group-prepend .green-button .btn + a,
 .green-button .input-group-prepend .btn + a,
-.input-group-prepend .comment-form .green-button input[type="submit"] + a,
-.green-button .input-group-prepend .comment-form input[type="submit"] + a,
-.comment-form .input-group-prepend .green-button input[type="submit"] + a,
-.green-button .comment-form .input-group-prepend input[type="submit"] + a,
 .input-group-prepend .search-form .green-button .search-submit + a,
 .green-button .input-group-prepend .search-form .search-submit + a,
 .search-form .input-group-prepend .green-button .search-submit + a,
@@ -6104,8 +5767,6 @@ input[type="button"].btn-block {
 .input-group-prepend .green-button a + a,
 .green-button .input-group-prepend a + a,
 .input-group-prepend .btn + .input-group-text,
-.input-group-prepend .comment-form input[type="submit"] + .input-group-text,
-.comment-form .input-group-prepend input[type="submit"] + .input-group-text,
 .input-group-prepend .search-form .search-submit + .input-group-text,
 .search-form .input-group-prepend .search-submit + .input-group-text,
 .input-group-prepend .posts-navigation a + .input-group-text,
@@ -6116,8 +5777,6 @@ input[type="button"].btn-block {
 .green-button .input-group-prepend a + .input-group-text,
 .input-group-prepend .input-group-text + .input-group-text,
 .input-group-prepend .input-group-text + .btn,
-.input-group-prepend .comment-form .input-group-text + input[type="submit"],
-.comment-form .input-group-prepend .input-group-text + input[type="submit"],
 .input-group-prepend .search-form .input-group-text + .search-submit,
 .search-form .input-group-prepend .input-group-text + .search-submit,
 .input-group-prepend .posts-navigation .input-group-text + a,
@@ -6127,8 +5786,6 @@ input[type="button"].btn-block {
 .input-group-prepend .green-button .input-group-text + a,
 .green-button .input-group-prepend .input-group-text + a,
 .input-group-append .btn + .btn,
-.input-group-append .comment-form input[type="submit"] + .btn,
-.comment-form .input-group-append input[type="submit"] + .btn,
 .input-group-append .search-form .search-submit + .btn,
 .search-form .input-group-append .search-submit + .btn,
 .input-group-append .posts-navigation a + .btn,
@@ -6137,32 +5794,8 @@ input[type="button"].btn-block {
 .black-button .input-group-append a + .btn,
 .input-group-append .green-button a + .btn,
 .green-button .input-group-append a + .btn,
-.input-group-append .comment-form .btn + input[type="submit"],
-.comment-form .input-group-append .btn + input[type="submit"],
-.input-group-append .comment-form input[type="submit"] + input[type="submit"],
-.comment-form .input-group-append input[type="submit"] + input[type="submit"],
-.input-group-append .search-form .comment-form .search-submit + input[type="submit"],
-.comment-form .input-group-append .search-form .search-submit + input[type="submit"],
-.search-form .input-group-append .comment-form .search-submit + input[type="submit"],
-.comment-form .search-form .input-group-append .search-submit + input[type="submit"],
-.input-group-append .posts-navigation .comment-form a + input[type="submit"],
-.comment-form .input-group-append .posts-navigation a + input[type="submit"],
-.posts-navigation .input-group-append .comment-form a + input[type="submit"],
-.comment-form .posts-navigation .input-group-append a + input[type="submit"],
-.input-group-append .black-button .comment-form a + input[type="submit"],
-.comment-form .input-group-append .black-button a + input[type="submit"],
-.black-button .input-group-append .comment-form a + input[type="submit"],
-.comment-form .black-button .input-group-append a + input[type="submit"],
-.input-group-append .green-button .comment-form a + input[type="submit"],
-.comment-form .input-group-append .green-button a + input[type="submit"],
-.green-button .input-group-append .comment-form a + input[type="submit"],
-.comment-form .green-button .input-group-append a + input[type="submit"],
 .input-group-append .search-form .btn + .search-submit,
 .search-form .input-group-append .btn + .search-submit,
-.input-group-append .comment-form .search-form input[type="submit"] + .search-submit,
-.search-form .input-group-append .comment-form input[type="submit"] + .search-submit,
-.comment-form .input-group-append .search-form input[type="submit"] + .search-submit,
-.search-form .comment-form .input-group-append input[type="submit"] + .search-submit,
 .input-group-append .search-form .search-submit + .search-submit,
 .search-form .input-group-append .search-submit + .search-submit,
 .input-group-append .posts-navigation .search-form a + .search-submit,
@@ -6179,10 +5812,6 @@ input[type="button"].btn-block {
 .search-form .green-button .input-group-append a + .search-submit,
 .input-group-append .posts-navigation .btn + a,
 .posts-navigation .input-group-append .btn + a,
-.input-group-append .comment-form .posts-navigation input[type="submit"] + a,
-.posts-navigation .input-group-append .comment-form input[type="submit"] + a,
-.comment-form .input-group-append .posts-navigation input[type="submit"] + a,
-.posts-navigation .comment-form .input-group-append input[type="submit"] + a,
 .input-group-append .search-form .posts-navigation .search-submit + a,
 .posts-navigation .input-group-append .search-form .search-submit + a,
 .search-form .input-group-append .posts-navigation .search-submit + a,
@@ -6195,10 +5824,6 @@ input[type="button"].btn-block {
 .posts-navigation .green-button .input-group-append a + a,
 .input-group-append .black-button .btn + a,
 .black-button .input-group-append .btn + a,
-.input-group-append .comment-form .black-button input[type="submit"] + a,
-.black-button .input-group-append .comment-form input[type="submit"] + a,
-.comment-form .input-group-append .black-button input[type="submit"] + a,
-.black-button .comment-form .input-group-append input[type="submit"] + a,
 .input-group-append .search-form .black-button .search-submit + a,
 .black-button .input-group-append .search-form .search-submit + a,
 .search-form .input-group-append .black-button .search-submit + a,
@@ -6213,10 +5838,6 @@ input[type="button"].btn-block {
 .black-button .green-button .input-group-append a + a,
 .input-group-append .green-button .btn + a,
 .green-button .input-group-append .btn + a,
-.input-group-append .comment-form .green-button input[type="submit"] + a,
-.green-button .input-group-append .comment-form input[type="submit"] + a,
-.comment-form .input-group-append .green-button input[type="submit"] + a,
-.green-button .comment-form .input-group-append input[type="submit"] + a,
 .input-group-append .search-form .green-button .search-submit + a,
 .green-button .input-group-append .search-form .search-submit + a,
 .search-form .input-group-append .green-button .search-submit + a,
@@ -6232,8 +5853,6 @@ input[type="button"].btn-block {
 .input-group-append .green-button a + a,
 .green-button .input-group-append a + a,
 .input-group-append .btn + .input-group-text,
-.input-group-append .comment-form input[type="submit"] + .input-group-text,
-.comment-form .input-group-append input[type="submit"] + .input-group-text,
 .input-group-append .search-form .search-submit + .input-group-text,
 .search-form .input-group-append .search-submit + .input-group-text,
 .input-group-append .posts-navigation a + .input-group-text,
@@ -6244,8 +5863,6 @@ input[type="button"].btn-block {
 .green-button .input-group-append a + .input-group-text,
 .input-group-append .input-group-text + .input-group-text,
 .input-group-append .input-group-text + .btn,
-.input-group-append .comment-form .input-group-text + input[type="submit"],
-.comment-form .input-group-append .input-group-text + input[type="submit"],
 .input-group-append .search-form .input-group-text + .search-submit,
 .search-form .input-group-append .input-group-text + .search-submit,
 .input-group-append .posts-navigation .input-group-text + a,
@@ -6301,10 +5918,6 @@ input[type="button"].btn-block {
 /* line 130, node_modules/bootstrap/scss/_input-group.scss */
 
 .input-group-lg > .form-control:not(textarea),
-.comment-form .input-group-lg > input:not(textarea)[type="text"],
-.comment-form .input-group-lg > input:not(textarea)[type="email"],
-.comment-form .input-group-lg > input:not(textarea)[type="url"],
-.comment-form .input-group-lg > textarea:not(textarea),
 .search-form .input-group-lg > .search-field:not(textarea),
 .input-group-lg > .custom-select {
   height: calc(1.5em + 1rem + 2px);
@@ -6313,22 +5926,16 @@ input[type="button"].btn-block {
 /* line 135, node_modules/bootstrap/scss/_input-group.scss */
 
 .input-group-lg > .form-control,
-.comment-form .input-group-lg > input[type="text"],
-.comment-form .input-group-lg > input[type="email"],
-.comment-form .input-group-lg > input[type="url"],
-.comment-form .input-group-lg > textarea,
 .search-form .input-group-lg > .search-field,
 .input-group-lg > .custom-select,
 .input-group-lg > .input-group-prepend > .input-group-text,
 .input-group-lg > .input-group-append > .input-group-text,
 .input-group-lg > .input-group-prepend > .btn,
-.comment-form .input-group-lg > .input-group-prepend > input[type="submit"],
 .search-form .input-group-lg > .input-group-prepend > .search-submit,
 .posts-navigation .input-group-lg > .input-group-prepend > a,
 .black-button .input-group-lg > .input-group-prepend > a,
 .green-button .input-group-lg > .input-group-prepend > a,
 .input-group-lg > .input-group-append > .btn,
-.comment-form .input-group-lg > .input-group-append > input[type="submit"],
 .search-form .input-group-lg > .input-group-append > .search-submit,
 .posts-navigation .input-group-lg > .input-group-append > a,
 .black-button .input-group-lg > .input-group-append > a,
@@ -6342,10 +5949,6 @@ input[type="button"].btn-block {
 /* line 147, node_modules/bootstrap/scss/_input-group.scss */
 
 .input-group-sm > .form-control:not(textarea),
-.comment-form .input-group-sm > input:not(textarea)[type="text"],
-.comment-form .input-group-sm > input:not(textarea)[type="email"],
-.comment-form .input-group-sm > input:not(textarea)[type="url"],
-.comment-form .input-group-sm > textarea:not(textarea),
 .search-form .input-group-sm > .search-field:not(textarea),
 .input-group-sm > .custom-select {
   height: calc(1.5em + 0.5rem + 2px);
@@ -6354,22 +5957,16 @@ input[type="button"].btn-block {
 /* line 152, node_modules/bootstrap/scss/_input-group.scss */
 
 .input-group-sm > .form-control,
-.comment-form .input-group-sm > input[type="text"],
-.comment-form .input-group-sm > input[type="email"],
-.comment-form .input-group-sm > input[type="url"],
-.comment-form .input-group-sm > textarea,
 .search-form .input-group-sm > .search-field,
 .input-group-sm > .custom-select,
 .input-group-sm > .input-group-prepend > .input-group-text,
 .input-group-sm > .input-group-append > .input-group-text,
 .input-group-sm > .input-group-prepend > .btn,
-.comment-form .input-group-sm > .input-group-prepend > input[type="submit"],
 .search-form .input-group-sm > .input-group-prepend > .search-submit,
 .posts-navigation .input-group-sm > .input-group-prepend > a,
 .black-button .input-group-sm > .input-group-prepend > a,
 .green-button .input-group-sm > .input-group-prepend > a,
 .input-group-sm > .input-group-append > .btn,
-.comment-form .input-group-sm > .input-group-append > input[type="submit"],
 .search-form .input-group-sm > .input-group-append > .search-submit,
 .posts-navigation .input-group-sm > .input-group-append > a,
 .black-button .input-group-sm > .input-group-append > a,
@@ -6390,21 +5987,18 @@ input[type="button"].btn-block {
 /* line 177, node_modules/bootstrap/scss/_input-group.scss */
 
 .input-group > .input-group-prepend > .btn,
-.comment-form .input-group > .input-group-prepend > input[type="submit"],
 .search-form .input-group > .input-group-prepend > .search-submit,
 .posts-navigation .input-group > .input-group-prepend > a,
 .black-button .input-group > .input-group-prepend > a,
 .green-button .input-group > .input-group-prepend > a,
 .input-group > .input-group-prepend > .input-group-text,
 .input-group > .input-group-append:not(:last-child) > .btn,
-.comment-form .input-group > .input-group-append:not(:last-child) > input[type="submit"],
 .search-form .input-group > .input-group-append:not(:last-child) > .search-submit,
 .posts-navigation .input-group > .input-group-append:not(:last-child) > a,
 .black-button .input-group > .input-group-append:not(:last-child) > a,
 .green-button .input-group > .input-group-append:not(:last-child) > a,
 .input-group > .input-group-append:not(:last-child) > .input-group-text,
 .input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),
-.comment-form .input-group > .input-group-append:last-child > input:not(:last-child):not(.dropdown-toggle)[type="submit"],
 .search-form .input-group > .input-group-append:last-child > .search-submit:not(:last-child):not(.dropdown-toggle),
 .posts-navigation .input-group > .input-group-append:last-child > a:not(:last-child):not(.dropdown-toggle),
 .black-button .input-group > .input-group-append:last-child > a:not(:last-child):not(.dropdown-toggle),
@@ -6417,21 +6011,18 @@ input[type="button"].btn-block {
 /* line 186, node_modules/bootstrap/scss/_input-group.scss */
 
 .input-group > .input-group-append > .btn,
-.comment-form .input-group > .input-group-append > input[type="submit"],
 .search-form .input-group > .input-group-append > .search-submit,
 .posts-navigation .input-group > .input-group-append > a,
 .black-button .input-group > .input-group-append > a,
 .green-button .input-group > .input-group-append > a,
 .input-group > .input-group-append > .input-group-text,
 .input-group > .input-group-prepend:not(:first-child) > .btn,
-.comment-form .input-group > .input-group-prepend:not(:first-child) > input[type="submit"],
 .search-form .input-group > .input-group-prepend:not(:first-child) > .search-submit,
 .posts-navigation .input-group > .input-group-prepend:not(:first-child) > a,
 .black-button .input-group > .input-group-prepend:not(:first-child) > a,
 .green-button .input-group > .input-group-prepend:not(:first-child) > a,
 .input-group > .input-group-prepend:not(:first-child) > .input-group-text,
 .input-group > .input-group-prepend:first-child > .btn:not(:first-child),
-.comment-form .input-group > .input-group-prepend:first-child > input:not(:first-child)[type="submit"],
 .search-form .input-group > .input-group-prepend:first-child > .search-submit:not(:first-child),
 .posts-navigation .input-group > .input-group-prepend:first-child > a:not(:first-child),
 .black-button .input-group > .input-group-prepend:first-child > a:not(:first-child),
@@ -8410,7 +8001,6 @@ a.badge:focus {
 /* line 31, node_modules/bootstrap/scss/_badge.scss */
 
 .btn .badge,
-.comment-form input[type="submit"] .badge,
 .search-form .search-submit .badge,
 .posts-navigation a .badge,
 .black-button a .badge,
@@ -16593,13 +16183,6 @@ a.text-dark:focus {
   }
 }
 
-/**
- * Import npm dependencies
- *
- * Prefix your imports with `~` to grab from node_modules/
- * @see https://github.com/webpack-contrib/sass-loader#imports
- */
-
 /** Import theme styles */
 
 /* line 1, resources/assets/styles/common/_global.scss */
@@ -17061,12 +16644,6 @@ blockquote {
   margin: 2rem 0;
 }
 
-/* line 5, resources/assets/styles/components/_comments.scss */
-
-.comment-list ol {
-  list-style: none;
-}
-
 /** Search form */
 
 /* line 6, resources/assets/styles/components/_forms.scss */
@@ -17111,10 +16688,6 @@ blockquote {
 /* line 47, resources/assets/styles/components/_forms.scss */
 
 .form-control,
-.comment-form input[type="text"],
-.comment-form input[type="email"],
-.comment-form input[type="url"],
-.comment-form textarea,
 .search-form .search-field {
   -webkit-appearance: none;
   border-radius: 0;
@@ -17130,10 +16703,6 @@ blockquote {
 /* line 58, resources/assets/styles/components/_forms.scss */
 
 .form-control:focus,
-.comment-form input:focus[type="text"],
-.comment-form input:focus[type="email"],
-.comment-form input:focus[type="url"],
-.comment-form textarea:focus,
 .search-form .search-field:focus {
   border-color: #00c214;
 }
@@ -17152,8 +16721,6 @@ blockquote {
 /* line 67, resources/assets/styles/components/_forms.scss */
 
 .resource-filter-form .btn,
-.resource-filter-form .comment-form input[type="submit"],
-.comment-form .resource-filter-form input[type="submit"],
 .resource-filter-form .search-form .search-submit,
 .search-form .resource-filter-form .search-submit,
 .resource-filter-form .posts-navigation a,
@@ -17815,16 +17382,9 @@ blockquote {
   margin: auto;
 }
 
-/* line 1, resources/assets/styles/layouts/_tinymce.scss */
-
-body#tinymce {
-  margin: 12px !important;
-}
-
 /* line 1, resources/assets/styles/custom/_buttons.scss */
 
 .btn,
-.comment-form input[type="submit"],
 .search-form .search-submit,
 .posts-navigation a,
 .black-button a,
@@ -17844,7 +17404,6 @@ body#tinymce {
 /* line 13, node_modules/bootstrap/scss/mixins/_hover.scss */
 
 .btn:hover,
-.comment-form input:hover[type="submit"],
 .search-form .search-submit:hover,
 .posts-navigation a:hover,
 .black-button a:hover,
@@ -17857,13 +17416,11 @@ body#tinymce {
 /* line 18, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn:focus,
-.comment-form input:focus[type="submit"],
 .search-form .search-submit:focus,
 .posts-navigation a:focus,
 .black-button a:focus,
 .green-button a:focus,
 .btn.focus,
-.comment-form input.focus[type="submit"],
 .search-form .focus.search-submit,
 .posts-navigation a.focus,
 .black-button a.focus,
@@ -17875,13 +17432,11 @@ body#tinymce {
 /* line 29, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn.disabled,
-.comment-form input.disabled[type="submit"],
 .search-form .disabled.search-submit,
 .posts-navigation a.disabled,
 .black-button a.disabled,
 .green-button a.disabled,
 .btn:disabled,
-.comment-form input:disabled[type="submit"],
 .search-form .search-submit:disabled,
 .posts-navigation a:disabled,
 .black-button a:disabled,
@@ -17894,19 +17449,16 @@ body#tinymce {
 /* line 40, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn:not(:disabled):not(.disabled):active,
-.comment-form input:not(:disabled):not(.disabled):active[type="submit"],
 .search-form .search-submit:not(:disabled):not(.disabled):active,
 .posts-navigation a:not(:disabled):not(.disabled):active,
 .black-button a:not(:disabled):not(.disabled):active,
 .green-button a:not(:disabled):not(.disabled):active,
 .btn:not(:disabled):not(.disabled).active,
-.comment-form input:not(:disabled):not(.disabled).active[type="submit"],
 .search-form .search-submit:not(:disabled):not(.disabled).active,
 .posts-navigation a:not(:disabled):not(.disabled).active,
 .black-button a:not(:disabled):not(.disabled).active,
 .green-button a:not(:disabled):not(.disabled).active,
 .show > .btn.dropdown-toggle,
-.comment-form .show > input.dropdown-toggle[type="submit"],
 .search-form .show > .dropdown-toggle.search-submit,
 .posts-navigation .show > a.dropdown-toggle,
 .black-button .show > a.dropdown-toggle,
@@ -17919,19 +17471,16 @@ body#tinymce {
 /* line 50, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn:not(:disabled):not(.disabled):active:focus,
-.comment-form input:not(:disabled):not(.disabled):active:focus[type="submit"],
 .search-form .search-submit:not(:disabled):not(.disabled):active:focus,
 .posts-navigation a:not(:disabled):not(.disabled):active:focus,
 .black-button a:not(:disabled):not(.disabled):active:focus,
 .green-button a:not(:disabled):not(.disabled):active:focus,
 .btn:not(:disabled):not(.disabled).active:focus,
-.comment-form input:not(:disabled):not(.disabled).active:focus[type="submit"],
 .search-form .search-submit:not(:disabled):not(.disabled).active:focus,
 .posts-navigation a:not(:disabled):not(.disabled).active:focus,
 .black-button a:not(:disabled):not(.disabled).active:focus,
 .green-button a:not(:disabled):not(.disabled).active:focus,
 .show > .btn.dropdown-toggle:focus,
-.comment-form .show > input.dropdown-toggle:focus[type="submit"],
 .search-form .show > .dropdown-toggle.search-submit:focus,
 .posts-navigation .show > a.dropdown-toggle:focus,
 .black-button .show > a.dropdown-toggle:focus,
@@ -17943,7 +17492,6 @@ body#tinymce {
 /* line 12, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-black,
-.comment-form input.btn-black[type="submit"],
 .search-form .btn-black.search-submit,
 .search-form .black-button a.search-submit,
 .black-button .search-form a.search-submit,
@@ -17959,7 +17507,6 @@ body#tinymce {
 /* line 13, node_modules/bootstrap/scss/mixins/_hover.scss */
 
 .btn.btn-black:hover,
-.comment-form input.btn-black:hover[type="submit"],
 .search-form .btn-black.search-submit:hover,
 .posts-navigation a.btn-black:hover,
 .black-button a:hover,
@@ -17972,13 +17519,11 @@ body#tinymce {
 /* line 18, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn.btn-black:focus,
-.comment-form input.btn-black:focus[type="submit"],
 .search-form .btn-black.search-submit:focus,
 .posts-navigation a.btn-black:focus,
 .black-button a:focus,
 .green-button a.btn-black:focus,
 .btn.btn-black.focus,
-.comment-form input.btn-black.focus[type="submit"],
 .search-form .btn-black.focus.search-submit,
 .posts-navigation a.btn-black.focus,
 .black-button a.focus,
@@ -17990,13 +17535,11 @@ body#tinymce {
 /* line 29, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn.btn-black.disabled,
-.comment-form input.btn-black.disabled[type="submit"],
 .search-form .btn-black.disabled.search-submit,
 .posts-navigation a.btn-black.disabled,
 .black-button a.disabled,
 .green-button a.btn-black.disabled,
 .btn.btn-black:disabled,
-.comment-form input.btn-black:disabled[type="submit"],
 .search-form .btn-black.search-submit:disabled,
 .posts-navigation a.btn-black:disabled,
 .black-button a:disabled,
@@ -18009,19 +17552,16 @@ body#tinymce {
 /* line 40, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn.btn-black:not(:disabled):not(.disabled):active,
-.comment-form input.btn-black:not(:disabled):not(.disabled):active[type="submit"],
 .search-form .btn-black.search-submit:not(:disabled):not(.disabled):active,
 .posts-navigation a.btn-black:not(:disabled):not(.disabled):active,
 .black-button a:not(:disabled):not(.disabled):active,
 .green-button a.btn-black:not(:disabled):not(.disabled):active,
 .btn.btn-black:not(:disabled):not(.disabled).active,
-.comment-form input.btn-black:not(:disabled):not(.disabled).active[type="submit"],
 .search-form .btn-black.search-submit:not(:disabled):not(.disabled).active,
 .posts-navigation a.btn-black:not(:disabled):not(.disabled).active,
 .black-button a:not(:disabled):not(.disabled).active,
 .green-button a.btn-black:not(:disabled):not(.disabled).active,
 .show > .btn.btn-black.dropdown-toggle,
-.comment-form .show > input.btn-black.dropdown-toggle[type="submit"],
 .search-form .show > .btn-black.dropdown-toggle.search-submit,
 .search-form .black-button .show > a.dropdown-toggle.search-submit,
 .black-button .search-form .show > a.dropdown-toggle.search-submit,
@@ -18040,19 +17580,16 @@ body#tinymce {
 /* line 50, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn.btn-black:not(:disabled):not(.disabled):active:focus,
-.comment-form input.btn-black:not(:disabled):not(.disabled):active:focus[type="submit"],
 .search-form .btn-black.search-submit:not(:disabled):not(.disabled):active:focus,
 .posts-navigation a.btn-black:not(:disabled):not(.disabled):active:focus,
 .black-button a:not(:disabled):not(.disabled):active:focus,
 .green-button a.btn-black:not(:disabled):not(.disabled):active:focus,
 .btn.btn-black:not(:disabled):not(.disabled).active:focus,
-.comment-form input.btn-black:not(:disabled):not(.disabled).active:focus[type="submit"],
 .search-form .btn-black.search-submit:not(:disabled):not(.disabled).active:focus,
 .posts-navigation a.btn-black:not(:disabled):not(.disabled).active:focus,
 .black-button a:not(:disabled):not(.disabled).active:focus,
 .green-button a.btn-black:not(:disabled):not(.disabled).active:focus,
 .show > .btn.btn-black.dropdown-toggle:focus,
-.comment-form .show > input.btn-black.dropdown-toggle:focus[type="submit"],
 .search-form .show > .btn-black.dropdown-toggle.search-submit:focus,
 .search-form .black-button .show > a.dropdown-toggle.search-submit:focus,
 .black-button .search-form .show > a.dropdown-toggle.search-submit:focus,
@@ -18070,7 +17607,6 @@ body#tinymce {
 /* line 17, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-black:hover,
-.comment-form input.btn-black:hover[type="submit"],
 .search-form .btn-black.search-submit:hover,
 .posts-navigation a.btn-black:hover,
 .black-button a:hover,
@@ -18082,7 +17618,6 @@ body#tinymce {
 /* line 23, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-blue,
-.comment-form input.btn-blue[type="submit"],
 .search-form .btn-blue.search-submit,
 .posts-navigation a.btn-blue,
 .black-button a.btn-blue,
@@ -18096,7 +17631,6 @@ body#tinymce {
 /* line 13, node_modules/bootstrap/scss/mixins/_hover.scss */
 
 .btn.btn-blue:hover,
-.comment-form input.btn-blue:hover[type="submit"],
 .search-form .btn-blue.search-submit:hover,
 .posts-navigation a.btn-blue:hover,
 .black-button a.btn-blue:hover,
@@ -18109,13 +17643,11 @@ body#tinymce {
 /* line 18, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn.btn-blue:focus,
-.comment-form input.btn-blue:focus[type="submit"],
 .search-form .btn-blue.search-submit:focus,
 .posts-navigation a.btn-blue:focus,
 .black-button a.btn-blue:focus,
 .green-button a.btn-blue:focus,
 .btn.btn-blue.focus,
-.comment-form input.btn-blue.focus[type="submit"],
 .search-form .btn-blue.focus.search-submit,
 .posts-navigation a.btn-blue.focus,
 .black-button a.btn-blue.focus,
@@ -18127,13 +17659,11 @@ body#tinymce {
 /* line 29, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn.btn-blue.disabled,
-.comment-form input.btn-blue.disabled[type="submit"],
 .search-form .btn-blue.disabled.search-submit,
 .posts-navigation a.btn-blue.disabled,
 .black-button a.btn-blue.disabled,
 .green-button a.btn-blue.disabled,
 .btn.btn-blue:disabled,
-.comment-form input.btn-blue:disabled[type="submit"],
 .search-form .btn-blue.search-submit:disabled,
 .posts-navigation a.btn-blue:disabled,
 .black-button a.btn-blue:disabled,
@@ -18146,19 +17676,16 @@ body#tinymce {
 /* line 40, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn.btn-blue:not(:disabled):not(.disabled):active,
-.comment-form input.btn-blue:not(:disabled):not(.disabled):active[type="submit"],
 .search-form .btn-blue.search-submit:not(:disabled):not(.disabled):active,
 .posts-navigation a.btn-blue:not(:disabled):not(.disabled):active,
 .black-button a.btn-blue:not(:disabled):not(.disabled):active,
 .green-button a.btn-blue:not(:disabled):not(.disabled):active,
 .btn.btn-blue:not(:disabled):not(.disabled).active,
-.comment-form input.btn-blue:not(:disabled):not(.disabled).active[type="submit"],
 .search-form .btn-blue.search-submit:not(:disabled):not(.disabled).active,
 .posts-navigation a.btn-blue:not(:disabled):not(.disabled).active,
 .black-button a.btn-blue:not(:disabled):not(.disabled).active,
 .green-button a.btn-blue:not(:disabled):not(.disabled).active,
 .show > .btn.btn-blue.dropdown-toggle,
-.comment-form .show > input.btn-blue.dropdown-toggle[type="submit"],
 .search-form .show > .btn-blue.dropdown-toggle.search-submit,
 .posts-navigation .show > a.btn-blue.dropdown-toggle,
 .black-button .show > a.btn-blue.dropdown-toggle,
@@ -18171,19 +17698,16 @@ body#tinymce {
 /* line 50, node_modules/bootstrap/scss/mixins/_buttons.scss */
 
 .btn.btn-blue:not(:disabled):not(.disabled):active:focus,
-.comment-form input.btn-blue:not(:disabled):not(.disabled):active:focus[type="submit"],
 .search-form .btn-blue.search-submit:not(:disabled):not(.disabled):active:focus,
 .posts-navigation a.btn-blue:not(:disabled):not(.disabled):active:focus,
 .black-button a.btn-blue:not(:disabled):not(.disabled):active:focus,
 .green-button a.btn-blue:not(:disabled):not(.disabled):active:focus,
 .btn.btn-blue:not(:disabled):not(.disabled).active:focus,
-.comment-form input.btn-blue:not(:disabled):not(.disabled).active:focus[type="submit"],
 .search-form .btn-blue.search-submit:not(:disabled):not(.disabled).active:focus,
 .posts-navigation a.btn-blue:not(:disabled):not(.disabled).active:focus,
 .black-button a.btn-blue:not(:disabled):not(.disabled).active:focus,
 .green-button a.btn-blue:not(:disabled):not(.disabled).active:focus,
 .show > .btn.btn-blue.dropdown-toggle:focus,
-.comment-form .show > input.btn-blue.dropdown-toggle:focus[type="submit"],
 .search-form .show > .btn-blue.dropdown-toggle.search-submit:focus,
 .posts-navigation .show > a.btn-blue.dropdown-toggle:focus,
 .black-button .show > a.btn-blue.dropdown-toggle:focus,
@@ -18195,7 +17719,6 @@ body#tinymce {
 /* line 28, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-blue:hover,
-.comment-form input.btn-blue:hover[type="submit"],
 .search-form .btn-blue.search-submit:hover,
 .posts-navigation a.btn-blue:hover,
 .black-button a.btn-blue:hover,
@@ -18207,7 +17730,6 @@ body#tinymce {
 /* line 34, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-white,
-.comment-form input.btn-white[type="submit"],
 .search-form .btn-white.search-submit,
 .posts-navigation a.btn-white,
 .black-button a.btn-white,
@@ -18219,7 +17741,6 @@ body#tinymce {
 /* line 39, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-black-outline,
-.comment-form input.btn-black-outline[type="submit"],
 .search-form .btn-black-outline.search-submit,
 .posts-navigation a.btn-black-outline,
 .black-button a.btn-black-outline,
@@ -18230,7 +17751,6 @@ body#tinymce {
 /* line 42, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-black-outline:hover,
-.comment-form input.btn-black-outline:hover[type="submit"],
 .search-form .btn-black-outline.search-submit:hover,
 .posts-navigation a.btn-black-outline:hover,
 .black-button a.btn-black-outline:hover,
@@ -18242,7 +17762,6 @@ body#tinymce {
 /* line 48, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-white-outline,
-.comment-form input.btn-white-outline[type="submit"],
 .search-form .btn-white-outline.search-submit,
 .posts-navigation a.btn-white-outline,
 .black-button a.btn-white-outline,
@@ -18255,7 +17774,6 @@ body#tinymce {
 /* line 53, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-white-outline:hover,
-.comment-form input.btn-white-outline:hover[type="submit"],
 .search-form .btn-white-outline.search-submit:hover,
 .posts-navigation a.btn-white-outline:hover,
 .black-button a.btn-white-outline:hover,
@@ -18267,7 +17785,6 @@ body#tinymce {
 /* line 59, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-primary,
-.comment-form input.btn-primary[type="submit"],
 .search-form .btn-primary.search-submit,
 .posts-navigation a.btn-primary,
 .black-button a.btn-primary,
@@ -18279,7 +17796,6 @@ body#tinymce {
 /* line 63, resources/assets/styles/custom/_buttons.scss */
 
 .btn.btn-primary:hover,
-.comment-form input.btn-primary:hover[type="submit"],
 .search-form .btn-primary.search-submit:hover,
 .posts-navigation a.btn-primary:hover,
 .black-button a.btn-primary:hover,
@@ -18602,1263 +18118,5 @@ body#tinymce {
   color: black;
 }
 
-/* line 1, resources/assets/styles/components/_modal.scss */
 
-.modal {
-  background: rgba(0, 0, 0, 0.5);
-}
-
-/* line 4, resources/assets/styles/components/_modal.scss */
-
-.modal .modal-dialog {
-  margin-top: 25vh;
-}
-
-/* line 8, resources/assets/styles/components/_modal.scss */
-
-.modal .modal-content {
-  background: transparent;
-  border: none;
-}
-
-/* line 13, resources/assets/styles/components/_modal.scss */
-
-.modal .modal-header {
-  border-bottom: none;
-}
-
-/* line 17, resources/assets/styles/components/_modal.scss */
-
-.modal .close {
-  opacity: 1;
-}
-
-/* line 20, resources/assets/styles/components/_modal.scss */
-
-.modal .close .fa-times-circle {
-  font-size: 2rem;
-  color: white;
-}
-
-/* line 26, resources/assets/styles/components/_modal.scss */
-
-.modal form.search-form {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-/* line 29, resources/assets/styles/components/_modal.scss */
-
-.modal form.search-form input {
-  border-radius: 0;
-  border: none;
-  padding: 1.15rem;
-}
-
-/* line 34, resources/assets/styles/components/_modal.scss */
-
-.modal form.search-form input.search-field {
-  padding: 2rem;
-  min-width: 300px;
-}
-
-/* line 2, resources/assets/styles/components/_blocks.scss */
-
-.homepage-hero .hero-bottom {
-  font-family: "SharpSans-Bold", sans-serif;
-}
-
-/* line 6, resources/assets/styles/components/_blocks.scss */
-
-.homepage-hero .right-body {
-  font-family: "SharpSans-Bold", sans-serif;
-  font-size: 2.15rem;
-}
-
-/* line 10, resources/assets/styles/components/_blocks.scss */
-
-.homepage-hero .right-body h5 {
-  margin-top: 0;
-  font-family: "SharpSans-Bold", sans-serif;
-  font-size: 2.15rem;
-  margin-bottom: 3rem;
-}
-
-/* line 18, resources/assets/styles/components/_blocks.scss */
-
-.homepage-hero .btn,
-.homepage-hero .comment-form input[type="submit"],
-.comment-form .homepage-hero input[type="submit"],
-.homepage-hero .search-form .search-submit,
-.search-form .homepage-hero .search-submit,
-.homepage-hero .posts-navigation a,
-.posts-navigation .homepage-hero a,
-.homepage-hero .black-button a,
-.black-button .homepage-hero a,
-.homepage-hero .green-button a,
-.green-button .homepage-hero a {
-  margin-top: 3rem;
-  font-family: "SharpSans-Bold", sans-serif;
-  letter-spacing: 1px;
-}
-
-/* line 24, resources/assets/styles/components/_blocks.scss */
-
-.homepage-hero .full-width-text-inner {
-  padding-top: 8rem;
-  padding-bottom: 15rem;
-  background: rgba(0, 0, 0, 0.65);
-  color: white;
-}
-
-@media (max-width: 991.98px) {
-  /* line 24, resources/assets/styles/components/_blocks.scss */
-
-  .homepage-hero .full-width-text-inner {
-    padding: 2rem;
-  }
-}
-
-/* line 36, resources/assets/styles/components/_blocks.scss */
-
-.arrow-border {
-  border: 22px solid black;
-  position: relative;
-  padding: 2rem 4rem 2rem 2rem;
-  margin: 4rem 0;
-}
-
-@media (max-width: 991.98px) {
-  /* line 36, resources/assets/styles/components/_blocks.scss */
-
-  .arrow-border {
-    border: none;
-  }
-}
-
-/* line 46, resources/assets/styles/components/_blocks.scss */
-
-.arrow-border .col-lg-6 {
-  padding: 0 2.3rem;
-}
-
-@media (max-width: 991.98px) {
-  /* line 46, resources/assets/styles/components/_blocks.scss */
-
-  .arrow-border .col-lg-6 {
-    padding: 0 0.5rem;
-  }
-}
-
-/* line 54, resources/assets/styles/components/_blocks.scss */
-
-.arrow-border h3 {
-  margin-top: 0.5rem;
-  line-height: 1.1;
-}
-
-/* line 59, resources/assets/styles/components/_blocks.scss */
-
-.arrow-border .arrow {
-  background: white;
-  position: absolute;
-  top: -1.4rem;
-  right: -1.45rem;
-  padding-left: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
-@media (max-width: 991.98px) {
-  /* line 59, resources/assets/styles/components/_blocks.scss */
-
-  .arrow-border .arrow {
-    display: none;
-  }
-}
-
-/* line 74, resources/assets/styles/components/_blocks.scss */
-
-.join-embed h2 {
-  margin: 0;
-}
-
-@media (max-width: 991.98px) {
-  /* line 74, resources/assets/styles/components/_blocks.scss */
-
-  .join-embed h2 {
-    padding: 0 1rem;
-    margin-bottom: 1rem;
-  }
-}
-
-/* line 83, resources/assets/styles/components/_blocks.scss */
-
-.join-embed .advocacy-actionwidget {
-  -webkit-box-shadow: none !important;
-          box-shadow: none !important;
-  border-radius: 0 !important;
-  border: none !important;
-}
-
-/* line 88, resources/assets/styles/components/_blocks.scss */
-
-.join-embed .advocacy-actionwidget iframe {
-  min-height: 280px !important;
-  height: 280px;
-}
-
-/* line 95, resources/assets/styles/components/_blocks.scss */
-
-.full-width-two-col {
-  padding: 4rem 0;
-}
-
-/* line 99, resources/assets/styles/components/_blocks.scss */
-
-.full-width-two-col .container-inner .row {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-/* line 108, resources/assets/styles/components/_blocks.scss */
-
-.partner-organizations .full-width-two-col .container-inner .row {
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-}
-
-/* line 115, resources/assets/styles/components/_blocks.scss */
-
-.full-width-one-col {
-  padding: 4rem 0;
-}
-
-/* line 118, resources/assets/styles/components/_blocks.scss */
-
-.full-width-one-col.bg-img-upload {
-  padding: 0;
-}
-
-/* line 121, resources/assets/styles/components/_blocks.scss */
-
-.full-width-one-col.bg-img-upload .full-width-text-inner {
-  padding: 4rem 3rem;
-  background: rgba(0, 0, 0, 0.75);
-  color: white;
-}
-
-/* line 129, resources/assets/styles/components/_blocks.scss */
-
-.bg-black {
-  background: black;
-  color: white;
-  padding: 2rem 0;
-}
-
-/* line 135, resources/assets/styles/components/_blocks.scss */
-
-.full-width {
-  position: relative;
-}
-
-/* line 139, resources/assets/styles/components/_blocks.scss */
-
-.featured-action {
-  padding: 0;
-}
-
-/* line 142, resources/assets/styles/components/_blocks.scss */
-
-.featured-action .right {
-  text-align: right;
-}
-
-/* line 146, resources/assets/styles/components/_blocks.scss */
-
-.featured-action .display-2 {
-  margin-top: 0;
-  font-size: 2rem;
-  line-height: 2.75rem;
-}
-
-/* line 153, resources/assets/styles/components/_blocks.scss */
-
-.featured-action .image img {
-  -o-object-fit: cover;
-     object-fit: cover;
-  height: 500px;
-}
-
-@media (max-width: 991.98px) {
-  /* line 153, resources/assets/styles/components/_blocks.scss */
-
-  .featured-action .image img {
-    height: auto;
-  }
-}
-
-/* line 165, resources/assets/styles/components/_blocks.scss */
-
-.full-image-text .col-lg-6 img {
-  -o-object-fit: cover;
-     object-fit: cover;
-  height: 160px;
-  width: 160px;
-}
-
-/* line 171, resources/assets/styles/components/_blocks.scss */
-
-.full-image-text .col-lg-12 img {
-  -o-object-fit: cover;
-     object-fit: cover;
-  height: 255px;
-  width: 255px;
-}
-
-/* line 178, resources/assets/styles/components/_blocks.scss */
-
-.asterisk-yes {
-  position: relative;
-}
-
-/* line 181, resources/assets/styles/components/_blocks.scss */
-
-.asterisk-yes.asterisk-right {
-  padding: 3rem 0;
-}
-
-/* line 184, resources/assets/styles/components/_blocks.scss */
-
-.asterisk-yes.asterisk-right .asterisk-container {
-  position: absolute;
-  right: 0;
-  top: -16.05rem;
-  z-index: 5;
-  overflow-x: hidden;
-}
-
-@media (max-width: 991.98px) {
-  /* line 184, resources/assets/styles/components/_blocks.scss */
-
-  .asterisk-yes.asterisk-right .asterisk-container {
-    display: none;
-  }
-}
-
-/* line 195, resources/assets/styles/components/_blocks.scss */
-
-.asterisk-yes.asterisk-right .asterisk-container.asterisk-container-right {
-  display: block;
-}
-
-/* line 199, resources/assets/styles/components/_blocks.scss */
-
-.asterisk-yes.asterisk-right .asterisk-container.asterisk-container-top {
-  display: none;
-}
-
-/* line 204, resources/assets/styles/components/_blocks.scss */
-
-.asterisk-yes.asterisk-right .container-inner {
-  position: relative;
-  z-index: 6;
-}
-
-/* line 208, resources/assets/styles/components/_blocks.scss */
-
-.asterisk-yes.asterisk-right .container-inner .join-embed {
-  padding-top: 5rem;
-  padding-bottom: 2rem;
-}
-
-/* line 214, resources/assets/styles/components/_blocks.scss */
-
-.asterisk-yes.asterisk-right.join-asterisk {
-  margin-bottom: 0;
-  padding-bottom: 0;
-  padding-top: 0;
-}
-
-@media (max-width: 991.98px) {
-  /* line 214, resources/assets/styles/components/_blocks.scss */
-
-  .asterisk-yes.asterisk-right.join-asterisk {
-    display: block;
-  }
-}
-
-/* line 225, resources/assets/styles/components/_blocks.scss */
-
-.asterisk-yes.asterisk-top {
-  margin-top: 10rem;
-}
-
-@media (max-width: 991.98px) {
-  /* line 225, resources/assets/styles/components/_blocks.scss */
-
-  .asterisk-yes.asterisk-top {
-    margin-top: 1rem;
-  }
-}
-
-/* line 232, resources/assets/styles/components/_blocks.scss */
-
-.asterisk-yes.asterisk-top .asterisk-container {
-  position: absolute;
-  top: -200px;
-  left: 0;
-  width: 100%;
-  max-width: 100%;
-  text-align: center;
-}
-
-@media (max-width: 991.98px) {
-  /* line 232, resources/assets/styles/components/_blocks.scss */
-
-  .asterisk-yes.asterisk-top .asterisk-container {
-    top: -50px;
-  }
-}
-
-/* line 244, resources/assets/styles/components/_blocks.scss */
-
-.asterisk-yes.asterisk-top .asterisk-container img {
-  max-width: 400px;
-}
-
-@media (max-width: 991.98px) {
-  /* line 244, resources/assets/styles/components/_blocks.scss */
-
-  .asterisk-yes.asterisk-top .asterisk-container img {
-    max-width: 200px;
-  }
-}
-
-/* line 252, resources/assets/styles/components/_blocks.scss */
-
-.asterisk-yes.asterisk-top .asterisk-container.asterisk-container-right {
-  display: none;
-}
-
-/* line 256, resources/assets/styles/components/_blocks.scss */
-
-.asterisk-yes.asterisk-top .asterisk-container.asterisk-container-top {
-  display: block;
-}
-
-/* line 261, resources/assets/styles/components/_blocks.scss */
-
-.asterisk-yes.asterisk-top .container-inner {
-  margin-top: 4rem;
-}
-
-/* line 267, resources/assets/styles/components/_blocks.scss */
-
-.post-state,
-.post-campaign {
-  text-transform: uppercase;
-  margin-top: 1rem;
-}
-
-/* line 272, resources/assets/styles/components/_blocks.scss */
-
-.post-state label,
-.post-campaign label {
-  font-family: "SharpSans-Bold", sans-serif;
-  margin: 0;
-}
-
-/* line 277, resources/assets/styles/components/_blocks.scss */
-
-.post-state ul,
-.post-campaign ul {
-  padding: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin: 0;
-}
-
-/* line 282, resources/assets/styles/components/_blocks.scss */
-
-.post-state ul li,
-.post-campaign ul li {
-  margin-left: 1rem;
-  list-style: none;
-  padding-bottom: 3px;
-}
-
-/* line 287, resources/assets/styles/components/_blocks.scss */
-
-.post-state ul li a,
-.post-campaign ul li a {
-  padding: 0.35rem;
-  font-size: 0.75rem;
-  background: #eaeff2;
-  font-family: "SharpSans-Bold", sans-serif;
-  text-decoration: none;
-}
-
-/* line 294, resources/assets/styles/components/_blocks.scss */
-
-.post-state ul li a:hover,
-.post-campaign ul li a:hover {
-  background: #00c214;
-}
-
-/* line 302, resources/assets/styles/components/_blocks.scss */
-
-.bold-block {
-  padding: 5rem 0;
-  background: #00c214;
-}
-
-@media (max-width: 991.98px) {
-  /* line 302, resources/assets/styles/components/_blocks.scss */
-
-  .bold-block {
-    display: relative;
-    z-index: 10;
-    padding: 2rem 0;
-  }
-}
-
-/* line 312, resources/assets/styles/components/_blocks.scss */
-
-.bold-block h2 {
-  margin-top: 0;
-  font-family: "SharpSans-Bold", sans-serif;
-}
-
-@media (max-width: 991.98px) {
-  /* line 317, resources/assets/styles/components/_blocks.scss */
-
-  .bold-block .top-text {
-    padding: 0 1rem;
-  }
-}
-
-/* line 323, resources/assets/styles/components/_blocks.scss */
-
-.bold-block .letter-block {
-  margin: 2rem 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-/* line 328, resources/assets/styles/components/_blocks.scss */
-
-.bold-block .letter-block .letter {
-  background: black;
-  color: white;
-  font-family: "SharpSans-Bold", sans-serif;
-  font-weight: 600;
-  font-size: 5rem;
-  line-height: 7rem;
-  text-align: center;
-  width: 112px;
-  height: 112px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 4;
-}
-
-@media (max-width: 991.98px) {
-  /* line 328, resources/assets/styles/components/_blocks.scss */
-
-  .bold-block .letter-block .letter {
-    right: 0;
-    margin: auto;
-  }
-}
-
-/* line 348, resources/assets/styles/components/_blocks.scss */
-
-.bold-block .letter-block .letter .letter-link {
-  text-decoration: none;
-  color: white;
-}
-
-/* line 352, resources/assets/styles/components/_blocks.scss */
-
-.bold-block .letter-block .letter .letter-link:hover {
-  background: black;
-}
-
-/* line 358, resources/assets/styles/components/_blocks.scss */
-
-.bold-block .letter-block .content {
-  width: 90%;
-  margin-left: 10%;
-  background: white;
-  color: black;
-  min-height: 225px;
-  padding: 2rem 4rem 2rem 6rem;
-  z-index: 3;
-}
-
-@media (max-width: 991.98px) {
-  /* line 358, resources/assets/styles/components/_blocks.scss */
-
-  .bold-block .letter-block .content {
-    margin-left: 5%;
-    padding: 5rem 2rem 2rem;
-    margin-top: 4rem;
-  }
-
-  /* line 372, resources/assets/styles/components/_blocks.scss */
-
-  .bold-block .letter-block .content h3 {
-    margin-top: 0;
-  }
-}
-
-/* line 377, resources/assets/styles/components/_blocks.scss */
-
-.bold-block .letter-block .content a {
-  text-decoration: none;
-  border-bottom: 2px solid #00c214;
-  font-family: "SharpSans-Bold", sans-serif;
-  letter-spacing: 0.5px;
-}
-
-/* line 383, resources/assets/styles/components/_blocks.scss */
-
-.bold-block .letter-block .content a:hover {
-  color: black;
-}
-
-/* line 388, resources/assets/styles/components/_blocks.scss */
-
-.bold-block .letter-block .content a.btn-black-outline:hover {
-  color: white;
-}
-
-/* line 393, resources/assets/styles/components/_blocks.scss */
-
-.bold-block .letter-block .content a.btn-white-outline {
-  color: white;
-}
-
-/* line 396, resources/assets/styles/components/_blocks.scss */
-
-.bold-block .letter-block .content a.btn-white-outline:hover {
-  color: black;
-}
-
-/* line 404, resources/assets/styles/components/_blocks.scss */
-
-.bold-block.bold-tall {
-  background: #00c214;
-  color: black;
-  width: 100%;
-}
-
-/* line 409, resources/assets/styles/components/_blocks.scss */
-
-.bold-block.bold-tall .letter {
-  position: relative;
-  width: 190px;
-  height: 190px;
-  padding: 2.5rem 2.25rem;
-  font-size: 7rem;
-}
-
-/* line 417, resources/assets/styles/components/_blocks.scss */
-
-.bold-block.bold-tall .letter-block {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 100%;
-  background: white;
-}
-
-/* line 423, resources/assets/styles/components/_blocks.scss */
-
-.bold-block.bold-tall .letter-block .content {
-  color: black;
-  width: 100%;
-  margin-left: 0;
-  padding: 2rem;
-  min-height: unset;
-}
-
-/* line 430, resources/assets/styles/components/_blocks.scss */
-
-.bold-block.bold-tall .letter-block .content .font-bold {
-  margin-top: 0;
-}
-
-/* line 434, resources/assets/styles/components/_blocks.scss */
-
-.bold-block.bold-tall .letter-block .content a {
-  color: black;
-  text-decoration: none;
-  border-bottom: 2px solid #00c214;
-}
-
-/* line 439, resources/assets/styles/components/_blocks.scss */
-
-.bold-block.bold-tall .letter-block .content a:hover {
-  color: #00c214;
-  background-color: transparent;
-}
-
-/* line 449, resources/assets/styles/components/_blocks.scss */
-
-.background-image {
-  background-image: url(/wp-content/themes/allaboveall2020/dist/images/bg-image.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding: 2rem;
-}
-
-/* line 456, resources/assets/styles/components/_blocks.scss */
-
-.box-shadow {
-  -webkit-box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.75);
-  box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.75);
-}
-
-/* line 462, resources/assets/styles/components/_blocks.scss */
-
-.black-box {
-  padding: 2rem;
-  background: black;
-  color: white;
-  max-width: 330px;
-  margin: auto;
-  text-align: left;
-}
-
-/* line 470, resources/assets/styles/components/_blocks.scss */
-
-.black-box h3 {
-  margin-bottom: 2rem;
-}
-
-/* line 475, resources/assets/styles/components/_blocks.scss */
-
-.list-asterisk-green ul {
-  list-style: none;
-  padding-left: 0;
-  font-size: 1.15rem;
-}
-
-/* line 480, resources/assets/styles/components/_blocks.scss */
-
-.list-asterisk-green ul li {
-  position: relative;
-  padding-left: 2.5rem;
-  margin-top: 1rem;
-}
-
-/* line 485, resources/assets/styles/components/_blocks.scss */
-
-.list-asterisk-green ul li::before {
-  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDAyIDc5LjE2NDQ4OCwgMjAyMC8wNy8xMC0yMjowNjo1MyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDUzRTlGQjk5Mzk4MTFFQkI5OTlEMzM3RUY2REM4RDkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDUzRTlGQkE5Mzk4MTFFQkI5OTlEMzM3RUY2REM4RDkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NjMwODNBNDkzMUQxMUVCQjk5OUQzMzdFRjZEQzhEOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowNTNFOUZCODkzOTgxMUVCQjk5OUQzMzdFRjZEQzhEOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrmVDD4AAATwSURBVHjavFZ7bBRFGP/2dXfttbTpg5c10McVEarGP6SNIq2NgVwMRoom1viopsUroVBMSypa8QittBEiCRRrogkxEoOamKgJaMQY36DBRCVWIDEhPmitpPTa3u7tjt83t3u9u929tmCYy+zN7M58v5lvfvP7PoA5ltyqZbfXD58y6kdO83rPpe+MnBWBqtnMbW5uBsYYrzJcTRH4z2rPfpowPfjqgDmaANdSRJtJRVZuOdL/XmVvxwG4xrKsb8ehqjf2HhNkSUr/lrJjUVE8Kw6H31zcuP4BphtgRKNT53Yd6HTar1vPKoHd7fuWbn0iJIgiMC125KeWnY+zmB6zAYtej3fl4J63FzWuv1+7PEYHAuVdT3fQt3RwltJmjqBlnS3tsfEIDmBQ8uTGxisTEa/wy0gjflZTXM0Mw4j+PfIHGAYHxT7o45McvGJXW18KsTKwxgLVxye4DW4Lvaeibewz2xmjO7RfO/e2Xugb3C/n+IG7iBkQQwPlXaEEOBqJCUn0onVYLkzeKc0lG2TrfO9A/5+9g204RHNl9W/P799O9tHAdlq1YehAhmjnxlR08q93jx+lnQgmX6jNVE0t39nakwDFd6IogZSTxUGto6KFWEVyIsboyW9O4JnPK6yrrkFPxF2m6VBQe8ca340Ly3wlC0sRmFthqqr6A0tvKmna2IQL42PjO81G0MP9yfyorq6GYDDoDpwEnldYV8PBiSRkNGd5RQDdKzIwOLUkWZH8y8sDhqbyMdPuTQWlkp+fD7m5uTA0NDSzCgSe27anbMemZ5mmcamz+GWxmdo6U4EWIgoi6QCc7xkIX3jp1RcyS1ClfKvrV1NYy7u39M0P1q3T0ZUWiROLwHaWcgNIopeuJAx/+OkH53Yf7BL4KgT7xnCaIssI/GURs+kBS2rTDUDygA+tMnNmYgy1RVi15BDk+SpxqAZ6NKoKHsVDuMleSdx3RowWdNnmbCGtLeLD60FQI105zAdLERPRh2NtWm4DEeS5BYa5vJ8pSLCkhTtVg4ucCqmqkVqTRM2YUlV+/YgD7pXJ0HT5Nndymb9Wfx+s9qwDlU17ljnsHWnw7ydfnJiRXMh8GYZiP2b0ySZ/D9yFoBpzBEuxqapQHKy9b+zM2R8yXScpk4DwssW/D1qyOyBqgtL6vQKY2mEelgBLFmwAj5iPrNaRgwyK1969BmOwf/Szbz92MisrSgZgAn0qux0mWByIRsoI+nn0I5gvlYIC5EqASVX1fp9/vGDlqgAz4vJKSldUX3OnGzgGQhfgdFBS5WwEGYiE4ejky/BgVht/x8klSqOhk0ExoowX3luzOlnbC9PAa2trIRwOQ0NDgwvomWIGX6GwkLjQP/U3++MxuQKVjt59bVYaUyrebIXFtdGzrP6f06x+5BT/p74VUjeHQg5ZpozO25rzCjyaFUpxbxZu67WJfjgY6TQvoGwTElmUaYIZUsFKBKZDaqgjEp3yqcPaM1ZMng6QRP8icTFXKmZ+SQd1u0hJ+Q+BUzIhYVjk8ZciFkZQz4KiRdgX7FmmyqLQPfYQvD95DHLF+JnaQVOzW5cs1wKn8KjkzYOLr7/z1u/beh7GTEV1zkA0VKgXrzyC7JXhknHREdSe7TkWAsdo5fMUFxT/3Nr9GL7SkWgZEvoYwneNbYD/oVAON+uE/nqV6wpsJQ9U/hNgAIneegCPl8u0AAAAAElFTkSuQmCC);
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-/* line 494, resources/assets/styles/components/_blocks.scss */
-
-.tax-list {
-  margin-top: 2rem;
-}
-
-/* line 498, resources/assets/styles/components/_blocks.scss */
-
-.tax-list-item {
-  margin-bottom: 2rem;
-}
-
-/* line 501, resources/assets/styles/components/_blocks.scss */
-
-.tax-list-item .excerpt {
-  color: #666;
-  font-size: 1.15rem;
-}
-
-/* line 506, resources/assets/styles/components/_blocks.scss */
-
-.tax-list-item .meta {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  color: #666;
-  margin: 0.5rem 0;
-  font-size: 1rem;
-}
-
-/* line 512, resources/assets/styles/components/_blocks.scss */
-
-.tax-list-item .meta .name {
-  margin-left: 1rem;
-  padding-left: 1rem;
-  border-left: 1px solid #999;
-}
-
-/* line 519, resources/assets/styles/components/_blocks.scss */
-
-.tax-list-item h4 {
-  font-size: 1.25rem;
-}
-
-/* line 522, resources/assets/styles/components/_blocks.scss */
-
-.tax-list-item h4 svg {
-  margin-left: 0.5rem;
-  max-width: 0.875rem;
-}
-
-/* line 529, resources/assets/styles/components/_blocks.scss */
-
-.two-col-flex {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-/* line 533, resources/assets/styles/components/_blocks.scss */
-
-.two-col-flex .left,
-.two-col-flex .right {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-}
-
-/* line 538, resources/assets/styles/components/_blocks.scss */
-
-.two-col-flex .text {
-  padding: 2rem 5rem;
-}
-
-@media (max-width: 991.98px) {
-  /* line 538, resources/assets/styles/components/_blocks.scss */
-
-  .two-col-flex .text {
-    padding: 2rem 2rem 0;
-  }
-}
-
-@media (max-width: 991.98px) {
-  /* line 529, resources/assets/styles/components/_blocks.scss */
-
-  .two-col-flex {
-    display: block;
-  }
-
-  /* line 549, resources/assets/styles/components/_blocks.scss */
-
-  .two-col-flex .text {
-    padding-bottom: 2rem;
-  }
-}
-
-/* line 555, resources/assets/styles/components/_blocks.scss */
-
-.map-left {
-  padding-right: 5rem;
-}
-
-/* line 558, resources/assets/styles/components/_blocks.scss */
-
-.map-left h3 {
-  margin-top: 0;
-}
-
-@media (max-width: 991.98px) {
-  /* line 555, resources/assets/styles/components/_blocks.scss */
-
-  .map-left {
-    padding: 0 2rem 2rem;
-  }
-}
-
-/* line 566, resources/assets/styles/components/_blocks.scss */
-
-.map-left .select {
-  margin-top: 1rem;
-  max-width: 30%;
-  background-color: white;
-}
-
-@media (max-width: 991.98px) {
-  /* line 566, resources/assets/styles/components/_blocks.scss */
-
-  .map-left .select {
-    max-width: 80%;
-    margin-left: 10%;
-  }
-}
-
-/* line 577, resources/assets/styles/components/_blocks.scss */
-
-.map-left .state-map {
-  margin-top: 1rem;
-  max-width: 75%;
-}
-
-@media (max-width: 991.98px) {
-  /* line 577, resources/assets/styles/components/_blocks.scss */
-
-  .map-left .state-map {
-    max-width: 100%;
-  }
-}
-
-/* line 587, resources/assets/styles/components/_blocks.scss */
-
-.select-page {
-  width: 50%;
-  margin: 2rem auto;
-}
-
-@media (max-width: 991.98px) {
-  /* line 587, resources/assets/styles/components/_blocks.scss */
-
-  .select-page {
-    width: 100%;
-  }
-}
-
-/* line 596, resources/assets/styles/components/_blocks.scss */
-
-#mapbase {
-  margin-bottom: 2rem;
-}
-
-/* line 600, resources/assets/styles/components/_blocks.scss */
-
-.stats-trio {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-size: 2rem;
-  text-transform: uppercase;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  font-family: "SharpSans-Bold", sans-serif;
-}
-
-/* line 608, resources/assets/styles/components/_blocks.scss */
-
-.stats-trio .num-large {
-  font-size: 4rem;
-}
-
-/* line 612, resources/assets/styles/components/_blocks.scss */
-
-.stats-trio .text-mid {
-  margin: 0 1rem;
-}
-
-/* line 617, resources/assets/styles/components/_blocks.scss */
-
-.stats-large-num {
-  text-align: center;
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  font-family: "SharpSans-Bold", sans-serif;
-}
-
-/* line 624, resources/assets/styles/components/_blocks.scss */
-
-.document-download {
-  border: 2px solid black;
-  padding: 1rem 2rem;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-family: "SharpSans-Bold", sans-serif;
-  display: inline-block;
-}
-
-/* line 633, resources/assets/styles/components/_blocks.scss */
-
-.post-state {
-  margin-top: 2rem;
-}
-
-/* line 638, resources/assets/styles/components/_blocks.scss */
-
-.state-box .select-page {
-  margin: 2rem 0;
-}
-
-/* line 644, resources/assets/styles/components/_blocks.scss */
-
-.action-embed .advocacy-actionwidget {
-  -webkit-box-shadow: none !important;
-          box-shadow: none !important;
-  border-radius: 0 !important;
-  border: none !important;
-}
-
-/* line 651, resources/assets/styles/components/_blocks.scss */
-
-.action-item {
-  padding: 0 15px 0 0;
-}
-
-/* line 654, resources/assets/styles/components/_blocks.scss */
-
-.action-item .img {
-  padding: 0;
-}
-
-/* line 658, resources/assets/styles/components/_blocks.scss */
-
-.action-item .text {
-  padding: 0;
-}
-
-/* line 661, resources/assets/styles/components/_blocks.scss */
-
-.action-item .text .text-inner {
-  padding: 3rem 5rem;
-  color: white;
-}
-
-/* line 666, resources/assets/styles/components/_blocks.scss */
-
-.action-item .text .text-inner h2 .action-h2-link {
-  color: white;
-}
-
-/* line 669, resources/assets/styles/components/_blocks.scss */
-
-.action-item .text .text-inner h2 .action-h2-link:hover {
-  color: black;
-}
-
-/* line 678, resources/assets/styles/components/_blocks.scss */
-
-.tweet-block {
-  padding: 1rem;
-}
-
-/* line 679, resources/assets/styles/components/_blocks.scss */
-
-.tweet-block.tweet-block-white {
-  border: 2px solid white;
-}
-
-/* line 683, resources/assets/styles/components/_blocks.scss */
-
-.tweet-block.tweet-block-black {
-  border: 2px solid black;
-}
-
-/* line 689, resources/assets/styles/components/_blocks.scss */
-
-.tweet-block .tweet-row {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-/* line 693, resources/assets/styles/components/_blocks.scss */
-
-.tweet-block .col-lg-3 {
-  text-align: center;
-}
-
-/* line 696, resources/assets/styles/components/_blocks.scss */
-
-.tweet-block .col-lg-3 .fa-twitter {
-  font-size: 3rem;
-  color: #00c214;
-}
-
-/* line 702, resources/assets/styles/components/_blocks.scss */
-
-.tweet-block .col-lg-9 {
-  padding-left: 0;
-}
-
-@media (max-width: 991.98px) {
-  /* line 702, resources/assets/styles/components/_blocks.scss */
-
-  .tweet-block .col-lg-9 {
-    padding-left: 15px;
-  }
-}
-
-/* line 713, resources/assets/styles/components/_blocks.scss */
-
-.full-news-resources .two-col ul {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-}
-
-/* line 717, resources/assets/styles/components/_blocks.scss */
-
-.full-news-resources .two-col ul li {
-  -webkit-box-flex: 50%;
-      -ms-flex: 50%;
-          flex: 50%;
-}
-
-/* line 1, resources/assets/styles/components/_cards.scss */
-
-.card {
-  height: 350px;
-  position: relative;
-  margin-bottom: 2rem;
-  border: none;
-}
-
-@media (max-width: 1199.98px) {
-  /* line 1, resources/assets/styles/components/_cards.scss */
-
-  .card {
-    height: 290px;
-  }
-}
-
-@media (max-width: 991.98px) {
-  /* line 1, resources/assets/styles/components/_cards.scss */
-
-  .card {
-    height: 300px;
-    overflow: hidden;
-  }
-}
-
-/* line 16, resources/assets/styles/components/_cards.scss */
-
-.card .card-background-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
-@media (max-width: 991.98px) {
-  /* line 16, resources/assets/styles/components/_cards.scss */
-
-  .card .card-background-image {
-    height: 300px;
-  }
-}
-
-/* line 27, resources/assets/styles/components/_cards.scss */
-
-.card .color-overlay {
-  position: absolute;
-  display: block;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.75);
-  z-index: 2;
-}
-
-/* line 38, resources/assets/styles/components/_cards.scss */
-
-.card .text-overlay {
-  position: relative;
-  z-index: 3;
-  padding: 1rem;
-}
-
-/* line 44, resources/assets/styles/components/_cards.scss */
-
-.card a {
-  cursor: pointer;
-  display: block;
-  height: 100%;
-  color: white;
-}
-
-/* line 50, resources/assets/styles/components/_cards.scss */
-
-.card a .text-headline {
-  display: block;
-  color: white;
-}
-
-/* line 54, resources/assets/styles/components/_cards.scss */
-
-.card a .text-headline h3 {
-  font-size: 1.75rem;
-  line-height: 2.5rem;
-}
-
-@media (max-width: 1199.98px) {
-  /* line 54, resources/assets/styles/components/_cards.scss */
-
-  .card a .text-headline h3 {
-    font-size: 1.75rem;
-    line-height: 2.25rem;
-  }
-}
-
-/* line 65, resources/assets/styles/components/_cards.scss */
-
-.card a .text-exc {
-  display: none;
-  color: black;
-  font-size: 1.25rem;
-}
-
-@media (max-width: 1199.98px) {
-  /* line 65, resources/assets/styles/components/_cards.scss */
-
-  .card a .text-exc {
-    font-size: 1rem;
-  }
-}
-
-/* line 75, resources/assets/styles/components/_cards.scss */
-
-.card a:hover {
-  background-color: white;
-  border: 10px solid #00c214;
-}
-
-/* line 79, resources/assets/styles/components/_cards.scss */
-
-.card a:hover .color-overlay,
-.card a:hover .card-background-image {
-  display: none;
-}
-
-/* line 84, resources/assets/styles/components/_cards.scss */
-
-.card a:hover .text-headline {
-  display: none;
-}
-
-/* line 88, resources/assets/styles/components/_cards.scss */
-
-.card a:hover .text-exc {
-  display: block;
-}
-
-
-/*# sourceMappingURL=main.css.map*/
+/*# sourceMappingURL=everyaction.css.map*/
