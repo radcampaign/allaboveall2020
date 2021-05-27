@@ -4,6 +4,9 @@
       "./scripts/main.js",
       "./styles/main.scss"
     ],
+    "form": [
+      "./scripts/form.js"
+    ],
     "everyaction": [
       "./styles/everyaction.scss"
     ],

@@ -128,6 +128,7 @@ function comments_init() {
 }
 function my_load_scripts($hook) {
   wp_enqueue_script('addthis', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5f2c7e68c4ab46b7', array(), null, true);
+  wp_enqueue_script('form', '/wp-content/themes/allaboveall2020/dist/scripts/form.js', array(), null, true);
 };
 
 add_action('wp_enqueue_scripts', 'my_load_scripts');
