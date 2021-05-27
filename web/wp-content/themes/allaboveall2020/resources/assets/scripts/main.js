@@ -61,6 +61,7 @@ $(document).ready(function() {
     $('#campaignResourceUpdateRow').parents('.bg-gray').addClass('hide');
   }
 
+  $('input[name*="PostalCode"]').attr('id', 'zip');
   $('input[name*="PostalCode"]').attr('placeholder', 'zipcode');
 });
 
