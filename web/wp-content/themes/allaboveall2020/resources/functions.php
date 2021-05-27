@@ -117,6 +117,12 @@ function search_distinct() {
   return "DISTINCT"; 
 }
 
+function add_cors_http_header(){
+    header("Access-Control-Allow-Origin: *");
+}
+add_action('init','add_cors_http_header');
+
+
 // remove comments
 add_action( 'init', 'comments_init' );
 function comments_init() {
