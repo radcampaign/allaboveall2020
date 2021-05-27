@@ -14,7 +14,6 @@ RewriteRule wp-content/uploads/_pda(\/[A-Za-z0-9_@.\/&+-]+)+\.([A-Za-z0-9_@.\/&+
 
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 RewriteBase /
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
