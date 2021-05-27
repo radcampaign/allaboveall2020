@@ -181,11 +181,13 @@
 
     .at-fields {
       display: flex;
+      flex-direction: row-reverse;
+      position: absolute;
 
       .at-text {
         min-width: 0;
         color: white;
-        margin-top: -17px;
+        margin-top: -28px;
         max-width: 85%;
 
         input {
@@ -201,8 +203,9 @@
 
     .at-form-submit {
       position: absolute;
-      top: 0;
-      right: 65px;
+      top: 1px;
+      right: 85px;
+      padding: 0;
 
       .btn-at-primary {
         background: $secondary-color !important;
@@ -211,6 +214,7 @@
         height: 37px;
         width: 37px;
         margin-top: 4px !important;
+        font-style: 16px;
 
         &:hover {
           color: $secondary-color !important;
