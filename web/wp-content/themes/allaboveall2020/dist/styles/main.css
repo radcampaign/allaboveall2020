@@ -17243,38 +17243,51 @@ blockquote {
   font-family: "SharpSans-Regular", sans-serif !important;
 }
 
-/* line 125, resources/assets/styles/components/_forms.scss */
+/* line 123, resources/assets/styles/components/_forms.scss */
+
+.ngp-form.at h2,
+.ngp-form.at h3,
+.ngp-form.at h4,
+.ngp-form.at h5,
+.ngp-form.at h6,
+.ngp-form.at p,
+.ngp-form.at li {
+  font-family: "SharpSans-Regular", sans-serif !important;
+}
+
+/* line 133, resources/assets/styles/components/_forms.scss */
+
+.ngp-form.at h1 {
+  margin-top: 0;
+  font-size: 2rem;
+  font-family: "SharpSans-Regular", sans-serif !important;
+}
+
+/* line 141, resources/assets/styles/components/_forms.scss */
 
 .at-form .at-title {
   display: none;
 }
 
-/* line 129, resources/assets/styles/components/_forms.scss */
-
-.at-form h1 {
-  margin-top: 0;
-  font-size: 2rem;
-}
-
-/* line 134, resources/assets/styles/components/_forms.scss */
+/* line 145, resources/assets/styles/components/_forms.scss */
 
 .at-form .at-inner {
   background: transparent;
 }
 
-/* line 138, resources/assets/styles/components/_forms.scss */
+/* line 149, resources/assets/styles/components/_forms.scss */
 
 .at-form .at-form-submit .at-submit {
   float: none;
 }
 
-/* line 142, resources/assets/styles/components/_forms.scss */
+/* line 153, resources/assets/styles/components/_forms.scss */
 
 .at-form .at-legend {
   display: none;
 }
 
-/* line 146, resources/assets/styles/components/_forms.scss */
+/* line 157, resources/assets/styles/components/_forms.scss */
 
 .at-form input,
 .at-form select {
@@ -17282,7 +17295,7 @@ blockquote {
   border: 2px solid black !important;
 }
 
-/* line 152, resources/assets/styles/components/_forms.scss */
+/* line 163, resources/assets/styles/components/_forms.scss */
 
 .at-form .btn-at-primary {
   background: #00c214 !important;
@@ -17293,40 +17306,40 @@ blockquote {
   border: none !important;
 }
 
-/* line 160, resources/assets/styles/components/_forms.scss */
+/* line 171, resources/assets/styles/components/_forms.scss */
 
 .at-form .btn-at-primary:hover {
   color: white !important;
   background: black !important;
 }
 
-/* line 166, resources/assets/styles/components/_forms.scss */
+/* line 177, resources/assets/styles/components/_forms.scss */
 
 .at-form .at-fieldset.ContactInformation {
   padding-bottom: 0;
 }
 
-/* line 170, resources/assets/styles/components/_forms.scss */
+/* line 181, resources/assets/styles/components/_forms.scss */
 
 .at-form .FooterHtml.at-markup {
   margin: 0;
   padding: 0;
 }
 
-/* line 177, resources/assets/styles/components/_forms.scss */
+/* line 188, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form .thankYou {
   text-transform: capitalize;
   padding-top: 10px;
 }
 
-/* line 181, resources/assets/styles/components/_forms.scss */
+/* line 192, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form .thankYou p {
   margin-bottom: 0;
 }
 
-/* line 186, resources/assets/styles/components/_forms.scss */
+/* line 197, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form form {
   display: -webkit-box;
@@ -17335,7 +17348,7 @@ blockquote {
   font-family: "SharpSans-Regular", sans-serif !important;
 }
 
-/* line 190, resources/assets/styles/components/_forms.scss */
+/* line 201, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form form .at-fields {
   display: -webkit-box;
@@ -17348,7 +17361,7 @@ blockquote {
   position: absolute;
 }
 
-/* line 195, resources/assets/styles/components/_forms.scss */
+/* line 206, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form form .at-fields .at-text {
   min-width: 0;
@@ -17357,20 +17370,20 @@ blockquote {
   max-width: 85%;
 }
 
-/* line 201, resources/assets/styles/components/_forms.scss */
+/* line 212, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form form .at-fields .at-text input {
   border: none !important;
   border-bottom: 2px solid black !important;
 }
 
-/* line 208, resources/assets/styles/components/_forms.scss */
+/* line 219, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form form .UpdateMyProfile {
   display: none;
 }
 
-/* line 212, resources/assets/styles/components/_forms.scss */
+/* line 223, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form form .at-form-submit {
   position: absolute;
@@ -17379,7 +17392,7 @@ blockquote {
   padding: 0;
 }
 
-/* line 218, resources/assets/styles/components/_forms.scss */
+/* line 229, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form form .at-form-submit .btn-at-primary {
   background: #42e8c8 !important;
@@ -17391,28 +17404,28 @@ blockquote {
   font-style: 16px;
 }
 
-/* line 227, resources/assets/styles/components/_forms.scss */
+/* line 238, resources/assets/styles/components/_forms.scss */
 
 .header-top .at-form form .at-form-submit .btn-at-primary:hover {
   color: #42e8c8 !important;
   background: black !important;
 }
 
-/* line 238, resources/assets/styles/components/_forms.scss */
+/* line 249, resources/assets/styles/components/_forms.scss */
 
-.join-embed h1,
-.action-embed h1 {
+.join-embed .at-title,
+.action-embed .at-title {
   display: none;
 }
 
-/* line 242, resources/assets/styles/components/_forms.scss */
+/* line 253, resources/assets/styles/components/_forms.scss */
 
 .join-embed header.HeaderHtml,
 .action-embed header.HeaderHtml {
   display: none;
 }
 
-/* line 246, resources/assets/styles/components/_forms.scss */
+/* line 257, resources/assets/styles/components/_forms.scss */
 
 .join-embed .at-row,
 .action-embed .at-row {
@@ -17423,7 +17436,7 @@ blockquote {
       flex-wrap: nowrap;
 }
 
-/* line 250, resources/assets/styles/components/_forms.scss */
+/* line 261, resources/assets/styles/components/_forms.scss */
 
 .join-embed .at-row label,
 .action-embed .at-row label {
@@ -17433,7 +17446,7 @@ blockquote {
           flex: 50%;
 }
 
-/* line 255, resources/assets/styles/components/_forms.scss */
+/* line 266, resources/assets/styles/components/_forms.scss */
 
 .join-embed .at-row .at-text small,
 .action-embed .at-row .at-text small {

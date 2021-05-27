@@ -119,16 +119,27 @@
 
 .ngp-form.at {
   font-family: $font-primary !important;
-}
 
-.at-form {
-  .at-title {
-    display: none;
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  li {
+    font-family: $font-primary !important;
   }
 
   h1 {
     margin-top: 0;
     font-size: 2rem;
+    font-family: $font-primary !important;
+  }
+}
+
+.at-form {
+  .at-title {
+    display: none;
   }
 
   .at-inner {
@@ -235,7 +246,7 @@
 
 .join-embed,
 .action-embed {
-  h1 {
+  .at-title {
     display: none;
   }
 
