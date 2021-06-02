@@ -117,6 +117,12 @@
   z-index: 99;
 }
 
+.body-container .at *,
+.body-container .at *::before,
+.body-container .at *::after {
+  font-family: Trebuchet MS, sans-serif !important;
+}
+
 .page .ngp-form.at {
   font-family: $font-primary !important;
 
