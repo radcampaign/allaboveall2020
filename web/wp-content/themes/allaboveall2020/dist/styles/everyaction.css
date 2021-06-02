@@ -16806,25 +16806,25 @@ blockquote {
 
 /* line 120, resources/assets/styles/components/_forms.scss */
 
-.ngp-form.at {
+.page .ngp-form.at {
   font-family: "SharpSans-Regular", sans-serif !important;
 }
 
 /* line 123, resources/assets/styles/components/_forms.scss */
 
-.ngp-form.at h2,
-.ngp-form.at h3,
-.ngp-form.at h4,
-.ngp-form.at h5,
-.ngp-form.at h6,
-.ngp-form.at p,
-.ngp-form.at li {
+.page .ngp-form.at h2,
+.page .ngp-form.at h3,
+.page .ngp-form.at h4,
+.page .ngp-form.at h5,
+.page .ngp-form.at h6,
+.page .ngp-form.at p,
+.page .ngp-form.at li {
   font-family: "SharpSans-Regular", sans-serif !important;
 }
 
 /* line 133, resources/assets/styles/components/_forms.scss */
 
-.ngp-form.at h1 {
+.page .ngp-form.at h1 {
   margin-top: 0;
   font-size: 2rem;
   font-family: "SharpSans-Regular", sans-serif !important;
