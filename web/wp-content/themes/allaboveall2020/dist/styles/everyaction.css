@@ -17274,13 +17274,19 @@ blockquote {
   }
 }
 
-/* line 120, resources/assets/styles/layouts/_header.scss */
+/* line 119, resources/assets/styles/layouts/_header.scss */
+
+.body-container .ngp-content .page-header h1 {
+  font-family: Trebuchet MS, sans-serif !important;
+}
+
+/* line 124, resources/assets/styles/layouts/_header.scss */
 
 .home .page-header {
   display: none;
 }
 
-/* line 125, resources/assets/styles/layouts/_header.scss */
+/* line 129, resources/assets/styles/layouts/_header.scss */
 
 .header-social {
   display: -webkit-box;
@@ -17291,21 +17297,21 @@ blockquote {
 }
 
 @media (max-width: 991.98px) {
-  /* line 130, resources/assets/styles/layouts/_header.scss */
+  /* line 134, resources/assets/styles/layouts/_header.scss */
 
   .header-social.social-desktop {
     display: none;
   }
 }
 
-/* line 136, resources/assets/styles/layouts/_header.scss */
+/* line 140, resources/assets/styles/layouts/_header.scss */
 
 .header-social.social-mobile {
   display: none;
 }
 
 @media (max-width: 991.98px) {
-  /* line 136, resources/assets/styles/layouts/_header.scss */
+  /* line 140, resources/assets/styles/layouts/_header.scss */
 
   .header-social.social-mobile {
     margin-top: 1rem;
@@ -17318,7 +17324,7 @@ blockquote {
   }
 }
 
-/* line 146, resources/assets/styles/layouts/_header.scss */
+/* line 150, resources/assets/styles/layouts/_header.scss */
 
 .header-social li {
   list-style: none;
@@ -17326,38 +17332,38 @@ blockquote {
   padding-right: 1rem;
 }
 
-/* line 151, resources/assets/styles/layouts/_header.scss */
+/* line 155, resources/assets/styles/layouts/_header.scss */
 
 .header-social li:first-child {
   padding: 0;
 }
 
-/* line 155, resources/assets/styles/layouts/_header.scss */
+/* line 159, resources/assets/styles/layouts/_header.scss */
 
 .header-social li:nth-child(3) {
   padding: 0 1rem 0 0;
 }
 
-/* line 159, resources/assets/styles/layouts/_header.scss */
+/* line 163, resources/assets/styles/layouts/_header.scss */
 
 .header-social li:last-child {
   border-left: 1px solid #ccc;
 }
 
-/* line 163, resources/assets/styles/layouts/_header.scss */
+/* line 167, resources/assets/styles/layouts/_header.scss */
 
 .header-social li a {
   color: black;
 }
 
-/* line 166, resources/assets/styles/layouts/_header.scss */
+/* line 170, resources/assets/styles/layouts/_header.scss */
 
 .header-social li a:hover {
   color: #00c214;
   background: transparent;
 }
 
-/* line 174, resources/assets/styles/layouts/_header.scss */
+/* line 178, resources/assets/styles/layouts/_header.scss */
 
 .headline-asterisk {
   position: absolute;
